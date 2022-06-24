@@ -57,6 +57,30 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.user.fields.two_factor') }}
+                        </th>
+                        <td>
+                            <input type="checkbox" disabled="disabled" {{ $user->two_factor ? 'checked' : '' }}>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.approved') }}
+                        </th>
+                        <td>
+                            <input type="checkbox" disabled="disabled" {{ $user->approved ? 'checked' : '' }}>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.verified') }}
+                        </th>
+                        <td>
+                            <input type="checkbox" disabled="disabled" {{ $user->verified ? 'checked' : '' }}>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.user.fields.email_verified_at') }}
                         </th>
                         <td>

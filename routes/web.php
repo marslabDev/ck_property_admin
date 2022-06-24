@@ -1,9 +1,10 @@
 <?php
 
 Route::view('/', 'welcome');
-Auth::routes(['register' => false]);
+Route::get('userVerification/{token}', 'UserVerificationController@approve')->name('userVerification');
+Auth::routes();
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth', '2fa', 'admin']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
@@ -187,6 +188,68 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Tasks Calendar
     Route::resource('tasks-calendars', 'TasksCalendarController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
+    // Time Work Type
+    Route::delete('time-work-types/destroy', 'TimeWorkTypeController@massDestroy')->name('time-work-types.massDestroy');
+    Route::resource('time-work-types', 'TimeWorkTypeController');
+
+    // Time Project
+    Route::delete('time-projects/destroy', 'TimeProjectController@massDestroy')->name('time-projects.massDestroy');
+    Route::resource('time-projects', 'TimeProjectController');
+
+    // Time Entry
+    Route::delete('time-entries/destroy', 'TimeEntryController@massDestroy')->name('time-entries.massDestroy');
+    Route::resource('time-entries', 'TimeEntryController');
+
+    // Time Report
+    Route::delete('time-reports/destroy', 'TimeReportController@massDestroy')->name('time-reports.massDestroy');
+    Route::resource('time-reports', 'TimeReportController');
+
+    // Currency
+    Route::delete('currencies/destroy', 'CurrencyController@massDestroy')->name('currencies.massDestroy');
+    Route::resource('currencies', 'CurrencyController');
+
+    // Transaction Type
+    Route::delete('transaction-types/destroy', 'TransactionTypeController@massDestroy')->name('transaction-types.massDestroy');
+    Route::resource('transaction-types', 'TransactionTypeController');
+
+    // Income Source
+    Route::delete('income-sources/destroy', 'IncomeSourceController@massDestroy')->name('income-sources.massDestroy');
+    Route::resource('income-sources', 'IncomeSourceController');
+
+    // Client Status
+    Route::delete('client-statuses/destroy', 'ClientStatusController@massDestroy')->name('client-statuses.massDestroy');
+    Route::resource('client-statuses', 'ClientStatusController');
+
+    // Project Status
+    Route::delete('project-statuses/destroy', 'ProjectStatusController@massDestroy')->name('project-statuses.massDestroy');
+    Route::resource('project-statuses', 'ProjectStatusController');
+
+    // Client
+    Route::delete('clients/destroy', 'ClientController@massDestroy')->name('clients.massDestroy');
+    Route::resource('clients', 'ClientController');
+
+    // Project
+    Route::delete('projects/destroy', 'ProjectController@massDestroy')->name('projects.massDestroy');
+    Route::resource('projects', 'ProjectController');
+
+    // Note
+    Route::delete('notes/destroy', 'NoteController@massDestroy')->name('notes.massDestroy');
+    Route::resource('notes', 'NoteController');
+
+    // Document
+    Route::delete('documents/destroy', 'DocumentController@massDestroy')->name('documents.massDestroy');
+    Route::post('documents/media', 'DocumentController@storeMedia')->name('documents.storeMedia');
+    Route::post('documents/ckmedia', 'DocumentController@storeCKEditorImages')->name('documents.storeCKEditorImages');
+    Route::resource('documents', 'DocumentController');
+
+    // Transaction
+    Route::delete('transactions/destroy', 'TransactionController@massDestroy')->name('transactions.massDestroy');
+    Route::resource('transactions', 'TransactionController');
+
+    // Client Report
+    Route::delete('client-reports/destroy', 'ClientReportController@massDestroy')->name('client-reports.massDestroy');
+    Route::resource('client-reports', 'ClientReportController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -198,16 +261,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('messenger/{topic}/reply', 'MessengerController@replyToTopic')->name('messenger.reply');
     Route::get('messenger/{topic}/reply', 'MessengerController@showReply')->name('messenger.showReply');
 });
-Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth', '2fa']], function () {
     // Change password
     if (file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php'))) {
         Route::get('password', 'ChangePasswordController@edit')->name('password.edit');
         Route::post('password', 'ChangePasswordController@update')->name('password.update');
         Route::post('profile', 'ChangePasswordController@updateProfile')->name('password.updateProfile');
         Route::post('profile/destroy', 'ChangePasswordController@destroy')->name('password.destroyProfile');
+        Route::post('profile/two-factor', 'ChangePasswordController@toggleTwoFactor')->name('password.toggleTwoFactor');
     }
 });
-Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['auth']], function () {
+Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['auth', '2fa']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     // Permissions
@@ -348,8 +412,79 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Tasks Calendar
     Route::resource('tasks-calendars', 'TasksCalendarController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
+    // Time Work Type
+    Route::delete('time-work-types/destroy', 'TimeWorkTypeController@massDestroy')->name('time-work-types.massDestroy');
+    Route::resource('time-work-types', 'TimeWorkTypeController');
+
+    // Time Project
+    Route::delete('time-projects/destroy', 'TimeProjectController@massDestroy')->name('time-projects.massDestroy');
+    Route::resource('time-projects', 'TimeProjectController');
+
+    // Time Entry
+    Route::delete('time-entries/destroy', 'TimeEntryController@massDestroy')->name('time-entries.massDestroy');
+    Route::resource('time-entries', 'TimeEntryController');
+
+    // Time Report
+    Route::delete('time-reports/destroy', 'TimeReportController@massDestroy')->name('time-reports.massDestroy');
+    Route::resource('time-reports', 'TimeReportController');
+
+    // Currency
+    Route::delete('currencies/destroy', 'CurrencyController@massDestroy')->name('currencies.massDestroy');
+    Route::resource('currencies', 'CurrencyController');
+
+    // Transaction Type
+    Route::delete('transaction-types/destroy', 'TransactionTypeController@massDestroy')->name('transaction-types.massDestroy');
+    Route::resource('transaction-types', 'TransactionTypeController');
+
+    // Income Source
+    Route::delete('income-sources/destroy', 'IncomeSourceController@massDestroy')->name('income-sources.massDestroy');
+    Route::resource('income-sources', 'IncomeSourceController');
+
+    // Client Status
+    Route::delete('client-statuses/destroy', 'ClientStatusController@massDestroy')->name('client-statuses.massDestroy');
+    Route::resource('client-statuses', 'ClientStatusController');
+
+    // Project Status
+    Route::delete('project-statuses/destroy', 'ProjectStatusController@massDestroy')->name('project-statuses.massDestroy');
+    Route::resource('project-statuses', 'ProjectStatusController');
+
+    // Client
+    Route::delete('clients/destroy', 'ClientController@massDestroy')->name('clients.massDestroy');
+    Route::resource('clients', 'ClientController');
+
+    // Project
+    Route::delete('projects/destroy', 'ProjectController@massDestroy')->name('projects.massDestroy');
+    Route::resource('projects', 'ProjectController');
+
+    // Note
+    Route::delete('notes/destroy', 'NoteController@massDestroy')->name('notes.massDestroy');
+    Route::resource('notes', 'NoteController');
+
+    // Document
+    Route::delete('documents/destroy', 'DocumentController@massDestroy')->name('documents.massDestroy');
+    Route::post('documents/media', 'DocumentController@storeMedia')->name('documents.storeMedia');
+    Route::post('documents/ckmedia', 'DocumentController@storeCKEditorImages')->name('documents.storeCKEditorImages');
+    Route::resource('documents', 'DocumentController');
+
+    // Transaction
+    Route::delete('transactions/destroy', 'TransactionController@massDestroy')->name('transactions.massDestroy');
+    Route::resource('transactions', 'TransactionController');
+
+    // Client Report
+    Route::delete('client-reports/destroy', 'ClientReportController@massDestroy')->name('client-reports.massDestroy');
+    Route::resource('client-reports', 'ClientReportController');
+
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');
     Route::post('frontend/profile/destroy', 'ProfileController@destroy')->name('profile.destroy');
     Route::post('frontend/profile/password', 'ProfileController@password')->name('profile.password');
+    Route::post('profile/toggle-two-factor', 'ProfileController@toggleTwoFactor')->name('profile.toggle-two-factor');
+});
+Route::group(['namespace' => 'Auth', 'middleware' => ['auth', '2fa']], function () {
+    // Two Factor Authentication
+    if (file_exists(app_path('Http/Controllers/Auth/TwoFactorController.php'))) {
+        Route::get('two-factor', 'TwoFactorController@show')->name('twoFactor.show');
+        Route::post('two-factor', 'TwoFactorController@check')->name('twoFactor.check');
+        Route::get('two-factor/resend', 'TwoFactorController@resend')->name('twoFactor.resend');
+    }
 });
