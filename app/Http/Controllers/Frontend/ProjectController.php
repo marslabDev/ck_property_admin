@@ -3,25 +3,35 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\ProjectStatus;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProjectController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $projects = Project::with(['client', 'status'])->get();
+        $projects = Project::with(['client', 'status', 'created_by'])->get();
 
-        return view('frontend.projects.index', compact('projects'));
+        $clients = Client::get();
+
+        $project_statuses = ProjectStatus::get();
+
+        $users = User::get();
+
+        return view('frontend.projects.index', compact('clients', 'project_statuses', 'projects', 'users'));
     }
 
     public function create()
@@ -50,7 +60,7 @@ class ProjectController extends Controller
 
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $project->load('client', 'status');
+        $project->load('client', 'status', 'created_by');
 
         return view('frontend.projects.edit', compact('clients', 'project', 'statuses'));
     }
@@ -66,7 +76,7 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $project->load('client', 'status');
+        $project->load('client', 'status', 'created_by');
 
         return view('frontend.projects.show', compact('project'));
     }

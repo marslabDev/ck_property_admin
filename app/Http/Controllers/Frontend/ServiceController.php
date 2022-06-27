@@ -24,9 +24,11 @@ class ServiceController extends Controller
     {
         abort_if(Gate::denies('service_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $services = Service::with(['hanlder_by', 'supplier', 'media'])->get();
+        $services = Service::with(['hanlder_by', 'supplier', 'created_by', 'media'])->get();
 
-        return view('frontend.services.index', compact('services'));
+        $users = User::get();
+
+        return view('frontend.services.index', compact('services', 'users'));
     }
 
     public function create()
@@ -63,7 +65,7 @@ class ServiceController extends Controller
 
         $suppliers = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $service->load('hanlder_by', 'supplier');
+        $service->load('hanlder_by', 'supplier', 'created_by');
 
         return view('frontend.services.edit', compact('hanlder_bies', 'service', 'suppliers'));
     }
@@ -90,7 +92,7 @@ class ServiceController extends Controller
     {
         abort_if(Gate::denies('service_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $service->load('hanlder_by', 'supplier');
+        $service->load('hanlder_by', 'supplier', 'created_by');
 
         return view('frontend.services.show', compact('service'));
     }

@@ -9,6 +9,7 @@ use App\Http\Requests\StoreManageHouseRequest;
 use App\Http\Requests\UpdateManageHouseRequest;
 use App\Models\ManageHouse;
 use App\Models\ParkingLot;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class ManageHouseController extends Controller
         abort_if(Gate::denies('manage_house_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ManageHouse::with(['parking_lot'])->select(sprintf('%s.*', (new ManageHouse())->table));
+            $query = ManageHouse::with(['parking_lot', 'created_by'])->select(sprintf('%s.*', (new ManageHouse())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -68,7 +69,10 @@ class ManageHouseController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.manageHouses.index');
+        $parking_lots = ParkingLot::get();
+        $users        = User::get();
+
+        return view('admin.manageHouses.index', compact('parking_lots', 'users'));
     }
 
     public function create()
@@ -93,7 +97,7 @@ class ManageHouseController extends Controller
 
         $parking_lots = ParkingLot::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $manageHouse->load('parking_lot');
+        $manageHouse->load('parking_lot', 'created_by');
 
         return view('admin.manageHouses.edit', compact('manageHouse', 'parking_lots'));
     }
@@ -109,7 +113,7 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouse->load('parking_lot');
+        $manageHouse->load('parking_lot', 'created_by');
 
         return view('admin.manageHouses.show', compact('manageHouse'));
     }

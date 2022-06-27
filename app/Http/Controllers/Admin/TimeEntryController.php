@@ -3,25 +3,70 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTimeEntryRequest;
 use App\Http\Requests\StoreTimeEntryRequest;
 use App\Http\Requests\UpdateTimeEntryRequest;
 use App\Models\TimeEntry;
 use App\Models\TimeProject;
 use App\Models\TimeWorkType;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class TimeEntryController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('time_entry_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $timeEntries = TimeEntry::with(['work_type', 'project'])->get();
+        if ($request->ajax()) {
+            $query = TimeEntry::with(['work_type', 'project', 'created_by'])->select(sprintf('%s.*', (new TimeEntry())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.timeEntries.index', compact('timeEntries'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'time_entry_show';
+                $editGate = 'time_entry_edit';
+                $deleteGate = 'time_entry_delete';
+                $crudRoutePart = 'time-entries';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->addColumn('work_type_name', function ($row) {
+                return $row->work_type ? $row->work_type->name : '';
+            });
+
+            $table->addColumn('project_name', function ($row) {
+                return $row->project ? $row->project->name : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'work_type', 'project']);
+
+            return $table->make(true);
+        }
+
+        $time_work_types = TimeWorkType::get();
+        $time_projects   = TimeProject::get();
+        $users           = User::get();
+
+        return view('admin.timeEntries.index', compact('time_work_types', 'time_projects', 'users'));
     }
 
     public function create()
@@ -50,7 +95,7 @@ class TimeEntryController extends Controller
 
         $projects = TimeProject::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $timeEntry->load('work_type', 'project');
+        $timeEntry->load('work_type', 'project', 'created_by');
 
         return view('admin.timeEntries.edit', compact('projects', 'timeEntry', 'work_types'));
     }
@@ -66,7 +111,7 @@ class TimeEntryController extends Controller
     {
         abort_if(Gate::denies('time_entry_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $timeEntry->load('work_type', 'project');
+        $timeEntry->load('work_type', 'project', 'created_by');
 
         return view('admin.timeEntries.show', compact('timeEntry'));
     }

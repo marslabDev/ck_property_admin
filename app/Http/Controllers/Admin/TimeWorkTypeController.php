@@ -3,23 +3,62 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTimeWorkTypeRequest;
 use App\Http\Requests\StoreTimeWorkTypeRequest;
 use App\Http\Requests\UpdateTimeWorkTypeRequest;
 use App\Models\TimeWorkType;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class TimeWorkTypeController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('time_work_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $timeWorkTypes = TimeWorkType::all();
+        if ($request->ajax()) {
+            $query = TimeWorkType::with(['created_by'])->select(sprintf('%s.*', (new TimeWorkType())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.timeWorkTypes.index', compact('timeWorkTypes'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'time_work_type_show';
+                $editGate = 'time_work_type_edit';
+                $deleteGate = 'time_work_type_delete';
+                $crudRoutePart = 'time-work-types';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder']);
+
+            return $table->make(true);
+        }
+
+        $users = User::get();
+
+        return view('admin.timeWorkTypes.index', compact('users'));
     }
 
     public function create()
@@ -40,6 +79,8 @@ class TimeWorkTypeController extends Controller
     {
         abort_if(Gate::denies('time_work_type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $timeWorkType->load('created_by');
+
         return view('admin.timeWorkTypes.edit', compact('timeWorkType'));
     }
 
@@ -53,6 +94,8 @@ class TimeWorkTypeController extends Controller
     public function show(TimeWorkType $timeWorkType)
     {
         abort_if(Gate::denies('time_work_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $timeWorkType->load('created_by');
 
         return view('admin.timeWorkTypes.show', compact('timeWorkType'));
     }

@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyAssetStatusRequest;
 use App\Http\Requests\StoreAssetStatusRequest;
 use App\Http\Requests\UpdateAssetStatusRequest;
 use App\Models\AssetStatus;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,9 +21,11 @@ class AssetStatusController extends Controller
     {
         abort_if(Gate::denies('asset_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $assetStatuses = AssetStatus::all();
+        $assetStatuses = AssetStatus::with(['created_by'])->get();
 
-        return view('frontend.assetStatuses.index', compact('assetStatuses'));
+        $users = User::get();
+
+        return view('frontend.assetStatuses.index', compact('assetStatuses', 'users'));
     }
 
     public function create()
@@ -43,6 +46,8 @@ class AssetStatusController extends Controller
     {
         abort_if(Gate::denies('asset_status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $assetStatus->load('created_by');
+
         return view('frontend.assetStatuses.edit', compact('assetStatus'));
     }
 
@@ -56,6 +61,8 @@ class AssetStatusController extends Controller
     public function show(AssetStatus $assetStatus)
     {
         abort_if(Gate::denies('asset_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $assetStatus->load('created_by');
 
         return view('frontend.assetStatuses.show', compact('assetStatus'));
     }

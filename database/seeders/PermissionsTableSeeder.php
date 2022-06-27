@@ -968,6 +968,70 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 240,
+                'title' => 'content_management_access',
+            ],
+            [
+                'id'    => 241,
+                'title' => 'content_category_create',
+            ],
+            [
+                'id'    => 242,
+                'title' => 'content_category_edit',
+            ],
+            [
+                'id'    => 243,
+                'title' => 'content_category_show',
+            ],
+            [
+                'id'    => 244,
+                'title' => 'content_category_delete',
+            ],
+            [
+                'id'    => 245,
+                'title' => 'content_category_access',
+            ],
+            [
+                'id'    => 246,
+                'title' => 'content_tag_create',
+            ],
+            [
+                'id'    => 247,
+                'title' => 'content_tag_edit',
+            ],
+            [
+                'id'    => 248,
+                'title' => 'content_tag_show',
+            ],
+            [
+                'id'    => 249,
+                'title' => 'content_tag_delete',
+            ],
+            [
+                'id'    => 250,
+                'title' => 'content_tag_access',
+            ],
+            [
+                'id'    => 251,
+                'title' => 'content_page_create',
+            ],
+            [
+                'id'    => 252,
+                'title' => 'content_page_edit',
+            ],
+            [
+                'id'    => 253,
+                'title' => 'content_page_show',
+            ],
+            [
+                'id'    => 254,
+                'title' => 'content_page_delete',
+            ],
+            [
+                'id'    => 255,
+                'title' => 'content_page_access',
+            ],
+            [
+                'id'    => 256,
                 'title' => 'profile_password_edit',
             ],
         ];

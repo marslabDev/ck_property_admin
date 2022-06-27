@@ -26,7 +26,7 @@ class ProductController extends Controller
         abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Product::with(['handler_by', 'supplier'])->select(sprintf('%s.*', (new Product())->table));
+            $query = Product::with(['handler_by', 'supplier', 'created_by'])->select(sprintf('%s.*', (new Product())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -73,7 +73,9 @@ class ProductController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.products.index');
+        $users = User::get();
+
+        return view('admin.products.index', compact('users'));
     }
 
     public function create()
@@ -110,7 +112,7 @@ class ProductController extends Controller
 
         $suppliers = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $product->load('handler_by', 'supplier');
+        $product->load('handler_by', 'supplier', 'created_by');
 
         return view('admin.products.edit', compact('handler_bies', 'product', 'suppliers'));
     }
@@ -137,7 +139,7 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $product->load('handler_by', 'supplier');
+        $product->load('handler_by', 'supplier', 'created_by');
 
         return view('admin.products.show', compact('product'));
     }

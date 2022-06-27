@@ -17,7 +17,7 @@ class MaintananceApiController extends Controller
     {
         abort_if(Gate::denies('maintanance_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new MaintananceResource(Maintanance::with(['type', 'area', 'handle_by', 'supplier'])->get());
+        return new MaintananceResource(Maintanance::with(['type', 'area', 'handle_by', 'supplier', 'created_by'])->get());
     }
 
     public function store(StoreMaintananceRequest $request)
@@ -33,7 +33,7 @@ class MaintananceApiController extends Controller
     {
         abort_if(Gate::denies('maintanance_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new MaintananceResource($maintanance->load(['type', 'area', 'handle_by', 'supplier']));
+        return new MaintananceResource($maintanance->load(['type', 'area', 'handle_by', 'supplier', 'created_by']));
     }
 
     public function update(UpdateMaintananceRequest $request, Maintanance $maintanance)

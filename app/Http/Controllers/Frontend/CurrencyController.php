@@ -3,23 +3,29 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyCurrencyRequest;
 use App\Http\Requests\StoreCurrencyRequest;
 use App\Http\Requests\UpdateCurrencyRequest;
 use App\Models\Currency;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CurrencyController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('currency_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $currencies = Currency::all();
+        $currencies = Currency::with(['created_by'])->get();
 
-        return view('frontend.currencies.index', compact('currencies'));
+        $users = User::get();
+
+        return view('frontend.currencies.index', compact('currencies', 'users'));
     }
 
     public function create()
@@ -40,6 +46,8 @@ class CurrencyController extends Controller
     {
         abort_if(Gate::denies('currency_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $currency->load('created_by');
+
         return view('frontend.currencies.edit', compact('currency'));
     }
 
@@ -53,6 +61,8 @@ class CurrencyController extends Controller
     public function show(Currency $currency)
     {
         abort_if(Gate::denies('currency_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $currency->load('created_by');
 
         return view('frontend.currencies.show', compact('currency'));
     }

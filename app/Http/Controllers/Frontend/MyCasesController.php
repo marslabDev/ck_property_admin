@@ -25,9 +25,13 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $myCases = MyCase::with(['category', 'report_by', 'handle_by', 'media'])->get();
+        $myCases = MyCase::with(['category', 'report_by', 'handle_by', 'created_by', 'media'])->get();
 
-        return view('frontend.myCases.index', compact('myCases'));
+        $cases_categories = CasesCategory::get();
+
+        $users = User::get();
+
+        return view('frontend.myCases.index', compact('cases_categories', 'myCases', 'users'));
     }
 
     public function create()
@@ -68,7 +72,7 @@ class MyCasesController extends Controller
 
         $handle_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $myCase->load('category', 'report_by', 'handle_by');
+        $myCase->load('category', 'report_by', 'handle_by', 'created_by');
 
         return view('frontend.myCases.edit', compact('categories', 'handle_bies', 'myCase', 'report_bies'));
     }
@@ -95,7 +99,7 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $myCase->load('category', 'report_by', 'handle_by');
+        $myCase->load('category', 'report_by', 'handle_by', 'created_by');
 
         return view('frontend.myCases.show', compact('myCase'));
     }

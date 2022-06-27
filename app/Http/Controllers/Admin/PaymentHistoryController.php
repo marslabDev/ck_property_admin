@@ -9,6 +9,7 @@ use App\Http\Requests\StorePaymentHistoryRequest;
 use App\Http\Requests\UpdatePaymentHistoryRequest;
 use App\Models\PaymentHistory;
 use App\Models\PaymentType;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class PaymentHistoryController extends Controller
         abort_if(Gate::denies('payment_history_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = PaymentHistory::with(['paid_by', 'payment_type'])->select(sprintf('%s.*', (new PaymentHistory())->table));
+            $query = PaymentHistory::with(['paid_by', 'payment_type', 'created_by'])->select(sprintf('%s.*', (new PaymentHistory())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -64,7 +65,10 @@ class PaymentHistoryController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.paymentHistories.index');
+        $users         = User::get();
+        $payment_types = PaymentType::get();
+
+        return view('admin.paymentHistories.index', compact('users', 'payment_types'));
     }
 
     public function create()
@@ -89,7 +93,7 @@ class PaymentHistoryController extends Controller
 
         $payment_types = PaymentType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $paymentHistory->load('paid_by', 'payment_type');
+        $paymentHistory->load('paid_by', 'payment_type', 'created_by');
 
         return view('admin.paymentHistories.edit', compact('paymentHistory', 'payment_types'));
     }
@@ -105,7 +109,7 @@ class PaymentHistoryController extends Controller
     {
         abort_if(Gate::denies('payment_history_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentHistory->load('paid_by', 'payment_type');
+        $paymentHistory->load('paid_by', 'payment_type', 'created_by');
 
         return view('admin.paymentHistories.show', compact('paymentHistory'));
     }

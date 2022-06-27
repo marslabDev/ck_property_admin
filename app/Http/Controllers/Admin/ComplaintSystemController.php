@@ -26,7 +26,7 @@ class ComplaintSystemController extends Controller
         abort_if(Gate::denies('complaint_system_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ComplaintSystem::with(['create_by'])->select(sprintf('%s.*', (new ComplaintSystem())->table));
+            $query = ComplaintSystem::with(['create_by', 'created_by'])->select(sprintf('%s.*', (new ComplaintSystem())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -80,7 +80,9 @@ class ComplaintSystemController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.complaintSystems.index');
+        $users = User::get();
+
+        return view('admin.complaintSystems.index', compact('users'));
     }
 
     public function create()
@@ -111,7 +113,7 @@ class ComplaintSystemController extends Controller
     {
         abort_if(Gate::denies('complaint_system_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $complaintSystem->load('create_by');
+        $complaintSystem->load('create_by', 'created_by');
 
         return view('admin.complaintSystems.edit', compact('complaintSystem'));
     }
@@ -138,7 +140,7 @@ class ComplaintSystemController extends Controller
     {
         abort_if(Gate::denies('complaint_system_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $complaintSystem->load('create_by');
+        $complaintSystem->load('create_by', 'created_by');
 
         return view('admin.complaintSystems.show', compact('complaintSystem'));
     }

@@ -347,6 +347,26 @@
                                             {{ trans('cruds.transaction.title') }}
                                         </a>
                                     @endcan
+                                    @can('content_management_access')
+                                        <a class="dropdown-item disabled" href="#">
+                                            {{ trans('cruds.contentManagement.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('content_category_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.content-categories.index') }}">
+                                            {{ trans('cruds.contentCategory.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('content_tag_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.content-tags.index') }}">
+                                            {{ trans('cruds.contentTag.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('content_page_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.content-pages.index') }}">
+                                            {{ trans('cruds.contentPage.title') }}
+                                        </a>
+                                    @endcan
 
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

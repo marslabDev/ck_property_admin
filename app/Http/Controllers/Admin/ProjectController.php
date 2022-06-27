@@ -3,25 +3,80 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\ProjectStatus;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $projects = Project::with(['client', 'status'])->get();
+        if ($request->ajax()) {
+            $query = Project::with(['client', 'status', 'created_by'])->select(sprintf('%s.*', (new Project())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.projects.index', compact('projects'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'project_show';
+                $editGate = 'project_edit';
+                $deleteGate = 'project_delete';
+                $crudRoutePart = 'projects';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->addColumn('client_first_name', function ($row) {
+                return $row->client ? $row->client->first_name : '';
+            });
+
+            $table->editColumn('description', function ($row) {
+                return $row->description ? $row->description : '';
+            });
+
+            $table->editColumn('budget', function ($row) {
+                return $row->budget ? $row->budget : '';
+            });
+            $table->addColumn('status_name', function ($row) {
+                return $row->status ? $row->status->name : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'client', 'status']);
+
+            return $table->make(true);
+        }
+
+        $clients          = Client::get();
+        $project_statuses = ProjectStatus::get();
+        $users            = User::get();
+
+        return view('admin.projects.index', compact('clients', 'project_statuses', 'users'));
     }
 
     public function create()
@@ -50,7 +105,7 @@ class ProjectController extends Controller
 
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $project->load('client', 'status');
+        $project->load('client', 'status', 'created_by');
 
         return view('admin.projects.edit', compact('clients', 'project', 'statuses'));
     }
@@ -66,7 +121,7 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $project->load('client', 'status');
+        $project->load('client', 'status', 'created_by');
 
         return view('admin.projects.show', compact('project'));
     }

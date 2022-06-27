@@ -3,23 +3,29 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyProjectStatusRequest;
 use App\Http\Requests\StoreProjectStatusRequest;
 use App\Http\Requests\UpdateProjectStatusRequest;
 use App\Models\ProjectStatus;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProjectStatusController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('project_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $projectStatuses = ProjectStatus::all();
+        $projectStatuses = ProjectStatus::with(['created_by'])->get();
 
-        return view('frontend.projectStatuses.index', compact('projectStatuses'));
+        $users = User::get();
+
+        return view('frontend.projectStatuses.index', compact('projectStatuses', 'users'));
     }
 
     public function create()
@@ -40,6 +46,8 @@ class ProjectStatusController extends Controller
     {
         abort_if(Gate::denies('project_status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $projectStatus->load('created_by');
+
         return view('frontend.projectStatuses.edit', compact('projectStatus'));
     }
 
@@ -53,6 +61,8 @@ class ProjectStatusController extends Controller
     public function show(ProjectStatus $projectStatus)
     {
         abort_if(Gate::denies('project_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $projectStatus->load('created_by');
 
         return view('frontend.projectStatuses.show', compact('projectStatus'));
     }

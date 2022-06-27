@@ -17,7 +17,7 @@ class AreaApiController extends Controller
     {
         abort_if(Gate::denies('area_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new AreaResource(Area::all());
+        return new AreaResource(Area::with(['created_by'])->get());
     }
 
     public function store(StoreAreaRequest $request)
@@ -33,7 +33,7 @@ class AreaApiController extends Controller
     {
         abort_if(Gate::denies('area_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new AreaResource($area);
+        return new AreaResource($area->load(['created_by']));
     }
 
     public function update(UpdateAreaRequest $request, Area $area)

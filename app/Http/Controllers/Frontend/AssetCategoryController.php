@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyAssetCategoryRequest;
 use App\Http\Requests\StoreAssetCategoryRequest;
 use App\Http\Requests\UpdateAssetCategoryRequest;
 use App\Models\AssetCategory;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,9 +21,11 @@ class AssetCategoryController extends Controller
     {
         abort_if(Gate::denies('asset_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $assetCategories = AssetCategory::all();
+        $assetCategories = AssetCategory::with(['created_by'])->get();
 
-        return view('frontend.assetCategories.index', compact('assetCategories'));
+        $users = User::get();
+
+        return view('frontend.assetCategories.index', compact('assetCategories', 'users'));
     }
 
     public function create()
@@ -43,6 +46,8 @@ class AssetCategoryController extends Controller
     {
         abort_if(Gate::denies('asset_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $assetCategory->load('created_by');
+
         return view('frontend.assetCategories.edit', compact('assetCategory'));
     }
 
@@ -56,6 +61,8 @@ class AssetCategoryController extends Controller
     public function show(AssetCategory $assetCategory)
     {
         abort_if(Gate::denies('asset_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $assetCategory->load('created_by');
 
         return view('frontend.assetCategories.show', compact('assetCategory'));
     }

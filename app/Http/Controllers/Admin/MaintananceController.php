@@ -25,7 +25,7 @@ class MaintananceController extends Controller
         abort_if(Gate::denies('maintanance_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Maintanance::with(['type', 'area', 'handle_by', 'supplier'])->select(sprintf('%s.*', (new Maintanance())->table));
+            $query = Maintanance::with(['type', 'area', 'handle_by', 'supplier', 'created_by'])->select(sprintf('%s.*', (new Maintanance())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -73,7 +73,11 @@ class MaintananceController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.maintanances.index');
+        $maintanance_types = MaintananceType::get();
+        $areas             = Area::get();
+        $users             = User::get();
+
+        return view('admin.maintanances.index', compact('maintanance_types', 'areas', 'users'));
     }
 
     public function create()
@@ -110,7 +114,7 @@ class MaintananceController extends Controller
 
         $suppliers = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $maintanance->load('type', 'area', 'handle_by', 'supplier');
+        $maintanance->load('type', 'area', 'handle_by', 'supplier', 'created_by');
 
         return view('admin.maintanances.edit', compact('areas', 'handle_bies', 'maintanance', 'suppliers', 'types'));
     }
@@ -126,7 +130,7 @@ class MaintananceController extends Controller
     {
         abort_if(Gate::denies('maintanance_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $maintanance->load('type', 'area', 'handle_by', 'supplier');
+        $maintanance->load('type', 'area', 'handle_by', 'supplier', 'created_by');
 
         return view('admin.maintanances.show', compact('maintanance'));
     }

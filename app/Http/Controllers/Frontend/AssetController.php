@@ -27,9 +27,17 @@ class AssetController extends Controller
     {
         abort_if(Gate::denies('asset_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $assets = Asset::with(['category', 'status', 'location', 'assigned_to', 'media'])->get();
+        $assets = Asset::with(['category', 'status', 'location', 'assigned_to', 'created_by', 'media'])->get();
 
-        return view('frontend.assets.index', compact('assets'));
+        $asset_categories = AssetCategory::get();
+
+        $asset_statuses = AssetStatus::get();
+
+        $asset_locations = AssetLocation::get();
+
+        $users = User::get();
+
+        return view('frontend.assets.index', compact('asset_categories', 'asset_locations', 'asset_statuses', 'assets', 'users'));
     }
 
     public function create()
@@ -74,7 +82,7 @@ class AssetController extends Controller
 
         $assigned_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $asset->load('category', 'status', 'location', 'assigned_to');
+        $asset->load('category', 'status', 'location', 'assigned_to', 'created_by');
 
         return view('frontend.assets.edit', compact('asset', 'assigned_tos', 'categories', 'locations', 'statuses'));
     }
@@ -104,7 +112,7 @@ class AssetController extends Controller
     {
         abort_if(Gate::denies('asset_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $asset->load('category', 'status', 'location', 'assigned_to');
+        $asset->load('category', 'status', 'location', 'assigned_to', 'created_by');
 
         return view('frontend.assets.show', compact('asset'));
     }

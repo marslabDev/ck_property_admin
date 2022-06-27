@@ -9,6 +9,7 @@ use App\Http\Requests\StoreManageHouseRequest;
 use App\Http\Requests\UpdateManageHouseRequest;
 use App\Models\ManageHouse;
 use App\Models\ParkingLot;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,9 +22,13 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouses = ManageHouse::with(['parking_lot'])->get();
+        $manageHouses = ManageHouse::with(['parking_lot', 'created_by'])->get();
 
-        return view('frontend.manageHouses.index', compact('manageHouses'));
+        $parking_lots = ParkingLot::get();
+
+        $users = User::get();
+
+        return view('frontend.manageHouses.index', compact('manageHouses', 'parking_lots', 'users'));
     }
 
     public function create()
@@ -48,7 +53,7 @@ class ManageHouseController extends Controller
 
         $parking_lots = ParkingLot::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $manageHouse->load('parking_lot');
+        $manageHouse->load('parking_lot', 'created_by');
 
         return view('frontend.manageHouses.edit', compact('manageHouse', 'parking_lots'));
     }
@@ -64,7 +69,7 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouse->load('parking_lot');
+        $manageHouse->load('parking_lot', 'created_by');
 
         return view('frontend.manageHouses.show', compact('manageHouse'));
     }

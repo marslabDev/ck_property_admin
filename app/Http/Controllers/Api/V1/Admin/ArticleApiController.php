@@ -20,7 +20,7 @@ class ArticleApiController extends Controller
     {
         abort_if(Gate::denies('article_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ArticleResource(Article::with(['create_by', 'people_in_role', 'people_in_area'])->get());
+        return new ArticleResource(Article::with(['create_by', 'people_in_role', 'people_in_area', 'created_by'])->get());
     }
 
     public function store(StoreArticleRequest $request)
@@ -40,7 +40,7 @@ class ArticleApiController extends Controller
     {
         abort_if(Gate::denies('article_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ArticleResource($article->load(['create_by', 'people_in_role', 'people_in_area']));
+        return new ArticleResource($article->load(['create_by', 'people_in_role', 'people_in_area', 'created_by']));
     }
 
     public function update(UpdateArticleRequest $request, Article $article)

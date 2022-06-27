@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyCasesCategoryRequest;
 use App\Http\Requests\StoreCasesCategoryRequest;
 use App\Http\Requests\UpdateCasesCategoryRequest;
 use App\Models\CasesCategory;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,9 +21,11 @@ class CasesCategoryController extends Controller
     {
         abort_if(Gate::denies('cases_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $casesCategories = CasesCategory::all();
+        $casesCategories = CasesCategory::with(['created_by'])->get();
 
-        return view('frontend.casesCategories.index', compact('casesCategories'));
+        $users = User::get();
+
+        return view('frontend.casesCategories.index', compact('casesCategories', 'users'));
     }
 
     public function create()
@@ -43,6 +46,8 @@ class CasesCategoryController extends Controller
     {
         abort_if(Gate::denies('cases_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $casesCategory->load('created_by');
+
         return view('frontend.casesCategories.edit', compact('casesCategory'));
     }
 
@@ -56,6 +61,8 @@ class CasesCategoryController extends Controller
     public function show(CasesCategory $casesCategory)
     {
         abort_if(Gate::denies('cases_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $casesCategory->load('created_by');
 
         return view('frontend.casesCategories.show', compact('casesCategory'));
     }

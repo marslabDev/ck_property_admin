@@ -3,24 +3,32 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyClientRequest;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
 use App\Models\ClientStatus;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ClientController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('client_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::with(['status'])->get();
+        $clients = Client::with(['status', 'created_by'])->get();
 
-        return view('frontend.clients.index', compact('clients'));
+        $client_statuses = ClientStatus::get();
+
+        $users = User::get();
+
+        return view('frontend.clients.index', compact('client_statuses', 'clients', 'users'));
     }
 
     public function create()
@@ -45,7 +53,7 @@ class ClientController extends Controller
 
         $statuses = ClientStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $client->load('status');
+        $client->load('status', 'created_by');
 
         return view('frontend.clients.edit', compact('client', 'statuses'));
     }
@@ -61,7 +69,7 @@ class ClientController extends Controller
     {
         abort_if(Gate::denies('client_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $client->load('status');
+        $client->load('status', 'created_by');
 
         return view('frontend.clients.show', compact('client'));
     }

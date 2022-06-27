@@ -17,7 +17,7 @@ class AssetCategoryApiController extends Controller
     {
         abort_if(Gate::denies('asset_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new AssetCategoryResource(AssetCategory::all());
+        return new AssetCategoryResource(AssetCategory::with(['created_by'])->get());
     }
 
     public function store(StoreAssetCategoryRequest $request)
@@ -33,7 +33,7 @@ class AssetCategoryApiController extends Controller
     {
         abort_if(Gate::denies('asset_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new AssetCategoryResource($assetCategory);
+        return new AssetCategoryResource($assetCategory->load(['created_by']));
     }
 
     public function update(UpdateAssetCategoryRequest $request, AssetCategory $assetCategory)

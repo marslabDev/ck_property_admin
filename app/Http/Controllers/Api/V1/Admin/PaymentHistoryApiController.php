@@ -17,7 +17,7 @@ class PaymentHistoryApiController extends Controller
     {
         abort_if(Gate::denies('payment_history_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new PaymentHistoryResource(PaymentHistory::with(['paid_by', 'payment_type'])->get());
+        return new PaymentHistoryResource(PaymentHistory::with(['paid_by', 'payment_type', 'created_by'])->get());
     }
 
     public function store(StorePaymentHistoryRequest $request)
@@ -33,7 +33,7 @@ class PaymentHistoryApiController extends Controller
     {
         abort_if(Gate::denies('payment_history_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new PaymentHistoryResource($paymentHistory->load(['paid_by', 'payment_type']));
+        return new PaymentHistoryResource($paymentHistory->load(['paid_by', 'payment_type', 'created_by']));
     }
 
     public function update(UpdatePaymentHistoryRequest $request, PaymentHistory $paymentHistory)

@@ -3,23 +3,29 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTaskStatusRequest;
 use App\Http\Requests\StoreTaskStatusRequest;
 use App\Http\Requests\UpdateTaskStatusRequest;
 use App\Models\TaskStatus;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TaskStatusController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('task_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $taskStatuses = TaskStatus::all();
+        $taskStatuses = TaskStatus::with(['created_by'])->get();
 
-        return view('frontend.taskStatuses.index', compact('taskStatuses'));
+        $users = User::get();
+
+        return view('frontend.taskStatuses.index', compact('taskStatuses', 'users'));
     }
 
     public function create()
@@ -40,6 +46,8 @@ class TaskStatusController extends Controller
     {
         abort_if(Gate::denies('task_status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $taskStatus->load('created_by');
+
         return view('frontend.taskStatuses.edit', compact('taskStatus'));
     }
 
@@ -53,6 +61,8 @@ class TaskStatusController extends Controller
     public function show(TaskStatus $taskStatus)
     {
         abort_if(Gate::denies('task_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $taskStatus->load('created_by');
 
         return view('frontend.taskStatuses.show', compact('taskStatus'));
     }

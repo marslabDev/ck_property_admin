@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyTaskRequest;
 use App\Http\Requests\StoreTaskRequest;
@@ -19,14 +20,21 @@ use Symfony\Component\HttpFoundation\Response;
 class TaskController extends Controller
 {
     use MediaUploadingTrait;
+    use CsvImportTrait;
 
     public function index()
     {
         abort_if(Gate::denies('task_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $tasks = Task::with(['status', 'tags', 'assigned_to', 'media'])->get();
+        $tasks = Task::with(['status', 'tags', 'assigned_to', 'created_by', 'media'])->get();
 
-        return view('frontend.tasks.index', compact('tasks'));
+        $task_statuses = TaskStatus::get();
+
+        $task_tags = TaskTag::get();
+
+        $users = User::get();
+
+        return view('frontend.tasks.index', compact('task_statuses', 'task_tags', 'tasks', 'users'));
     }
 
     public function create()
@@ -67,7 +75,7 @@ class TaskController extends Controller
 
         $assigned_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $task->load('status', 'tags', 'assigned_to');
+        $task->load('status', 'tags', 'assigned_to', 'created_by');
 
         return view('frontend.tasks.edit', compact('assigned_tos', 'statuses', 'tags', 'task'));
     }
@@ -94,7 +102,7 @@ class TaskController extends Controller
     {
         abort_if(Gate::denies('task_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $task->load('status', 'tags', 'assigned_to');
+        $task->load('status', 'tags', 'assigned_to', 'created_by');
 
         return view('frontend.tasks.show', compact('task'));
     }

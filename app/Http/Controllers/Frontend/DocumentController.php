@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyDocumentRequest;
 use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Requests\UpdateDocumentRequest;
 use App\Models\Document;
 use App\Models\Project;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -17,14 +19,19 @@ use Symfony\Component\HttpFoundation\Response;
 class DocumentController extends Controller
 {
     use MediaUploadingTrait;
+    use CsvImportTrait;
 
     public function index()
     {
         abort_if(Gate::denies('document_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $documents = Document::with(['project', 'media'])->get();
+        $documents = Document::with(['project', 'created_by', 'media'])->get();
 
-        return view('frontend.documents.index', compact('documents'));
+        $projects = Project::get();
+
+        $users = User::get();
+
+        return view('frontend.documents.index', compact('documents', 'projects', 'users'));
     }
 
     public function create()
@@ -57,7 +64,7 @@ class DocumentController extends Controller
 
         $projects = Project::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $document->load('project');
+        $document->load('project', 'created_by');
 
         return view('frontend.documents.edit', compact('document', 'projects'));
     }
@@ -84,7 +91,7 @@ class DocumentController extends Controller
     {
         abort_if(Gate::denies('document_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $document->load('project');
+        $document->load('project', 'created_by');
 
         return view('frontend.documents.show', compact('document'));
     }

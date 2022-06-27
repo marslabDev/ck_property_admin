@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyPaymentTypeRequest;
 use App\Http\Requests\StorePaymentTypeRequest;
 use App\Http\Requests\UpdatePaymentTypeRequest;
 use App\Models\PaymentType;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,9 +21,11 @@ class PaymentTypeController extends Controller
     {
         abort_if(Gate::denies('payment_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentTypes = PaymentType::all();
+        $paymentTypes = PaymentType::with(['created_by'])->get();
 
-        return view('frontend.paymentTypes.index', compact('paymentTypes'));
+        $users = User::get();
+
+        return view('frontend.paymentTypes.index', compact('paymentTypes', 'users'));
     }
 
     public function create()
@@ -43,6 +46,8 @@ class PaymentTypeController extends Controller
     {
         abort_if(Gate::denies('payment_type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $paymentType->load('created_by');
+
         return view('frontend.paymentTypes.edit', compact('paymentType'));
     }
 
@@ -56,6 +61,8 @@ class PaymentTypeController extends Controller
     public function show(PaymentType $paymentType)
     {
         abort_if(Gate::denies('payment_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $paymentType->load('created_by');
 
         return view('frontend.paymentTypes.show', compact('paymentType'));
     }

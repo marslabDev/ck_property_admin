@@ -9,6 +9,7 @@ use App\Http\Requests\StorePaymentHistoryRequest;
 use App\Http\Requests\UpdatePaymentHistoryRequest;
 use App\Models\PaymentHistory;
 use App\Models\PaymentType;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,9 +22,13 @@ class PaymentHistoryController extends Controller
     {
         abort_if(Gate::denies('payment_history_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentHistories = PaymentHistory::with(['paid_by', 'payment_type'])->get();
+        $paymentHistories = PaymentHistory::with(['paid_by', 'payment_type', 'created_by'])->get();
 
-        return view('frontend.paymentHistories.index', compact('paymentHistories'));
+        $users = User::get();
+
+        $payment_types = PaymentType::get();
+
+        return view('frontend.paymentHistories.index', compact('paymentHistories', 'payment_types', 'users'));
     }
 
     public function create()
@@ -48,7 +53,7 @@ class PaymentHistoryController extends Controller
 
         $payment_types = PaymentType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $paymentHistory->load('paid_by', 'payment_type');
+        $paymentHistory->load('paid_by', 'payment_type', 'created_by');
 
         return view('frontend.paymentHistories.edit', compact('paymentHistory', 'payment_types'));
     }
@@ -64,7 +69,7 @@ class PaymentHistoryController extends Controller
     {
         abort_if(Gate::denies('payment_history_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentHistory->load('paid_by', 'payment_type');
+        $paymentHistory->load('paid_by', 'payment_type', 'created_by');
 
         return view('frontend.paymentHistories.show', compact('paymentHistory'));
     }
