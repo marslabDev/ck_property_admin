@@ -656,6 +656,318 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 162,
+                'title' => 'time_management_access',
+            ],
+            [
+                'id'    => 163,
+                'title' => 'time_work_type_create',
+            ],
+            [
+                'id'    => 164,
+                'title' => 'time_work_type_edit',
+            ],
+            [
+                'id'    => 165,
+                'title' => 'time_work_type_show',
+            ],
+            [
+                'id'    => 166,
+                'title' => 'time_work_type_delete',
+            ],
+            [
+                'id'    => 167,
+                'title' => 'time_work_type_access',
+            ],
+            [
+                'id'    => 168,
+                'title' => 'time_project_create',
+            ],
+            [
+                'id'    => 169,
+                'title' => 'time_project_edit',
+            ],
+            [
+                'id'    => 170,
+                'title' => 'time_project_show',
+            ],
+            [
+                'id'    => 171,
+                'title' => 'time_project_delete',
+            ],
+            [
+                'id'    => 172,
+                'title' => 'time_project_access',
+            ],
+            [
+                'id'    => 173,
+                'title' => 'time_entry_create',
+            ],
+            [
+                'id'    => 174,
+                'title' => 'time_entry_edit',
+            ],
+            [
+                'id'    => 175,
+                'title' => 'time_entry_show',
+            ],
+            [
+                'id'    => 176,
+                'title' => 'time_entry_delete',
+            ],
+            [
+                'id'    => 177,
+                'title' => 'time_entry_access',
+            ],
+            [
+                'id'    => 178,
+                'title' => 'time_report_create',
+            ],
+            [
+                'id'    => 179,
+                'title' => 'time_report_edit',
+            ],
+            [
+                'id'    => 180,
+                'title' => 'time_report_show',
+            ],
+            [
+                'id'    => 181,
+                'title' => 'time_report_delete',
+            ],
+            [
+                'id'    => 182,
+                'title' => 'time_report_access',
+            ],
+            [
+                'id'    => 183,
+                'title' => 'client_management_setting_access',
+            ],
+            [
+                'id'    => 184,
+                'title' => 'currency_create',
+            ],
+            [
+                'id'    => 185,
+                'title' => 'currency_edit',
+            ],
+            [
+                'id'    => 186,
+                'title' => 'currency_show',
+            ],
+            [
+                'id'    => 187,
+                'title' => 'currency_delete',
+            ],
+            [
+                'id'    => 188,
+                'title' => 'currency_access',
+            ],
+            [
+                'id'    => 189,
+                'title' => 'transaction_type_create',
+            ],
+            [
+                'id'    => 190,
+                'title' => 'transaction_type_edit',
+            ],
+            [
+                'id'    => 191,
+                'title' => 'transaction_type_show',
+            ],
+            [
+                'id'    => 192,
+                'title' => 'transaction_type_delete',
+            ],
+            [
+                'id'    => 193,
+                'title' => 'transaction_type_access',
+            ],
+            [
+                'id'    => 194,
+                'title' => 'income_source_create',
+            ],
+            [
+                'id'    => 195,
+                'title' => 'income_source_edit',
+            ],
+            [
+                'id'    => 196,
+                'title' => 'income_source_show',
+            ],
+            [
+                'id'    => 197,
+                'title' => 'income_source_delete',
+            ],
+            [
+                'id'    => 198,
+                'title' => 'income_source_access',
+            ],
+            [
+                'id'    => 199,
+                'title' => 'client_status_create',
+            ],
+            [
+                'id'    => 200,
+                'title' => 'client_status_edit',
+            ],
+            [
+                'id'    => 201,
+                'title' => 'client_status_show',
+            ],
+            [
+                'id'    => 202,
+                'title' => 'client_status_delete',
+            ],
+            [
+                'id'    => 203,
+                'title' => 'client_status_access',
+            ],
+            [
+                'id'    => 204,
+                'title' => 'project_status_create',
+            ],
+            [
+                'id'    => 205,
+                'title' => 'project_status_edit',
+            ],
+            [
+                'id'    => 206,
+                'title' => 'project_status_show',
+            ],
+            [
+                'id'    => 207,
+                'title' => 'project_status_delete',
+            ],
+            [
+                'id'    => 208,
+                'title' => 'project_status_access',
+            ],
+            [
+                'id'    => 209,
+                'title' => 'client_management_access',
+            ],
+            [
+                'id'    => 210,
+                'title' => 'client_create',
+            ],
+            [
+                'id'    => 211,
+                'title' => 'client_edit',
+            ],
+            [
+                'id'    => 212,
+                'title' => 'client_show',
+            ],
+            [
+                'id'    => 213,
+                'title' => 'client_delete',
+            ],
+            [
+                'id'    => 214,
+                'title' => 'client_access',
+            ],
+            [
+                'id'    => 215,
+                'title' => 'project_create',
+            ],
+            [
+                'id'    => 216,
+                'title' => 'project_edit',
+            ],
+            [
+                'id'    => 217,
+                'title' => 'project_show',
+            ],
+            [
+                'id'    => 218,
+                'title' => 'project_delete',
+            ],
+            [
+                'id'    => 219,
+                'title' => 'project_access',
+            ],
+            [
+                'id'    => 220,
+                'title' => 'note_create',
+            ],
+            [
+                'id'    => 221,
+                'title' => 'note_edit',
+            ],
+            [
+                'id'    => 222,
+                'title' => 'note_show',
+            ],
+            [
+                'id'    => 223,
+                'title' => 'note_delete',
+            ],
+            [
+                'id'    => 224,
+                'title' => 'note_access',
+            ],
+            [
+                'id'    => 225,
+                'title' => 'document_create',
+            ],
+            [
+                'id'    => 226,
+                'title' => 'document_edit',
+            ],
+            [
+                'id'    => 227,
+                'title' => 'document_show',
+            ],
+            [
+                'id'    => 228,
+                'title' => 'document_delete',
+            ],
+            [
+                'id'    => 229,
+                'title' => 'document_access',
+            ],
+            [
+                'id'    => 230,
+                'title' => 'transaction_create',
+            ],
+            [
+                'id'    => 231,
+                'title' => 'transaction_edit',
+            ],
+            [
+                'id'    => 232,
+                'title' => 'transaction_show',
+            ],
+            [
+                'id'    => 233,
+                'title' => 'transaction_delete',
+            ],
+            [
+                'id'    => 234,
+                'title' => 'transaction_access',
+            ],
+            [
+                'id'    => 235,
+                'title' => 'client_report_create',
+            ],
+            [
+                'id'    => 236,
+                'title' => 'client_report_edit',
+            ],
+            [
+                'id'    => 237,
+                'title' => 'client_report_show',
+            ],
+            [
+                'id'    => 238,
+                'title' => 'client_report_delete',
+            ],
+            [
+                'id'    => 239,
+                'title' => 'client_report_access',
+            ],
+            [
+                'id'    => 240,
                 'title' => 'profile_password_edit',
             ],
         ];

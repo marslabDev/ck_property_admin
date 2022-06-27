@@ -32,6 +32,15 @@
                             {{ trans('cruds.user.fields.phone_no') }}
                         </th>
                         <th>
+                            {{ trans('cruds.user.fields.two_factor') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.approved') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.verified') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.user.fields.join_date') }}
                         </th>
                         <th>
@@ -56,6 +65,18 @@
                             </td>
                             <td>
                                 {{ $user->phone_no ?? '' }}
+                            </td>
+                            <td>
+                                <span style="display:none">{{ $user->two_factor ?? '' }}</span>
+                                <input type="checkbox" disabled="disabled" {{ $user->two_factor ? 'checked' : '' }}>
+                            </td>
+                            <td>
+                                <span style="display:none">{{ $user->approved ?? '' }}</span>
+                                <input type="checkbox" disabled="disabled" {{ $user->approved ? 'checked' : '' }}>
+                            </td>
+                            <td>
+                                <span style="display:none">{{ $user->verified ?? '' }}</span>
+                                <input type="checkbox" disabled="disabled" {{ $user->verified ? 'checked' : '' }}>
                             </td>
                             <td>
                                 {{ $user->join_date ?? '' }}
