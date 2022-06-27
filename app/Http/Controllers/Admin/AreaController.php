@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyAreaRequest;
 use App\Http\Requests\StoreAreaRequest;
 use App\Http\Requests\UpdateAreaRequest;
 use App\Models\Area;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ class AreaController extends Controller
         abort_if(Gate::denies('area_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Area::query()->select(sprintf('%s.*', (new Area())->table));
+            $query = Area::with(['created_by'])->select(sprintf('%s.*', (new Area())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -64,7 +65,9 @@ class AreaController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.areas.index');
+        $users = User::get();
+
+        return view('admin.areas.index', compact('users'));
     }
 
     public function create()
@@ -85,6 +88,8 @@ class AreaController extends Controller
     {
         abort_if(Gate::denies('area_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $area->load('created_by');
+
         return view('admin.areas.edit', compact('area'));
     }
 
@@ -98,6 +103,8 @@ class AreaController extends Controller
     public function show(Area $area)
     {
         abort_if(Gate::denies('area_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $area->load('created_by');
 
         return view('admin.areas.show', compact('area'));
     }

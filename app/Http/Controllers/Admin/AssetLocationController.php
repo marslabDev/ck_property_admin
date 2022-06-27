@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyAssetLocationRequest;
 use App\Http\Requests\StoreAssetLocationRequest;
 use App\Http\Requests\UpdateAssetLocationRequest;
 use App\Models\AssetLocation;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ class AssetLocationController extends Controller
         abort_if(Gate::denies('asset_location_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = AssetLocation::query()->select(sprintf('%s.*', (new AssetLocation())->table));
+            $query = AssetLocation::with(['created_by'])->select(sprintf('%s.*', (new AssetLocation())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -55,7 +56,9 @@ class AssetLocationController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.assetLocations.index');
+        $users = User::get();
+
+        return view('admin.assetLocations.index', compact('users'));
     }
 
     public function create()
@@ -76,6 +79,8 @@ class AssetLocationController extends Controller
     {
         abort_if(Gate::denies('asset_location_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $assetLocation->load('created_by');
+
         return view('admin.assetLocations.edit', compact('assetLocation'));
     }
 
@@ -89,6 +94,8 @@ class AssetLocationController extends Controller
     public function show(AssetLocation $assetLocation)
     {
         abort_if(Gate::denies('asset_location_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $assetLocation->load('created_by');
 
         return view('admin.assetLocations.show', compact('assetLocation'));
     }

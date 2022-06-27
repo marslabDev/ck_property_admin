@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyParkingLotRequest;
 use App\Http\Requests\StoreParkingLotRequest;
 use App\Http\Requests\UpdateParkingLotRequest;
 use App\Models\ParkingLot;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,9 +21,11 @@ class ParkingLotController extends Controller
     {
         abort_if(Gate::denies('parking_lot_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $parkingLots = ParkingLot::all();
+        $parkingLots = ParkingLot::with(['created_by'])->get();
 
-        return view('frontend.parkingLots.index', compact('parkingLots'));
+        $users = User::get();
+
+        return view('frontend.parkingLots.index', compact('parkingLots', 'users'));
     }
 
     public function create()
@@ -43,6 +46,8 @@ class ParkingLotController extends Controller
     {
         abort_if(Gate::denies('parking_lot_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $parkingLot->load('created_by');
+
         return view('frontend.parkingLots.edit', compact('parkingLot'));
     }
 
@@ -56,6 +61,8 @@ class ParkingLotController extends Controller
     public function show(ParkingLot $parkingLot)
     {
         abort_if(Gate::denies('parking_lot_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $parkingLot->load('created_by');
 
         return view('frontend.parkingLots.show', compact('parkingLot'));
     }

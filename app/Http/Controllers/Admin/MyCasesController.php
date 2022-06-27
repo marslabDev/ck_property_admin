@@ -27,7 +27,7 @@ class MyCasesController extends Controller
         abort_if(Gate::denies('my_case_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = MyCase::with(['category', 'report_by', 'handle_by'])->select(sprintf('%s.*', (new MyCase())->table));
+            $query = MyCase::with(['category', 'report_by', 'handle_by', 'created_by'])->select(sprintf('%s.*', (new MyCase())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -89,7 +89,10 @@ class MyCasesController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.myCases.index');
+        $cases_categories = CasesCategory::get();
+        $users            = User::get();
+
+        return view('admin.myCases.index', compact('cases_categories', 'users'));
     }
 
     public function create()
@@ -130,7 +133,7 @@ class MyCasesController extends Controller
 
         $handle_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $myCase->load('category', 'report_by', 'handle_by');
+        $myCase->load('category', 'report_by', 'handle_by', 'created_by');
 
         return view('admin.myCases.edit', compact('categories', 'handle_bies', 'myCase', 'report_bies'));
     }
@@ -157,7 +160,7 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $myCase->load('category', 'report_by', 'handle_by');
+        $myCase->load('category', 'report_by', 'handle_by', 'created_by');
 
         return view('admin.myCases.show', compact('myCase'));
     }

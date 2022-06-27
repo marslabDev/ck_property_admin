@@ -28,7 +28,7 @@ class ArticleController extends Controller
         abort_if(Gate::denies('article_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Article::with(['create_by', 'people_in_role', 'people_in_area'])->select(sprintf('%s.*', (new Article())->table));
+            $query = Article::with(['create_by', 'people_in_role', 'people_in_area', 'created_by'])->select(sprintf('%s.*', (new Article())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -79,7 +79,11 @@ class ArticleController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.articles.index');
+        $users = User::get();
+        $roles = Role::get();
+        $areas = Area::get();
+
+        return view('admin.articles.index', compact('users', 'roles', 'areas'));
     }
 
     public function create()
@@ -120,7 +124,7 @@ class ArticleController extends Controller
 
         $people_in_areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $article->load('create_by', 'people_in_role', 'people_in_area');
+        $article->load('create_by', 'people_in_role', 'people_in_area', 'created_by');
 
         return view('admin.articles.edit', compact('article', 'create_bies', 'people_in_areas', 'people_in_roles'));
     }
@@ -147,7 +151,7 @@ class ArticleController extends Controller
     {
         abort_if(Gate::denies('article_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $article->load('create_by', 'people_in_role', 'people_in_area');
+        $article->load('create_by', 'people_in_role', 'people_in_area', 'created_by');
 
         return view('admin.articles.show', compact('article'));
     }

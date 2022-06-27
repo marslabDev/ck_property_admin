@@ -159,6 +159,8 @@ return [
             'price_per_ft_helper'   => ' ',
             'office_no'             => 'Office No',
             'office_no_helper'      => ' ',
+            'created_by'            => 'Created By',
+            'created_by_helper'     => ' ',
         ],
     ],
     'manageHouse' => [
@@ -185,6 +187,8 @@ return [
             'contact_no_helper'   => ' ',
             'parking_lot'         => 'Parking Lot',
             'parking_lot_helper'  => ' ',
+            'created_by'          => 'Created By',
+            'created_by_helper'   => ' ',
         ],
     ],
     'paymentType' => [
@@ -201,6 +205,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted at',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'parkingLot' => [
@@ -221,6 +227,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted at',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'notice' => [
@@ -247,6 +255,8 @@ return [
             'people_in_role_helper' => ' ',
             'people_in_area'        => 'People In Area',
             'people_in_area_helper' => ' ',
+            'created_by'            => 'Created By',
+            'created_by_helper'     => ' ',
         ],
     ],
     'article' => [
@@ -273,6 +283,8 @@ return [
             'people_in_role_helper' => ' ',
             'people_in_area'        => 'People In Area',
             'people_in_area_helper' => ' ',
+            'created_by'            => 'Created By',
+            'created_by_helper'     => ' ',
         ],
     ],
     'supplier' => [
@@ -307,6 +319,8 @@ return [
             'handler_by_helper'      => ' ',
             'supplier'               => 'Supplier',
             'supplier_helper'        => ' ',
+            'created_by'             => 'Created By',
+            'created_by_helper'      => ' ',
         ],
     ],
     'service' => [
@@ -337,6 +351,8 @@ return [
             'hanlder_by_helper'      => ' ',
             'supplier'               => 'Supplier',
             'supplier_helper'        => ' ',
+            'created_by'             => 'Created By',
+            'created_by_helper'      => ' ',
         ],
     ],
     'myCase' => [
@@ -371,6 +387,8 @@ return [
             'report_by_helper'     => ' ',
             'handle_by'            => 'Handle By',
             'handle_by_helper'     => ' ',
+            'created_by'           => 'Created By',
+            'created_by_helper'    => ' ',
         ],
     ],
     'casesCategory' => [
@@ -387,6 +405,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted at',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'maintanance' => [
@@ -411,6 +431,8 @@ return [
             'handle_by_helper'        => ' ',
             'supplier'                => 'Supplier',
             'supplier_helper'         => ' ',
+            'created_by'              => 'Created By',
+            'created_by_helper'       => ' ',
         ],
     ],
     'maintananceType' => [
@@ -427,6 +449,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted at',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'assetManagement' => [
@@ -447,6 +471,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'assetLocation' => [
@@ -463,6 +489,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'assetStatus' => [
@@ -479,6 +507,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'asset' => [
@@ -509,6 +539,8 @@ return [
             'updated_at_helper'    => ' ',
             'deleted_at'           => 'Deleted At',
             'deleted_at_helper'    => ' ',
+            'created_by'           => 'Created By',
+            'created_by_helper'    => ' ',
         ],
     ],
     'assetsHistory' => [
@@ -579,6 +611,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'incomeCategory' => [
@@ -595,6 +629,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'expense' => [
@@ -617,6 +653,8 @@ return [
             'updated_at_helper'       => ' ',
             'deleted_at'              => 'Deleted At',
             'deleted_at_helper'       => ' ',
+            'created_by'              => 'Created By',
+            'created_by_helper'       => ' ',
         ],
     ],
     'income' => [
@@ -639,6 +677,8 @@ return [
             'updated_at_helper'      => ' ',
             'deleted_at'             => 'Deleted At',
             'deleted_at_helper'      => ' ',
+            'created_by'             => 'Created By',
+            'created_by_helper'      => ' ',
         ],
     ],
     'expenseReport' => [
@@ -675,6 +715,8 @@ return [
             'deleted_at_helper'    => ' ',
             'payment_type'         => 'Payment Type',
             'payment_type_helper'  => ' ',
+            'created_by'           => 'Created By',
+            'created_by_helper'    => ' ',
         ],
     ],
     'complaintSystem' => [
@@ -699,6 +741,8 @@ return [
             'status_helper'      => ' ',
             'description'        => 'Description',
             'description_helper' => ' ',
+            'created_by'         => 'Created By',
+            'created_by_helper'  => ' ',
         ],
     ],
     'taskManagement' => [
@@ -719,6 +763,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'taskTag' => [
@@ -735,6 +781,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'task' => [
@@ -763,6 +811,8 @@ return [
             'updated_at_helper'  => ' ',
             'deleted_at'         => 'Deleted At',
             'deleted_at_helper'  => ' ',
+            'created_by'         => 'Created By',
+            'created_by_helper'  => ' ',
         ],
     ],
     'tasksCalendar' => [
@@ -787,6 +837,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'timeProject' => [
@@ -803,6 +855,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'timeEntry' => [
@@ -825,6 +879,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'timeReport' => [
@@ -860,6 +916,8 @@ return [
             'updated_at_helper'    => ' ',
             'deleted_at'           => 'Deleted At',
             'deleted_at_helper'    => ' ',
+            'created_by'           => 'Created By',
+            'created_by_helper'    => ' ',
         ],
     ],
     'transactionType' => [
@@ -876,6 +934,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'incomeSource' => [
@@ -894,6 +954,8 @@ return [
             'updated_at_helper'  => ' ',
             'deleted_at'         => 'Deleted At',
             'deleted_at_helper'  => ' ',
+            'created_by'         => 'Created By',
+            'created_by_helper'  => ' ',
         ],
     ],
     'clientStatus' => [
@@ -910,6 +972,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'projectStatus' => [
@@ -926,6 +990,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'clientManagement' => [
@@ -962,6 +1028,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'project' => [
@@ -988,6 +1056,8 @@ return [
             'updated_at_helper'  => ' ',
             'deleted_at'         => 'Deleted At',
             'deleted_at_helper'  => ' ',
+            'created_by'         => 'Created By',
+            'created_by_helper'  => ' ',
         ],
     ],
     'note' => [
@@ -1006,6 +1076,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
         ],
     ],
     'document' => [
@@ -1028,6 +1100,8 @@ return [
             'updated_at_helper'    => ' ',
             'deleted_at'           => 'Deleted At',
             'deleted_at_helper'    => ' ',
+            'created_by'           => 'Created By',
+            'created_by_helper'    => ' ',
         ],
     ],
     'transaction' => [
@@ -1058,6 +1132,8 @@ return [
             'updated_at_helper'       => ' ',
             'deleted_at'              => 'Deleted At',
             'deleted_at_helper'       => ' ',
+            'created_by'              => 'Created By',
+            'created_by_helper'       => ' ',
         ],
     ],
     'clientReport' => [
@@ -1070,6 +1146,78 @@ return [
             'fees'        => 'Fees',
             'total'       => 'Total',
             'allProjects' => 'All projects',
+        ],
+    ],
+    'contentManagement' => [
+        'title'          => 'Content management',
+        'title_singular' => 'Content management',
+    ],
+    'contentCategory' => [
+        'title'          => 'Categories',
+        'title_singular' => 'Category',
+        'fields'         => [
+            'id'                => 'ID',
+            'id_helper'         => ' ',
+            'name'              => 'Name',
+            'name_helper'       => ' ',
+            'slug'              => 'Slug',
+            'slug_helper'       => ' ',
+            'created_at'        => 'Created at',
+            'created_at_helper' => ' ',
+            'updated_at'        => 'Updated At',
+            'updated_at_helper' => ' ',
+            'deleted_at'        => 'Deleted At',
+            'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
+        ],
+    ],
+    'contentTag' => [
+        'title'          => 'Tags',
+        'title_singular' => 'Tag',
+        'fields'         => [
+            'id'                => 'ID',
+            'id_helper'         => ' ',
+            'name'              => 'Name',
+            'name_helper'       => ' ',
+            'slug'              => 'Slug',
+            'slug_helper'       => ' ',
+            'created_at'        => 'Created at',
+            'created_at_helper' => ' ',
+            'updated_at'        => 'Updated At',
+            'updated_at_helper' => ' ',
+            'deleted_at'        => 'Deleted At',
+            'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
+        ],
+    ],
+    'contentPage' => [
+        'title'          => 'Pages',
+        'title_singular' => 'Page',
+        'fields'         => [
+            'id'                    => 'ID',
+            'id_helper'             => ' ',
+            'title'                 => 'Title',
+            'title_helper'          => ' ',
+            'category'              => 'Categories',
+            'category_helper'       => ' ',
+            'tag'                   => 'Tags',
+            'tag_helper'            => ' ',
+            'page_text'             => 'Full Text',
+            'page_text_helper'      => ' ',
+            'excerpt'               => 'Excerpt',
+            'excerpt_helper'        => ' ',
+            'featured_image'        => 'Featured Image',
+            'featured_image_helper' => ' ',
+            'created_at'            => 'Created at',
+            'created_at_helper'     => ' ',
+            'updated_at'            => 'Updated At',
+            'updated_at_helper'     => ' ',
+            'deleted_at'            => 'Deleted At',
+            'deleted_at_helper'     => ' ',
+            'created_by'            => 'Created By',
+            'created_by_helper'     => ' ',
         ],
     ],
 ];

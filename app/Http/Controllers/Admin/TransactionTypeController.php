@@ -3,23 +3,62 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTransactionTypeRequest;
 use App\Http\Requests\StoreTransactionTypeRequest;
 use App\Http\Requests\UpdateTransactionTypeRequest;
 use App\Models\TransactionType;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class TransactionTypeController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('transaction_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transactionTypes = TransactionType::all();
+        if ($request->ajax()) {
+            $query = TransactionType::with(['created_by'])->select(sprintf('%s.*', (new TransactionType())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.transactionTypes.index', compact('transactionTypes'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'transaction_type_show';
+                $editGate = 'transaction_type_edit';
+                $deleteGate = 'transaction_type_delete';
+                $crudRoutePart = 'transaction-types';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder']);
+
+            return $table->make(true);
+        }
+
+        $users = User::get();
+
+        return view('admin.transactionTypes.index', compact('users'));
     }
 
     public function create()
@@ -40,6 +79,8 @@ class TransactionTypeController extends Controller
     {
         abort_if(Gate::denies('transaction_type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $transactionType->load('created_by');
+
         return view('admin.transactionTypes.edit', compact('transactionType'));
     }
 
@@ -53,6 +94,8 @@ class TransactionTypeController extends Controller
     public function show(TransactionType $transactionType)
     {
         abort_if(Gate::denies('transaction_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $transactionType->load('created_by');
 
         return view('admin.transactionTypes.show', compact('transactionType'));
     }

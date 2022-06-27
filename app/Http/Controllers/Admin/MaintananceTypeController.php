@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyMaintananceTypeRequest;
 use App\Http\Requests\StoreMaintananceTypeRequest;
 use App\Http\Requests\UpdateMaintananceTypeRequest;
 use App\Models\MaintananceType;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ class MaintananceTypeController extends Controller
         abort_if(Gate::denies('maintanance_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = MaintananceType::query()->select(sprintf('%s.*', (new MaintananceType())->table));
+            $query = MaintananceType::with(['created_by'])->select(sprintf('%s.*', (new MaintananceType())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -55,7 +56,9 @@ class MaintananceTypeController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.maintananceTypes.index');
+        $users = User::get();
+
+        return view('admin.maintananceTypes.index', compact('users'));
     }
 
     public function create()
@@ -76,6 +79,8 @@ class MaintananceTypeController extends Controller
     {
         abort_if(Gate::denies('maintanance_type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $maintananceType->load('created_by');
+
         return view('admin.maintananceTypes.edit', compact('maintananceType'));
     }
 
@@ -89,6 +94,8 @@ class MaintananceTypeController extends Controller
     public function show(MaintananceType $maintananceType)
     {
         abort_if(Gate::denies('maintanance_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $maintananceType->load('created_by');
 
         return view('admin.maintananceTypes.show', compact('maintananceType'));
     }

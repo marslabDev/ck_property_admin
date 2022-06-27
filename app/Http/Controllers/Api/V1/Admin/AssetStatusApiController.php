@@ -17,7 +17,7 @@ class AssetStatusApiController extends Controller
     {
         abort_if(Gate::denies('asset_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new AssetStatusResource(AssetStatus::all());
+        return new AssetStatusResource(AssetStatus::with(['created_by'])->get());
     }
 
     public function store(StoreAssetStatusRequest $request)
@@ -33,7 +33,7 @@ class AssetStatusApiController extends Controller
     {
         abort_if(Gate::denies('asset_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new AssetStatusResource($assetStatus);
+        return new AssetStatusResource($assetStatus->load(['created_by']));
     }
 
     public function update(UpdateAssetStatusRequest $request, AssetStatus $assetStatus)

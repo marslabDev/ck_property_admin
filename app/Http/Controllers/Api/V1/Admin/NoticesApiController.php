@@ -20,7 +20,7 @@ class NoticesApiController extends Controller
     {
         abort_if(Gate::denies('notice_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new NoticeResource(Notice::with(['create_by', 'people_in_role', 'people_in_area'])->get());
+        return new NoticeResource(Notice::with(['create_by', 'people_in_role', 'people_in_area', 'created_by'])->get());
     }
 
     public function store(StoreNoticeRequest $request)
@@ -40,7 +40,7 @@ class NoticesApiController extends Controller
     {
         abort_if(Gate::denies('notice_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new NoticeResource($notice->load(['create_by', 'people_in_role', 'people_in_area']));
+        return new NoticeResource($notice->load(['create_by', 'people_in_role', 'people_in_area', 'created_by']));
     }
 
     public function update(UpdateNoticeRequest $request, Notice $notice)

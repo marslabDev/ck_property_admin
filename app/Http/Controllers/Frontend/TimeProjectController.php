@@ -3,23 +3,29 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTimeProjectRequest;
 use App\Http\Requests\StoreTimeProjectRequest;
 use App\Http\Requests\UpdateTimeProjectRequest;
 use App\Models\TimeProject;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TimeProjectController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('time_project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $timeProjects = TimeProject::all();
+        $timeProjects = TimeProject::with(['created_by'])->get();
 
-        return view('frontend.timeProjects.index', compact('timeProjects'));
+        $users = User::get();
+
+        return view('frontend.timeProjects.index', compact('timeProjects', 'users'));
     }
 
     public function create()
@@ -40,6 +46,8 @@ class TimeProjectController extends Controller
     {
         abort_if(Gate::denies('time_project_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $timeProject->load('created_by');
+
         return view('frontend.timeProjects.edit', compact('timeProject'));
     }
 
@@ -53,6 +61,8 @@ class TimeProjectController extends Controller
     public function show(TimeProject $timeProject)
     {
         abort_if(Gate::denies('time_project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $timeProject->load('created_by');
 
         return view('frontend.timeProjects.show', compact('timeProject'));
     }

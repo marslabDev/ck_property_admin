@@ -26,9 +26,15 @@ class ArticleController extends Controller
     {
         abort_if(Gate::denies('article_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $articles = Article::with(['create_by', 'people_in_role', 'people_in_area', 'media'])->get();
+        $articles = Article::with(['create_by', 'people_in_role', 'people_in_area', 'created_by', 'media'])->get();
 
-        return view('frontend.articles.index', compact('articles'));
+        $users = User::get();
+
+        $roles = Role::get();
+
+        $areas = Area::get();
+
+        return view('frontend.articles.index', compact('areas', 'articles', 'roles', 'users'));
     }
 
     public function create()
@@ -69,7 +75,7 @@ class ArticleController extends Controller
 
         $people_in_areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $article->load('create_by', 'people_in_role', 'people_in_area');
+        $article->load('create_by', 'people_in_role', 'people_in_area', 'created_by');
 
         return view('frontend.articles.edit', compact('article', 'create_bies', 'people_in_areas', 'people_in_roles'));
     }
@@ -96,7 +102,7 @@ class ArticleController extends Controller
     {
         abort_if(Gate::denies('article_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $article->load('create_by', 'people_in_role', 'people_in_area');
+        $article->load('create_by', 'people_in_role', 'people_in_area', 'created_by');
 
         return view('frontend.articles.show', compact('article'));
     }

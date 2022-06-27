@@ -3,23 +3,29 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTransactionTypeRequest;
 use App\Http\Requests\StoreTransactionTypeRequest;
 use App\Http\Requests\UpdateTransactionTypeRequest;
 use App\Models\TransactionType;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TransactionTypeController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('transaction_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transactionTypes = TransactionType::all();
+        $transactionTypes = TransactionType::with(['created_by'])->get();
 
-        return view('frontend.transactionTypes.index', compact('transactionTypes'));
+        $users = User::get();
+
+        return view('frontend.transactionTypes.index', compact('transactionTypes', 'users'));
     }
 
     public function create()
@@ -40,6 +46,8 @@ class TransactionTypeController extends Controller
     {
         abort_if(Gate::denies('transaction_type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $transactionType->load('created_by');
+
         return view('frontend.transactionTypes.edit', compact('transactionType'));
     }
 
@@ -53,6 +61,8 @@ class TransactionTypeController extends Controller
     public function show(TransactionType $transactionType)
     {
         abort_if(Gate::denies('transaction_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $transactionType->load('created_by');
 
         return view('frontend.transactionTypes.show', compact('transactionType'));
     }

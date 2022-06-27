@@ -3,23 +3,29 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyExpenseCategoryRequest;
 use App\Http\Requests\StoreExpenseCategoryRequest;
 use App\Http\Requests\UpdateExpenseCategoryRequest;
 use App\Models\ExpenseCategory;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ExpenseCategoryController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('expense_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $expenseCategories = ExpenseCategory::all();
+        $expenseCategories = ExpenseCategory::with(['created_by'])->get();
 
-        return view('frontend.expenseCategories.index', compact('expenseCategories'));
+        $users = User::get();
+
+        return view('frontend.expenseCategories.index', compact('expenseCategories', 'users'));
     }
 
     public function create()
@@ -40,6 +46,8 @@ class ExpenseCategoryController extends Controller
     {
         abort_if(Gate::denies('expense_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $expenseCategory->load('created_by');
+
         return view('frontend.expenseCategories.edit', compact('expenseCategory'));
     }
 
@@ -53,6 +61,8 @@ class ExpenseCategoryController extends Controller
     public function show(ExpenseCategory $expenseCategory)
     {
         abort_if(Gate::denies('expense_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $expenseCategory->load('created_by');
 
         return view('frontend.expenseCategories.show', compact('expenseCategory'));
     }

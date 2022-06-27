@@ -24,9 +24,11 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $products = Product::with(['handler_by', 'supplier', 'media'])->get();
+        $products = Product::with(['handler_by', 'supplier', 'created_by', 'media'])->get();
 
-        return view('frontend.products.index', compact('products'));
+        $users = User::get();
+
+        return view('frontend.products.index', compact('products', 'users'));
     }
 
     public function create()
@@ -63,7 +65,7 @@ class ProductController extends Controller
 
         $suppliers = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $product->load('handler_by', 'supplier');
+        $product->load('handler_by', 'supplier', 'created_by');
 
         return view('frontend.products.edit', compact('handler_bies', 'product', 'suppliers'));
     }
@@ -90,7 +92,7 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $product->load('handler_by', 'supplier');
+        $product->load('handler_by', 'supplier', 'created_by');
 
         return view('frontend.products.show', compact('product'));
     }

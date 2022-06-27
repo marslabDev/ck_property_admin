@@ -17,7 +17,7 @@ class AssetLocationApiController extends Controller
     {
         abort_if(Gate::denies('asset_location_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new AssetLocationResource(AssetLocation::all());
+        return new AssetLocationResource(AssetLocation::with(['created_by'])->get());
     }
 
     public function store(StoreAssetLocationRequest $request)
@@ -33,7 +33,7 @@ class AssetLocationApiController extends Controller
     {
         abort_if(Gate::denies('asset_location_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new AssetLocationResource($assetLocation);
+        return new AssetLocationResource($assetLocation->load(['created_by']));
     }
 
     public function update(UpdateAssetLocationRequest $request, AssetLocation $assetLocation)

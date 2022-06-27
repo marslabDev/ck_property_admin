@@ -3,23 +3,29 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyIncomeSourceRequest;
 use App\Http\Requests\StoreIncomeSourceRequest;
 use App\Http\Requests\UpdateIncomeSourceRequest;
 use App\Models\IncomeSource;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class IncomeSourceController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('income_source_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $incomeSources = IncomeSource::all();
+        $incomeSources = IncomeSource::with(['created_by'])->get();
 
-        return view('frontend.incomeSources.index', compact('incomeSources'));
+        $users = User::get();
+
+        return view('frontend.incomeSources.index', compact('incomeSources', 'users'));
     }
 
     public function create()
@@ -40,6 +46,8 @@ class IncomeSourceController extends Controller
     {
         abort_if(Gate::denies('income_source_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $incomeSource->load('created_by');
+
         return view('frontend.incomeSources.edit', compact('incomeSource'));
     }
 
@@ -53,6 +61,8 @@ class IncomeSourceController extends Controller
     public function show(IncomeSource $incomeSource)
     {
         abort_if(Gate::denies('income_source_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $incomeSource->load('created_by');
 
         return view('frontend.incomeSources.show', compact('incomeSource'));
     }

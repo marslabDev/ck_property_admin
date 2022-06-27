@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyPaymentTypeRequest;
 use App\Http\Requests\StorePaymentTypeRequest;
 use App\Http\Requests\UpdatePaymentTypeRequest;
 use App\Models\PaymentType;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ class PaymentTypeController extends Controller
         abort_if(Gate::denies('payment_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = PaymentType::query()->select(sprintf('%s.*', (new PaymentType())->table));
+            $query = PaymentType::with(['created_by'])->select(sprintf('%s.*', (new PaymentType())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -55,7 +56,9 @@ class PaymentTypeController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.paymentTypes.index');
+        $users = User::get();
+
+        return view('admin.paymentTypes.index', compact('users'));
     }
 
     public function create()
@@ -76,6 +79,8 @@ class PaymentTypeController extends Controller
     {
         abort_if(Gate::denies('payment_type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $paymentType->load('created_by');
+
         return view('admin.paymentTypes.edit', compact('paymentType'));
     }
 
@@ -89,6 +94,8 @@ class PaymentTypeController extends Controller
     public function show(PaymentType $paymentType)
     {
         abort_if(Gate::denies('payment_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $paymentType->load('created_by');
 
         return view('admin.paymentTypes.show', compact('paymentType'));
     }

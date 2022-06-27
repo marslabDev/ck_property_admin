@@ -26,7 +26,7 @@ class ServiceController extends Controller
         abort_if(Gate::denies('service_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Service::with(['hanlder_by', 'supplier'])->select(sprintf('%s.*', (new Service())->table));
+            $query = Service::with(['hanlder_by', 'supplier', 'created_by'])->select(sprintf('%s.*', (new Service())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -72,7 +72,9 @@ class ServiceController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.services.index');
+        $users = User::get();
+
+        return view('admin.services.index', compact('users'));
     }
 
     public function create()
@@ -109,7 +111,7 @@ class ServiceController extends Controller
 
         $suppliers = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $service->load('hanlder_by', 'supplier');
+        $service->load('hanlder_by', 'supplier', 'created_by');
 
         return view('admin.services.edit', compact('hanlder_bies', 'service', 'suppliers'));
     }
@@ -136,7 +138,7 @@ class ServiceController extends Controller
     {
         abort_if(Gate::denies('service_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $service->load('hanlder_by', 'supplier');
+        $service->load('hanlder_by', 'supplier', 'created_by');
 
         return view('admin.services.show', compact('service'));
     }

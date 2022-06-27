@@ -24,9 +24,11 @@ class ComplaintSystemController extends Controller
     {
         abort_if(Gate::denies('complaint_system_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $complaintSystems = ComplaintSystem::with(['create_by', 'media'])->get();
+        $complaintSystems = ComplaintSystem::with(['create_by', 'created_by', 'media'])->get();
 
-        return view('frontend.complaintSystems.index', compact('complaintSystems'));
+        $users = User::get();
+
+        return view('frontend.complaintSystems.index', compact('complaintSystems', 'users'));
     }
 
     public function create()
@@ -57,7 +59,7 @@ class ComplaintSystemController extends Controller
     {
         abort_if(Gate::denies('complaint_system_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $complaintSystem->load('create_by');
+        $complaintSystem->load('create_by', 'created_by');
 
         return view('frontend.complaintSystems.edit', compact('complaintSystem'));
     }
@@ -84,7 +86,7 @@ class ComplaintSystemController extends Controller
     {
         abort_if(Gate::denies('complaint_system_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $complaintSystem->load('create_by');
+        $complaintSystem->load('create_by', 'created_by');
 
         return view('frontend.complaintSystems.show', compact('complaintSystem'));
     }

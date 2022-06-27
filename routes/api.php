@@ -1,6 +1,15 @@
 <?php
 
 Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => ['auth:sanctum']], function () {
+    // Permissions
+    Route::apiResource('permissions', 'PermissionsApiController');
+
+    // Roles
+    Route::apiResource('roles', 'RolesApiController');
+
+    // Users
+    Route::apiResource('users', 'UsersApiController');
+
     // Area
     Route::apiResource('areas', 'AreaApiController');
 
@@ -58,10 +67,82 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Assets History
     Route::apiResource('assets-histories', 'AssetsHistoryApiController', ['except' => ['store', 'show', 'update', 'destroy']]);
 
+    // Expense Category
+    Route::apiResource('expense-categories', 'ExpenseCategoryApiController');
+
+    // Income Category
+    Route::apiResource('income-categories', 'IncomeCategoryApiController');
+
+    // Expense
+    Route::apiResource('expenses', 'ExpenseApiController');
+
+    // Income
+    Route::apiResource('incomes', 'IncomeApiController');
+
     // Payment History
     Route::apiResource('payment-histories', 'PaymentHistoryApiController');
 
     // Complaint System
     Route::post('complaint-systems/media', 'ComplaintSystemApiController@storeMedia')->name('complaint-systems.storeMedia');
     Route::apiResource('complaint-systems', 'ComplaintSystemApiController');
+
+    // Task Status
+    Route::apiResource('task-statuses', 'TaskStatusApiController');
+
+    // Task Tag
+    Route::apiResource('task-tags', 'TaskTagApiController');
+
+    // Task
+    Route::post('tasks/media', 'TaskApiController@storeMedia')->name('tasks.storeMedia');
+    Route::apiResource('tasks', 'TaskApiController');
+
+    // Time Work Type
+    Route::apiResource('time-work-types', 'TimeWorkTypeApiController');
+
+    // Time Project
+    Route::apiResource('time-projects', 'TimeProjectApiController');
+
+    // Time Entry
+    Route::apiResource('time-entries', 'TimeEntryApiController');
+
+    // Currency
+    Route::apiResource('currencies', 'CurrencyApiController');
+
+    // Transaction Type
+    Route::apiResource('transaction-types', 'TransactionTypeApiController');
+
+    // Income Source
+    Route::apiResource('income-sources', 'IncomeSourceApiController');
+
+    // Client Status
+    Route::apiResource('client-statuses', 'ClientStatusApiController');
+
+    // Project Status
+    Route::apiResource('project-statuses', 'ProjectStatusApiController');
+
+    // Client
+    Route::apiResource('clients', 'ClientApiController');
+
+    // Project
+    Route::apiResource('projects', 'ProjectApiController');
+
+    // Note
+    Route::apiResource('notes', 'NoteApiController');
+
+    // Document
+    Route::post('documents/media', 'DocumentApiController@storeMedia')->name('documents.storeMedia');
+    Route::apiResource('documents', 'DocumentApiController');
+
+    // Transaction
+    Route::apiResource('transactions', 'TransactionApiController');
+
+    // Content Category
+    Route::apiResource('content-categories', 'ContentCategoryApiController');
+
+    // Content Tag
+    Route::apiResource('content-tags', 'ContentTagApiController');
+
+    // Content Page
+    Route::post('content-pages/media', 'ContentPageApiController@storeMedia')->name('content-pages.storeMedia');
+    Route::apiResource('content-pages', 'ContentPageApiController');
 });

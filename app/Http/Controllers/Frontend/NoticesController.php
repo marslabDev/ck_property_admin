@@ -26,9 +26,15 @@ class NoticesController extends Controller
     {
         abort_if(Gate::denies('notice_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $notices = Notice::with(['create_by', 'people_in_role', 'people_in_area', 'media'])->get();
+        $notices = Notice::with(['create_by', 'people_in_role', 'people_in_area', 'created_by', 'media'])->get();
 
-        return view('frontend.notices.index', compact('notices'));
+        $users = User::get();
+
+        $roles = Role::get();
+
+        $areas = Area::get();
+
+        return view('frontend.notices.index', compact('areas', 'notices', 'roles', 'users'));
     }
 
     public function create()
@@ -69,7 +75,7 @@ class NoticesController extends Controller
 
         $people_in_areas = Area::pluck('address_line', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $notice->load('create_by', 'people_in_role', 'people_in_area');
+        $notice->load('create_by', 'people_in_role', 'people_in_area', 'created_by');
 
         return view('frontend.notices.edit', compact('create_bies', 'notice', 'people_in_areas', 'people_in_roles'));
     }
@@ -96,7 +102,7 @@ class NoticesController extends Controller
     {
         abort_if(Gate::denies('notice_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $notice->load('create_by', 'people_in_role', 'people_in_area');
+        $notice->load('create_by', 'people_in_role', 'people_in_area', 'created_by');
 
         return view('frontend.notices.show', compact('notice'));
     }
