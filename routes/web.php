@@ -35,6 +35,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Manage House
     Route::delete('manage-houses/destroy', 'ManageHouseController@massDestroy')->name('manage-houses.massDestroy');
+    Route::post('manage-houses/media', 'ManageHouseController@storeMedia')->name('manage-houses.storeMedia');
+    Route::post('manage-houses/ckmedia', 'ManageHouseController@storeCKEditorImages')->name('manage-houses.storeCKEditorImages');
     Route::post('manage-houses/parse-csv-import', 'ManageHouseController@parseCsvImport')->name('manage-houses.parseCsvImport');
     Route::post('manage-houses/process-csv-import', 'ManageHouseController@processCsvImport')->name('manage-houses.processCsvImport');
     Route::resource('manage-houses', 'ManageHouseController');
@@ -360,6 +362,8 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
 
     // Manage House
     Route::delete('manage-houses/destroy', 'ManageHouseController@massDestroy')->name('manage-houses.massDestroy');
+    Route::post('manage-houses/media', 'ManageHouseController@storeMedia')->name('manage-houses.storeMedia');
+    Route::post('manage-houses/ckmedia', 'ManageHouseController@storeCKEditorImages')->name('manage-houses.storeCKEditorImages');
     Route::resource('manage-houses', 'ManageHouseController');
 
     // Payment Type

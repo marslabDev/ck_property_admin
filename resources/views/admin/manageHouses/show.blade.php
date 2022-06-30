@@ -71,6 +71,28 @@
                             {{ $manageHouse->parking_lot->name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.manageHouse.fields.documents') }}
+                        </th>
+                        <td>
+                            @foreach($manageHouse->documents as $key => $media)
+                                <a href="{{ $media->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.manageHouse.fields.owned_by') }}
+                        </th>
+                        <td>
+                            @foreach($manageHouse->owned_bies as $key => $owned_by)
+                                <span class="label label-info">{{ $owned_by->name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
