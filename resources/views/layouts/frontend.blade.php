@@ -202,6 +202,11 @@
                                             {{ trans('cruds.parkingLot.title') }}
                                         </a>
                                     @endcan
+                                    @can('house_type_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.house-types.index') }}">
+                                            {{ trans('cruds.houseType.title') }}
+                                        </a>
+                                    @endcan
                                     @can('other_access')
                                         <a class="dropdown-item disabled" href="#">
                                             {{ trans('cruds.other.title') }}

@@ -320,6 +320,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('content-pages/process-csv-import', 'ContentPageController@processCsvImport')->name('content-pages.processCsvImport');
     Route::resource('content-pages', 'ContentPageController');
 
+    // House Type
+    Route::delete('house-types/destroy', 'HouseTypeController@massDestroy')->name('house-types.massDestroy');
+    Route::post('house-types/parse-csv-import', 'HouseTypeController@parseCsvImport')->name('house-types.parseCsvImport');
+    Route::post('house-types/process-csv-import', 'HouseTypeController@processCsvImport')->name('house-types.processCsvImport');
+    Route::resource('house-types', 'HouseTypeController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -559,6 +565,10 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::post('content-pages/media', 'ContentPageController@storeMedia')->name('content-pages.storeMedia');
     Route::post('content-pages/ckmedia', 'ContentPageController@storeCKEditorImages')->name('content-pages.storeCKEditorImages');
     Route::resource('content-pages', 'ContentPageController');
+
+    // House Type
+    Route::delete('house-types/destroy', 'HouseTypeController@massDestroy')->name('house-types.massDestroy');
+    Route::resource('house-types', 'HouseTypeController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

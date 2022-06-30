@@ -1032,6 +1032,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 256,
+                'title' => 'house_type_create',
+            ],
+            [
+                'id'    => 257,
+                'title' => 'house_type_edit',
+            ],
+            [
+                'id'    => 258,
+                'title' => 'house_type_show',
+            ],
+            [
+                'id'    => 259,
+                'title' => 'house_type_delete',
+            ],
+            [
+                'id'    => 260,
+                'title' => 'house_type_access',
+            ],
+            [
+                'id'    => 261,
                 'title' => 'profile_password_edit',
             ],
         ];

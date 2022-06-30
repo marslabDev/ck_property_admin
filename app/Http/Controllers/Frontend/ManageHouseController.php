@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyManageHouseRequest;
 use App\Http\Requests\StoreManageHouseRequest;
 use App\Http\Requests\UpdateManageHouseRequest;
+use App\Models\HouseType;
 use App\Models\ManageHouse;
 use App\Models\ParkingLot;
 use App\Models\User;
@@ -25,24 +26,28 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouses = ManageHouse::with(['parking_lot', 'owned_bies', 'created_by', 'media'])->get();
+        $manageHouses = ManageHouse::with(['house_type', 'parking_lot', 'owned_bies', 'created_by', 'media'])->get();
+
+        $house_types = HouseType::get();
 
         $parking_lots = ParkingLot::get();
 
         $users = User::get();
 
-        return view('frontend.manageHouses.index', compact('manageHouses', 'parking_lots', 'users'));
+        return view('frontend.manageHouses.index', compact('house_types', 'manageHouses', 'parking_lots', 'users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('manage_house_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $house_types = HouseType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $parking_lots = ParkingLot::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $owned_bies = User::pluck('name', 'id');
 
-        return view('frontend.manageHouses.create', compact('owned_bies', 'parking_lots'));
+        return view('frontend.manageHouses.create', compact('house_types', 'owned_bies', 'parking_lots'));
     }
 
     public function store(StoreManageHouseRequest $request)
@@ -64,13 +69,15 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $house_types = HouseType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $parking_lots = ParkingLot::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $owned_bies = User::pluck('name', 'id');
 
-        $manageHouse->load('parking_lot', 'owned_bies', 'created_by');
+        $manageHouse->load('house_type', 'parking_lot', 'owned_bies', 'created_by');
 
-        return view('frontend.manageHouses.edit', compact('manageHouse', 'owned_bies', 'parking_lots'));
+        return view('frontend.manageHouses.edit', compact('house_types', 'manageHouse', 'owned_bies', 'parking_lots'));
     }
 
     public function update(UpdateManageHouseRequest $request, ManageHouse $manageHouse)
@@ -98,7 +105,7 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouse->load('parking_lot', 'owned_bies', 'created_by');
+        $manageHouse->load('house_type', 'parking_lot', 'owned_bies', 'created_by');
 
         return view('frontend.manageHouses.show', compact('manageHouse'));
     }

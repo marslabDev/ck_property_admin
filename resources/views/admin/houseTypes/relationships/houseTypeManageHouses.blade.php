@@ -15,7 +15,7 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-ownedByManageHouses">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-houseTypeManageHouses">
                 <thead>
                     <tr>
                         <th width="10">
@@ -56,9 +56,6 @@
                         </th>
                         <th>
                             {{ trans('cruds.manageHouse.fields.owned_by') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.manageHouse.fields.square_feet') }}
                         </th>
                         <th>
                             &nbsp;
@@ -112,9 +109,6 @@
                                 @foreach($manageHouse->owned_bies as $key => $item)
                                     <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
-                            </td>
-                            <td>
-                                {{ $manageHouse->square_feet ?? '' }}
                             </td>
                             <td>
                                 @can('manage_house_show')
@@ -187,7 +181,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-ownedByManageHouses:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-houseTypeManageHouses:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

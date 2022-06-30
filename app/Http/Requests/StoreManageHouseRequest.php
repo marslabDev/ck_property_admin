@@ -21,12 +21,25 @@ class StoreManageHouseRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'contact_name' => [
+            'floor' => [
                 'string',
                 'nullable',
             ],
-            'contact_no' => [
+            'block' => [
+                'string',
+                'nullable',
+            ],
+            'street' => [
+                'string',
+                'required',
+            ],
+            'taman' => [
+                'string',
+                'required',
+            ],
+            'square_feet' => [
                 'numeric',
+                'required',
             ],
             'house_status' => [
                 'required',

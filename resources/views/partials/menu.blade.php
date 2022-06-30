@@ -261,7 +261,7 @@
             </li>
         @endcan
         @can('house_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/areas*") ? "c-show" : "" }} {{ request()->is("admin/manage-houses*") ? "c-show" : "" }} {{ request()->is("admin/parking-lots*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/areas*") ? "c-show" : "" }} {{ request()->is("admin/manage-houses*") ? "c-show" : "" }} {{ request()->is("admin/parking-lots*") ? "c-show" : "" }} {{ request()->is("admin/house-types*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-home c-sidebar-nav-icon">
 
@@ -296,6 +296,16 @@
 
                                 </i>
                                 {{ trans('cruds.parkingLot.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('house_type_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.house-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/house-types") || request()->is("admin/house-types/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-grip-horizontal c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.houseType.title') }}
                             </a>
                         </li>
                     @endcan

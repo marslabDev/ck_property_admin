@@ -11,6 +11,20 @@
             @method('PUT')
             @csrf
             <div class="form-group">
+                <label for="house_type_id">{{ trans('cruds.manageHouse.fields.house_type') }}</label>
+                <select class="form-control select2 {{ $errors->has('house_type') ? 'is-invalid' : '' }}" name="house_type_id" id="house_type_id">
+                    @foreach($house_types as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('house_type_id') ? old('house_type_id') : $manageHouse->house_type->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('house_type'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('house_type') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.manageHouse.fields.house_type_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="unit_no">{{ trans('cruds.manageHouse.fields.unit_no') }}</label>
                 <input class="form-control {{ $errors->has('unit_no') ? 'is-invalid' : '' }}" type="text" name="unit_no" id="unit_no" value="{{ old('unit_no', $manageHouse->unit_no) }}" required>
                 @if($errors->has('unit_no'))
@@ -21,24 +35,54 @@
                 <span class="help-block">{{ trans('cruds.manageHouse.fields.unit_no_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="contact_name">{{ trans('cruds.manageHouse.fields.contact_name') }}</label>
-                <input class="form-control {{ $errors->has('contact_name') ? 'is-invalid' : '' }}" type="text" name="contact_name" id="contact_name" value="{{ old('contact_name', $manageHouse->contact_name) }}">
-                @if($errors->has('contact_name'))
+                <label for="floor">{{ trans('cruds.manageHouse.fields.floor') }}</label>
+                <input class="form-control {{ $errors->has('floor') ? 'is-invalid' : '' }}" type="text" name="floor" id="floor" value="{{ old('floor', $manageHouse->floor) }}">
+                @if($errors->has('floor'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('contact_name') }}
+                        {{ $errors->first('floor') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.manageHouse.fields.contact_name_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.manageHouse.fields.floor_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="contact_no">{{ trans('cruds.manageHouse.fields.contact_no') }}</label>
-                <input class="form-control {{ $errors->has('contact_no') ? 'is-invalid' : '' }}" type="number" name="contact_no" id="contact_no" value="{{ old('contact_no', $manageHouse->contact_no) }}" step="0.01">
-                @if($errors->has('contact_no'))
+                <label for="block">{{ trans('cruds.manageHouse.fields.block') }}</label>
+                <input class="form-control {{ $errors->has('block') ? 'is-invalid' : '' }}" type="text" name="block" id="block" value="{{ old('block', $manageHouse->block) }}">
+                @if($errors->has('block'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('contact_no') }}
+                        {{ $errors->first('block') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.manageHouse.fields.contact_no_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.manageHouse.fields.block_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="street">{{ trans('cruds.manageHouse.fields.street') }}</label>
+                <input class="form-control {{ $errors->has('street') ? 'is-invalid' : '' }}" type="text" name="street" id="street" value="{{ old('street', $manageHouse->street) }}" required>
+                @if($errors->has('street'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('street') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.manageHouse.fields.street_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="taman">{{ trans('cruds.manageHouse.fields.taman') }}</label>
+                <input class="form-control {{ $errors->has('taman') ? 'is-invalid' : '' }}" type="text" name="taman" id="taman" value="{{ old('taman', $manageHouse->taman) }}" required>
+                @if($errors->has('taman'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('taman') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.manageHouse.fields.taman_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="square_feet">{{ trans('cruds.manageHouse.fields.square_feet') }}</label>
+                <input class="form-control {{ $errors->has('square_feet') ? 'is-invalid' : '' }}" type="number" name="square_feet" id="square_feet" value="{{ old('square_feet', $manageHouse->square_feet) }}" step="0.01" required>
+                @if($errors->has('square_feet'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('square_feet') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.manageHouse.fields.square_feet_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required">{{ trans('cruds.manageHouse.fields.house_status') }}</label>
@@ -56,6 +100,17 @@
                 <span class="help-block">{{ trans('cruds.manageHouse.fields.house_status_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="documents">{{ trans('cruds.manageHouse.fields.documents') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('documents') ? 'is-invalid' : '' }}" id="documents-dropzone">
+                </div>
+                @if($errors->has('documents'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('documents') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.manageHouse.fields.documents_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="parking_lot_id">{{ trans('cruds.manageHouse.fields.parking_lot') }}</label>
                 <select class="form-control select2 {{ $errors->has('parking_lot') ? 'is-invalid' : '' }}" name="parking_lot_id" id="parking_lot_id">
                     @foreach($parking_lots as $id => $entry)
@@ -68,17 +123,6 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.manageHouse.fields.parking_lot_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="documents">{{ trans('cruds.manageHouse.fields.documents') }}</label>
-                <div class="needsclick dropzone {{ $errors->has('documents') ? 'is-invalid' : '' }}" id="documents-dropzone">
-                </div>
-                @if($errors->has('documents'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('documents') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.manageHouse.fields.documents_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="owned_bies">{{ trans('cruds.manageHouse.fields.owned_by') }}</label>
