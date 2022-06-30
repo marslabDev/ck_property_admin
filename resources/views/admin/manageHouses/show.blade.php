@@ -57,14 +57,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.manageHouse.fields.spuare_feet') }}
-                        </th>
-                        <td>
-                            {{ $manageHouse->spuare_feet }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.manageHouse.fields.parking_lot') }}
                         </th>
                         <td>
@@ -91,6 +83,14 @@
                             @foreach($manageHouse->owned_bies as $key => $owned_by)
                                 <span class="label label-info">{{ $owned_by->name }}</span>
                             @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.manageHouse.fields.square_feet') }}
+                        </th>
+                        <td>
+                            {{ $manageHouse->square_feet }}
                         </td>
                     </tr>
                 </tbody>

@@ -50,6 +50,9 @@
                         {{ trans('cruds.manageHouse.fields.owned_by') }}
                     </th>
                     <th>
+                        {{ trans('cruds.manageHouse.fields.square_feet') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -93,6 +96,9 @@
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                     </td>
@@ -157,6 +163,7 @@
 { data: 'parking_lot_name', name: 'parking_lot.name' },
 { data: 'documents', name: 'documents', sortable: false, searchable: false },
 { data: 'owned_by', name: 'owned_bies.name' },
+{ data: 'square_feet', name: 'square_feet' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

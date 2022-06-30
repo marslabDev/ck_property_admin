@@ -59,16 +59,6 @@
                             <span class="help-block">{{ trans('cruds.manageHouse.fields.house_status_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label class="required" for="spuare_feet">{{ trans('cruds.manageHouse.fields.spuare_feet') }}</label>
-                            <input class="form-control" type="number" name="spuare_feet" id="spuare_feet" value="{{ old('spuare_feet', '') }}" step="1" required>
-                            @if($errors->has('spuare_feet'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('spuare_feet') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.manageHouse.fields.spuare_feet_helper') }}</span>
-                        </div>
-                        <div class="form-group">
                             <label for="parking_lot_id">{{ trans('cruds.manageHouse.fields.parking_lot') }}</label>
                             <select class="form-control select2" name="parking_lot_id" id="parking_lot_id">
                                 @foreach($parking_lots as $id => $entry)
@@ -110,6 +100,16 @@
                                 </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.manageHouse.fields.owned_by_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="square_feet">{{ trans('cruds.manageHouse.fields.square_feet') }}</label>
+                            <input class="form-control" type="number" name="square_feet" id="square_feet" value="{{ old('square_feet', '') }}" step="0.01" required>
+                            @if($errors->has('square_feet'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('square_feet') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.manageHouse.fields.square_feet_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">

@@ -173,8 +173,6 @@ return [
             'unit_no_helper'      => ' ',
             'house_status'        => 'House Status',
             'house_status_helper' => ' ',
-            'spuare_feet'         => 'Spuare Feet',
-            'spuare_feet_helper'  => ' ',
             'created_at'          => 'Created at',
             'created_at_helper'   => ' ',
             'updated_at'          => 'Updated at',
@@ -193,6 +191,8 @@ return [
             'documents_helper'    => ' ',
             'owned_by'            => 'Owned By',
             'owned_by_helper'     => ' ',
+            'square_feet'         => 'Square Feet',
+            'square_feet_helper'  => ' ',
         ],
     ],
     'paymentType' => [
