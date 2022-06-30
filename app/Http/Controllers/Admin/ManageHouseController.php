@@ -28,7 +28,7 @@ class ManageHouseController extends Controller
         abort_if(Gate::denies('manage_house_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ManageHouse::with(['house_type', 'parking_lot', 'owned_bies', 'created_by'])->select(sprintf('%s.*', (new ManageHouse())->table));
+            $query = ManageHouse::with(['house_type', 'owned_bies', 'parking_lots', 'created_by'])->select(sprintf('%s.*', (new ManageHouse())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -88,10 +88,6 @@ class ManageHouseController extends Controller
 
                 return implode(', ', $links);
             });
-            $table->addColumn('parking_lot_name', function ($row) {
-                return $row->parking_lot ? $row->parking_lot->name : '';
-            });
-
             $table->editColumn('owned_by', function ($row) {
                 $labels = [];
                 foreach ($row->owned_bies as $owned_by) {
@@ -100,20 +96,25 @@ class ManageHouseController extends Controller
 
                 return implode(' ', $labels);
             });
-            $table->editColumn('square_feet', function ($row) {
-                return $row->square_feet ? $row->square_feet : '';
+            $table->editColumn('parking_lot', function ($row) {
+                $labels = [];
+                foreach ($row->parking_lots as $parking_lot) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $parking_lot->lot_no);
+                }
+
+                return implode(' ', $labels);
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'house_type', 'documents', 'parking_lot', 'owned_by']);
+            $table->rawColumns(['actions', 'placeholder', 'house_type', 'documents', 'owned_by', 'parking_lot']);
 
             return $table->make(true);
         }
 
         $house_types  = HouseType::get();
-        $parking_lots = ParkingLot::get();
         $users        = User::get();
+        $parking_lots = ParkingLot::get();
 
-        return view('admin.manageHouses.index', compact('house_types', 'parking_lots', 'users'));
+        return view('admin.manageHouses.index', compact('house_types', 'users', 'parking_lots'));
     }
 
     public function create()
@@ -122,9 +123,9 @@ class ManageHouseController extends Controller
 
         $house_types = HouseType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $parking_lots = ParkingLot::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $owned_bies = User::pluck('name', 'id');
+
+        $parking_lots = ParkingLot::pluck('lot_no', 'id');
 
         return view('admin.manageHouses.create', compact('house_types', 'owned_bies', 'parking_lots'));
     }
@@ -133,6 +134,7 @@ class ManageHouseController extends Controller
     {
         $manageHouse = ManageHouse::create($request->all());
         $manageHouse->owned_bies()->sync($request->input('owned_bies', []));
+        $manageHouse->parking_lots()->sync($request->input('parking_lots', []));
         foreach ($request->input('documents', []) as $file) {
             $manageHouse->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('documents');
         }
@@ -150,11 +152,11 @@ class ManageHouseController extends Controller
 
         $house_types = HouseType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $parking_lots = ParkingLot::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $owned_bies = User::pluck('name', 'id');
 
-        $manageHouse->load('house_type', 'parking_lot', 'owned_bies', 'created_by');
+        $parking_lots = ParkingLot::pluck('lot_no', 'id');
+
+        $manageHouse->load('house_type', 'owned_bies', 'parking_lots', 'created_by');
 
         return view('admin.manageHouses.edit', compact('house_types', 'manageHouse', 'owned_bies', 'parking_lots'));
     }
@@ -163,6 +165,7 @@ class ManageHouseController extends Controller
     {
         $manageHouse->update($request->all());
         $manageHouse->owned_bies()->sync($request->input('owned_bies', []));
+        $manageHouse->parking_lots()->sync($request->input('parking_lots', []));
         if (count($manageHouse->documents) > 0) {
             foreach ($manageHouse->documents as $media) {
                 if (!in_array($media->file_name, $request->input('documents', []))) {
@@ -184,7 +187,7 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouse->load('house_type', 'parking_lot', 'owned_bies', 'created_by');
+        $manageHouse->load('house_type', 'owned_bies', 'parking_lots', 'created_by');
 
         return view('admin.manageHouses.show', compact('manageHouse'));
     }

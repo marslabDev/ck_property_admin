@@ -11,14 +11,14 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label class="required" for="name">{{ trans('cruds.parkingLot.fields.name') }}</label>
-                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $parkingLot->name) }}" required>
-                @if($errors->has('name'))
+                <label class="required" for="lot_no">{{ trans('cruds.parkingLot.fields.lot_no') }}</label>
+                <input class="form-control {{ $errors->has('lot_no') ? 'is-invalid' : '' }}" type="text" name="lot_no" id="lot_no" value="{{ old('lot_no', $parkingLot->lot_no) }}" required>
+                @if($errors->has('lot_no'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('name') }}
+                        {{ $errors->first('lot_no') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.parkingLot.fields.name_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.parkingLot.fields.lot_no_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

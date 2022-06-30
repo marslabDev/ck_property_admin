@@ -46,10 +46,8 @@ class ManageHouse extends Model implements HasMedia
         'taman',
         'square_feet',
         'house_status',
-        'parking_lot_id',
         'created_by_id',
         'created_at',
-        'square_feet',
         'updated_at',
         'deleted_at',
     ];
@@ -70,14 +68,14 @@ class ManageHouse extends Model implements HasMedia
         return $this->getMedia('documents');
     }
 
-    public function parking_lot()
-    {
-        return $this->belongsTo(ParkingLot::class, 'parking_lot_id');
-    }
-
     public function owned_bies()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function parking_lots()
+    {
+        return $this->belongsToMany(ParkingLot::class);
     }
 
     public function created_by()

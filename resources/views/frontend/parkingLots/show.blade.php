@@ -28,26 +28,10 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.parkingLot.fields.name') }}
+                                        {{ trans('cruds.parkingLot.fields.lot_no') }}
                                     </th>
                                     <td>
-                                        {{ $parkingLot->name }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.parkingLot.fields.status') }}
-                                    </th>
-                                    <td>
-                                        {{ $parkingLot->status }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.parkingLot.fields.unit_no') }}
-                                    </th>
-                                    <td>
-                                        {{ $parkingLot->unit_no }}
+                                        {{ $parkingLot->lot_no }}
                                     </td>
                                 </tr>
                             </tbody>

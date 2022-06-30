@@ -52,13 +52,10 @@
                             {{ trans('cruds.manageHouse.fields.documents') }}
                         </th>
                         <th>
-                            {{ trans('cruds.manageHouse.fields.parking_lot') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.manageHouse.fields.owned_by') }}
                         </th>
                         <th>
-                            {{ trans('cruds.manageHouse.fields.square_feet') }}
+                            {{ trans('cruds.manageHouse.fields.parking_lot') }}
                         </th>
                         <th>
                             &nbsp;
@@ -106,15 +103,14 @@
                                 @endforeach
                             </td>
                             <td>
-                                {{ $manageHouse->parking_lot->name ?? '' }}
-                            </td>
-                            <td>
                                 @foreach($manageHouse->owned_bies as $key => $item)
                                     <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
                             </td>
                             <td>
-                                {{ $manageHouse->square_feet ?? '' }}
+                                @foreach($manageHouse->parking_lots as $key => $item)
+                                    <span class="badge badge-info">{{ $item->lot_no }}</span>
+                                @endforeach
                             </td>
                             <td>
                                 @can('manage_house_show')

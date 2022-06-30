@@ -30,13 +30,7 @@
                                         {{ trans('cruds.parkingLot.fields.id') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.parkingLot.fields.name') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.parkingLot.fields.status') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.parkingLot.fields.unit_no') }}
+                                        {{ trans('cruds.parkingLot.fields.lot_no') }}
                                     </th>
                                     <th>
                                         &nbsp;
@@ -44,12 +38,6 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                    </td>
-                                    <td>
-                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                    </td>
-                                    <td>
-                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -68,13 +56,7 @@
                                             {{ $parkingLot->id ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $parkingLot->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $parkingLot->status ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $parkingLot->unit_no ?? '' }}
+                                            {{ $parkingLot->lot_no ?? '' }}
                                         </td>
                                         <td>
                                             @can('parking_lot_show')

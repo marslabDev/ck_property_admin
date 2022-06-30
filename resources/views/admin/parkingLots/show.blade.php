@@ -25,26 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.parkingLot.fields.name') }}
+                            {{ trans('cruds.parkingLot.fields.lot_no') }}
                         </th>
                         <td>
-                            {{ $parkingLot->name }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.parkingLot.fields.status') }}
-                        </th>
-                        <td>
-                            {{ $parkingLot->status }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.parkingLot.fields.unit_no') }}
-                        </th>
-                        <td>
-                            {{ $parkingLot->unit_no }}
+                            {{ $parkingLot->lot_no }}
                         </td>
                     </tr>
                 </tbody>
@@ -58,6 +42,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#parking_lot_manage_houses" role="tab" data-toggle="tab">
+                {{ trans('cruds.manageHouse.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="parking_lot_manage_houses">
+            @includeIf('admin.parkingLots.relationships.parkingLotManageHouses', ['manageHouses' => $parkingLot->parkingLotManageHouses])
+        </div>
+    </div>
+</div>
 
 @endsection

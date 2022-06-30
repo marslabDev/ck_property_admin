@@ -110,20 +110,6 @@
                 <span class="help-block">{{ trans('cruds.manageHouse.fields.documents_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="parking_lot_id">{{ trans('cruds.manageHouse.fields.parking_lot') }}</label>
-                <select class="form-control select2 {{ $errors->has('parking_lot') ? 'is-invalid' : '' }}" name="parking_lot_id" id="parking_lot_id">
-                    @foreach($parking_lots as $id => $entry)
-                        <option value="{{ $id }}" {{ old('parking_lot_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('parking_lot'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('parking_lot') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.manageHouse.fields.parking_lot_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label for="owned_bies">{{ trans('cruds.manageHouse.fields.owned_by') }}</label>
                 <div style="padding-bottom: 4px">
                     <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
@@ -142,14 +128,22 @@
                 <span class="help-block">{{ trans('cruds.manageHouse.fields.owned_by_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="square_feet">{{ trans('cruds.manageHouse.fields.square_feet') }}</label>
-                <input class="form-control {{ $errors->has('square_feet') ? 'is-invalid' : '' }}" type="number" name="square_feet" id="square_feet" value="{{ old('square_feet', '') }}" step="0.01" required>
-                @if($errors->has('square_feet'))
+                <label for="parking_lots">{{ trans('cruds.manageHouse.fields.parking_lot') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('parking_lots') ? 'is-invalid' : '' }}" name="parking_lots[]" id="parking_lots" multiple>
+                    @foreach($parking_lots as $id => $parking_lot)
+                        <option value="{{ $id }}" {{ in_array($id, old('parking_lots', [])) ? 'selected' : '' }}>{{ $parking_lot }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('parking_lots'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('square_feet') }}
+                        {{ $errors->first('parking_lots') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.manageHouse.fields.square_feet_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.manageHouse.fields.parking_lot_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

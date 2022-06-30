@@ -25,14 +25,17 @@ class ParkingLot extends Model
     ];
 
     protected $fillable = [
-        'name',
-        'status',
-        'unit_no',
         'created_at',
+        'lot_no',
+        'created_by_id',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
+
+    public function parkingLotManageHouses()
+    {
+        return $this->belongsToMany(ManageHouse::class);
+    }
 
     public function created_by()
     {

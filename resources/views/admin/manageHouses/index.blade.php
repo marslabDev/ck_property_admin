@@ -56,13 +56,10 @@
                         {{ trans('cruds.manageHouse.fields.documents') }}
                     </th>
                     <th>
-                        {{ trans('cruds.manageHouse.fields.parking_lot') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.manageHouse.fields.owned_by') }}
                     </th>
                     <th>
-                        {{ trans('cruds.manageHouse.fields.square_feet') }}
+                        {{ trans('cruds.manageHouse.fields.parking_lot') }}
                     </th>
                     <th>
                         &nbsp;
@@ -113,7 +110,7 @@
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($parking_lots as $key => $item)
+                            @foreach($users as $key => $item)
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
@@ -121,13 +118,10 @@
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($users as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @foreach($parking_lots as $key => $item)
+                                <option value="{{ $item->lot_no }}">{{ $item->lot_no }}</option>
                             @endforeach
                         </select>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                     </td>
@@ -194,9 +188,8 @@
 { data: 'square_feet', name: 'square_feet' },
 { data: 'house_status', name: 'house_status' },
 { data: 'documents', name: 'documents', sortable: false, searchable: false },
-{ data: 'parking_lot_name', name: 'parking_lot.name' },
 { data: 'owned_by', name: 'owned_bies.name' },
-{ data: 'square_feet', name: 'square_feet' },
+{ data: 'parking_lot', name: 'parking_lots.lot_no' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
