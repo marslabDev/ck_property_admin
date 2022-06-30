@@ -53,6 +53,10 @@ class StoreManageHouseRequest extends FormRequest
             'owned_bies' => [
                 'array',
             ],
+            'square_feet' => [
+                'numeric',
+                'required',
+            ],
         ];
     }
 }

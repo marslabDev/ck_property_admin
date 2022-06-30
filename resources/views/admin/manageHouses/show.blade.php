@@ -117,6 +117,14 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.manageHouse.fields.square_feet') }}
+                        </th>
+                        <td>
+                            {{ $manageHouse->square_feet }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

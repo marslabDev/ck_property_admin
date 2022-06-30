@@ -49,6 +49,7 @@ class ManageHouse extends Model implements HasMedia
         'parking_lot_id',
         'created_by_id',
         'created_at',
+        'square_feet',
         'updated_at',
         'deleted_at',
     ];

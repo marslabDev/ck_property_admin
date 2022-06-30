@@ -146,6 +146,16 @@
                             <span class="help-block">{{ trans('cruds.manageHouse.fields.owned_by_helper') }}</span>
                         </div>
                         <div class="form-group">
+                            <label class="required" for="square_feet">{{ trans('cruds.manageHouse.fields.square_feet') }}</label>
+                            <input class="form-control" type="number" name="square_feet" id="square_feet" value="{{ old('square_feet', $manageHouse->square_feet) }}" step="0.01" required>
+                            @if($errors->has('square_feet'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('square_feet') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.manageHouse.fields.square_feet_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
                             </button>
