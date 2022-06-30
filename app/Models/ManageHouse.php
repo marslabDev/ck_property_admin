@@ -38,16 +38,19 @@ class ManageHouse extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'house_type_id',
         'unit_no',
-        'contact_name',
-        'contact_no',
+        'floor',
+        'block',
+        'street',
+        'taman',
+        'square_feet',
         'house_status',
-        'spuare_feet',
         'parking_lot_id',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function registerMediaConversions(Media $media = null): void
@@ -56,14 +59,19 @@ class ManageHouse extends Model implements HasMedia
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 
-    public function parking_lot()
+    public function house_type()
     {
-        return $this->belongsTo(ParkingLot::class, 'parking_lot_id');
+        return $this->belongsTo(HouseType::class, 'house_type_id');
     }
 
     public function getDocumentsAttribute()
     {
         return $this->getMedia('documents');
+    }
+
+    public function parking_lot()
+    {
+        return $this->belongsTo(ParkingLot::class, 'parking_lot_id');
     }
 
     public function owned_bies()

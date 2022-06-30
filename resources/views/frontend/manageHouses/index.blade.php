@@ -30,22 +30,34 @@
                                         {{ trans('cruds.manageHouse.fields.id') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.manageHouse.fields.house_type') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.manageHouse.fields.unit_no') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.manageHouse.fields.contact_name') }}
+                                        {{ trans('cruds.manageHouse.fields.floor') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.manageHouse.fields.contact_no') }}
+                                        {{ trans('cruds.manageHouse.fields.block') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.manageHouse.fields.street') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.manageHouse.fields.taman') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.manageHouse.fields.square_feet') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.manageHouse.fields.house_status') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.manageHouse.fields.parking_lot') }}
+                                        {{ trans('cruds.manageHouse.fields.documents') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.manageHouse.fields.documents') }}
+                                        {{ trans('cruds.manageHouse.fields.parking_lot') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.manageHouse.fields.owned_by') }}
@@ -56,6 +68,23 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($house_types as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -78,14 +107,14 @@
                                         </select>
                                     </td>
                                     <td>
+                                    </td>
+                                    <td>
                                         <select class="search">
                                             <option value>{{ trans('global.all') }}</option>
                                             @foreach($parking_lots as $key => $item)
                                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
-                                    </td>
-                                    <td>
                                     </td>
                                     <td>
                                         <select class="search">
@@ -106,19 +135,28 @@
                                             {{ $manageHouse->id ?? '' }}
                                         </td>
                                         <td>
+                                            {{ $manageHouse->house_type->name ?? '' }}
+                                        </td>
+                                        <td>
                                             {{ $manageHouse->unit_no ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $manageHouse->contact_name ?? '' }}
+                                            {{ $manageHouse->floor ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $manageHouse->contact_no ?? '' }}
+                                            {{ $manageHouse->block ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $manageHouse->street ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $manageHouse->taman ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $manageHouse->square_feet ?? '' }}
                                         </td>
                                         <td>
                                             {{ App\Models\ManageHouse::HOUSE_STATUS_SELECT[$manageHouse->house_status] ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $manageHouse->parking_lot->name ?? '' }}
                                         </td>
                                         <td>
                                             @foreach($manageHouse->documents as $key => $media)
@@ -126,6 +164,9 @@
                                                     {{ trans('global.view_file') }}
                                                 </a>
                                             @endforeach
+                                        </td>
+                                        <td>
+                                            {{ $manageHouse->parking_lot->name ?? '' }}
                                         </td>
                                         <td>
                                             @foreach($manageHouse->owned_bies as $key => $item)

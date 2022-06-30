@@ -25,6 +25,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.manageHouse.fields.house_type') }}
+                        </th>
+                        <td>
+                            {{ $manageHouse->house_type->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.manageHouse.fields.unit_no') }}
                         </th>
                         <td>
@@ -33,18 +41,42 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.manageHouse.fields.contact_name') }}
+                            {{ trans('cruds.manageHouse.fields.floor') }}
                         </th>
                         <td>
-                            {{ $manageHouse->contact_name }}
+                            {{ $manageHouse->floor }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.manageHouse.fields.contact_no') }}
+                            {{ trans('cruds.manageHouse.fields.block') }}
                         </th>
                         <td>
-                            {{ $manageHouse->contact_no }}
+                            {{ $manageHouse->block }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.manageHouse.fields.street') }}
+                        </th>
+                        <td>
+                            {{ $manageHouse->street }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.manageHouse.fields.taman') }}
+                        </th>
+                        <td>
+                            {{ $manageHouse->taman }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.manageHouse.fields.square_feet') }}
+                        </th>
+                        <td>
+                            {{ $manageHouse->square_feet }}
                         </td>
                     </tr>
                     <tr>
@@ -57,22 +89,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.manageHouse.fields.spuare_feet') }}
-                        </th>
-                        <td>
-                            {{ $manageHouse->spuare_feet }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.manageHouse.fields.parking_lot') }}
-                        </th>
-                        <td>
-                            {{ $manageHouse->parking_lot->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.manageHouse.fields.documents') }}
                         </th>
                         <td>
@@ -81,6 +97,14 @@
                                     {{ trans('global.view_file') }}
                                 </a>
                             @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.manageHouse.fields.parking_lot') }}
+                        </th>
+                        <td>
+                            {{ $manageHouse->parking_lot->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
