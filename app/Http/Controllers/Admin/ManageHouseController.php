@@ -86,6 +86,9 @@ class ManageHouseController extends Controller
 
                 return implode(' ', $labels);
             });
+            $table->editColumn('square_feet', function ($row) {
+                return $row->square_feet ? $row->square_feet : '';
+            });
 
             $table->rawColumns(['actions', 'placeholder', 'parking_lot', 'documents', 'owned_by']);
 

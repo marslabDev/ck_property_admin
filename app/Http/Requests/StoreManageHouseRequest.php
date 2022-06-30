@@ -31,12 +31,6 @@ class StoreManageHouseRequest extends FormRequest
             'house_status' => [
                 'required',
             ],
-            'spuare_feet' => [
-                'required',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
-            ],
             'documents' => [
                 'array',
             ],
@@ -45,6 +39,10 @@ class StoreManageHouseRequest extends FormRequest
             ],
             'owned_bies' => [
                 'array',
+            ],
+            'square_feet' => [
+                'numeric',
+                'required',
             ],
         ];
     }

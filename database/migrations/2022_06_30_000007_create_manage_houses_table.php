@@ -14,7 +14,7 @@ class CreateManageHousesTable extends Migration
             $table->string('contact_name')->nullable();
             $table->float('contact_no')->nullable();
             $table->string('house_status');
-            $table->integer('spuare_feet');
+            $table->float('square_feet', 15, 2);
             $table->timestamps();
             $table->softDeletes();
         });

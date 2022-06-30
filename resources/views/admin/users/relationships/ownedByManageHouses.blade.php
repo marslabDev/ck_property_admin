@@ -46,6 +46,9 @@
                             {{ trans('cruds.manageHouse.fields.owned_by') }}
                         </th>
                         <th>
+                            {{ trans('cruds.manageHouse.fields.square_feet') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -85,6 +88,9 @@
                                 @foreach($manageHouse->owned_bies as $key => $item)
                                     <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
+                            </td>
+                            <td>
+                                {{ $manageHouse->square_feet ?? '' }}
                             </td>
                             <td>
                                 @can('manage_house_show')
