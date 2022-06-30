@@ -45,6 +45,12 @@
                                         {{ trans('cruds.manageHouse.fields.parking_lot') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.manageHouse.fields.documents') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.manageHouse.fields.owned_by') }}
+                                    </th>
+                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -81,6 +87,16 @@
                                     </td>
                                     <td>
                                     </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($users as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                    </td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,6 +119,18 @@
                                         </td>
                                         <td>
                                             {{ $manageHouse->parking_lot->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            @foreach($manageHouse->documents as $key => $media)
+                                                <a href="{{ $media->getUrl() }}" target="_blank">
+                                                    {{ trans('global.view_file') }}
+                                                </a>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach($manageHouse->owned_bies as $key => $item)
+                                                <span>{{ $item->name }}</span>
+                                            @endforeach
                                         </td>
                                         <td>
                                             @can('manage_house_show')

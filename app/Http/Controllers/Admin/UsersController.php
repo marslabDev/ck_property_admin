@@ -122,7 +122,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->load('roles', 'userUserAlerts');
+        $user->load('roles', 'userUserAlerts', 'ownedByManageHouses');
 
         return view('admin.users.show', compact('user'));
     }

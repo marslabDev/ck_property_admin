@@ -37,6 +37,15 @@ class StoreManageHouseRequest extends FormRequest
                 'min:-2147483648',
                 'max:2147483647',
             ],
+            'documents' => [
+                'array',
+            ],
+            'owned_bies.*' => [
+                'integer',
+            ],
+            'owned_bies' => [
+                'array',
+            ],
         ];
     }
 }
