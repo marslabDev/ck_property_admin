@@ -206,10 +206,18 @@
                 {{ trans('cruds.userAlert.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#owned_by_manage_houses" role="tab" data-toggle="tab">
+                {{ trans('cruds.manageHouse.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="user_user_alerts">
             @includeIf('admin.users.relationships.userUserAlerts', ['userAlerts' => $user->userUserAlerts])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="owned_by_manage_houses">
+            @includeIf('admin.users.relationships.ownedByManageHouses', ['manageHouses' => $user->ownedByManageHouses])
         </div>
     </div>
 </div>

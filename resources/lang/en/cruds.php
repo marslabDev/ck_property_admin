@@ -189,6 +189,10 @@ return [
             'parking_lot_helper'  => ' ',
             'created_by'          => 'Created By',
             'created_by_helper'   => ' ',
+            'documents'           => 'Documents',
+            'documents_helper'    => ' ',
+            'owned_by'            => 'Owned By',
+            'owned_by_helper'     => ' ',
         ],
     ],
     'paymentType' => [

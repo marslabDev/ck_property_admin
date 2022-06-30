@@ -14,6 +14,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('areas', 'AreaApiController');
 
     // Manage House
+    Route::post('manage-houses/media', 'ManageHouseApiController@storeMedia')->name('manage-houses.storeMedia');
     Route::apiResource('manage-houses', 'ManageHouseApiController');
 
     // Payment Type
