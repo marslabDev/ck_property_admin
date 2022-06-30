@@ -104,14 +104,6 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.manageHouse.fields.parking_lot') }}
-                                    </th>
-                                    <td>
-                                        {{ $manageHouse->parking_lot->name ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
                                         {{ trans('cruds.manageHouse.fields.owned_by') }}
                                     </th>
                                     <td>
@@ -122,10 +114,12 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.manageHouse.fields.square_feet') }}
+                                        {{ trans('cruds.manageHouse.fields.parking_lot') }}
                                     </th>
                                     <td>
-                                        {{ $manageHouse->square_feet }}
+                                        @foreach($manageHouse->parking_lots as $key => $parking_lot)
+                                            <span class="label label-info">{{ $parking_lot->lot_no }}</span>
+                                        @endforeach
                                     </td>
                                 </tr>
                             </tbody>

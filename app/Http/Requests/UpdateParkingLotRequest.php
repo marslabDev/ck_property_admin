@@ -17,7 +17,7 @@ class UpdateParkingLotRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
+            'lot_no' => [
                 'string',
                 'required',
             ],

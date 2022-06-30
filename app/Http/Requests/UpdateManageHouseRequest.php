@@ -53,9 +53,11 @@ class UpdateManageHouseRequest extends FormRequest
             'owned_bies' => [
                 'array',
             ],
-            'square_feet' => [
-                'numeric',
-                'required',
+            'parking_lots.*' => [
+                'integer',
+            ],
+            'parking_lots' => [
+                'array',
             ],
         ];
     }

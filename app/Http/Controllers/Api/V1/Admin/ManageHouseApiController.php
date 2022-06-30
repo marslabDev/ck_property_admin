@@ -20,13 +20,14 @@ class ManageHouseApiController extends Controller
     {
         abort_if(Gate::denies('manage_house_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ManageHouseResource(ManageHouse::with(['house_type', 'parking_lot', 'owned_bies', 'created_by'])->get());
+        return new ManageHouseResource(ManageHouse::with(['house_type', 'owned_bies', 'parking_lots', 'created_by'])->get());
     }
 
     public function store(StoreManageHouseRequest $request)
     {
         $manageHouse = ManageHouse::create($request->all());
         $manageHouse->owned_bies()->sync($request->input('owned_bies', []));
+        $manageHouse->parking_lots()->sync($request->input('parking_lots', []));
         foreach ($request->input('documents', []) as $file) {
             $manageHouse->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('documents');
         }
@@ -40,13 +41,14 @@ class ManageHouseApiController extends Controller
     {
         abort_if(Gate::denies('manage_house_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ManageHouseResource($manageHouse->load(['house_type', 'parking_lot', 'owned_bies', 'created_by']));
+        return new ManageHouseResource($manageHouse->load(['house_type', 'owned_bies', 'parking_lots', 'created_by']));
     }
 
     public function update(UpdateManageHouseRequest $request, ManageHouse $manageHouse)
     {
         $manageHouse->update($request->all());
         $manageHouse->owned_bies()->sync($request->input('owned_bies', []));
+        $manageHouse->parking_lots()->sync($request->input('parking_lots', []));
         if (count($manageHouse->documents) > 0) {
             foreach ($manageHouse->documents as $media) {
                 if (!in_array($media->file_name, $request->input('documents', []))) {
