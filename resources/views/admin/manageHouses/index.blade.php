@@ -44,6 +44,9 @@
                         {{ trans('cruds.manageHouse.fields.street') }}
                     </th>
                     <th>
+                        {{ trans('cruds.manageHouse.fields.area') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.manageHouse.fields.square_feet') }}
                     </th>
                     <th>
@@ -57,9 +60,6 @@
                     </th>
                     <th>
                         {{ trans('cruds.manageHouse.fields.parking_lot') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.manageHouse.fields.area') }}
                     </th>
                     <th>
                         &nbsp;
@@ -92,6 +92,14 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($areas as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
@@ -117,14 +125,6 @@
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($parking_lots as $key => $item)
                                 <option value="{{ $item->lot_no }}">{{ $item->lot_no }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($areas as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -189,12 +189,12 @@
 { data: 'floor', name: 'floor' },
 { data: 'block', name: 'block' },
 { data: 'street', name: 'street' },
+{ data: 'area_name', name: 'area.name' },
 { data: 'square_feet', name: 'square_feet' },
 { data: 'house_status', name: 'house_status' },
 { data: 'documents', name: 'documents', sortable: false, searchable: false },
 { data: 'owned_by', name: 'owned_bies.name' },
 { data: 'parking_lot', name: 'parking_lots.lot_no' },
-{ data: 'area_name', name: 'area.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
