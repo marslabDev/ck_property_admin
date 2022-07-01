@@ -326,6 +326,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('house-types/process-csv-import', 'HouseTypeController@processCsvImport')->name('house-types.processCsvImport');
     Route::resource('house-types', 'HouseTypeController');
 
+    // Manage Price
+    Route::delete('manage-prices/destroy', 'ManagePriceController@massDestroy')->name('manage-prices.massDestroy');
+    Route::post('manage-prices/parse-csv-import', 'ManagePriceController@parseCsvImport')->name('manage-prices.parseCsvImport');
+    Route::post('manage-prices/process-csv-import', 'ManagePriceController@processCsvImport')->name('manage-prices.processCsvImport');
+    Route::resource('manage-prices', 'ManagePriceController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -569,6 +575,10 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // House Type
     Route::delete('house-types/destroy', 'HouseTypeController@massDestroy')->name('house-types.massDestroy');
     Route::resource('house-types', 'HouseTypeController');
+
+    // Manage Price
+    Route::delete('manage-prices/destroy', 'ManagePriceController@massDestroy')->name('manage-prices.massDestroy');
+    Route::resource('manage-prices', 'ManagePriceController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

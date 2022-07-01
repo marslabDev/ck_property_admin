@@ -33,13 +33,16 @@
                                         {{ trans('cruds.area.fields.name') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.area.fields.office_no') }}
-                                    </th>
-                                    <th>
                                         {{ trans('cruds.area.fields.city') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.area.fields.postcode') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.area.fields.state') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.area.fields.country') }}
                                     </th>
                                     <th>
                                         &nbsp;
@@ -47,6 +50,9 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -77,13 +83,16 @@
                                             {{ $area->name ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $area->office_no ?? '' }}
-                                        </td>
-                                        <td>
                                             {{ $area->city ?? '' }}
                                         </td>
                                         <td>
+                                            {{ $area->postcode ?? '' }}
+                                        </td>
+                                        <td>
                                             {{ $area->state ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $area->country ?? '' }}
                                         </td>
                                         <td>
                                             @can('area_show')

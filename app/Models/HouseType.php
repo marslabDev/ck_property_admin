@@ -26,15 +26,26 @@ class HouseType extends Model
 
     protected $fillable = [
         'name',
+        'area_id',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function houseTypeManageHouses()
     {
         return $this->hasMany(ManageHouse::class, 'house_type_id', 'id');
+    }
+
+    public function houseTypeManagePrices()
+    {
+        return $this->hasMany(ManagePrice::class, 'house_type_id', 'id');
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
     }
 
     public function created_by()

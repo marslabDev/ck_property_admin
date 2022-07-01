@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyHouseTypeRequest;
 use App\Http\Requests\StoreHouseTypeRequest;
 use App\Http\Requests\UpdateHouseTypeRequest;
+use App\Models\Area;
 use App\Models\HouseType;
 use App\Models\User;
 use Gate;
@@ -21,18 +22,22 @@ class HouseTypeController extends Controller
     {
         abort_if(Gate::denies('house_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $houseTypes = HouseType::with(['created_by'])->get();
+        $houseTypes = HouseType::with(['area', 'created_by'])->get();
+
+        $areas = Area::get();
 
         $users = User::get();
 
-        return view('frontend.houseTypes.index', compact('houseTypes', 'users'));
+        return view('frontend.houseTypes.index', compact('areas', 'houseTypes', 'users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('house_type_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('frontend.houseTypes.create');
+        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('frontend.houseTypes.create', compact('areas'));
     }
 
     public function store(StoreHouseTypeRequest $request)
@@ -46,9 +51,11 @@ class HouseTypeController extends Controller
     {
         abort_if(Gate::denies('house_type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $houseType->load('created_by');
+        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.houseTypes.edit', compact('houseType'));
+        $houseType->load('area', 'created_by');
+
+        return view('frontend.houseTypes.edit', compact('areas', 'houseType'));
     }
 
     public function update(UpdateHouseTypeRequest $request, HouseType $houseType)
@@ -62,7 +69,7 @@ class HouseTypeController extends Controller
     {
         abort_if(Gate::denies('house_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $houseType->load('created_by');
+        $houseType->load('area', 'created_by', 'houseTypeManageHouses');
 
         return view('frontend.houseTypes.show', compact('houseType'));
     }

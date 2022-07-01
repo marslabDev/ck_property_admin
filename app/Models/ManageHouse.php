@@ -43,10 +43,10 @@ class ManageHouse extends Model implements HasMedia
         'floor',
         'block',
         'street',
-        'taman',
         'square_feet',
         'house_status',
         'created_by_id',
+        'area_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -81,6 +81,11 @@ class ManageHouse extends Model implements HasMedia
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

@@ -28,7 +28,7 @@ class NoticesController extends Controller
         abort_if(Gate::denies('notice_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Notice::with(['create_by', 'people_in_role', 'people_in_area', 'created_by'])->select(sprintf('%s.*', (new Notice())->table));
+            $query = Notice::with(['people_in_role', 'people_in_area', 'create_by', 'created_by'])->select(sprintf('%s.*', (new Notice())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -58,39 +58,39 @@ class NoticesController extends Controller
             $table->editColumn('detail', function ($row) {
                 return $row->detail ? $row->detail : '';
             });
-            $table->addColumn('create_by_name', function ($row) {
-                return $row->create_by ? $row->create_by->name : '';
-            });
-
             $table->addColumn('people_in_role_title', function ($row) {
                 return $row->people_in_role ? $row->people_in_role->title : '';
             });
 
-            $table->addColumn('people_in_area_address_line', function ($row) {
-                return $row->people_in_area ? $row->people_in_area->address_line : '';
+            $table->addColumn('people_in_area_name', function ($row) {
+                return $row->people_in_area ? $row->people_in_area->name : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'create_by', 'people_in_role', 'people_in_area']);
+            $table->addColumn('create_by_name', function ($row) {
+                return $row->create_by ? $row->create_by->name : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'people_in_role', 'people_in_area', 'create_by']);
 
             return $table->make(true);
         }
 
-        $users = User::get();
         $roles = Role::get();
         $areas = Area::get();
+        $users = User::get();
 
-        return view('admin.notices.index', compact('users', 'roles', 'areas'));
+        return view('admin.notices.index', compact('roles', 'areas', 'users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('notice_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $create_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $people_in_roles = Role::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $people_in_areas = Area::pluck('address_line', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $people_in_areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $create_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.notices.create', compact('create_bies', 'people_in_areas', 'people_in_roles'));
     }
@@ -114,13 +114,13 @@ class NoticesController extends Controller
     {
         abort_if(Gate::denies('notice_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $create_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $people_in_roles = Role::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $people_in_areas = Area::pluck('address_line', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $people_in_areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $notice->load('create_by', 'people_in_role', 'people_in_area', 'created_by');
+        $create_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $notice->load('people_in_role', 'people_in_area', 'create_by', 'created_by');
 
         return view('admin.notices.edit', compact('create_bies', 'notice', 'people_in_areas', 'people_in_roles'));
     }
@@ -147,7 +147,7 @@ class NoticesController extends Controller
     {
         abort_if(Gate::denies('notice_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $notice->load('create_by', 'people_in_role', 'people_in_area', 'created_by');
+        $notice->load('people_in_role', 'people_in_area', 'create_by', 'created_by');
 
         return view('admin.notices.show', compact('notice'));
     }

@@ -56,14 +56,6 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.notice.fields.create_by') }}
-                                    </th>
-                                    <td>
-                                        {{ $notice->create_by->name ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
                                         {{ trans('cruds.notice.fields.people_in_role') }}
                                     </th>
                                     <td>
@@ -75,7 +67,15 @@
                                         {{ trans('cruds.notice.fields.people_in_area') }}
                                     </th>
                                     <td>
-                                        {{ $notice->people_in_area->address_line ?? '' }}
+                                        {{ $notice->people_in_area->name ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.notice.fields.create_by') }}
+                                    </th>
+                                    <td>
+                                        {{ $notice->create_by->name ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>

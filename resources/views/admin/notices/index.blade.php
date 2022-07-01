@@ -35,13 +35,13 @@
                         {{ trans('cruds.notice.fields.detail') }}
                     </th>
                     <th>
-                        {{ trans('cruds.notice.fields.create_by') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.notice.fields.people_in_role') }}
                     </th>
                     <th>
                         {{ trans('cruds.notice.fields.people_in_area') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.notice.fields.create_by') }}
                     </th>
                     <th>
                         {{ trans('cruds.notice.fields.created_at') }}
@@ -65,14 +65,6 @@
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($users as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
                             @foreach($roles as $key => $item)
                                 <option value="{{ $item->title }}">{{ $item->title }}</option>
                             @endforeach
@@ -82,7 +74,15 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($areas as $key => $item)
-                                <option value="{{ $item->address_line }}">{{ $item->address_line }}</option>
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($users as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -147,9 +147,9 @@
 { data: 'id', name: 'id' },
 { data: 'title_name', name: 'title_name' },
 { data: 'detail', name: 'detail' },
-{ data: 'create_by_name', name: 'create_by.name' },
 { data: 'people_in_role_title', name: 'people_in_role.title' },
-{ data: 'people_in_area_address_line', name: 'people_in_area.address_line' },
+{ data: 'people_in_area_name', name: 'people_in_area.name' },
+{ data: 'create_by_name', name: 'create_by.name' },
 { data: 'created_at', name: 'created_at' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

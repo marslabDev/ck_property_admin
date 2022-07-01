@@ -32,13 +32,16 @@
                         {{ trans('cruds.area.fields.name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.area.fields.office_no') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.area.fields.city') }}
                     </th>
                     <th>
+                        {{ trans('cruds.area.fields.postcode') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.area.fields.state') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.area.fields.country') }}
                     </th>
                     <th>
                         &nbsp;
@@ -46,6 +49,9 @@
                 </tr>
                 <tr>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -119,9 +125,10 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
-{ data: 'office_no', name: 'office_no' },
 { data: 'city', name: 'city' },
+{ data: 'postcode', name: 'postcode' },
 { data: 'state', name: 'state' },
+{ data: 'country', name: 'country' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

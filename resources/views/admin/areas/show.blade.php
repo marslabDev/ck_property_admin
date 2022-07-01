@@ -33,42 +33,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.area.fields.office_no') }}
-                        </th>
-                        <td>
-                            {{ $area->office_no }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.area.fields.address_line') }}
-                        </th>
-                        <td>
-                            {{ $area->address_line }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.area.fields.address_line_2') }}
-                        </th>
-                        <td>
-                            {{ $area->address_line_2 }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.area.fields.city') }}
                         </th>
                         <td>
                             {{ $area->city }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.area.fields.state') }}
-                        </th>
-                        <td>
-                            {{ $area->state }}
                         </td>
                     </tr>
                     <tr>
@@ -81,18 +49,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.area.fields.country') }}
+                            {{ trans('cruds.area.fields.state') }}
                         </th>
                         <td>
-                            {{ $area->country }}
+                            {{ $area->state }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.area.fields.price_per_ft') }}
+                            {{ trans('cruds.area.fields.country') }}
                         </th>
                         <td>
-                            {{ $area->price_per_ft }}
+                            {{ $area->country }}
                         </td>
                     </tr>
                 </tbody>
@@ -106,6 +74,46 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#area_manage_houses" role="tab" data-toggle="tab">
+                {{ trans('cruds.manageHouse.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#area_house_types" role="tab" data-toggle="tab">
+                {{ trans('cruds.houseType.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#people_in_area_notices" role="tab" data-toggle="tab">
+                {{ trans('cruds.notice.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#area_manage_prices" role="tab" data-toggle="tab">
+                {{ trans('cruds.managePrice.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="area_manage_houses">
+            @includeIf('admin.areas.relationships.areaManageHouses', ['manageHouses' => $area->areaManageHouses])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="area_house_types">
+            @includeIf('admin.areas.relationships.areaHouseTypes', ['houseTypes' => $area->areaHouseTypes])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="people_in_area_notices">
+            @includeIf('admin.areas.relationships.peopleInAreaNotices', ['notices' => $area->peopleInAreaNotices])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="area_manage_prices">
+            @includeIf('admin.areas.relationships.areaManagePrices', ['managePrices' => $area->areaManagePrices])
+        </div>
+    </div>
+</div>
 
 @endsection

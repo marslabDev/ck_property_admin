@@ -31,6 +31,14 @@
                             {{ $houseType->name }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.houseType.fields.area') }}
+                        </th>
+                        <td>
+                            {{ $houseType->area->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -52,10 +60,18 @@
                 {{ trans('cruds.manageHouse.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#house_type_manage_prices" role="tab" data-toggle="tab">
+                {{ trans('cruds.managePrice.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="house_type_manage_houses">
             @includeIf('admin.houseTypes.relationships.houseTypeManageHouses', ['manageHouses' => $houseType->houseTypeManageHouses])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="house_type_manage_prices">
+            @includeIf('admin.houseTypes.relationships.houseTypeManagePrices', ['managePrices' => $houseType->houseTypeManagePrices])
         </div>
     </div>
 </div>

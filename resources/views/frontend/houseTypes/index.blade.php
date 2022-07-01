@@ -33,6 +33,9 @@
                                         {{ trans('cruds.houseType.fields.name') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.houseType.fields.area') }}
+                                    </th>
+                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -46,6 +49,14 @@
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($areas as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
                                     </td>
                                 </tr>
                             </thead>
@@ -57,6 +68,9 @@
                                         </td>
                                         <td>
                                             {{ $houseType->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $houseType->area->name ?? '' }}
                                         </td>
                                         <td>
                                             @can('house_type_show')

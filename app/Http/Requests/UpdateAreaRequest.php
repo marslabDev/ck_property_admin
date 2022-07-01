@@ -21,18 +21,7 @@ class UpdateAreaRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'office_no' => [
-                'numeric',
-                'required',
-            ],
-            'address_line' => [
-                'required',
-            ],
             'city' => [
-                'string',
-                'required',
-            ],
-            'state' => [
                 'string',
                 'required',
             ],
@@ -42,11 +31,12 @@ class UpdateAreaRequest extends FormRequest
                 'min:-2147483648',
                 'max:2147483647',
             ],
-            'country' => [
+            'state' => [
                 'string',
                 'required',
             ],
-            'price_per_ft' => [
+            'country' => [
+                'string',
                 'required',
             ],
         ];
