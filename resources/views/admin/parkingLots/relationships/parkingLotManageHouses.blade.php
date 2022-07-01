@@ -40,6 +40,9 @@
                             {{ trans('cruds.manageHouse.fields.street') }}
                         </th>
                         <th>
+                            {{ trans('cruds.manageHouse.fields.area') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.manageHouse.fields.square_feet') }}
                         </th>
                         <th>
@@ -53,9 +56,6 @@
                         </th>
                         <th>
                             {{ trans('cruds.manageHouse.fields.parking_lot') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.manageHouse.fields.area') }}
                         </th>
                         <th>
                             &nbsp;
@@ -87,6 +87,9 @@
                                 {{ $manageHouse->street ?? '' }}
                             </td>
                             <td>
+                                {{ $manageHouse->area->name ?? '' }}
+                            </td>
+                            <td>
                                 {{ $manageHouse->square_feet ?? '' }}
                             </td>
                             <td>
@@ -108,9 +111,6 @@
                                 @foreach($manageHouse->parking_lots as $key => $item)
                                     <span class="badge badge-info">{{ $item->lot_no }}</span>
                                 @endforeach
-                            </td>
-                            <td>
-                                {{ $manageHouse->area->name ?? '' }}
                             </td>
                             <td>
                                 @can('manage_house_show')
