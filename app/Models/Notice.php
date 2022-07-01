@@ -35,9 +35,9 @@ class Notice extends Model implements HasMedia
     protected $fillable = [
         'title_name',
         'detail',
-        'create_by_id',
         'people_in_role_id',
         'people_in_area_id',
+        'create_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -62,11 +62,6 @@ class Notice extends Model implements HasMedia
         return $file;
     }
 
-    public function create_by()
-    {
-        return $this->belongsTo(User::class, 'create_by_id');
-    }
-
     public function people_in_role()
     {
         return $this->belongsTo(Role::class, 'people_in_role_id');
@@ -75,6 +70,11 @@ class Notice extends Model implements HasMedia
     public function people_in_area()
     {
         return $this->belongsTo(Area::class, 'people_in_area_id');
+    }
+
+    public function create_by()
+    {
+        return $this->belongsTo(User::class, 'create_by_id');
     }
 
     public function created_by()

@@ -26,19 +26,35 @@ class Area extends Model
 
     protected $fillable = [
         'name',
-        'office_no',
-        'address_line',
-        'address_line_2',
         'city',
-        'state',
         'postcode',
+        'state',
         'country',
-        'price_per_ft',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
+
+    public function areaManageHouses()
+    {
+        return $this->hasMany(ManageHouse::class, 'area_id', 'id');
+    }
+
+    public function areaHouseTypes()
+    {
+        return $this->hasMany(HouseType::class, 'area_id', 'id');
+    }
+
+    public function peopleInAreaNotices()
+    {
+        return $this->hasMany(Notice::class, 'people_in_area_id', 'id');
+    }
+
+    public function areaManagePrices()
+    {
+        return $this->hasMany(ManagePrice::class, 'area_id', 'id');
+    }
 
     public function created_by()
     {

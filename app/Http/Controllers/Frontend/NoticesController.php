@@ -26,13 +26,13 @@ class NoticesController extends Controller
     {
         abort_if(Gate::denies('notice_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $notices = Notice::with(['create_by', 'people_in_role', 'people_in_area', 'created_by', 'media'])->get();
-
-        $users = User::get();
+        $notices = Notice::with(['people_in_role', 'people_in_area', 'create_by', 'created_by', 'media'])->get();
 
         $roles = Role::get();
 
         $areas = Area::get();
+
+        $users = User::get();
 
         return view('frontend.notices.index', compact('areas', 'notices', 'roles', 'users'));
     }
@@ -41,11 +41,11 @@ class NoticesController extends Controller
     {
         abort_if(Gate::denies('notice_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $create_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $people_in_roles = Role::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $people_in_areas = Area::pluck('address_line', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $people_in_areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $create_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('frontend.notices.create', compact('create_bies', 'people_in_areas', 'people_in_roles'));
     }
@@ -69,13 +69,13 @@ class NoticesController extends Controller
     {
         abort_if(Gate::denies('notice_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $create_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $people_in_roles = Role::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $people_in_areas = Area::pluck('address_line', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $people_in_areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $notice->load('create_by', 'people_in_role', 'people_in_area', 'created_by');
+        $create_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $notice->load('people_in_role', 'people_in_area', 'create_by', 'created_by');
 
         return view('frontend.notices.edit', compact('create_bies', 'notice', 'people_in_areas', 'people_in_roles'));
     }
@@ -102,7 +102,7 @@ class NoticesController extends Controller
     {
         abort_if(Gate::denies('notice_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $notice->load('create_by', 'people_in_role', 'people_in_area', 'created_by');
+        $notice->load('people_in_role', 'people_in_area', 'create_by', 'created_by');
 
         return view('frontend.notices.show', compact('notice'));
     }

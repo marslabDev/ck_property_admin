@@ -207,6 +207,11 @@
                                             {{ trans('cruds.houseType.title') }}
                                         </a>
                                     @endcan
+                                    @can('manage_price_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.manage-prices.index') }}">
+                                            {{ trans('cruds.managePrice.title') }}
+                                        </a>
+                                    @endcan
                                     @can('other_access')
                                         <a class="dropdown-item disabled" href="#">
                                             {{ trans('cruds.other.title') }}

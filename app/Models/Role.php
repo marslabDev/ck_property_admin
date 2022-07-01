@@ -29,6 +29,11 @@ class Role extends Model
         'deleted_at',
     ];
 
+    public function peopleInRoleNotices()
+    {
+        return $this->hasMany(Notice::class, 'people_in_role_id', 'id');
+    }
+
     public function permissions()
     {
         return $this->belongsToMany(Permission::class);

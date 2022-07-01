@@ -42,20 +42,6 @@
                 <span class="help-block">{{ trans('cruds.notice.fields.detail_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="create_by_id">{{ trans('cruds.notice.fields.create_by') }}</label>
-                <select class="form-control select2 {{ $errors->has('create_by') ? 'is-invalid' : '' }}" name="create_by_id" id="create_by_id">
-                    @foreach($create_bies as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('create_by_id') ? old('create_by_id') : $notice->create_by->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('create_by'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('create_by') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.notice.fields.create_by_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label for="people_in_role_id">{{ trans('cruds.notice.fields.people_in_role') }}</label>
                 <select class="form-control select2 {{ $errors->has('people_in_role') ? 'is-invalid' : '' }}" name="people_in_role_id" id="people_in_role_id">
                     @foreach($people_in_roles as $id => $entry)
@@ -82,6 +68,20 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.notice.fields.people_in_area_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="create_by_id">{{ trans('cruds.notice.fields.create_by') }}</label>
+                <select class="form-control select2 {{ $errors->has('create_by') ? 'is-invalid' : '' }}" name="create_by_id" id="create_by_id">
+                    @foreach($create_bies as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('create_by_id') ? old('create_by_id') : $notice->create_by->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('create_by'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('create_by') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.notice.fields.create_by_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

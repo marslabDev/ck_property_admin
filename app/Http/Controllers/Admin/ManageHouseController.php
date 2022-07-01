@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyManageHouseRequest;
 use App\Http\Requests\StoreManageHouseRequest;
 use App\Http\Requests\UpdateManageHouseRequest;
+use App\Models\Area;
 use App\Models\HouseType;
 use App\Models\ManageHouse;
 use App\Models\ParkingLot;
@@ -28,7 +29,7 @@ class ManageHouseController extends Controller
         abort_if(Gate::denies('manage_house_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ManageHouse::with(['house_type', 'owned_bies', 'parking_lots', 'created_by'])->select(sprintf('%s.*', (new ManageHouse())->table));
+            $query = ManageHouse::with(['house_type', 'owned_bies', 'parking_lots', 'created_by', 'area'])->select(sprintf('%s.*', (new ManageHouse())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -68,9 +69,6 @@ class ManageHouseController extends Controller
             $table->editColumn('street', function ($row) {
                 return $row->street ? $row->street : '';
             });
-            $table->editColumn('taman', function ($row) {
-                return $row->taman ? $row->taman : '';
-            });
             $table->editColumn('square_feet', function ($row) {
                 return $row->square_feet ? $row->square_feet : '';
             });
@@ -104,8 +102,11 @@ class ManageHouseController extends Controller
 
                 return implode(' ', $labels);
             });
+            $table->addColumn('area_name', function ($row) {
+                return $row->area ? $row->area->name : '';
+            });
 
-            $table->rawColumns(['actions', 'placeholder', 'house_type', 'documents', 'owned_by', 'parking_lot']);
+            $table->rawColumns(['actions', 'placeholder', 'house_type', 'documents', 'owned_by', 'parking_lot', 'area']);
 
             return $table->make(true);
         }
@@ -113,8 +114,9 @@ class ManageHouseController extends Controller
         $house_types  = HouseType::get();
         $users        = User::get();
         $parking_lots = ParkingLot::get();
+        $areas        = Area::get();
 
-        return view('admin.manageHouses.index', compact('house_types', 'users', 'parking_lots'));
+        return view('admin.manageHouses.index', compact('house_types', 'users', 'parking_lots', 'areas'));
     }
 
     public function create()
@@ -127,7 +129,9 @@ class ManageHouseController extends Controller
 
         $parking_lots = ParkingLot::pluck('lot_no', 'id');
 
-        return view('admin.manageHouses.create', compact('house_types', 'owned_bies', 'parking_lots'));
+        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.manageHouses.create', compact('areas', 'house_types', 'owned_bies', 'parking_lots'));
     }
 
     public function store(StoreManageHouseRequest $request)
@@ -156,9 +160,11 @@ class ManageHouseController extends Controller
 
         $parking_lots = ParkingLot::pluck('lot_no', 'id');
 
-        $manageHouse->load('house_type', 'owned_bies', 'parking_lots', 'created_by');
+        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.manageHouses.edit', compact('house_types', 'manageHouse', 'owned_bies', 'parking_lots'));
+        $manageHouse->load('house_type', 'owned_bies', 'parking_lots', 'created_by', 'area');
+
+        return view('admin.manageHouses.edit', compact('areas', 'house_types', 'manageHouse', 'owned_bies', 'parking_lots'));
     }
 
     public function update(UpdateManageHouseRequest $request, ManageHouse $manageHouse)
@@ -187,7 +193,7 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouse->load('house_type', 'owned_bies', 'parking_lots', 'created_by');
+        $manageHouse->load('house_type', 'owned_bies', 'parking_lots', 'created_by', 'area');
 
         return view('admin.manageHouses.show', compact('manageHouse'));
     }

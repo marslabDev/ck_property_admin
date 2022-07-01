@@ -14,7 +14,6 @@ class CreateManageHousesTable extends Migration
             $table->string('floor')->nullable();
             $table->string('block')->nullable();
             $table->string('street');
-            $table->string('taman');
             $table->float('square_feet', 15, 2);
             $table->string('house_status');
             $table->timestamps();

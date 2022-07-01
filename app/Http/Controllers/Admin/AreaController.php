@@ -50,14 +50,17 @@ class AreaController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
-            $table->editColumn('office_no', function ($row) {
-                return $row->office_no ? $row->office_no : '';
-            });
             $table->editColumn('city', function ($row) {
                 return $row->city ? $row->city : '';
             });
+            $table->editColumn('postcode', function ($row) {
+                return $row->postcode ? $row->postcode : '';
+            });
             $table->editColumn('state', function ($row) {
                 return $row->state ? $row->state : '';
+            });
+            $table->editColumn('country', function ($row) {
+                return $row->country ? $row->country : '';
             });
 
             $table->rawColumns(['actions', 'placeholder']);
@@ -104,7 +107,7 @@ class AreaController extends Controller
     {
         abort_if(Gate::denies('area_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $area->load('created_by');
+        $area->load('created_by', 'areaManageHouses', 'areaHouseTypes', 'peopleInAreaNotices', 'areaManagePrices');
 
         return view('admin.areas.show', compact('area'));
     }

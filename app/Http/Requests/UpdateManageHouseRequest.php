@@ -33,10 +33,6 @@ class UpdateManageHouseRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'taman' => [
-                'string',
-                'required',
-            ],
             'square_feet' => [
                 'numeric',
                 'required',
@@ -58,6 +54,10 @@ class UpdateManageHouseRequest extends FormRequest
             ],
             'parking_lots' => [
                 'array',
+            ],
+            'area_id' => [
+                'required',
+                'integer',
             ],
         ];
     }

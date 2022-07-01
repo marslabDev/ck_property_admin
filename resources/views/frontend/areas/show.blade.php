@@ -36,42 +36,10 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.area.fields.office_no') }}
-                                    </th>
-                                    <td>
-                                        {{ $area->office_no }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.area.fields.address_line') }}
-                                    </th>
-                                    <td>
-                                        {{ $area->address_line }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.area.fields.address_line_2') }}
-                                    </th>
-                                    <td>
-                                        {{ $area->address_line_2 }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
                                         {{ trans('cruds.area.fields.city') }}
                                     </th>
                                     <td>
                                         {{ $area->city }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.area.fields.state') }}
-                                    </th>
-                                    <td>
-                                        {{ $area->state }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -84,18 +52,18 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.area.fields.country') }}
+                                        {{ trans('cruds.area.fields.state') }}
                                     </th>
                                     <td>
-                                        {{ $area->country }}
+                                        {{ $area->state }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.area.fields.price_per_ft') }}
+                                        {{ trans('cruds.area.fields.country') }}
                                     </th>
                                     <td>
-                                        {{ $area->price_per_ft }}
+                                        {{ $area->country }}
                                     </td>
                                 </tr>
                             </tbody>

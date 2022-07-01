@@ -149,4 +149,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // House Type
     Route::apiResource('house-types', 'HouseTypeApiController');
+
+    // Manage Price
+    Route::apiResource('manage-prices', 'ManagePriceApiController');
 });

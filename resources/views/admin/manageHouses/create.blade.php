@@ -64,16 +64,6 @@
                 <span class="help-block">{{ trans('cruds.manageHouse.fields.street_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="taman">{{ trans('cruds.manageHouse.fields.taman') }}</label>
-                <input class="form-control {{ $errors->has('taman') ? 'is-invalid' : '' }}" type="text" name="taman" id="taman" value="{{ old('taman', '') }}" required>
-                @if($errors->has('taman'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('taman') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.manageHouse.fields.taman_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label class="required" for="square_feet">{{ trans('cruds.manageHouse.fields.square_feet') }}</label>
                 <input class="form-control {{ $errors->has('square_feet') ? 'is-invalid' : '' }}" type="number" name="square_feet" id="square_feet" value="{{ old('square_feet', '') }}" step="0.01" required>
                 @if($errors->has('square_feet'))
@@ -144,6 +134,20 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.manageHouse.fields.parking_lot_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="area_id">{{ trans('cruds.manageHouse.fields.area') }}</label>
+                <select class="form-control select2 {{ $errors->has('area') ? 'is-invalid' : '' }}" name="area_id" id="area_id" required>
+                    @foreach($areas as $id => $entry)
+                        <option value="{{ $id }}" {{ old('area_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('area'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('area') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.manageHouse.fields.area_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

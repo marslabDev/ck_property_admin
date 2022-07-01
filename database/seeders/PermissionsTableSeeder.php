@@ -1052,6 +1052,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 261,
+                'title' => 'manage_price_create',
+            ],
+            [
+                'id'    => 262,
+                'title' => 'manage_price_edit',
+            ],
+            [
+                'id'    => 263,
+                'title' => 'manage_price_show',
+            ],
+            [
+                'id'    => 264,
+                'title' => 'manage_price_delete',
+            ],
+            [
+                'id'    => 265,
+                'title' => 'manage_price_access',
+            ],
+            [
+                'id'    => 266,
                 'title' => 'profile_password_edit',
             ],
         ];

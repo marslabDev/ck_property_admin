@@ -52,6 +52,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#people_in_role_notices" role="tab" data-toggle="tab">
+                {{ trans('cruds.notice.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="people_in_role_notices">
+            @includeIf('admin.roles.relationships.peopleInRoleNotices', ['notices' => $role->peopleInRoleNotices])
+        </div>
+    </div>
+</div>
 
 @endsection

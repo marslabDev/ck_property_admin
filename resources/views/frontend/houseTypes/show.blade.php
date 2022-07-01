@@ -34,6 +34,14 @@
                                         {{ $houseType->name }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.houseType.fields.area') }}
+                                    </th>
+                                    <td>
+                                        {{ $houseType->area->name ?? '' }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">
