@@ -69,22 +69,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('articles/process-csv-import', 'ArticleController@processCsvImport')->name('articles.processCsvImport');
     Route::resource('articles', 'ArticleController');
 
-    // Product
-    Route::delete('products/destroy', 'ProductController@massDestroy')->name('products.massDestroy');
-    Route::post('products/media', 'ProductController@storeMedia')->name('products.storeMedia');
-    Route::post('products/ckmedia', 'ProductController@storeCKEditorImages')->name('products.storeCKEditorImages');
-    Route::post('products/parse-csv-import', 'ProductController@parseCsvImport')->name('products.parseCsvImport');
-    Route::post('products/process-csv-import', 'ProductController@processCsvImport')->name('products.processCsvImport');
-    Route::resource('products', 'ProductController');
-
-    // Service
-    Route::delete('services/destroy', 'ServiceController@massDestroy')->name('services.massDestroy');
-    Route::post('services/media', 'ServiceController@storeMedia')->name('services.storeMedia');
-    Route::post('services/ckmedia', 'ServiceController@storeCKEditorImages')->name('services.storeCKEditorImages');
-    Route::post('services/parse-csv-import', 'ServiceController@parseCsvImport')->name('services.parseCsvImport');
-    Route::post('services/process-csv-import', 'ServiceController@processCsvImport')->name('services.processCsvImport');
-    Route::resource('services', 'ServiceController');
-
     // My Cases
     Route::delete('my-cases/destroy', 'MyCasesController@massDestroy')->name('my-cases.massDestroy');
     Route::post('my-cases/media', 'MyCasesController@storeMedia')->name('my-cases.storeMedia');
@@ -397,18 +381,6 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::post('articles/media', 'ArticleController@storeMedia')->name('articles.storeMedia');
     Route::post('articles/ckmedia', 'ArticleController@storeCKEditorImages')->name('articles.storeCKEditorImages');
     Route::resource('articles', 'ArticleController');
-
-    // Product
-    Route::delete('products/destroy', 'ProductController@massDestroy')->name('products.massDestroy');
-    Route::post('products/media', 'ProductController@storeMedia')->name('products.storeMedia');
-    Route::post('products/ckmedia', 'ProductController@storeCKEditorImages')->name('products.storeCKEditorImages');
-    Route::resource('products', 'ProductController');
-
-    // Service
-    Route::delete('services/destroy', 'ServiceController@massDestroy')->name('services.massDestroy');
-    Route::post('services/media', 'ServiceController@storeMedia')->name('services.storeMedia');
-    Route::post('services/ckmedia', 'ServiceController@storeCKEditorImages')->name('services.storeCKEditorImages');
-    Route::resource('services', 'ServiceController');
 
     // My Cases
     Route::delete('my-cases/destroy', 'MyCasesController@massDestroy')->name('my-cases.massDestroy');

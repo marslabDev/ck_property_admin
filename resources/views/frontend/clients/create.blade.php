@@ -14,24 +14,14 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
-                            <label class="required" for="first_name">{{ trans('cruds.client.fields.first_name') }}</label>
-                            <input class="form-control" type="text" name="first_name" id="first_name" value="{{ old('first_name', '') }}" required>
-                            @if($errors->has('first_name'))
+                            <label class="required" for="person_in_change">{{ trans('cruds.client.fields.person_in_change') }}</label>
+                            <input class="form-control" type="text" name="person_in_change" id="person_in_change" value="{{ old('person_in_change', '') }}" required>
+                            @if($errors->has('person_in_change'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('first_name') }}
+                                    {{ $errors->first('person_in_change') }}
                                 </div>
                             @endif
-                            <span class="help-block">{{ trans('cruds.client.fields.first_name_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="last_name">{{ trans('cruds.client.fields.last_name') }}</label>
-                            <input class="form-control" type="text" name="last_name" id="last_name" value="{{ old('last_name', '') }}">
-                            @if($errors->has('last_name'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('last_name') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.client.fields.last_name_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.client.fields.person_in_change_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <label for="company">{{ trans('cruds.client.fields.company') }}</label>
@@ -42,6 +32,16 @@
                                 </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.client.fields.company_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="desc">{{ trans('cruds.client.fields.desc') }}</label>
+                            <input class="form-control" type="text" name="desc" id="desc" value="{{ old('desc', '') }}">
+                            @if($errors->has('desc'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('desc') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.client.fields.desc_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <label for="email">{{ trans('cruds.client.fields.email') }}</label>
@@ -74,14 +74,14 @@
                             <span class="help-block">{{ trans('cruds.client.fields.website_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="skype">{{ trans('cruds.client.fields.skype') }}</label>
-                            <input class="form-control" type="text" name="skype" id="skype" value="{{ old('skype', '') }}">
-                            @if($errors->has('skype'))
+                            <label class="required" for="whatapps">{{ trans('cruds.client.fields.whatapps') }}</label>
+                            <input class="form-control" type="text" name="whatapps" id="whatapps" value="{{ old('whatapps', '') }}" required>
+                            @if($errors->has('whatapps'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('skype') }}
+                                    {{ $errors->first('whatapps') }}
                                 </div>
                             @endif
-                            <span class="help-block">{{ trans('cruds.client.fields.skype_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.client.fields.whatapps_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <label for="country">{{ trans('cruds.client.fields.country') }}</label>

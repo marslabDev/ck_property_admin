@@ -29,13 +29,13 @@
                         {{ trans('cruds.client.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.client.fields.first_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.client.fields.last_name') }}
+                        {{ trans('cruds.client.fields.person_in_change') }}
                     </th>
                     <th>
                         {{ trans('cruds.client.fields.company') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.client.fields.desc') }}
                     </th>
                     <th>
                         {{ trans('cruds.client.fields.email') }}
@@ -47,7 +47,7 @@
                         {{ trans('cruds.client.fields.website') }}
                     </th>
                     <th>
-                        {{ trans('cruds.client.fields.skype') }}
+                        {{ trans('cruds.client.fields.whatapps') }}
                     </th>
                     <th>
                         {{ trans('cruds.client.fields.country') }}
@@ -153,13 +153,13 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'first_name', name: 'first_name' },
-{ data: 'last_name', name: 'last_name' },
+{ data: 'person_in_change', name: 'person_in_change' },
 { data: 'company', name: 'company' },
+{ data: 'desc', name: 'desc' },
 { data: 'email', name: 'email' },
 { data: 'phone', name: 'phone' },
 { data: 'website', name: 'website' },
-{ data: 'skype', name: 'skype' },
+{ data: 'whatapps', name: 'whatapps' },
 { data: 'country', name: 'country' },
 { data: 'status_name', name: 'status.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }

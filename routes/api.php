@@ -31,14 +31,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::post('articles/media', 'ArticleApiController@storeMedia')->name('articles.storeMedia');
     Route::apiResource('articles', 'ArticleApiController');
 
-    // Product
-    Route::post('products/media', 'ProductApiController@storeMedia')->name('products.storeMedia');
-    Route::apiResource('products', 'ProductApiController');
-
-    // Service
-    Route::post('services/media', 'ServiceApiController@storeMedia')->name('services.storeMedia');
-    Route::apiResource('services', 'ServiceApiController');
-
     // My Cases
     Route::post('my-cases/media', 'MyCasesApiController@storeMedia')->name('my-cases.storeMedia');
     Route::apiResource('my-cases', 'MyCasesApiController');

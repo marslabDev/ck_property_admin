@@ -17,15 +17,15 @@ class UpdateClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => [
+            'person_in_change' => [
                 'string',
                 'required',
             ],
-            'last_name' => [
+            'company' => [
                 'string',
                 'nullable',
             ],
-            'company' => [
+            'desc' => [
                 'string',
                 'nullable',
             ],
@@ -37,9 +37,9 @@ class UpdateClientRequest extends FormRequest
                 'string',
                 'nullable',
             ],
-            'skype' => [
+            'whatapps' => [
                 'string',
-                'nullable',
+                'required',
             ],
             'country' => [
                 'string',

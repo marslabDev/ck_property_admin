@@ -25,18 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.client.fields.first_name') }}
+                            {{ trans('cruds.client.fields.person_in_change') }}
                         </th>
                         <td>
-                            {{ $client->first_name }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.client.fields.last_name') }}
-                        </th>
-                        <td>
-                            {{ $client->last_name }}
+                            {{ $client->person_in_change }}
                         </td>
                     </tr>
                     <tr>
@@ -45,6 +37,14 @@
                         </th>
                         <td>
                             {{ $client->company }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.client.fields.desc') }}
+                        </th>
+                        <td>
+                            {{ $client->desc }}
                         </td>
                     </tr>
                     <tr>
@@ -73,10 +73,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.client.fields.skype') }}
+                            {{ trans('cruds.client.fields.whatapps') }}
                         </th>
                         <td>
-                            {{ $client->skype }}
+                            {{ $client->whatapps }}
                         </td>
                     </tr>
                     <tr>
@@ -106,6 +106,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#client_projects" role="tab" data-toggle="tab">
+                {{ trans('cruds.project.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="client_projects">
+            @includeIf('admin.clients.relationships.clientProjects', ['projects' => $client->clientProjects])
+        </div>
+    </div>
+</div>
 
 @endsection

@@ -25,13 +25,13 @@ class Client extends Model
     ];
 
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'person_in_change',
         'company',
+        'desc',
         'email',
         'phone',
         'website',
-        'skype',
+        'whatapps',
         'country',
         'status_id',
         'created_at',
@@ -39,6 +39,11 @@ class Client extends Model
         'deleted_at',
         'created_by_id',
     ];
+
+    public function clientProjects()
+    {
+        return $this->hasMany(Project::class, 'client_id', 'id');
+    }
 
     public function status()
     {
