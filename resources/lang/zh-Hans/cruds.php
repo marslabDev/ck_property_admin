@@ -944,7 +944,7 @@ return [
             'website_helper'          => ' ',
             'country'                 => 'Country',
             'country_helper'          => ' ',
-            'status'                  => 'Client Status',
+            'status'                  => 'Supplier Status',
             'status_helper'           => ' ',
             'created_at'              => 'Created at',
             'created_at_helper'       => ' ',
