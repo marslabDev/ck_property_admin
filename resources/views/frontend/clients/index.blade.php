@@ -36,6 +36,9 @@
                                         {{ trans('cruds.client.fields.company') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.client.fields.desc') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.client.fields.email') }}
                                     </th>
                                     <th>
@@ -107,6 +110,9 @@
                                         </td>
                                         <td>
                                             {{ $client->company ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $client->desc ?? '' }}
                                         </td>
                                         <td>
                                             {{ $client->email ?? '' }}

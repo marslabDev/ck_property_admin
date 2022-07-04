@@ -25,6 +25,10 @@ class UpdateClientRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'desc' => [
+                'string',
+                'nullable',
+            ],
             'phone' => [
                 'string',
                 'nullable',

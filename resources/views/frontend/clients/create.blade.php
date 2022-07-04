@@ -34,6 +34,16 @@
                             <span class="help-block">{{ trans('cruds.client.fields.company_helper') }}</span>
                         </div>
                         <div class="form-group">
+                            <label for="desc">{{ trans('cruds.client.fields.desc') }}</label>
+                            <input class="form-control" type="text" name="desc" id="desc" value="{{ old('desc', '') }}">
+                            @if($errors->has('desc'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('desc') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.client.fields.desc_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <label for="email">{{ trans('cruds.client.fields.email') }}</label>
                             <input class="form-control" type="email" name="email" id="email" value="{{ old('email') }}">
                             @if($errors->has('email'))

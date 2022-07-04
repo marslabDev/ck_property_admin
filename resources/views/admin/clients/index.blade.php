@@ -35,6 +35,9 @@
                         {{ trans('cruds.client.fields.company') }}
                     </th>
                     <th>
+                        {{ trans('cruds.client.fields.desc') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.client.fields.email') }}
                     </th>
                     <th>
@@ -149,6 +152,7 @@
 { data: 'id', name: 'id' },
 { data: 'person_in_change', name: 'person_in_change' },
 { data: 'company', name: 'company' },
+{ data: 'desc', name: 'desc' },
 { data: 'email', name: 'email' },
 { data: 'phone', name: 'phone' },
 { data: 'website', name: 'website' },

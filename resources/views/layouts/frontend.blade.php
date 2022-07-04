@@ -97,21 +97,6 @@
                                             {{ trans('cruds.user.title') }}
                                         </a>
                                     @endcan
-                                    @can('supplier_access')
-                                        <a class="dropdown-item disabled" href="#">
-                                            {{ trans('cruds.supplier.title') }}
-                                        </a>
-                                    @endcan
-                                    @can('product_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.products.index') }}">
-                                            {{ trans('cruds.product.title') }}
-                                        </a>
-                                    @endcan
-                                    @can('service_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.services.index') }}">
-                                            {{ trans('cruds.service.title') }}
-                                        </a>
-                                    @endcan
                                     @can('expense_management_access')
                                         <a class="dropdown-item disabled" href="#">
                                             {{ trans('cruds.expenseManagement.title') }}

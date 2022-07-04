@@ -25,6 +25,10 @@ class StoreClientRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'desc' => [
+                'string',
+                'nullable',
+            ],
             'phone' => [
                 'string',
                 'nullable',

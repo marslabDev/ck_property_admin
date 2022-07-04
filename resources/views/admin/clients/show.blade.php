@@ -41,6 +41,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.client.fields.desc') }}
+                        </th>
+                        <td>
+                            {{ $client->desc }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.client.fields.email') }}
                         </th>
                         <td>

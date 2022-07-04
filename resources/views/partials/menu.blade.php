@@ -20,6 +20,16 @@
                 {{ trans('global.dashboard') }}
             </a>
         </li>
+        @can('user_alert_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.user-alerts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/user-alerts") || request()->is("admin/user-alerts/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-bell c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.userAlert.title') }}
+                </a>
+            </li>
+        @endcan
         @can('user_management_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/permissions*") ? "c-show" : "" }} {{ request()->is("admin/roles*") ? "c-show" : "" }} {{ request()->is("admin/users*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
@@ -70,38 +80,6 @@
                     </i>
                     {{ trans('cruds.auditLog.title') }}
                 </a>
-            </li>
-        @endcan
-        @can('supplier_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/products*") ? "c-show" : "" }} {{ request()->is("admin/services*") ? "c-show" : "" }}">
-                <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-ambulance c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.supplier.title') }}
-                </a>
-                <ul class="c-sidebar-nav-dropdown-items">
-                    @can('product_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.products.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/products") || request()->is("admin/products/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-dolly-flatbed c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.product.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('service_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.services.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/services") || request()->is("admin/services/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-wrench c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.service.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
             </li>
         @endcan
         @can('expense_management_access')
@@ -402,16 +380,6 @@
                         </li>
                     @endcan
                 </ul>
-            </li>
-        @endcan
-        @can('user_alert_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.user-alerts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/user-alerts") || request()->is("admin/user-alerts/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-bell c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.userAlert.title') }}
-                </a>
             </li>
         @endcan
         @can('task_management_access')

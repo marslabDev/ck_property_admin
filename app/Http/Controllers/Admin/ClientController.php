@@ -54,6 +54,9 @@ class ClientController extends Controller
             $table->editColumn('company', function ($row) {
                 return $row->company ? $row->company : '';
             });
+            $table->editColumn('desc', function ($row) {
+                return $row->desc ? $row->desc : '';
+            });
             $table->editColumn('email', function ($row) {
                 return $row->email ? $row->email : '';
             });
