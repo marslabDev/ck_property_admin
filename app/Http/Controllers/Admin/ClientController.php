@@ -48,11 +48,8 @@ class ClientController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-            $table->editColumn('first_name', function ($row) {
-                return $row->first_name ? $row->first_name : '';
-            });
-            $table->editColumn('last_name', function ($row) {
-                return $row->last_name ? $row->last_name : '';
+            $table->editColumn('person_in_change', function ($row) {
+                return $row->person_in_change ? $row->person_in_change : '';
             });
             $table->editColumn('company', function ($row) {
                 return $row->company ? $row->company : '';
@@ -66,8 +63,8 @@ class ClientController extends Controller
             $table->editColumn('website', function ($row) {
                 return $row->website ? $row->website : '';
             });
-            $table->editColumn('skype', function ($row) {
-                return $row->skype ? $row->skype : '';
+            $table->editColumn('whatapps', function ($row) {
+                return $row->whatapps ? $row->whatapps : '';
             });
             $table->editColumn('country', function ($row) {
                 return $row->country ? $row->country : '';
@@ -125,7 +122,7 @@ class ClientController extends Controller
     {
         abort_if(Gate::denies('client_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $client->load('status', 'created_by');
+        $client->load('status', 'created_by', 'clientProjects');
 
         return view('admin.clients.show', compact('client'));
     }

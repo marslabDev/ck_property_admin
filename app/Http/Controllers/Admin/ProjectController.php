@@ -52,10 +52,6 @@ class ProjectController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
-            $table->addColumn('client_first_name', function ($row) {
-                return $row->client ? $row->client->first_name : '';
-            });
-
             $table->editColumn('description', function ($row) {
                 return $row->description ? $row->description : '';
             });
@@ -63,6 +59,10 @@ class ProjectController extends Controller
             $table->editColumn('budget', function ($row) {
                 return $row->budget ? $row->budget : '';
             });
+            $table->addColumn('client_company', function ($row) {
+                return $row->client ? $row->client->company : '';
+            });
+
             $table->addColumn('status_name', function ($row) {
                 return $row->status ? $row->status->name : '';
             });
@@ -83,7 +83,7 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $clients = Client::pluck('company', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -101,7 +101,7 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $clients = Client::pluck('company', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
