@@ -20,20 +20,6 @@
                 <span class="help-block">{{ trans('cruds.project.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="client_id">{{ trans('cruds.project.fields.client') }}</label>
-                <select class="form-control select2 {{ $errors->has('client') ? 'is-invalid' : '' }}" name="client_id" id="client_id" required>
-                    @foreach($clients as $id => $entry)
-                        <option value="{{ $id }}" {{ old('client_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('client'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('client') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.project.fields.client_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label for="description">{{ trans('cruds.project.fields.description') }}</label>
                 <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description') }}</textarea>
                 @if($errors->has('description'))
@@ -64,8 +50,22 @@
                 <span class="help-block">{{ trans('cruds.project.fields.budget_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="status_id">{{ trans('cruds.project.fields.status') }}</label>
-                <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status_id" id="status_id">
+                <label for="client_id">{{ trans('cruds.project.fields.client') }}</label>
+                <select class="form-control select2 {{ $errors->has('client') ? 'is-invalid' : '' }}" name="client_id" id="client_id">
+                    @foreach($clients as $id => $entry)
+                        <option value="{{ $id }}" {{ old('client_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('client'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('client') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.project.fields.client_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="status_id">{{ trans('cruds.project.fields.status') }}</label>
+                <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status_id" id="status_id" required>
                     @foreach($statuses as $id => $entry)
                         <option value="{{ $id }}" {{ old('status_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach

@@ -30,10 +30,7 @@
                                         {{ trans('cruds.client.fields.id') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.client.fields.first_name') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.client.fields.last_name') }}
+                                        {{ trans('cruds.client.fields.person_in_change') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.client.fields.company') }}
@@ -48,7 +45,7 @@
                                         {{ trans('cruds.client.fields.website') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.client.fields.skype') }}
+                                        {{ trans('cruds.client.fields.whatapps') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.client.fields.country') }}
@@ -62,9 +59,6 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                    </td>
-                                    <td>
-                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -109,10 +103,7 @@
                                             {{ $client->id ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $client->first_name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $client->last_name ?? '' }}
+                                            {{ $client->person_in_change ?? '' }}
                                         </td>
                                         <td>
                                             {{ $client->company ?? '' }}
@@ -127,7 +118,7 @@
                                             {{ $client->website ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $client->skype ?? '' }}
+                                            {{ $client->whatapps ?? '' }}
                                         </td>
                                         <td>
                                             {{ $client->country ?? '' }}

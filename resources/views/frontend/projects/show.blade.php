@@ -36,14 +36,6 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.project.fields.client') }}
-                                    </th>
-                                    <td>
-                                        {{ $project->client->first_name ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
                                         {{ trans('cruds.project.fields.description') }}
                                     </th>
                                     <td>
@@ -64,6 +56,14 @@
                                     </th>
                                     <td>
                                         {{ $project->budget }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.project.fields.client') }}
+                                    </th>
+                                    <td>
+                                        {{ $project->client->company ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>

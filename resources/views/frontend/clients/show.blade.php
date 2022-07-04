@@ -28,18 +28,10 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.client.fields.first_name') }}
+                                        {{ trans('cruds.client.fields.person_in_change') }}
                                     </th>
                                     <td>
-                                        {{ $client->first_name }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.client.fields.last_name') }}
-                                    </th>
-                                    <td>
-                                        {{ $client->last_name }}
+                                        {{ $client->person_in_change }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -76,10 +68,10 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.client.fields.skype') }}
+                                        {{ trans('cruds.client.fields.whatapps') }}
                                     </th>
                                     <td>
-                                        {{ $client->skype }}
+                                        {{ $client->whatapps }}
                                     </td>
                                 </tr>
                                 <tr>

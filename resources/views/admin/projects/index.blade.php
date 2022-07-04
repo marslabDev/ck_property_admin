@@ -32,9 +32,6 @@
                         {{ trans('cruds.project.fields.name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.project.fields.client') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.project.fields.description') }}
                     </th>
                     <th>
@@ -42,6 +39,9 @@
                     </th>
                     <th>
                         {{ trans('cruds.project.fields.budget') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.project.fields.client') }}
                     </th>
                     <th>
                         {{ trans('cruds.project.fields.status') }}
@@ -60,20 +60,20 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($clients as $key => $item)
-                                <option value="{{ $item->first_name }}">{{ $item->first_name }}</option>
+                                <option value="{{ $item->company }}">{{ $item->company }}</option>
                             @endforeach
                         </select>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <select class="search">
@@ -140,10 +140,10 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
-{ data: 'client_first_name', name: 'client.first_name' },
 { data: 'description', name: 'description' },
 { data: 'start_date', name: 'start_date' },
 { data: 'budget', name: 'budget' },
+{ data: 'client_company', name: 'client.company' },
 { data: 'status_name', name: 'status.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
