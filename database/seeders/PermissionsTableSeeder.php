@@ -1028,6 +1028,46 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 255,
+                'title' => 'user_detail_create',
+            ],
+            [
+                'id'    => 256,
+                'title' => 'user_detail_edit',
+            ],
+            [
+                'id'    => 257,
+                'title' => 'user_detail_show',
+            ],
+            [
+                'id'    => 258,
+                'title' => 'user_detail_delete',
+            ],
+            [
+                'id'    => 259,
+                'title' => 'user_detail_access',
+            ],
+            [
+                'id'    => 260,
+                'title' => 'user_card_mgmt_create',
+            ],
+            [
+                'id'    => 261,
+                'title' => 'user_card_mgmt_edit',
+            ],
+            [
+                'id'    => 262,
+                'title' => 'user_card_mgmt_show',
+            ],
+            [
+                'id'    => 263,
+                'title' => 'user_card_mgmt_delete',
+            ],
+            [
+                'id'    => 264,
+                'title' => 'user_card_mgmt_access',
+            ],
+            [
+                'id'    => 265,
                 'title' => 'profile_password_edit',
             ],
         ];

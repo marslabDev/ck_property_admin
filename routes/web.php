@@ -316,6 +316,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('manage-prices/process-csv-import', 'ManagePriceController@processCsvImport')->name('manage-prices.processCsvImport');
     Route::resource('manage-prices', 'ManagePriceController');
 
+    // User Detail
+    Route::delete('user-details/destroy', 'UserDetailController@massDestroy')->name('user-details.massDestroy');
+    Route::post('user-details/parse-csv-import', 'UserDetailController@parseCsvImport')->name('user-details.parseCsvImport');
+    Route::post('user-details/process-csv-import', 'UserDetailController@processCsvImport')->name('user-details.processCsvImport');
+    Route::resource('user-details', 'UserDetailController');
+
+    // User Card Mgmt
+    Route::delete('user-card-mgmts/destroy', 'UserCardMgmtController@massDestroy')->name('user-card-mgmts.massDestroy');
+    Route::post('user-card-mgmts/parse-csv-import', 'UserCardMgmtController@parseCsvImport')->name('user-card-mgmts.parseCsvImport');
+    Route::post('user-card-mgmts/process-csv-import', 'UserCardMgmtController@processCsvImport')->name('user-card-mgmts.processCsvImport');
+    Route::resource('user-card-mgmts', 'UserCardMgmtController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -551,6 +563,14 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Manage Price
     Route::delete('manage-prices/destroy', 'ManagePriceController@massDestroy')->name('manage-prices.massDestroy');
     Route::resource('manage-prices', 'ManagePriceController');
+
+    // User Detail
+    Route::delete('user-details/destroy', 'UserDetailController@massDestroy')->name('user-details.massDestroy');
+    Route::resource('user-details', 'UserDetailController');
+
+    // User Card Mgmt
+    Route::delete('user-card-mgmts/destroy', 'UserCardMgmtController@massDestroy')->name('user-card-mgmts.massDestroy');
+    Route::resource('user-card-mgmts', 'UserCardMgmtController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

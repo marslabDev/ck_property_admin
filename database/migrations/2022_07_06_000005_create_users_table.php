@@ -21,17 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('verification_token')->nullable();
             $table->datetime('email_verified_at')->nullable();
             $table->string('two_factor_code')->nullable();
-            $table->string('card_no')->nullable();
-            $table->string('gender')->nullable();
-            $table->date('date_of_birth')->nullable();
-            $table->date('join_date')->nullable();
-            $table->longText('address')->nullable();
-            $table->longText('address_line_2')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->integer('postal_code')->nullable();
-            $table->string('country')->nullable();
-            $table->string('manage_area')->nullable();
             $table->string('password')->nullable();
             $table->string('remember_token')->nullable();
             $table->datetime('two_factor_expires_at')->nullable();
