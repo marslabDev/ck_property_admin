@@ -60,18 +60,18 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.manageHouse.fields.street') }}
-                                    </th>
-                                    <td>
-                                        {{ $manageHouse->street }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
                                         {{ trans('cruds.manageHouse.fields.area') }}
                                     </th>
                                     <td>
                                         {{ $manageHouse->area->name ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.manageHouse.fields.street') }}
+                                    </th>
+                                    <td>
+                                        {{ $manageHouse->street->street_name ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>

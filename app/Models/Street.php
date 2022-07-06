@@ -33,6 +33,11 @@ class Street extends Model
         'created_by_id',
     ];
 
+    public function streetManageHouses()
+    {
+        return $this->hasMany(ManageHouse::class, 'street_id', 'id');
+    }
+
     public function area()
     {
         return $this->belongsTo(Area::class, 'area_id');

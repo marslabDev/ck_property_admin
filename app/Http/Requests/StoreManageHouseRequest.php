@@ -29,9 +29,13 @@ class StoreManageHouseRequest extends FormRequest
                 'string',
                 'nullable',
             ],
-            'street' => [
-                'string',
+            'area_id' => [
                 'required',
+                'integer',
+            ],
+            'street_id' => [
+                'required',
+                'integer',
             ],
             'square_feet' => [
                 'numeric',
@@ -54,10 +58,6 @@ class StoreManageHouseRequest extends FormRequest
             ],
             'parking_lots' => [
                 'array',
-            ],
-            'area_id' => [
-                'required',
-                'integer',
             ],
         ];
     }

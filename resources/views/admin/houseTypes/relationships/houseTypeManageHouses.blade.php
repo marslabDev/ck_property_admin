@@ -37,10 +37,10 @@
                             {{ trans('cruds.manageHouse.fields.block') }}
                         </th>
                         <th>
-                            {{ trans('cruds.manageHouse.fields.street') }}
+                            {{ trans('cruds.manageHouse.fields.area') }}
                         </th>
                         <th>
-                            {{ trans('cruds.manageHouse.fields.area') }}
+                            {{ trans('cruds.manageHouse.fields.street') }}
                         </th>
                         <th>
                             {{ trans('cruds.manageHouse.fields.square_feet') }}
@@ -84,10 +84,10 @@
                                 {{ $manageHouse->block ?? '' }}
                             </td>
                             <td>
-                                {{ $manageHouse->street ?? '' }}
+                                {{ $manageHouse->area->name ?? '' }}
                             </td>
                             <td>
-                                {{ $manageHouse->area->name ?? '' }}
+                                {{ $manageHouse->street->street_name ?? '' }}
                             </td>
                             <td>
                                 {{ $manageHouse->square_feet ?? '' }}
