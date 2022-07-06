@@ -107,6 +107,11 @@
                                             {{ trans('cruds.userDetail.title') }}
                                         </a>
                                     @endcan
+                                    @can('user_card_mgmt_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.user-card-mgmts.index') }}">
+                                            {{ trans('cruds.userCardMgmt.title') }}
+                                        </a>
+                                    @endcan
                                     @can('expense_management_access')
                                         <a class="dropdown-item disabled" href="#">
                                             {{ trans('cruds.expenseManagement.title') }}
@@ -167,6 +172,16 @@
                                             {{ trans('cruds.paymentManagement.title') }}
                                         </a>
                                     @endcan
+                                    @can('payment_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.payments.index') }}">
+                                            {{ trans('cruds.payment.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('payment_plan_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.payment-plans.index') }}">
+                                            {{ trans('cruds.paymentPlan.title') }}
+                                        </a>
+                                    @endcan
                                     @can('payment_type_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.payment-types.index') }}">
                                             {{ trans('cruds.paymentType.title') }}
@@ -175,11 +190,6 @@
                                     @can('payment_history_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.payment-histories.index') }}">
                                             {{ trans('cruds.paymentHistory.title') }}
-                                        </a>
-                                    @endcan
-                                    @can('user_card_mgmt_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.user-card-mgmts.index') }}">
-                                            {{ trans('cruds.userCardMgmt.title') }}
                                         </a>
                                     @endcan
                                     @can('house_management_access')

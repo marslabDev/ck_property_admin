@@ -32,6 +32,11 @@ class PaymentType extends Model
         'created_by_id',
     ];
 
+    public function paymentTypePaymentHistories()
+    {
+        return $this->hasMany(PaymentHistory::class, 'payment_type_id', 'id');
+    }
+
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

@@ -13,7 +13,6 @@ class CreatePaymentHistoriesTable extends Migration
             $table->date('date_received')->nullable();
             $table->decimal('amount', 15, 2)->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 }

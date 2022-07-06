@@ -119,6 +119,11 @@ class User extends Authenticatable
         return $this->hasMany(UserCardMgmt::class, 'user_id', 'id');
     }
 
+    public function userPaymentPlans()
+    {
+        return $this->hasMany(PaymentPlan::class, 'user_id', 'id');
+    }
+
     public function userUserAlerts()
     {
         return $this->belongsToMany(UserAlert::class);

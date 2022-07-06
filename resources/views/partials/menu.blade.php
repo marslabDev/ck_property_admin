@@ -31,7 +31,7 @@
             </li>
         @endcan
         @can('user_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/permissions*") ? "c-show" : "" }} {{ request()->is("admin/roles*") ? "c-show" : "" }} {{ request()->is("admin/users*") ? "c-show" : "" }} {{ request()->is("admin/user-details*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/permissions*") ? "c-show" : "" }} {{ request()->is("admin/roles*") ? "c-show" : "" }} {{ request()->is("admin/users*") ? "c-show" : "" }} {{ request()->is("admin/user-details*") ? "c-show" : "" }} {{ request()->is("admin/user-card-mgmts*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-users c-sidebar-nav-icon">
 
@@ -76,6 +76,16 @@
 
                                 </i>
                                 {{ trans('cruds.userDetail.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('user_card_mgmt_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.user-card-mgmts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/user-card-mgmts") || request()->is("admin/user-card-mgmts/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-wallet c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.userCardMgmt.title') }}
                             </a>
                         </li>
                     @endcan
@@ -217,7 +227,7 @@
             </li>
         @endcan
         @can('payment_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/payment-types*") ? "c-show" : "" }} {{ request()->is("admin/payment-histories*") ? "c-show" : "" }} {{ request()->is("admin/user-card-mgmts*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/payments*") ? "c-show" : "" }} {{ request()->is("admin/payment-plans*") ? "c-show" : "" }} {{ request()->is("admin/payment-types*") ? "c-show" : "" }} {{ request()->is("admin/payment-histories*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-money-bill-wave c-sidebar-nav-icon">
 
@@ -225,6 +235,26 @@
                     {{ trans('cruds.paymentManagement.title') }}
                 </a>
                 <ul class="c-sidebar-nav-dropdown-items">
+                    @can('payment_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.payments.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payments") || request()->is("admin/payments/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-list-ol c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.payment.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('payment_plan_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.payment-plans.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payment-plans") || request()->is("admin/payment-plans/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-file-invoice-dollar c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.paymentPlan.title') }}
+                            </a>
+                        </li>
+                    @endcan
                     @can('payment_type_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.payment-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payment-types") || request()->is("admin/payment-types/*") ? "c-active" : "" }}">
@@ -242,16 +272,6 @@
 
                                 </i>
                                 {{ trans('cruds.paymentHistory.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('user_card_mgmt_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.user-card-mgmts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/user-card-mgmts") || request()->is("admin/user-card-mgmts/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-wallet c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.userCardMgmt.title') }}
                             </a>
                         </li>
                     @endcan

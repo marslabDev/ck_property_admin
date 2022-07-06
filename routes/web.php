@@ -160,10 +160,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('expense-reports', 'ExpenseReportController');
 
     // Payment History
-    Route::delete('payment-histories/destroy', 'PaymentHistoryController@massDestroy')->name('payment-histories.massDestroy');
     Route::post('payment-histories/parse-csv-import', 'PaymentHistoryController@parseCsvImport')->name('payment-histories.parseCsvImport');
     Route::post('payment-histories/process-csv-import', 'PaymentHistoryController@processCsvImport')->name('payment-histories.processCsvImport');
-    Route::resource('payment-histories', 'PaymentHistoryController');
+    Route::resource('payment-histories', 'PaymentHistoryController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
     // Complaint System
     Route::delete('complaint-systems/destroy', 'ComplaintSystemController@massDestroy')->name('complaint-systems.massDestroy');
@@ -334,6 +333,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('streets/process-csv-import', 'StreetController@processCsvImport')->name('streets.processCsvImport');
     Route::resource('streets', 'StreetController');
 
+    // Payment
+    Route::delete('payments/destroy', 'PaymentController@massDestroy')->name('payments.massDestroy');
+    Route::post('payments/parse-csv-import', 'PaymentController@parseCsvImport')->name('payments.parseCsvImport');
+    Route::post('payments/process-csv-import', 'PaymentController@processCsvImport')->name('payments.processCsvImport');
+    Route::resource('payments', 'PaymentController');
+
+    // Payment Plan
+    Route::delete('payment-plans/destroy', 'PaymentPlanController@massDestroy')->name('payment-plans.massDestroy');
+    Route::post('payment-plans/parse-csv-import', 'PaymentPlanController@parseCsvImport')->name('payment-plans.parseCsvImport');
+    Route::post('payment-plans/process-csv-import', 'PaymentPlanController@processCsvImport')->name('payment-plans.processCsvImport');
+    Route::resource('payment-plans', 'PaymentPlanController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -460,8 +471,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::resource('incomes', 'IncomeController');
 
     // Payment History
-    Route::delete('payment-histories/destroy', 'PaymentHistoryController@massDestroy')->name('payment-histories.massDestroy');
-    Route::resource('payment-histories', 'PaymentHistoryController');
+    Route::resource('payment-histories', 'PaymentHistoryController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
     // Complaint System
     Route::delete('complaint-systems/destroy', 'ComplaintSystemController@massDestroy')->name('complaint-systems.massDestroy');
@@ -581,6 +591,14 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Street
     Route::delete('streets/destroy', 'StreetController@massDestroy')->name('streets.massDestroy');
     Route::resource('streets', 'StreetController');
+
+    // Payment
+    Route::delete('payments/destroy', 'PaymentController@massDestroy')->name('payments.massDestroy');
+    Route::resource('payments', 'PaymentController');
+
+    // Payment Plan
+    Route::delete('payment-plans/destroy', 'PaymentPlanController@massDestroy')->name('payment-plans.massDestroy');
+    Route::resource('payment-plans', 'PaymentPlanController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

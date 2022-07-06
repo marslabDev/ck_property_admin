@@ -13,8 +13,6 @@ class AddRelationshipFieldsToPaymentHistoriesTable extends Migration
             $table->foreign('paid_by_id', 'paid_by_fk_6831863')->references('id')->on('users');
             $table->unsignedBigInteger('payment_type_id')->nullable();
             $table->foreign('payment_type_id', 'payment_type_fk_6835893')->references('id')->on('payment_types');
-            $table->unsignedBigInteger('created_by_id')->nullable();
-            $table->foreign('created_by_id', 'created_by_fk_6872517')->references('id')->on('users');
         });
     }
 }
