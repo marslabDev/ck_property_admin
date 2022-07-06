@@ -25,6 +25,12 @@
                             {{ trans('cruds.userCardMgmt.fields.id') }}
                         </th>
                         <th>
+                            {{ trans('cruds.userCardMgmt.fields.user') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.email') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.userCardMgmt.fields.cardholder_name') }}
                         </th>
                         <th>
@@ -34,13 +40,7 @@
                             {{ trans('cruds.userCardMgmt.fields.card_issuer') }}
                         </th>
                         <th>
-                            {{ trans('cruds.userCardMgmt.fields.expire_date') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.userCardMgmt.fields.user') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.user.fields.email') }}
+                            {{ trans('cruds.userCardMgmt.fields.expiration_date') }}
                         </th>
                         <th>
                             &nbsp;
@@ -57,6 +57,12 @@
                                 {{ $userCardMgmt->id ?? '' }}
                             </td>
                             <td>
+                                {{ $userCardMgmt->user->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $userCardMgmt->user->email ?? '' }}
+                            </td>
+                            <td>
                                 {{ $userCardMgmt->cardholder_name ?? '' }}
                             </td>
                             <td>
@@ -66,13 +72,7 @@
                                 {{ App\Models\UserCardMgmt::CARD_ISSUER_SELECT[$userCardMgmt->card_issuer] ?? '' }}
                             </td>
                             <td>
-                                {{ $userCardMgmt->expire_date ?? '' }}
-                            </td>
-                            <td>
-                                {{ $userCardMgmt->user->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $userCardMgmt->user->email ?? '' }}
+                                {{ $userCardMgmt->expiration_date ?? '' }}
                             </td>
                             <td>
                                 @can('user_card_mgmt_show')

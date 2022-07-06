@@ -47,6 +47,13 @@ class UserCardMgmtController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
+            $table->addColumn('user_name', function ($row) {
+                return $row->user ? $row->user->name : '';
+            });
+
+            $table->editColumn('user.email', function ($row) {
+                return $row->user ? (is_string($row->user) ? $row->user : $row->user->email) : '';
+            });
             $table->editColumn('cardholder_name', function ($row) {
                 return $row->cardholder_name ? $row->cardholder_name : '';
             });
@@ -55,16 +62,6 @@ class UserCardMgmtController extends Controller
             });
             $table->editColumn('card_issuer', function ($row) {
                 return $row->card_issuer ? UserCardMgmt::CARD_ISSUER_SELECT[$row->card_issuer] : '';
-            });
-            $table->editColumn('expire_date', function ($row) {
-                return $row->expire_date ? $row->expire_date : '';
-            });
-            $table->addColumn('user_name', function ($row) {
-                return $row->user ? $row->user->name : '';
-            });
-
-            $table->editColumn('user.email', function ($row) {
-                return $row->user ? (is_string($row->user) ? $row->user : $row->user->email) : '';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'user']);
