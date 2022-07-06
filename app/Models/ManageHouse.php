@@ -58,6 +58,11 @@ class ManageHouse extends Model implements HasMedia
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 
+    public function housePaymentPlans()
+    {
+        return $this->hasMany(PaymentPlan::class, 'house_id', 'id');
+    }
+
     public function house_type()
     {
         return $this->belongsTo(HouseType::class, 'house_type_id');

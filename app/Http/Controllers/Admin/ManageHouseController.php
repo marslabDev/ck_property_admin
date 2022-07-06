@@ -201,7 +201,7 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouse->load('house_type', 'area', 'street', 'owned_bies', 'parking_lots', 'created_by');
+        $manageHouse->load('house_type', 'area', 'street', 'owned_bies', 'parking_lots', 'created_by', 'housePaymentPlans');
 
         return view('admin.manageHouses.show', compact('manageHouse'));
     }

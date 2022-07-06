@@ -73,7 +73,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('incomes', 'IncomeApiController');
 
     // Payment History
-    Route::apiResource('payment-histories', 'PaymentHistoryApiController');
+    Route::apiResource('payment-histories', 'PaymentHistoryApiController', ['except' => ['store', 'show', 'update', 'destroy']]);
 
     // Complaint System
     Route::post('complaint-systems/media', 'ComplaintSystemApiController@storeMedia')->name('complaint-systems.storeMedia');
@@ -153,4 +153,10 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Street
     Route::apiResource('streets', 'StreetApiController');
+
+    // Payment
+    Route::apiResource('payments', 'PaymentApiController');
+
+    // Payment Plan
+    Route::apiResource('payment-plans', 'PaymentPlanApiController');
 });
