@@ -59,8 +59,8 @@
                 <span class="help-block">{{ trans('cruds.userDetail.fields.date_of_birth_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="address_line_1">{{ trans('cruds.userDetail.fields.address_line_1') }}</label>
-                <textarea class="form-control {{ $errors->has('address_line_1') ? 'is-invalid' : '' }}" name="address_line_1" id="address_line_1">{{ old('address_line_1') }}</textarea>
+                <label class="required" for="address_line_1">{{ trans('cruds.userDetail.fields.address_line_1') }}</label>
+                <textarea class="form-control {{ $errors->has('address_line_1') ? 'is-invalid' : '' }}" name="address_line_1" id="address_line_1" required>{{ old('address_line_1') }}</textarea>
                 @if($errors->has('address_line_1'))
                     <div class="invalid-feedback">
                         {{ $errors->first('address_line_1') }}

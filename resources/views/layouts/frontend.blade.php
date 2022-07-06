@@ -192,9 +192,9 @@
                                             {{ trans('cruds.area.title') }}
                                         </a>
                                     @endcan
-                                    @can('manage_house_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.manage-houses.index') }}">
-                                            {{ trans('cruds.manageHouse.title') }}
+                                    @can('street_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.streets.index') }}">
+                                            {{ trans('cruds.street.title') }}
                                         </a>
                                     @endcan
                                     @can('parking_lot_access')
@@ -205,6 +205,11 @@
                                     @can('house_type_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.house-types.index') }}">
                                             {{ trans('cruds.houseType.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('manage_house_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.manage-houses.index') }}">
+                                            {{ trans('cruds.manageHouse.title') }}
                                         </a>
                                     @endcan
                                     @can('manage_price_access')

@@ -328,6 +328,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('user-card-mgmts/process-csv-import', 'UserCardMgmtController@processCsvImport')->name('user-card-mgmts.processCsvImport');
     Route::resource('user-card-mgmts', 'UserCardMgmtController');
 
+    // Street
+    Route::delete('streets/destroy', 'StreetController@massDestroy')->name('streets.massDestroy');
+    Route::post('streets/parse-csv-import', 'StreetController@parseCsvImport')->name('streets.parseCsvImport');
+    Route::post('streets/process-csv-import', 'StreetController@processCsvImport')->name('streets.processCsvImport');
+    Route::resource('streets', 'StreetController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -571,6 +577,10 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // User Card Mgmt
     Route::delete('user-card-mgmts/destroy', 'UserCardMgmtController@massDestroy')->name('user-card-mgmts.massDestroy');
     Route::resource('user-card-mgmts', 'UserCardMgmtController');
+
+    // Street
+    Route::delete('streets/destroy', 'StreetController@massDestroy')->name('streets.massDestroy');
+    Route::resource('streets', 'StreetController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

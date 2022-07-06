@@ -29,6 +29,9 @@ class StoreUserDetailRequest extends FormRequest
                 'date_format:' . config('panel.date_format'),
                 'nullable',
             ],
+            'address_line_1' => [
+                'required',
+            ],
             'city' => [
                 'string',
                 'required',

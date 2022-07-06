@@ -1207,8 +1207,8 @@ return [
         ],
     ],
     'userCardMgmt' => [
-        'title'          => 'User Card Mgmt',
-        'title_singular' => 'User Card Mgmt',
+        'title'          => 'User Bank Card Mgmt',
+        'title_singular' => 'User Bank Card Mgmt',
         'fields'         => [
             'id'                     => 'ID',
             'id_helper'              => ' ',
@@ -1230,6 +1230,26 @@ return [
             'created_by_helper'      => ' ',
             'user'                   => 'User',
             'user_helper'            => ' ',
+        ],
+    ],
+    'street' => [
+        'title'          => 'Street',
+        'title_singular' => 'Street',
+        'fields'         => [
+            'id'                 => 'ID',
+            'id_helper'          => ' ',
+            'street_name'        => 'Street Name',
+            'street_name_helper' => ' ',
+            'created_at'         => 'Created at',
+            'created_at_helper'  => ' ',
+            'updated_at'         => 'Updated at',
+            'updated_at_helper'  => ' ',
+            'deleted_at'         => 'Deleted at',
+            'deleted_at_helper'  => ' ',
+            'created_by'         => 'Created By',
+            'created_by_helper'  => ' ',
+            'area'               => 'Area',
+            'area_helper'        => ' ',
         ],
     ],
 ];

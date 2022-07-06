@@ -150,4 +150,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // User Card Mgmt
     Route::apiResource('user-card-mgmts', 'UserCardMgmtApiController');
+
+    // Street
+    Route::apiResource('streets', 'StreetApiController');
 });

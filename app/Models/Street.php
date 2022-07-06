@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Area extends Model
+class Street extends Model
 {
     use SoftDeletes;
     use MultiTenantModelTrait;
     use Auditable;
     use HasFactory;
 
-    public $table = 'areas';
+    public $table = 'streets';
 
     protected $dates = [
         'created_at',
@@ -25,40 +25,17 @@ class Area extends Model
     ];
 
     protected $fillable = [
-        'name',
-        'city',
-        'postcode',
-        'state',
-        'country',
-        'created_by_id',
+        'street_name',
         'created_at',
+        'area_id',
         'updated_at',
         'deleted_at',
+        'created_by_id',
     ];
 
-    public function areaManageHouses()
+    public function area()
     {
-        return $this->hasMany(ManageHouse::class, 'area_id', 'id');
-    }
-
-    public function areaHouseTypes()
-    {
-        return $this->hasMany(HouseType::class, 'area_id', 'id');
-    }
-
-    public function peopleInAreaNotices()
-    {
-        return $this->hasMany(Notice::class, 'people_in_area_id', 'id');
-    }
-
-    public function areaManagePrices()
-    {
-        return $this->hasMany(ManagePrice::class, 'area_id', 'id');
-    }
-
-    public function areaStreets()
-    {
-        return $this->hasMany(Street::class, 'area_id', 'id');
+        return $this->belongsTo(Area::class, 'area_id');
     }
 
     public function created_by()
