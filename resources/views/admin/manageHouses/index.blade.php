@@ -41,10 +41,10 @@
                         {{ trans('cruds.manageHouse.fields.block') }}
                     </th>
                     <th>
-                        {{ trans('cruds.manageHouse.fields.street') }}
+                        {{ trans('cruds.manageHouse.fields.area') }}
                     </th>
                     <th>
-                        {{ trans('cruds.manageHouse.fields.area') }}
+                        {{ trans('cruds.manageHouse.fields.street') }}
                     </th>
                     <th>
                         {{ trans('cruds.manageHouse.fields.square_feet') }}
@@ -89,13 +89,18 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($areas as $key => $item)
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($streets as $key => $item)
+                                <option value="{{ $item->street_name }}">{{ $item->street_name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -188,8 +193,8 @@
 { data: 'unit_no', name: 'unit_no' },
 { data: 'floor', name: 'floor' },
 { data: 'block', name: 'block' },
-{ data: 'street', name: 'street' },
 { data: 'area_name', name: 'area.name' },
+{ data: 'street_street_name', name: 'street.street_name' },
 { data: 'square_feet', name: 'square_feet' },
 { data: 'house_status', name: 'house_status' },
 { data: 'documents', name: 'documents', sortable: false, searchable: false },

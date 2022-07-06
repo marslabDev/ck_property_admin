@@ -108,7 +108,7 @@ class StreetController extends Controller
     {
         abort_if(Gate::denies('street_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $street->load('area', 'created_by');
+        $street->load('area', 'created_by', 'streetManageHouses');
 
         return view('admin.streets.show', compact('street'));
     }

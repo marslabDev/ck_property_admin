@@ -13,7 +13,6 @@ class CreateManageHousesTable extends Migration
             $table->string('unit_no');
             $table->string('floor')->nullable();
             $table->string('block')->nullable();
-            $table->string('street');
             $table->float('square_feet', 15, 2);
             $table->string('house_status');
             $table->timestamps();

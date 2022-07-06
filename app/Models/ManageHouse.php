@@ -42,11 +42,11 @@ class ManageHouse extends Model implements HasMedia
         'unit_no',
         'floor',
         'block',
-        'street',
+        'area_id',
+        'street_id',
         'square_feet',
         'house_status',
         'created_by_id',
-        'area_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -61,6 +61,16 @@ class ManageHouse extends Model implements HasMedia
     public function house_type()
     {
         return $this->belongsTo(HouseType::class, 'house_type_id');
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
+    }
+
+    public function street()
+    {
+        return $this->belongsTo(Street::class, 'street_id');
     }
 
     public function getDocumentsAttribute()
@@ -81,11 +91,6 @@ class ManageHouse extends Model implements HasMedia
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');
-    }
-
-    public function area()
-    {
-        return $this->belongsTo(Area::class, 'area_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

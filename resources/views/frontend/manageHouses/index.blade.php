@@ -42,10 +42,10 @@
                                         {{ trans('cruds.manageHouse.fields.block') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.manageHouse.fields.street') }}
+                                        {{ trans('cruds.manageHouse.fields.area') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.manageHouse.fields.area') }}
+                                        {{ trans('cruds.manageHouse.fields.street') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.manageHouse.fields.square_feet') }}
@@ -90,13 +90,18 @@
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
-                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                    </td>
-                                    <td>
                                         <select class="search">
                                             <option value>{{ trans('global.all') }}</option>
                                             @foreach($areas as $key => $item)
                                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($streets as $key => $item)
+                                                <option value="{{ $item->street_name }}">{{ $item->street_name }}</option>
                                             @endforeach
                                         </select>
                                     </td>
@@ -152,10 +157,10 @@
                                             {{ $manageHouse->block ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $manageHouse->street ?? '' }}
+                                            {{ $manageHouse->area->name ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $manageHouse->area->name ?? '' }}
+                                            {{ $manageHouse->street->street_name ?? '' }}
                                         </td>
                                         <td>
                                             {{ $manageHouse->square_feet ?? '' }}

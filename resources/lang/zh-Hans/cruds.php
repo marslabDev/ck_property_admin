@@ -157,8 +157,6 @@ return [
             'owned_by_helper'     => ' ',
             'square_feet'         => 'Square Feet',
             'square_feet_helper'  => ' ',
-            'street'              => 'Street',
-            'street_helper'       => ' ',
             'floor'               => 'Floor',
             'floor_helper'        => ' ',
             'block'               => 'Block',
@@ -169,6 +167,8 @@ return [
             'parking_lot_helper'  => ' ',
             'area'                => 'Area',
             'area_helper'         => ' ',
+            'street'              => 'Street',
+            'street_helper'       => ' ',
         ],
     ],
     'paymentType' => [
