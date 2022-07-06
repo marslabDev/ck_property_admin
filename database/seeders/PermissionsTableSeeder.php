@@ -1068,6 +1068,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 265,
+                'title' => 'street_create',
+            ],
+            [
+                'id'    => 266,
+                'title' => 'street_edit',
+            ],
+            [
+                'id'    => 267,
+                'title' => 'street_show',
+            ],
+            [
+                'id'    => 268,
+                'title' => 'street_delete',
+            ],
+            [
+                'id'    => 269,
+                'title' => 'street_access',
+            ],
+            [
+                'id'    => 270,
                 'title' => 'profile_password_edit',
             ],
         ];

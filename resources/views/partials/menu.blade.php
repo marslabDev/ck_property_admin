@@ -259,7 +259,7 @@
             </li>
         @endcan
         @can('house_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/areas*") ? "c-show" : "" }} {{ request()->is("admin/manage-houses*") ? "c-show" : "" }} {{ request()->is("admin/parking-lots*") ? "c-show" : "" }} {{ request()->is("admin/house-types*") ? "c-show" : "" }} {{ request()->is("admin/manage-prices*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/areas*") ? "c-show" : "" }} {{ request()->is("admin/streets*") ? "c-show" : "" }} {{ request()->is("admin/parking-lots*") ? "c-show" : "" }} {{ request()->is("admin/house-types*") ? "c-show" : "" }} {{ request()->is("admin/manage-houses*") ? "c-show" : "" }} {{ request()->is("admin/manage-prices*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-home c-sidebar-nav-icon">
 
@@ -277,13 +277,13 @@
                             </a>
                         </li>
                     @endcan
-                    @can('manage_house_access')
+                    @can('street_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.manage-houses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/manage-houses") || request()->is("admin/manage-houses/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fab fa-houzz c-sidebar-nav-icon">
+                            <a href="{{ route("admin.streets.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/streets") || request()->is("admin/streets/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-road c-sidebar-nav-icon">
 
                                 </i>
-                                {{ trans('cruds.manageHouse.title') }}
+                                {{ trans('cruds.street.title') }}
                             </a>
                         </li>
                     @endcan
@@ -304,6 +304,16 @@
 
                                 </i>
                                 {{ trans('cruds.houseType.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('manage_house_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.manage-houses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/manage-houses") || request()->is("admin/manage-houses/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fab fa-houzz c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.manageHouse.title') }}
                             </a>
                         </li>
                     @endcan

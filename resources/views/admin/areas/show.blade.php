@@ -99,6 +99,11 @@
                 {{ trans('cruds.managePrice.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#area_streets" role="tab" data-toggle="tab">
+                {{ trans('cruds.street.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="area_manage_houses">
@@ -112,6 +117,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="area_manage_prices">
             @includeIf('admin.areas.relationships.areaManagePrices', ['managePrices' => $area->areaManagePrices])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="area_streets">
+            @includeIf('admin.areas.relationships.areaStreets', ['streets' => $area->areaStreets])
         </div>
     </div>
 </div>

@@ -13,7 +13,7 @@ class CreateUserDetailsTable extends Migration
             $table->string('ic_no');
             $table->string('gender')->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->longText('address_line_1')->nullable();
+            $table->longText('address_line_1');
             $table->longText('address_line_2')->nullable();
             $table->string('city');
             $table->string('postcode');
