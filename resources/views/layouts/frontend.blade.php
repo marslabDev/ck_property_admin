@@ -102,6 +102,11 @@
                                             {{ trans('cruds.user.title') }}
                                         </a>
                                     @endcan
+                                    @can('user_detail_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.user-details.index') }}">
+                                            {{ trans('cruds.userDetail.title') }}
+                                        </a>
+                                    @endcan
                                     @can('expense_management_access')
                                         <a class="dropdown-item disabled" href="#">
                                             {{ trans('cruds.expenseManagement.title') }}
@@ -170,6 +175,11 @@
                                     @can('payment_history_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.payment-histories.index') }}">
                                             {{ trans('cruds.paymentHistory.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('user_card_mgmt_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.user-card-mgmts.index') }}">
+                                            {{ trans('cruds.userCardMgmt.title') }}
                                         </a>
                                     @endcan
                                     @can('house_management_access')

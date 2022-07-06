@@ -62,7 +62,6 @@ class UsersController extends Controller
             $table->editColumn('verified', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->verified ? 'checked' : null) . '>';
             });
-
             $table->editColumn('roles', function ($row) {
                 $labels = [];
                 foreach ($row->roles as $role) {
@@ -122,7 +121,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->load('roles', 'userUserAlerts', 'ownedByManageHouses');
+        $user->load('roles', 'userUserDetails', 'userUserCardMgmts', 'userUserAlerts', 'ownedByManageHouses');
 
         return view('admin.users.show', compact('user'));
     }

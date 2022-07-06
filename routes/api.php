@@ -144,4 +144,10 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Manage Price
     Route::apiResource('manage-prices', 'ManagePriceApiController');
+
+    // User Detail
+    Route::apiResource('user-details', 'UserDetailApiController');
+
+    // User Card Mgmt
+    Route::apiResource('user-card-mgmts', 'UserCardMgmtApiController');
 });

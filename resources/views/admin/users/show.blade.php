@@ -89,94 +89,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.user.fields.card_no') }}
-                        </th>
-                        <td>
-                            {{ $user->card_no }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.gender') }}
-                        </th>
-                        <td>
-                            {{ $user->gender }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.date_of_birth') }}
-                        </th>
-                        <td>
-                            {{ $user->date_of_birth }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.join_date') }}
-                        </th>
-                        <td>
-                            {{ $user->join_date }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.address') }}
-                        </th>
-                        <td>
-                            {{ $user->address }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.address_line_2') }}
-                        </th>
-                        <td>
-                            {{ $user->address_line_2 }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.city') }}
-                        </th>
-                        <td>
-                            {{ $user->city }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.state') }}
-                        </th>
-                        <td>
-                            {{ $user->state }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.postal_code') }}
-                        </th>
-                        <td>
-                            {{ $user->postal_code }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.country') }}
-                        </th>
-                        <td>
-                            {{ $user->country }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.manage_area') }}
-                        </th>
-                        <td>
-                            {{ App\Models\User::MANAGE_AREA_SELECT[$user->manage_area] ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.user.fields.roles') }}
                         </th>
                         <td>
@@ -202,6 +114,16 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
+            <a class="nav-link" href="#user_user_details" role="tab" data-toggle="tab">
+                {{ trans('cruds.userDetail.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#user_user_card_mgmts" role="tab" data-toggle="tab">
+                {{ trans('cruds.userCardMgmt.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#user_user_alerts" role="tab" data-toggle="tab">
                 {{ trans('cruds.userAlert.title') }}
             </a>
@@ -213,6 +135,12 @@
         </li>
     </ul>
     <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="user_user_details">
+            @includeIf('admin.users.relationships.userUserDetails', ['userDetails' => $user->userUserDetails])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="user_user_card_mgmts">
+            @includeIf('admin.users.relationships.userUserCardMgmts', ['userCardMgmts' => $user->userUserCardMgmts])
+        </div>
         <div class="tab-pane" role="tabpanel" id="user_user_alerts">
             @includeIf('admin.users.relationships.userUserAlerts', ['userAlerts' => $user->userUserAlerts])
         </div>

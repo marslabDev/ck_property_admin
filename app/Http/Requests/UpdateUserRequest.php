@@ -33,44 +33,6 @@ class UpdateUserRequest extends FormRequest
                 'required',
                 'unique:users,email,' . request()->route('user')->id,
             ],
-            'card_no' => [
-                'string',
-                'required',
-            ],
-            'gender' => [
-                'string',
-                'required',
-            ],
-            'date_of_birth' => [
-                'date_format:' . config('panel.date_format'),
-                'nullable',
-            ],
-            'join_date' => [
-                'required',
-                'date_format:' . config('panel.date_format'),
-            ],
-            'address' => [
-                'required',
-            ],
-            'city' => [
-                'string',
-                'required',
-            ],
-            'state' => [
-                'string',
-                'required',
-            ],
-            'postal_code' => [
-                'required',
-                'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
-            ],
-            'country' => [
-                'string',
-                'required',
-            ],
             'roles.*' => [
                 'integer',
             ],

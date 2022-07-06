@@ -22,9 +22,6 @@ class User extends Authenticatable
     use Auditable;
     use HasFactory;
 
-    public const MANAGE_AREA_SELECT = [
-    ];
-
     public $table = 'users';
 
     protected $hidden = [
@@ -35,8 +32,6 @@ class User extends Authenticatable
     protected $dates = [
         'verified_at',
         'email_verified_at',
-        'date_of_birth',
-        'join_date',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -55,17 +50,6 @@ class User extends Authenticatable
         'verification_token',
         'email_verified_at',
         'two_factor_code',
-        'card_no',
-        'gender',
-        'date_of_birth',
-        'join_date',
-        'address',
-        'address_line_2',
-        'city',
-        'state',
-        'postal_code',
-        'country',
-        'manage_area',
         'password',
         'remember_token',
         'created_at',
@@ -125,6 +109,16 @@ class User extends Authenticatable
         return $this->roles()->where('id', 1)->exists();
     }
 
+    public function userUserDetails()
+    {
+        return $this->hasMany(UserDetail::class, 'user_id', 'id');
+    }
+
+    public function userUserCardMgmts()
+    {
+        return $this->hasMany(UserCardMgmt::class, 'user_id', 'id');
+    }
+
     public function userUserAlerts()
     {
         return $this->belongsToMany(UserAlert::class);
@@ -153,26 +147,6 @@ class User extends Authenticatable
     public function setEmailVerifiedAtAttribute($value)
     {
         $this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
-    }
-
-    public function getDateOfBirthAttribute($value)
-    {
-        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
-    }
-
-    public function setDateOfBirthAttribute($value)
-    {
-        $this->attributes['date_of_birth'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
-    }
-
-    public function getJoinDateAttribute($value)
-    {
-        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
-    }
-
-    public function setJoinDateAttribute($value)
-    {
-        $this->attributes['join_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     }
 
     public function roles()
