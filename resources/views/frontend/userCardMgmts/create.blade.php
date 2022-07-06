@@ -14,6 +14,20 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
+                            <label class="required" for="user_id">{{ trans('cruds.userCardMgmt.fields.user') }}</label>
+                            <select class="form-control select2" name="user_id" id="user_id" required>
+                                @foreach($users as $id => $entry)
+                                    <option value="{{ $id }}" {{ old('user_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('user'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('user') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.userCardMgmt.fields.user_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <label class="required" for="cardholder_name">{{ trans('cruds.userCardMgmt.fields.cardholder_name') }}</label>
                             <input class="form-control" type="text" name="cardholder_name" id="cardholder_name" value="{{ old('cardholder_name', '') }}" required>
                             @if($errors->has('cardholder_name'))
@@ -49,28 +63,14 @@
                             <span class="help-block">{{ trans('cruds.userCardMgmt.fields.card_issuer_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label class="required" for="expire_date">{{ trans('cruds.userCardMgmt.fields.expire_date') }}</label>
-                            <input class="form-control" type="text" name="expire_date" id="expire_date" value="{{ old('expire_date', '') }}" required>
-                            @if($errors->has('expire_date'))
+                            <label class="required" for="expiration_date">{{ trans('cruds.userCardMgmt.fields.expiration_date') }}</label>
+                            <input class="form-control date" type="text" name="expiration_date" id="expiration_date" value="{{ old('expiration_date') }}" required>
+                            @if($errors->has('expiration_date'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('expire_date') }}
+                                    {{ $errors->first('expiration_date') }}
                                 </div>
                             @endif
-                            <span class="help-block">{{ trans('cruds.userCardMgmt.fields.expire_date_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label class="required" for="user_id">{{ trans('cruds.userCardMgmt.fields.user') }}</label>
-                            <select class="form-control select2" name="user_id" id="user_id" required>
-                                @foreach($users as $id => $entry)
-                                    <option value="{{ $id }}" {{ old('user_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('user'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('user') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.userCardMgmt.fields.user_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.userCardMgmt.fields.expiration_date_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">

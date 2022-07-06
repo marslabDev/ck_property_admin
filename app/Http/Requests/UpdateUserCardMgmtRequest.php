@@ -17,6 +17,10 @@ class UpdateUserCardMgmtRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => [
+                'required',
+                'integer',
+            ],
             'cardholder_name' => [
                 'string',
                 'required',
@@ -28,13 +32,9 @@ class UpdateUserCardMgmtRequest extends FormRequest
             'card_issuer' => [
                 'required',
             ],
-            'expire_date' => [
-                'string',
+            'expiration_date' => [
                 'required',
-            ],
-            'user_id' => [
-                'required',
-                'integer',
+                'date_format:' . config('panel.date_format'),
             ],
         ];
     }

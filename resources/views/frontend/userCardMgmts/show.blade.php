@@ -28,6 +28,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.userCardMgmt.fields.user') }}
+                                    </th>
+                                    <td>
+                                        {{ $userCardMgmt->user->name ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.userCardMgmt.fields.cardholder_name') }}
                                     </th>
                                     <td>
@@ -52,18 +60,10 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.userCardMgmt.fields.expire_date') }}
+                                        {{ trans('cruds.userCardMgmt.fields.expiration_date') }}
                                     </th>
                                     <td>
-                                        {{ $userCardMgmt->expire_date }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.userCardMgmt.fields.user') }}
-                                    </th>
-                                    <td>
-                                        {{ $userCardMgmt->user->name ?? '' }}
+                                        {{ $userCardMgmt->expiration_date }}
                                     </td>
                                 </tr>
                             </tbody>

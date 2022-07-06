@@ -1218,8 +1218,6 @@ return [
             'card_no_helper'         => ' ',
             'card_issuer'            => 'Card Issuer',
             'card_issuer_helper'     => ' ',
-            'expire_date'            => 'Expire Date',
-            'expire_date_helper'     => ' ',
             'created_at'             => 'Created at',
             'created_at_helper'      => ' ',
             'updated_at'             => 'Updated at',
@@ -1230,6 +1228,8 @@ return [
             'created_by_helper'      => ' ',
             'user'                   => 'User',
             'user_helper'            => ' ',
+            'expiration_date'        => 'Expiration Date',
+            'expiration_date_helper' => ' ',
         ],
     ],
     'street' => [

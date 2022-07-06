@@ -29,6 +29,12 @@
                         {{ trans('cruds.userCardMgmt.fields.id') }}
                     </th>
                     <th>
+                        {{ trans('cruds.userCardMgmt.fields.user') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.email') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.userCardMgmt.fields.cardholder_name') }}
                     </th>
                     <th>
@@ -38,13 +44,7 @@
                         {{ trans('cruds.userCardMgmt.fields.card_issuer') }}
                     </th>
                     <th>
-                        {{ trans('cruds.userCardMgmt.fields.expire_date') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.userCardMgmt.fields.user') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.user.fields.email') }}
+                        {{ trans('cruds.userCardMgmt.fields.expiration_date') }}
                     </th>
                     <th>
                         &nbsp;
@@ -57,6 +57,16 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($users as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
@@ -67,17 +77,6 @@
                             <option value>{{ trans('global.all') }}</option>
                             @foreach(App\Models\UserCardMgmt::CARD_ISSUER_SELECT as $key => $item)
                                 <option value="{{ $key }}">{{ $item }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($users as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -139,12 +138,12 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'user_name', name: 'user.name' },
+{ data: 'user.email', name: 'user.email' },
 { data: 'cardholder_name', name: 'cardholder_name' },
 { data: 'card_no', name: 'card_no' },
 { data: 'card_issuer', name: 'card_issuer' },
-{ data: 'expire_date', name: 'expire_date' },
-{ data: 'user_name', name: 'user.name' },
-{ data: 'user.email', name: 'user.email' },
+{ data: 'expiration_date', name: 'expiration_date' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

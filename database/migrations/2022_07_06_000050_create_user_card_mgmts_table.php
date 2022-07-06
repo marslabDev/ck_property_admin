@@ -13,7 +13,7 @@ class CreateUserCardMgmtsTable extends Migration
             $table->string('cardholder_name');
             $table->string('card_no');
             $table->string('card_issuer');
-            $table->string('expire_date');
+            $table->date('expiration_date');
             $table->timestamps();
             $table->softDeletes();
         });
