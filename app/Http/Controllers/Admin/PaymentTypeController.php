@@ -95,7 +95,7 @@ class PaymentTypeController extends Controller
     {
         abort_if(Gate::denies('payment_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentType->load('created_by', 'paymentTypePaymentHistories');
+        $paymentType->load('created_by', 'paymentTypePaymentHistories', 'paymentTypeHomeOwnerTransactions');
 
         return view('admin.paymentTypes.show', compact('paymentType'));
     }

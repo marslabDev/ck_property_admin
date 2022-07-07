@@ -159,4 +159,10 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Payment Plan
     Route::apiResource('payment-plans', 'PaymentPlanApiController');
+
+    // Supplier Transaction
+    Route::apiResource('supplier-transactions', 'SupplierTransactionApiController');
+
+    // Home Owner Transaction
+    Route::apiResource('home-owner-transactions', 'HomeOwnerTransactionApiController');
 });

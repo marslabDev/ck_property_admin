@@ -140,10 +140,18 @@
                 {{ trans('cruds.paymentPlan.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#house_home_owner_transactions" role="tab" data-toggle="tab">
+                {{ trans('cruds.homeOwnerTransaction.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="house_payment_plans">
             @includeIf('admin.manageHouses.relationships.housePaymentPlans', ['paymentPlans' => $manageHouse->housePaymentPlans])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="house_home_owner_transactions">
+            @includeIf('admin.manageHouses.relationships.houseHomeOwnerTransactions', ['homeOwnerTransactions' => $manageHouse->houseHomeOwnerTransactions])
         </div>
     </div>
 </div>

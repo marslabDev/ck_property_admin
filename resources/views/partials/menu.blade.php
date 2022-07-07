@@ -20,6 +20,16 @@
                 {{ trans('global.dashboard') }}
             </a>
         </li>
+        @can('audit_log_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.audit-logs.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/audit-logs") || request()->is("admin/audit-logs/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-file-alt c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.auditLog.title') }}
+                </a>
+            </li>
+        @endcan
         @can('user_alert_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.user-alerts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/user-alerts") || request()->is("admin/user-alerts/*") ? "c-active" : "" }}">
@@ -86,264 +96,6 @@
 
                                 </i>
                                 {{ trans('cruds.userCardMgmt.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-            </li>
-        @endcan
-        @can('audit_log_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.audit-logs.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/audit-logs") || request()->is("admin/audit-logs/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-file-alt c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.auditLog.title') }}
-                </a>
-            </li>
-        @endcan
-        @can('expense_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/expense-categories*") ? "c-show" : "" }} {{ request()->is("admin/income-categories*") ? "c-show" : "" }} {{ request()->is("admin/expenses*") ? "c-show" : "" }} {{ request()->is("admin/incomes*") ? "c-show" : "" }} {{ request()->is("admin/expense-reports*") ? "c-show" : "" }}">
-                <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-money-bill c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.expenseManagement.title') }}
-                </a>
-                <ul class="c-sidebar-nav-dropdown-items">
-                    @can('expense_category_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.expense-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/expense-categories") || request()->is("admin/expense-categories/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-list c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.expenseCategory.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('income_category_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.income-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/income-categories") || request()->is("admin/income-categories/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-list c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.incomeCategory.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('expense_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.expenses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/expenses") || request()->is("admin/expenses/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-arrow-circle-right c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.expense.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('income_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.incomes.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/incomes") || request()->is("admin/incomes/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-arrow-circle-right c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.income.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('expense_report_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.expense-reports.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/expense-reports") || request()->is("admin/expense-reports/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-chart-line c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.expenseReport.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-            </li>
-        @endcan
-        @can('asset_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/asset-categories*") ? "c-show" : "" }} {{ request()->is("admin/asset-locations*") ? "c-show" : "" }} {{ request()->is("admin/asset-statuses*") ? "c-show" : "" }} {{ request()->is("admin/assets*") ? "c-show" : "" }} {{ request()->is("admin/assets-histories*") ? "c-show" : "" }}">
-                <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-book c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.assetManagement.title') }}
-                </a>
-                <ul class="c-sidebar-nav-dropdown-items">
-                    @can('asset_category_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.asset-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/asset-categories") || request()->is("admin/asset-categories/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-tags c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.assetCategory.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('asset_location_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.asset-locations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/asset-locations") || request()->is("admin/asset-locations/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-map-marker c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.assetLocation.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('asset_status_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.asset-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/asset-statuses") || request()->is("admin/asset-statuses/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-server c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.assetStatus.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('asset_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.assets.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/assets") || request()->is("admin/assets/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-book c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.asset.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('assets_history_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.assets-histories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/assets-histories") || request()->is("admin/assets-histories/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-th-list c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.assetsHistory.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-            </li>
-        @endcan
-        @can('payment_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/payments*") ? "c-show" : "" }} {{ request()->is("admin/payment-plans*") ? "c-show" : "" }} {{ request()->is("admin/payment-types*") ? "c-show" : "" }} {{ request()->is("admin/payment-histories*") ? "c-show" : "" }}">
-                <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-money-bill-wave c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.paymentManagement.title') }}
-                </a>
-                <ul class="c-sidebar-nav-dropdown-items">
-                    @can('payment_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.payments.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payments") || request()->is("admin/payments/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-list-ol c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.payment.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('payment_plan_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.payment-plans.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payment-plans") || request()->is("admin/payment-plans/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-file-invoice-dollar c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.paymentPlan.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('payment_type_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.payment-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payment-types") || request()->is("admin/payment-types/*") ? "c-active" : "" }}">
-                                <i class="fa-fw far fa-credit-card c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.paymentType.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('payment_history_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.payment-histories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payment-histories") || request()->is("admin/payment-histories/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-history c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.paymentHistory.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-            </li>
-        @endcan
-        @can('house_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/areas*") ? "c-show" : "" }} {{ request()->is("admin/streets*") ? "c-show" : "" }} {{ request()->is("admin/parking-lots*") ? "c-show" : "" }} {{ request()->is("admin/house-types*") ? "c-show" : "" }} {{ request()->is("admin/manage-houses*") ? "c-show" : "" }} {{ request()->is("admin/manage-prices*") ? "c-show" : "" }}">
-                <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-home c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.houseManagement.title') }}
-                </a>
-                <ul class="c-sidebar-nav-dropdown-items">
-                    @can('area_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.areas.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/areas") || request()->is("admin/areas/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-chart-area c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.area.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('street_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.streets.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/streets") || request()->is("admin/streets/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-road c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.street.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('parking_lot_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.parking-lots.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/parking-lots") || request()->is("admin/parking-lots/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-parking c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.parkingLot.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('house_type_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.house-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/house-types") || request()->is("admin/house-types/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-grip-horizontal c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.houseType.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('manage_house_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.manage-houses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/manage-houses") || request()->is("admin/manage-houses/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fab fa-houzz c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.manageHouse.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('manage_price_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.manage-prices.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/manage-prices") || request()->is("admin/manage-prices/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-hand-holding-usd c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.managePrice.title') }}
                             </a>
                         </li>
                     @endcan
@@ -426,6 +178,348 @@
 
                                 </i>
                                 {{ trans('cruds.complaintSystem.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
+        @can('house_management_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/areas*") ? "c-show" : "" }} {{ request()->is("admin/streets*") ? "c-show" : "" }} {{ request()->is("admin/parking-lots*") ? "c-show" : "" }} {{ request()->is("admin/house-types*") ? "c-show" : "" }} {{ request()->is("admin/manage-houses*") ? "c-show" : "" }} {{ request()->is("admin/manage-prices*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-home c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.houseManagement.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('area_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.areas.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/areas") || request()->is("admin/areas/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-chart-area c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.area.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('street_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.streets.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/streets") || request()->is("admin/streets/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-road c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.street.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('parking_lot_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.parking-lots.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/parking-lots") || request()->is("admin/parking-lots/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-parking c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.parkingLot.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('house_type_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.house-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/house-types") || request()->is("admin/house-types/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-grip-horizontal c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.houseType.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('manage_house_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.manage-houses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/manage-houses") || request()->is("admin/manage-houses/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fab fa-houzz c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.manageHouse.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('manage_price_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.manage-prices.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/manage-prices") || request()->is("admin/manage-prices/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-hand-holding-usd c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.managePrice.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
+        @can('payment_management_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/payments*") ? "c-show" : "" }} {{ request()->is("admin/payment-plans*") ? "c-show" : "" }} {{ request()->is("admin/payment-types*") ? "c-show" : "" }} {{ request()->is("admin/payment-histories*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-money-bill-wave c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.paymentManagement.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('payment_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.payments.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payments") || request()->is("admin/payments/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-list-ol c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.payment.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('payment_plan_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.payment-plans.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payment-plans") || request()->is("admin/payment-plans/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-file-invoice-dollar c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.paymentPlan.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('payment_type_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.payment-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payment-types") || request()->is("admin/payment-types/*") ? "c-active" : "" }}">
+                                <i class="fa-fw far fa-credit-card c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.paymentType.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('payment_history_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.payment-histories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payment-histories") || request()->is("admin/payment-histories/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-history c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.paymentHistory.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
+        @can('transaction_management_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/home-owner-transactions*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.transactionManagement.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('home_owner_transaction_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.home-owner-transactions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/home-owner-transactions") || request()->is("admin/home-owner-transactions/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-exchange-alt c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.homeOwnerTransaction.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
+        @can('client_management_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/clients*") ? "c-show" : "" }} {{ request()->is("admin/projects*") ? "c-show" : "" }} {{ request()->is("admin/notes*") ? "c-show" : "" }} {{ request()->is("admin/documents*") ? "c-show" : "" }} {{ request()->is("admin/transactions*") ? "c-show" : "" }} {{ request()->is("admin/supplier-transactions*") ? "c-show" : "" }} {{ request()->is("admin/client-reports*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.clientManagement.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('client_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.clients.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/clients") || request()->is("admin/clients/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-user-plus c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.client.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('project_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.projects.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/projects") || request()->is("admin/projects/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.project.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('note_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.notes.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/notes") || request()->is("admin/notes/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-sticky-note c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.note.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('document_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.documents.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/documents") || request()->is("admin/documents/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-file-alt c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.document.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('transaction_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.transactions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/transactions") || request()->is("admin/transactions/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-exchange-alt c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.transaction.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('supplier_transaction_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.supplier-transactions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/supplier-transactions") || request()->is("admin/supplier-transactions/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-exchange-alt c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.supplierTransaction.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('client_report_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.client-reports.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/client-reports") || request()->is("admin/client-reports/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-chart-line c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.clientReport.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
+        @can('client_management_setting_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/transaction-types*") ? "c-show" : "" }} {{ request()->is("admin/income-sources*") ? "c-show" : "" }} {{ request()->is("admin/client-statuses*") ? "c-show" : "" }} {{ request()->is("admin/project-statuses*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-cog c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.clientManagementSetting.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('transaction_type_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.transaction-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/transaction-types") || request()->is("admin/transaction-types/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-money-check c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.transactionType.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('income_source_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.income-sources.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/income-sources") || request()->is("admin/income-sources/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-database c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.incomeSource.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('client_status_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.client-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/client-statuses") || request()->is("admin/client-statuses/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-server c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.clientStatus.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('project_status_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.project-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/project-statuses") || request()->is("admin/project-statuses/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-server c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.projectStatus.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
+        @can('expense_management_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/expense-categories*") ? "c-show" : "" }} {{ request()->is("admin/income-categories*") ? "c-show" : "" }} {{ request()->is("admin/expenses*") ? "c-show" : "" }} {{ request()->is("admin/incomes*") ? "c-show" : "" }} {{ request()->is("admin/expense-reports*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-money-bill c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.expenseManagement.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('expense_category_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.expense-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/expense-categories") || request()->is("admin/expense-categories/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-list c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.expenseCategory.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('income_category_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.income-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/income-categories") || request()->is("admin/income-categories/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-list c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.incomeCategory.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('expense_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.expenses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/expenses") || request()->is("admin/expenses/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-arrow-circle-right c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.expense.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('income_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.incomes.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/incomes") || request()->is("admin/incomes/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-arrow-circle-right c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.income.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('expense_report_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.expense-reports.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/expense-reports") || request()->is("admin/expense-reports/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-chart-line c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.expenseReport.title') }}
                             </a>
                         </li>
                     @endcan
@@ -536,134 +630,62 @@
                 </ul>
             </li>
         @endcan
-        @can('client_management_setting_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/currencies*") ? "c-show" : "" }} {{ request()->is("admin/transaction-types*") ? "c-show" : "" }} {{ request()->is("admin/income-sources*") ? "c-show" : "" }} {{ request()->is("admin/client-statuses*") ? "c-show" : "" }} {{ request()->is("admin/project-statuses*") ? "c-show" : "" }}">
+        @can('asset_management_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/asset-categories*") ? "c-show" : "" }} {{ request()->is("admin/asset-locations*") ? "c-show" : "" }} {{ request()->is("admin/asset-statuses*") ? "c-show" : "" }} {{ request()->is("admin/assets*") ? "c-show" : "" }} {{ request()->is("admin/assets-histories*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-cog c-sidebar-nav-icon">
+                    <i class="fa-fw fas fa-book c-sidebar-nav-icon">
 
                     </i>
-                    {{ trans('cruds.clientManagementSetting.title') }}
+                    {{ trans('cruds.assetManagement.title') }}
                 </a>
                 <ul class="c-sidebar-nav-dropdown-items">
-                    @can('currency_access')
+                    @can('asset_category_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.currencies.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/currencies") || request()->is("admin/currencies/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-money-bill c-sidebar-nav-icon">
+                            <a href="{{ route("admin.asset-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/asset-categories") || request()->is("admin/asset-categories/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-tags c-sidebar-nav-icon">
 
                                 </i>
-                                {{ trans('cruds.currency.title') }}
+                                {{ trans('cruds.assetCategory.title') }}
                             </a>
                         </li>
                     @endcan
-                    @can('transaction_type_access')
+                    @can('asset_location_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.transaction-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/transaction-types") || request()->is("admin/transaction-types/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-money-check c-sidebar-nav-icon">
+                            <a href="{{ route("admin.asset-locations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/asset-locations") || request()->is("admin/asset-locations/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-map-marker c-sidebar-nav-icon">
 
                                 </i>
-                                {{ trans('cruds.transactionType.title') }}
+                                {{ trans('cruds.assetLocation.title') }}
                             </a>
                         </li>
                     @endcan
-                    @can('income_source_access')
+                    @can('asset_status_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.income-sources.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/income-sources") || request()->is("admin/income-sources/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-database c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.incomeSource.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('client_status_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.client-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/client-statuses") || request()->is("admin/client-statuses/*") ? "c-active" : "" }}">
+                            <a href="{{ route("admin.asset-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/asset-statuses") || request()->is("admin/asset-statuses/*") ? "c-active" : "" }}">
                                 <i class="fa-fw fas fa-server c-sidebar-nav-icon">
 
                                 </i>
-                                {{ trans('cruds.clientStatus.title') }}
+                                {{ trans('cruds.assetStatus.title') }}
                             </a>
                         </li>
                     @endcan
-                    @can('project_status_access')
+                    @can('asset_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.project-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/project-statuses") || request()->is("admin/project-statuses/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-server c-sidebar-nav-icon">
+                            <a href="{{ route("admin.assets.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/assets") || request()->is("admin/assets/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-book c-sidebar-nav-icon">
 
                                 </i>
-                                {{ trans('cruds.projectStatus.title') }}
+                                {{ trans('cruds.asset.title') }}
                             </a>
                         </li>
                     @endcan
-                </ul>
-            </li>
-        @endcan
-        @can('client_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/clients*") ? "c-show" : "" }} {{ request()->is("admin/projects*") ? "c-show" : "" }} {{ request()->is("admin/notes*") ? "c-show" : "" }} {{ request()->is("admin/documents*") ? "c-show" : "" }} {{ request()->is("admin/transactions*") ? "c-show" : "" }} {{ request()->is("admin/client-reports*") ? "c-show" : "" }}">
-                <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.clientManagement.title') }}
-                </a>
-                <ul class="c-sidebar-nav-dropdown-items">
-                    @can('client_access')
+                    @can('assets_history_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.clients.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/clients") || request()->is("admin/clients/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-user-plus c-sidebar-nav-icon">
+                            <a href="{{ route("admin.assets-histories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/assets-histories") || request()->is("admin/assets-histories/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-th-list c-sidebar-nav-icon">
 
                                 </i>
-                                {{ trans('cruds.client.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('project_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.projects.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/projects") || request()->is("admin/projects/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.project.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('note_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.notes.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/notes") || request()->is("admin/notes/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-sticky-note c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.note.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('document_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.documents.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/documents") || request()->is("admin/documents/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-file-alt c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.document.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('transaction_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.transactions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/transactions") || request()->is("admin/transactions/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-credit-card c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.transaction.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('client_report_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.client-reports.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/client-reports") || request()->is("admin/client-reports/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-chart-line c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.clientReport.title') }}
+                                {{ trans('cruds.assetsHistory.title') }}
                             </a>
                         </li>
                     @endcan
@@ -706,6 +728,28 @@
 
                                 </i>
                                 {{ trans('cruds.contentPage.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
+        @can('setting_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/currencies*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.setting.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('currency_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.currencies.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/currencies") || request()->is("admin/currencies/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-money-bill c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.currency.title') }}
                             </a>
                         </li>
                     @endcan

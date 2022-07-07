@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaymentType extends Model
+class HomeOwnerTransaction extends Model
 {
     use SoftDeletes;
     use MultiTenantModelTrait;
     use Auditable;
     use HasFactory;
 
-    public $table = 'payment_types';
+    public $table = 'home_owner_transactions';
 
     protected $dates = [
         'created_at',
@@ -25,21 +25,36 @@ class PaymentType extends Model
     ];
 
     protected $fillable = [
-        'name',
+        'user_id',
+        'house_id',
+        'payment_plan_id',
+        'payment_type_id',
+        'amount_paid',
+        'changes',
         'created_at',
         'updated_at',
         'deleted_at',
         'created_by_id',
     ];
 
-    public function paymentTypePaymentHistories()
+    public function user()
     {
-        return $this->hasMany(PaymentHistory::class, 'payment_type_id', 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function paymentTypeHomeOwnerTransactions()
+    public function house()
     {
-        return $this->hasMany(HomeOwnerTransaction::class, 'payment_type_id', 'id');
+        return $this->belongsTo(ManageHouse::class, 'house_id');
+    }
+
+    public function payment_plan()
+    {
+        return $this->belongsTo(PaymentPlan::class, 'payment_plan_id');
+    }
+
+    public function payment_type()
+    {
+        return $this->belongsTo(PaymentType::class, 'payment_type_id');
     }
 
     public function created_by()

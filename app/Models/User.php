@@ -124,6 +124,11 @@ class User extends Authenticatable
         return $this->hasMany(PaymentPlan::class, 'user_id', 'id');
     }
 
+    public function userHomeOwnerTransactions()
+    {
+        return $this->hasMany(HomeOwnerTransaction::class, 'user_id', 'id');
+    }
+
     public function userUserAlerts()
     {
         return $this->belongsToMany(UserAlert::class);

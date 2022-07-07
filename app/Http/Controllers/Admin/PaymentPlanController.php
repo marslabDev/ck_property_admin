@@ -141,7 +141,7 @@ class PaymentPlanController extends Controller
     {
         abort_if(Gate::denies('payment_plan_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentPlan->load('user', 'house', 'payments', 'created_by');
+        $paymentPlan->load('user', 'house', 'payments', 'created_by', 'paymentPlanHomeOwnerTransactions');
 
         return view('admin.paymentPlans.show', compact('paymentPlan'));
     }

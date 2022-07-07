@@ -129,6 +129,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="#user_home_owner_transactions" role="tab" data-toggle="tab">
+                {{ trans('cruds.homeOwnerTransaction.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#user_user_alerts" role="tab" data-toggle="tab">
                 {{ trans('cruds.userAlert.title') }}
             </a>
@@ -148,6 +153,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="user_payment_plans">
             @includeIf('admin.users.relationships.userPaymentPlans', ['paymentPlans' => $user->userPaymentPlans])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="user_home_owner_transactions">
+            @includeIf('admin.users.relationships.userHomeOwnerTransactions', ['homeOwnerTransactions' => $user->userHomeOwnerTransactions])
         </div>
         <div class="tab-pane" role="tabpanel" id="user_user_alerts">
             @includeIf('admin.users.relationships.userUserAlerts', ['userAlerts' => $user->userUserAlerts])

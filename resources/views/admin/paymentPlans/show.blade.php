@@ -100,6 +100,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#payment_plan_home_owner_transactions" role="tab" data-toggle="tab">
+                {{ trans('cruds.homeOwnerTransaction.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="payment_plan_home_owner_transactions">
+            @includeIf('admin.paymentPlans.relationships.paymentPlanHomeOwnerTransactions', ['homeOwnerTransactions' => $paymentPlan->paymentPlanHomeOwnerTransactions])
+        </div>
+    </div>
+</div>
 
 @endsection

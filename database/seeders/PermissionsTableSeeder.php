@@ -1112,6 +1112,54 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 276,
+                'title' => 'transaction_management_access',
+            ],
+            [
+                'id'    => 277,
+                'title' => 'setting_access',
+            ],
+            [
+                'id'    => 278,
+                'title' => 'supplier_transaction_create',
+            ],
+            [
+                'id'    => 279,
+                'title' => 'supplier_transaction_edit',
+            ],
+            [
+                'id'    => 280,
+                'title' => 'supplier_transaction_show',
+            ],
+            [
+                'id'    => 281,
+                'title' => 'supplier_transaction_delete',
+            ],
+            [
+                'id'    => 282,
+                'title' => 'supplier_transaction_access',
+            ],
+            [
+                'id'    => 283,
+                'title' => 'home_owner_transaction_create',
+            ],
+            [
+                'id'    => 284,
+                'title' => 'home_owner_transaction_edit',
+            ],
+            [
+                'id'    => 285,
+                'title' => 'home_owner_transaction_show',
+            ],
+            [
+                'id'    => 286,
+                'title' => 'home_owner_transaction_delete',
+            ],
+            [
+                'id'    => 287,
+                'title' => 'home_owner_transaction_access',
+            ],
+            [
+                'id'    => 288,
                 'title' => 'profile_password_edit',
             ],
         ];
