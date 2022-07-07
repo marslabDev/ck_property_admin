@@ -62,7 +62,7 @@ class PaymentItemController extends Controller
     {
         abort_if(Gate::denies('payment_item_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentItem->load('created_by');
+        $paymentItem->load('created_by', 'paymentItemPaymentPlans');
 
         return view('frontend.paymentItems.show', compact('paymentItem'));
     }

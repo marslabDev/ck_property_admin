@@ -1,38 +1,41 @@
 @extends('layouts.admin')
 @section('content')
-@can('payment_item_create')
+@can('payment_charge_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.payment-items.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.paymentItem.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.payment-charges.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.paymentCharge.title_singular') }}
             </a>
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
                 {{ trans('global.app_csvImport') }}
             </button>
-            @include('csvImport.modal', ['model' => 'PaymentItem', 'route' => 'admin.payment-items.parseCsvImport'])
+            @include('csvImport.modal', ['model' => 'PaymentCharge', 'route' => 'admin.payment-charges.parseCsvImport'])
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.paymentItem.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.paymentCharge.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-PaymentItem">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-PaymentCharge">
             <thead>
                 <tr>
                     <th width="10">
 
                     </th>
                     <th>
-                        {{ trans('cruds.paymentItem.fields.id') }}
+                        {{ trans('cruds.paymentCharge.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.paymentItem.fields.particular') }}
+                        {{ trans('cruds.paymentCharge.fields.particular') }}
                     </th>
                     <th>
-                        {{ trans('cruds.paymentItem.fields.amount') }}
+                        {{ trans('cruds.paymentCharge.fields.type') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.paymentCharge.fields.amount') }}
                     </th>
                     <th>
                         &nbsp;
@@ -46,6 +49,14 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search" strict="true">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach(App\Models\PaymentCharge::TYPE_SELECT as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -66,11 +77,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('payment_item_delete')
+@can('payment_charge_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.payment-items.massDestroy') }}",
+    url: "{{ route('admin.payment-charges.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -102,11 +113,12 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.payment-items.index') }}",
+    ajax: "{{ route('admin.payment-charges.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'particular', name: 'particular' },
+{ data: 'type', name: 'type' },
 { data: 'amount', name: 'amount' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
@@ -114,7 +126,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   };
-  let table = $('.datatable-PaymentItem').DataTable(dtOverrideGlobals);
+  let table = $('.datatable-PaymentCharge').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

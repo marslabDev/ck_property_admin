@@ -339,12 +339,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('payment-plans/process-csv-import', 'PaymentPlanController@processCsvImport')->name('payment-plans.processCsvImport');
     Route::resource('payment-plans', 'PaymentPlanController');
 
-    // Supplier Transaction
-    Route::delete('supplier-transactions/destroy', 'SupplierTransactionController@massDestroy')->name('supplier-transactions.massDestroy');
-    Route::post('supplier-transactions/parse-csv-import', 'SupplierTransactionController@parseCsvImport')->name('supplier-transactions.parseCsvImport');
-    Route::post('supplier-transactions/process-csv-import', 'SupplierTransactionController@processCsvImport')->name('supplier-transactions.processCsvImport');
-    Route::resource('supplier-transactions', 'SupplierTransactionController');
-
     // Home Owner Transaction
     Route::delete('home-owner-transactions/destroy', 'HomeOwnerTransactionController@massDestroy')->name('home-owner-transactions.massDestroy');
     Route::post('home-owner-transactions/parse-csv-import', 'HomeOwnerTransactionController@parseCsvImport')->name('home-owner-transactions.parseCsvImport');
@@ -356,6 +350,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('payment-items/parse-csv-import', 'PaymentItemController@parseCsvImport')->name('payment-items.parseCsvImport');
     Route::post('payment-items/process-csv-import', 'PaymentItemController@processCsvImport')->name('payment-items.processCsvImport');
     Route::resource('payment-items', 'PaymentItemController');
+
+    // Payment Charge
+    Route::delete('payment-charges/destroy', 'PaymentChargeController@massDestroy')->name('payment-charges.massDestroy');
+    Route::post('payment-charges/parse-csv-import', 'PaymentChargeController@parseCsvImport')->name('payment-charges.parseCsvImport');
+    Route::post('payment-charges/process-csv-import', 'PaymentChargeController@processCsvImport')->name('payment-charges.processCsvImport');
+    Route::resource('payment-charges', 'PaymentChargeController');
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
@@ -608,10 +608,6 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::delete('payment-plans/destroy', 'PaymentPlanController@massDestroy')->name('payment-plans.massDestroy');
     Route::resource('payment-plans', 'PaymentPlanController');
 
-    // Supplier Transaction
-    Route::delete('supplier-transactions/destroy', 'SupplierTransactionController@massDestroy')->name('supplier-transactions.massDestroy');
-    Route::resource('supplier-transactions', 'SupplierTransactionController');
-
     // Home Owner Transaction
     Route::delete('home-owner-transactions/destroy', 'HomeOwnerTransactionController@massDestroy')->name('home-owner-transactions.massDestroy');
     Route::resource('home-owner-transactions', 'HomeOwnerTransactionController');
@@ -619,6 +615,10 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Payment Item
     Route::delete('payment-items/destroy', 'PaymentItemController@massDestroy')->name('payment-items.massDestroy');
     Route::resource('payment-items', 'PaymentItemController');
+
+    // Payment Charge
+    Route::delete('payment-charges/destroy', 'PaymentChargeController@massDestroy')->name('payment-charges.massDestroy');
+    Route::resource('payment-charges', 'PaymentChargeController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

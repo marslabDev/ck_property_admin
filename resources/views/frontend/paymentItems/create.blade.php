@@ -34,21 +34,6 @@
                             <span class="help-block">{{ trans('cruds.paymentItem.fields.amount_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label class="required">{{ trans('cruds.paymentItem.fields.type') }}</label>
-                            <select class="form-control" name="type" id="type" required>
-                                <option value disabled {{ old('type', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                                @foreach(App\Models\PaymentItem::TYPE_SELECT as $key => $label)
-                                    <option value="{{ $key }}" {{ old('type', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('type'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('type') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.paymentItem.fields.type_helper') }}</span>
-                        </div>
-                        <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
                             </button>

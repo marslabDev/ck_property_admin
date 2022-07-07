@@ -53,9 +53,6 @@ class PaymentItemController extends Controller
             $table->editColumn('amount', function ($row) {
                 return $row->amount ? $row->amount : '';
             });
-            $table->editColumn('type', function ($row) {
-                return $row->type ? PaymentItem::TYPE_SELECT[$row->type] : '';
-            });
 
             $table->rawColumns(['actions', 'placeholder']);
 

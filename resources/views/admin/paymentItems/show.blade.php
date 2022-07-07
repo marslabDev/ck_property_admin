@@ -39,14 +39,6 @@
                             {{ $paymentItem->amount }}
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.paymentItem.fields.type') }}
-                        </th>
-                        <td>
-                            {{ App\Models\PaymentItem::TYPE_SELECT[$paymentItem->type] ?? '' }}
-                        </td>
-                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
