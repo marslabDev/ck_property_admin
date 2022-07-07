@@ -6,13 +6,13 @@
 
             <div class="card">
                 <div class="card-header">
-                    {{ trans('global.show') }} {{ trans('cruds.paymentItem.title') }}
+                    {{ trans('global.show') }} {{ trans('cruds.paymentCharge.title') }}
                 </div>
 
                 <div class="card-body">
                     <div class="form-group">
                         <div class="form-group">
-                            <a class="btn btn-default" href="{{ route('frontend.payment-items.index') }}">
+                            <a class="btn btn-default" href="{{ route('frontend.payment-charges.index') }}">
                                 {{ trans('global.back_to_list') }}
                             </a>
                         </div>
@@ -20,32 +20,40 @@
                             <tbody>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.paymentItem.fields.id') }}
+                                        {{ trans('cruds.paymentCharge.fields.id') }}
                                     </th>
                                     <td>
-                                        {{ $paymentItem->id }}
+                                        {{ $paymentCharge->id }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.paymentItem.fields.particular') }}
+                                        {{ trans('cruds.paymentCharge.fields.particular') }}
                                     </th>
                                     <td>
-                                        {{ $paymentItem->particular }}
+                                        {{ $paymentCharge->particular }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.paymentItem.fields.amount') }}
+                                        {{ trans('cruds.paymentCharge.fields.type') }}
                                     </th>
                                     <td>
-                                        {{ $paymentItem->amount }}
+                                        {{ App\Models\PaymentCharge::TYPE_SELECT[$paymentCharge->type] ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.paymentCharge.fields.amount') }}
+                                    </th>
+                                    <td>
+                                        {{ $paymentCharge->amount }}
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="form-group">
-                            <a class="btn btn-default" href="{{ route('frontend.payment-items.index') }}">
+                            <a class="btn btn-default" href="{{ route('frontend.payment-charges.index') }}">
                                 {{ trans('global.back_to_list') }}
                             </a>
                         </div>

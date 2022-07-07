@@ -9,14 +9,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaymentItem extends Model
+class PaymentCharge extends Model
 {
     use SoftDeletes;
     use MultiTenantModelTrait;
     use Auditable;
     use HasFactory;
 
-    public $table = 'payment_items';
+    public const TYPE_SELECT = [
+        'FIXED_RATE' => 'Fixed Rate',
+        'PERCENTAGE' => 'Percentage',
+    ];
+
+    public $table = 'payment_charges';
 
     protected $dates = [
         'created_at',
@@ -26,17 +31,13 @@ class PaymentItem extends Model
 
     protected $fillable = [
         'particular',
+        'type',
         'amount',
-        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
+        'created_by_id',
     ];
-
-    public function paymentItemPaymentPlans()
-    {
-        return $this->belongsToMany(PaymentPlan::class);
-    }
 
     public function created_by()
     {

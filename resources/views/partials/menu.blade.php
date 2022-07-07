@@ -257,7 +257,7 @@
             </li>
         @endcan
         @can('payment_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/payment-items*") ? "c-show" : "" }} {{ request()->is("admin/payment-plans*") ? "c-show" : "" }} {{ request()->is("admin/payment-types*") ? "c-show" : "" }} {{ request()->is("admin/payment-histories*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/payment-items*") ? "c-show" : "" }} {{ request()->is("admin/payment-charges*") ? "c-show" : "" }} {{ request()->is("admin/payment-plans*") ? "c-show" : "" }} {{ request()->is("admin/payment-types*") ? "c-show" : "" }} {{ request()->is("admin/payment-histories*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-money-bill-wave c-sidebar-nav-icon">
 
@@ -272,6 +272,16 @@
 
                                 </i>
                                 {{ trans('cruds.paymentItem.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('payment_charge_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.payment-charges.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payment-charges") || request()->is("admin/payment-charges/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.paymentCharge.title') }}
                             </a>
                         </li>
                     @endcan
@@ -331,7 +341,7 @@
             </li>
         @endcan
         @can('client_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/clients*") ? "c-show" : "" }} {{ request()->is("admin/projects*") ? "c-show" : "" }} {{ request()->is("admin/notes*") ? "c-show" : "" }} {{ request()->is("admin/documents*") ? "c-show" : "" }} {{ request()->is("admin/transactions*") ? "c-show" : "" }} {{ request()->is("admin/supplier-transactions*") ? "c-show" : "" }} {{ request()->is("admin/client-reports*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/clients*") ? "c-show" : "" }} {{ request()->is("admin/projects*") ? "c-show" : "" }} {{ request()->is("admin/notes*") ? "c-show" : "" }} {{ request()->is("admin/documents*") ? "c-show" : "" }} {{ request()->is("admin/transactions*") ? "c-show" : "" }} {{ request()->is("admin/client-reports*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
 
@@ -386,16 +396,6 @@
 
                                 </i>
                                 {{ trans('cruds.transaction.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('supplier_transaction_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.supplier-transactions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/supplier-transactions") || request()->is("admin/supplier-transactions/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-exchange-alt c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.supplierTransaction.title') }}
                             </a>
                         </li>
                     @endcan

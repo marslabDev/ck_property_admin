@@ -23,9 +23,6 @@ class StorePaymentItemRequest extends FormRequest
             'amount' => [
                 'required',
             ],
-            'type' => [
-                'required',
-            ],
         ];
     }
 }
