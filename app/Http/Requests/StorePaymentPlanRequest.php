@@ -29,10 +29,10 @@ class StorePaymentPlanRequest extends FormRequest
                 'required',
                 'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
             ],
-            'payments.*' => [
+            'payment_items.*' => [
                 'integer',
             ],
-            'payments' => [
+            'payment_items' => [
                 'required',
                 'array',
             ],

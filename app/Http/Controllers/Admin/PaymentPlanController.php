@@ -8,7 +8,7 @@ use App\Http\Requests\MassDestroyPaymentPlanRequest;
 use App\Http\Requests\StorePaymentPlanRequest;
 use App\Http\Requests\UpdatePaymentPlanRequest;
 use App\Models\ManageHouse;
-use App\Models\Payment;
+use App\Models\PaymentItem;
 use App\Models\PaymentPlan;
 use App\Models\User;
 use Gate;
@@ -25,7 +25,7 @@ class PaymentPlanController extends Controller
         abort_if(Gate::denies('payment_plan_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = PaymentPlan::with(['user', 'house', 'payments', 'created_by'])->select(sprintf('%s.*', (new PaymentPlan())->table));
+            $query = PaymentPlan::with(['user', 'house', 'payment_items', 'created_by'])->select(sprintf('%s.*', (new PaymentPlan())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -60,10 +60,10 @@ class PaymentPlanController extends Controller
                 return $row->house ? $row->house->unit_no : '';
             });
 
-            $table->editColumn('payment', function ($row) {
+            $table->editColumn('payment_item', function ($row) {
                 $labels = [];
-                foreach ($row->payments as $payment) {
-                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $payment->particular);
+                foreach ($row->payment_items as $payment_item) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $payment_item->particular);
                 }
 
                 return implode(' ', $labels);
@@ -81,16 +81,16 @@ class PaymentPlanController extends Controller
                 return $row->no_of_cycle ? $row->no_of_cycle : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'user', 'house', 'payment', 'recusive_payment']);
+            $table->rawColumns(['actions', 'placeholder', 'user', 'house', 'payment_item', 'recusive_payment']);
 
             return $table->make(true);
         }
 
         $users         = User::get();
         $manage_houses = ManageHouse::get();
-        $payments      = Payment::get();
+        $payment_items = PaymentItem::get();
 
-        return view('admin.paymentPlans.index', compact('users', 'manage_houses', 'payments'));
+        return view('admin.paymentPlans.index', compact('users', 'manage_houses', 'payment_items'));
     }
 
     public function create()
@@ -101,15 +101,15 @@ class PaymentPlanController extends Controller
 
         $houses = ManageHouse::pluck('unit_no', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $payments = Payment::pluck('particular', 'id');
+        $payment_items = PaymentItem::pluck('particular', 'id');
 
-        return view('admin.paymentPlans.create', compact('houses', 'payments', 'users'));
+        return view('admin.paymentPlans.create', compact('houses', 'payment_items', 'users'));
     }
 
     public function store(StorePaymentPlanRequest $request)
     {
         $paymentPlan = PaymentPlan::create($request->all());
-        $paymentPlan->payments()->sync($request->input('payments', []));
+        $paymentPlan->payment_items()->sync($request->input('payment_items', []));
 
         return redirect()->route('admin.payment-plans.index');
     }
@@ -122,17 +122,17 @@ class PaymentPlanController extends Controller
 
         $houses = ManageHouse::pluck('unit_no', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $payments = Payment::pluck('particular', 'id');
+        $payment_items = PaymentItem::pluck('particular', 'id');
 
-        $paymentPlan->load('user', 'house', 'payments', 'created_by');
+        $paymentPlan->load('user', 'house', 'payment_items', 'created_by');
 
-        return view('admin.paymentPlans.edit', compact('houses', 'paymentPlan', 'payments', 'users'));
+        return view('admin.paymentPlans.edit', compact('houses', 'paymentPlan', 'payment_items', 'users'));
     }
 
     public function update(UpdatePaymentPlanRequest $request, PaymentPlan $paymentPlan)
     {
         $paymentPlan->update($request->all());
-        $paymentPlan->payments()->sync($request->input('payments', []));
+        $paymentPlan->payment_items()->sync($request->input('payment_items', []));
 
         return redirect()->route('admin.payment-plans.index');
     }
@@ -141,7 +141,7 @@ class PaymentPlanController extends Controller
     {
         abort_if(Gate::denies('payment_plan_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentPlan->load('user', 'house', 'payments', 'created_by', 'paymentPlanHomeOwnerTransactions');
+        $paymentPlan->load('user', 'house', 'payment_items', 'created_by', 'paymentPlanHomeOwnerTransactions');
 
         return view('admin.paymentPlans.show', compact('paymentPlan'));
     }

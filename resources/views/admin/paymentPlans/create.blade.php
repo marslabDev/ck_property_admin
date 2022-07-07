@@ -48,22 +48,22 @@
                 <span class="help-block">{{ trans('cruds.paymentPlan.fields.due_date_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="payments">{{ trans('cruds.paymentPlan.fields.payment') }}</label>
+                <label class="required" for="payment_items">{{ trans('cruds.paymentPlan.fields.payment_item') }}</label>
                 <div style="padding-bottom: 4px">
                     <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
                     <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
                 </div>
-                <select class="form-control select2 {{ $errors->has('payments') ? 'is-invalid' : '' }}" name="payments[]" id="payments" multiple required>
-                    @foreach($payments as $id => $payment)
-                        <option value="{{ $id }}" {{ in_array($id, old('payments', [])) ? 'selected' : '' }}>{{ $payment }}</option>
+                <select class="form-control select2 {{ $errors->has('payment_items') ? 'is-invalid' : '' }}" name="payment_items[]" id="payment_items" multiple required>
+                    @foreach($payment_items as $id => $payment_item)
+                        <option value="{{ $id }}" {{ in_array($id, old('payment_items', [])) ? 'selected' : '' }}>{{ $payment_item }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('payments'))
+                @if($errors->has('payment_items'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('payments') }}
+                        {{ $errors->first('payment_items') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.paymentPlan.fields.payment_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.paymentPlan.fields.payment_item_helper') }}</span>
             </div>
             <div class="form-group">
                 <div class="form-check {{ $errors->has('recusive_payment') ? 'is-invalid' : '' }}">

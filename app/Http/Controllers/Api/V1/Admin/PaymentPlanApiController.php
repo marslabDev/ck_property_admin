@@ -17,13 +17,13 @@ class PaymentPlanApiController extends Controller
     {
         abort_if(Gate::denies('payment_plan_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new PaymentPlanResource(PaymentPlan::with(['user', 'house', 'payments', 'created_by'])->get());
+        return new PaymentPlanResource(PaymentPlan::with(['user', 'house', 'payment_items', 'created_by'])->get());
     }
 
     public function store(StorePaymentPlanRequest $request)
     {
         $paymentPlan = PaymentPlan::create($request->all());
-        $paymentPlan->payments()->sync($request->input('payments', []));
+        $paymentPlan->payment_items()->sync($request->input('payment_items', []));
 
         return (new PaymentPlanResource($paymentPlan))
             ->response()
@@ -34,13 +34,13 @@ class PaymentPlanApiController extends Controller
     {
         abort_if(Gate::denies('payment_plan_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new PaymentPlanResource($paymentPlan->load(['user', 'house', 'payments', 'created_by']));
+        return new PaymentPlanResource($paymentPlan->load(['user', 'house', 'payment_items', 'created_by']));
     }
 
     public function update(UpdatePaymentPlanRequest $request, PaymentPlan $paymentPlan)
     {
         $paymentPlan->update($request->all());
-        $paymentPlan->payments()->sync($request->input('payments', []));
+        $paymentPlan->payment_items()->sync($request->input('payment_items', []));
 
         return (new PaymentPlanResource($paymentPlan))
             ->response()

@@ -52,11 +52,11 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.paymentPlan.fields.payment') }}
+                                        {{ trans('cruds.paymentPlan.fields.payment_item') }}
                                     </th>
                                     <td>
-                                        @foreach($paymentPlan->payments as $key => $payment)
-                                            <span class="label label-info">{{ $payment->particular }}</span>
+                                        @foreach($paymentPlan->payment_items as $key => $payment_item)
+                                            <span class="label label-info">{{ $payment_item->particular }}</span>
                                         @endforeach
                                     </td>
                                 </tr>
