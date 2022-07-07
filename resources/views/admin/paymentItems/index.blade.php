@@ -1,59 +1,41 @@
 @extends('layouts.admin')
 @section('content')
-@can('payment_plan_create')
+@can('payment_item_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.payment-plans.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.paymentPlan.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.payment-items.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.paymentItem.title_singular') }}
             </a>
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
                 {{ trans('global.app_csvImport') }}
             </button>
-            @include('csvImport.modal', ['model' => 'PaymentPlan', 'route' => 'admin.payment-plans.parseCsvImport'])
+            @include('csvImport.modal', ['model' => 'PaymentItem', 'route' => 'admin.payment-items.parseCsvImport'])
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.paymentPlan.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.paymentItem.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-PaymentPlan">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-PaymentItem">
             <thead>
                 <tr>
                     <th width="10">
 
                     </th>
                     <th>
-                        {{ trans('cruds.paymentPlan.fields.id') }}
+                        {{ trans('cruds.paymentItem.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.paymentPlan.fields.user') }}
+                        {{ trans('cruds.paymentItem.fields.particular') }}
                     </th>
                     <th>
-                        {{ trans('cruds.user.fields.email') }}
+                        {{ trans('cruds.paymentItem.fields.amount') }}
                     </th>
                     <th>
-                        {{ trans('cruds.paymentPlan.fields.house') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.paymentPlan.fields.due_date') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.paymentPlan.fields.payment_item') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.paymentPlan.fields.recusive_payment') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.paymentPlan.fields.cycle_every') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.paymentPlan.fields.cycle_by') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.paymentPlan.fields.no_of_cycle') }}
+                        {{ trans('cruds.paymentItem.fields.type') }}
                     </th>
                     <th>
                         &nbsp;
@@ -66,35 +48,7 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($users as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($manage_houses as $key => $item)
-                                <option value="{{ $item->unit_no }}">{{ $item->unit_no }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($payment_items as $key => $item)
-                                <option value="{{ $item->particular }}">{{ $item->particular }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -102,13 +56,10 @@
                     <td>
                         <select class="search" strict="true">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach(App\Models\PaymentPlan::CYCLE_BY_SELECT as $key => $item)
+                            @foreach(App\Models\PaymentItem::TYPE_SELECT as $key => $item)
                                 <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach
                         </select>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                     </td>
@@ -126,11 +77,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('payment_plan_delete')
+@can('payment_item_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.payment-plans.massDestroy') }}",
+    url: "{{ route('admin.payment-items.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -162,26 +113,20 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.payment-plans.index') }}",
+    ajax: "{{ route('admin.payment-items.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'user_name', name: 'user.name' },
-{ data: 'user.email', name: 'user.email' },
-{ data: 'house_unit_no', name: 'house.unit_no' },
-{ data: 'due_date', name: 'due_date' },
-{ data: 'payment_item', name: 'payment_items.particular' },
-{ data: 'recusive_payment', name: 'recusive_payment' },
-{ data: 'cycle_every', name: 'cycle_every' },
-{ data: 'cycle_by', name: 'cycle_by' },
-{ data: 'no_of_cycle', name: 'no_of_cycle' },
+{ data: 'particular', name: 'particular' },
+{ data: 'amount', name: 'amount' },
+{ data: 'type', name: 'type' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   };
-  let table = $('.datatable-PaymentPlan').DataTable(dtOverrideGlobals);
+  let table = $('.datatable-PaymentItem').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

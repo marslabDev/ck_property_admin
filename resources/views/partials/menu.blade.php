@@ -257,7 +257,7 @@
             </li>
         @endcan
         @can('payment_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/payments*") ? "c-show" : "" }} {{ request()->is("admin/payment-plans*") ? "c-show" : "" }} {{ request()->is("admin/payment-types*") ? "c-show" : "" }} {{ request()->is("admin/payment-histories*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/payment-items*") ? "c-show" : "" }} {{ request()->is("admin/payment-plans*") ? "c-show" : "" }} {{ request()->is("admin/payment-types*") ? "c-show" : "" }} {{ request()->is("admin/payment-histories*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-money-bill-wave c-sidebar-nav-icon">
 
@@ -265,13 +265,13 @@
                     {{ trans('cruds.paymentManagement.title') }}
                 </a>
                 <ul class="c-sidebar-nav-dropdown-items">
-                    @can('payment_access')
+                    @can('payment_item_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.payments.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payments") || request()->is("admin/payments/*") ? "c-active" : "" }}">
+                            <a href="{{ route("admin.payment-items.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payment-items") || request()->is("admin/payment-items/*") ? "c-active" : "" }}">
                                 <i class="fa-fw fas fa-list-ol c-sidebar-nav-icon">
 
                                 </i>
-                                {{ trans('cruds.payment.title') }}
+                                {{ trans('cruds.paymentItem.title') }}
                             </a>
                         </li>
                     @endcan
@@ -311,7 +311,7 @@
         @can('transaction_management_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/home-owner-transactions*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+                    <i class="fa-fw fas fa-exchange-alt c-sidebar-nav-icon">
 
                     </i>
                     {{ trans('cruds.transactionManagement.title') }}

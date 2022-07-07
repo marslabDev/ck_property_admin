@@ -192,9 +192,9 @@
                                             {{ trans('cruds.paymentManagement.title') }}
                                         </a>
                                     @endcan
-                                    @can('payment_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.payments.index') }}">
-                                            {{ trans('cruds.payment.title') }}
+                                    @can('payment_item_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.payment-items.index') }}">
+                                            {{ trans('cruds.paymentItem.title') }}
                                         </a>
                                     @endcan
                                     @can('payment_plan_access')

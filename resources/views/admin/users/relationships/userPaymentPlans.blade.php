@@ -37,7 +37,7 @@
                             {{ trans('cruds.paymentPlan.fields.due_date') }}
                         </th>
                         <th>
-                            {{ trans('cruds.paymentPlan.fields.payment') }}
+                            {{ trans('cruds.paymentPlan.fields.payment_item') }}
                         </th>
                         <th>
                             {{ trans('cruds.paymentPlan.fields.recusive_payment') }}
@@ -78,7 +78,7 @@
                                 {{ $paymentPlan->due_date ?? '' }}
                             </td>
                             <td>
-                                @foreach($paymentPlan->payments as $key => $item)
+                                @foreach($paymentPlan->payment_items as $key => $item)
                                     <span class="badge badge-info">{{ $item->particular }}</span>
                                 @endforeach
                             </td>

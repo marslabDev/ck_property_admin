@@ -72,9 +72,9 @@ class PaymentPlan extends Model
         $this->attributes['due_date'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 
-    public function payments()
+    public function payment_items()
     {
-        return $this->belongsToMany(Payment::class);
+        return $this->belongsToMany(PaymentItem::class);
     }
 
     public function created_by()

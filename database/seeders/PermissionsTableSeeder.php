@@ -1072,91 +1072,91 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 266,
-                'title' => 'payment_create',
-            ],
-            [
-                'id'    => 267,
-                'title' => 'payment_edit',
-            ],
-            [
-                'id'    => 268,
-                'title' => 'payment_show',
-            ],
-            [
-                'id'    => 269,
-                'title' => 'payment_delete',
-            ],
-            [
-                'id'    => 270,
-                'title' => 'payment_access',
-            ],
-            [
-                'id'    => 271,
                 'title' => 'payment_plan_create',
             ],
             [
-                'id'    => 272,
+                'id'    => 267,
                 'title' => 'payment_plan_edit',
             ],
             [
-                'id'    => 273,
+                'id'    => 268,
                 'title' => 'payment_plan_show',
             ],
             [
-                'id'    => 274,
+                'id'    => 269,
                 'title' => 'payment_plan_delete',
             ],
             [
-                'id'    => 275,
+                'id'    => 270,
                 'title' => 'payment_plan_access',
             ],
             [
-                'id'    => 276,
+                'id'    => 271,
                 'title' => 'transaction_management_access',
             ],
             [
-                'id'    => 277,
+                'id'    => 272,
                 'title' => 'setting_access',
             ],
             [
-                'id'    => 278,
+                'id'    => 273,
                 'title' => 'supplier_transaction_create',
             ],
             [
-                'id'    => 279,
+                'id'    => 274,
                 'title' => 'supplier_transaction_edit',
             ],
             [
-                'id'    => 280,
+                'id'    => 275,
                 'title' => 'supplier_transaction_show',
             ],
             [
-                'id'    => 281,
+                'id'    => 276,
                 'title' => 'supplier_transaction_delete',
             ],
             [
-                'id'    => 282,
+                'id'    => 277,
                 'title' => 'supplier_transaction_access',
             ],
             [
-                'id'    => 283,
+                'id'    => 278,
                 'title' => 'home_owner_transaction_create',
             ],
             [
-                'id'    => 284,
+                'id'    => 279,
                 'title' => 'home_owner_transaction_edit',
             ],
             [
-                'id'    => 285,
+                'id'    => 280,
                 'title' => 'home_owner_transaction_show',
             ],
             [
-                'id'    => 286,
+                'id'    => 281,
                 'title' => 'home_owner_transaction_delete',
             ],
             [
-                'id'    => 287,
+                'id'    => 282,
                 'title' => 'home_owner_transaction_access',
+            ],
+            [
+                'id'    => 283,
+                'title' => 'payment_item_create',
+            ],
+            [
+                'id'    => 284,
+                'title' => 'payment_item_edit',
+            ],
+            [
+                'id'    => 285,
+                'title' => 'payment_item_show',
+            ],
+            [
+                'id'    => 286,
+                'title' => 'payment_item_delete',
+            ],
+            [
+                'id'    => 287,
+                'title' => 'payment_item_access',
             ],
             [
                 'id'    => 288,

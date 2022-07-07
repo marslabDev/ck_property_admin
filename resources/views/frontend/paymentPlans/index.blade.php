@@ -42,7 +42,7 @@
                                         {{ trans('cruds.paymentPlan.fields.due_date') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.paymentPlan.fields.payment') }}
+                                        {{ trans('cruds.paymentPlan.fields.payment_item') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.paymentPlan.fields.recusive_payment') }}
@@ -90,7 +90,7 @@
                                     <td>
                                         <select class="search">
                                             <option value>{{ trans('global.all') }}</option>
-                                            @foreach($payments as $key => $item)
+                                            @foreach($payment_items as $key => $item)
                                                 <option value="{{ $item->particular }}">{{ $item->particular }}</option>
                                             @endforeach
                                         </select>
@@ -134,7 +134,7 @@
                                             {{ $paymentPlan->due_date ?? '' }}
                                         </td>
                                         <td>
-                                            @foreach($paymentPlan->payments as $key => $item)
+                                            @foreach($paymentPlan->payment_items as $key => $item)
                                                 <span>{{ $item->particular }}</span>
                                             @endforeach
                                         </td>

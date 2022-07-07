@@ -4,14 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaymentsTable extends Migration
+class CreatePaymentItemsTable extends Migration
 {
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('payment_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->longText('particular');
-            $table->decimal('unit_price', 15, 2);
+            $table->decimal('amount', 15, 2);
+            $table->string('type');
             $table->timestamps();
             $table->softDeletes();
         });
