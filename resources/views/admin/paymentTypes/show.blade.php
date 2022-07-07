@@ -60,10 +60,18 @@
                 {{ trans('cruds.paymentHistory.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#payment_type_home_owner_transactions" role="tab" data-toggle="tab">
+                {{ trans('cruds.homeOwnerTransaction.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="payment_type_payment_histories">
             @includeIf('admin.paymentTypes.relationships.paymentTypePaymentHistories', ['paymentHistories' => $paymentType->paymentTypePaymentHistories])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="payment_type_home_owner_transactions">
+            @includeIf('admin.paymentTypes.relationships.paymentTypeHomeOwnerTransactions', ['homeOwnerTransactions' => $paymentType->paymentTypeHomeOwnerTransactions])
         </div>
     </div>
 </div>

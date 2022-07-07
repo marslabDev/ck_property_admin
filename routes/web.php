@@ -345,6 +345,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('payment-plans/process-csv-import', 'PaymentPlanController@processCsvImport')->name('payment-plans.processCsvImport');
     Route::resource('payment-plans', 'PaymentPlanController');
 
+    // Supplier Transaction
+    Route::delete('supplier-transactions/destroy', 'SupplierTransactionController@massDestroy')->name('supplier-transactions.massDestroy');
+    Route::post('supplier-transactions/parse-csv-import', 'SupplierTransactionController@parseCsvImport')->name('supplier-transactions.parseCsvImport');
+    Route::post('supplier-transactions/process-csv-import', 'SupplierTransactionController@processCsvImport')->name('supplier-transactions.processCsvImport');
+    Route::resource('supplier-transactions', 'SupplierTransactionController');
+
+    // Home Owner Transaction
+    Route::delete('home-owner-transactions/destroy', 'HomeOwnerTransactionController@massDestroy')->name('home-owner-transactions.massDestroy');
+    Route::post('home-owner-transactions/parse-csv-import', 'HomeOwnerTransactionController@parseCsvImport')->name('home-owner-transactions.parseCsvImport');
+    Route::post('home-owner-transactions/process-csv-import', 'HomeOwnerTransactionController@processCsvImport')->name('home-owner-transactions.processCsvImport');
+    Route::resource('home-owner-transactions', 'HomeOwnerTransactionController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -599,6 +611,14 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Payment Plan
     Route::delete('payment-plans/destroy', 'PaymentPlanController@massDestroy')->name('payment-plans.massDestroy');
     Route::resource('payment-plans', 'PaymentPlanController');
+
+    // Supplier Transaction
+    Route::delete('supplier-transactions/destroy', 'SupplierTransactionController@massDestroy')->name('supplier-transactions.massDestroy');
+    Route::resource('supplier-transactions', 'SupplierTransactionController');
+
+    // Home Owner Transaction
+    Route::delete('home-owner-transactions/destroy', 'HomeOwnerTransactionController@massDestroy')->name('home-owner-transactions.massDestroy');
+    Route::resource('home-owner-transactions', 'HomeOwnerTransactionController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

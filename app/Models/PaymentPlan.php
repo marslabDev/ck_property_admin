@@ -47,6 +47,11 @@ class PaymentPlan extends Model
         'deleted_at',
     ];
 
+    public function paymentPlanHomeOwnerTransactions()
+    {
+        return $this->hasMany(HomeOwnerTransaction::class, 'payment_plan_id', 'id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
