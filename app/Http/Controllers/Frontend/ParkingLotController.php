@@ -62,7 +62,7 @@ class ParkingLotController extends Controller
     {
         abort_if(Gate::denies('parking_lot_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $parkingLot->load('created_by');
+        $parkingLot->load('created_by', 'parkingLotManageHouses');
 
         return view('frontend.parkingLots.show', compact('parkingLot'));
     }

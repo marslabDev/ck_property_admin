@@ -62,10 +62,18 @@
                 {{ trans('cruds.notice.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#roles_users" role="tab" data-toggle="tab">
+                {{ trans('cruds.user.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="people_in_role_notices">
             @includeIf('admin.roles.relationships.peopleInRoleNotices', ['notices' => $role->peopleInRoleNotices])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="roles_users">
+            @includeIf('admin.roles.relationships.rolesUsers', ['users' => $role->rolesUsers])
         </div>
     </div>
 </div>

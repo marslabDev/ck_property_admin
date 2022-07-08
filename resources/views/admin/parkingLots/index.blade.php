@@ -32,11 +32,17 @@
                         {{ trans('cruds.parkingLot.fields.lot_no') }}
                     </th>
                     <th>
+                        {{ trans('cruds.parkingLot.fields.floor') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
                 <tr>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -101,6 +107,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'lot_no', name: 'lot_no' },
+{ data: 'floor', name: 'floor' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

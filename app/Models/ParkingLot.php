@@ -27,6 +27,7 @@ class ParkingLot extends Model
     protected $fillable = [
         'created_at',
         'lot_no',
+        'floor',
         'created_by_id',
         'updated_at',
         'deleted_at',

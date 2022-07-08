@@ -50,6 +50,9 @@ class ParkingLotController extends Controller
             $table->editColumn('lot_no', function ($row) {
                 return $row->lot_no ? $row->lot_no : '';
             });
+            $table->editColumn('floor', function ($row) {
+                return $row->floor ? $row->floor : '';
+            });
 
             $table->rawColumns(['actions', 'placeholder']);
 

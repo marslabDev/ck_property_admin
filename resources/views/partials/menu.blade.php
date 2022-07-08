@@ -633,7 +633,7 @@
         @can('asset_management_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/asset-categories*") ? "c-show" : "" }} {{ request()->is("admin/asset-locations*") ? "c-show" : "" }} {{ request()->is("admin/asset-statuses*") ? "c-show" : "" }} {{ request()->is("admin/assets*") ? "c-show" : "" }} {{ request()->is("admin/assets-histories*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-book c-sidebar-nav-icon">
+                    <i class="fa-fw fas fa-warehouse c-sidebar-nav-icon">
 
                     </i>
                     {{ trans('cruds.assetManagement.title') }}
@@ -695,7 +695,7 @@
         @can('content_management_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/content-categories*") ? "c-show" : "" }} {{ request()->is("admin/content-tags*") ? "c-show" : "" }} {{ request()->is("admin/content-pages*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-book c-sidebar-nav-icon">
+                    <i class="fa-fw far fa-file-alt c-sidebar-nav-icon">
 
                     </i>
                     {{ trans('cruds.contentManagement.title') }}
