@@ -33,11 +33,17 @@
                                         {{ trans('cruds.parkingLot.fields.lot_no') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.parkingLot.fields.floor') }}
+                                    </th>
+                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
                                 <tr>
                                     <td>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -57,6 +63,9 @@
                                         </td>
                                         <td>
                                             {{ $parkingLot->lot_no ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $parkingLot->floor ?? '' }}
                                         </td>
                                         <td>
                                             @can('parking_lot_show')

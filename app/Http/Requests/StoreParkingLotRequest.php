@@ -21,6 +21,12 @@ class StoreParkingLotRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'floor' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
         ];
     }
 }

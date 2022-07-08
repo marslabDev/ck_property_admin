@@ -34,6 +34,14 @@
                                         {{ $parkingLot->lot_no }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.parkingLot.fields.floor') }}
+                                    </th>
+                                    <td>
+                                        {{ $parkingLot->floor }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">

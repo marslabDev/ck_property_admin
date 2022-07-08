@@ -20,6 +20,16 @@
                 <span class="help-block">{{ trans('cruds.parkingLot.fields.lot_no_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="floor">{{ trans('cruds.parkingLot.fields.floor') }}</label>
+                <input class="form-control {{ $errors->has('floor') ? 'is-invalid' : '' }}" type="number" name="floor" id="floor" value="{{ old('floor', '') }}" step="1">
+                @if($errors->has('floor'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('floor') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.parkingLot.fields.floor_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>
