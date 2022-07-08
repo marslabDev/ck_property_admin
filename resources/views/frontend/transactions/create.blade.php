@@ -80,6 +80,16 @@
                             <span class="help-block">{{ trans('cruds.transaction.fields.currency_helper') }}</span>
                         </div>
                         <div class="form-group">
+                            <label class="required" for="details">{{ trans('cruds.transaction.fields.details') }}</label>
+                            <textarea class="form-control" name="details" id="details" required>{{ old('details') }}</textarea>
+                            @if($errors->has('details'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('details') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.transaction.fields.details_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <label class="required" for="transaction_date">{{ trans('cruds.transaction.fields.transaction_date') }}</label>
                             <input class="form-control date" type="text" name="transaction_date" id="transaction_date" value="{{ old('transaction_date') }}" required>
                             @if($errors->has('transaction_date'))
@@ -88,26 +98,6 @@
                                 </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.transaction.fields.transaction_date_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">{{ trans('cruds.transaction.fields.name') }}</label>
-                            <input class="form-control" type="text" name="name" id="name" value="{{ old('name', '') }}">
-                            @if($errors->has('name'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('name') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.transaction.fields.name_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">{{ trans('cruds.transaction.fields.description') }}</label>
-                            <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
-                            @if($errors->has('description'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('description') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.transaction.fields.description_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">

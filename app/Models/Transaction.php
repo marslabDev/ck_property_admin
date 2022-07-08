@@ -8,11 +8,9 @@ use App\Traits\MultiTenantModelTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
-    use SoftDeletes;
     use MultiTenantModelTrait;
     use Auditable;
     use HasFactory;
@@ -32,13 +30,12 @@ class Transaction extends Model
         'income_source_id',
         'amount',
         'currency_id',
+        'details',
         'transaction_date',
-        'name',
-        'description',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function project()

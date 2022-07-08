@@ -39,6 +39,11 @@ class PaymentCharge extends Model
         'created_by_id',
     ];
 
+    public function extraChargePaymentPlans()
+    {
+        return $this->belongsToMany(PaymentPlan::class);
+    }
+
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

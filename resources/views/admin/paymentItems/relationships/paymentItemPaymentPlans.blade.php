@@ -40,6 +40,9 @@
                             {{ trans('cruds.paymentPlan.fields.payment_item') }}
                         </th>
                         <th>
+                            {{ trans('cruds.paymentPlan.fields.extra_charge') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.paymentPlan.fields.recusive_payment') }}
                         </th>
                         <th>
@@ -79,6 +82,11 @@
                             </td>
                             <td>
                                 @foreach($paymentPlan->payment_items as $key => $item)
+                                    <span class="badge badge-info">{{ $item->particular }}</span>
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach($paymentPlan->extra_charges as $key => $item)
                                     <span class="badge badge-info">{{ $item->particular }}</span>
                                 @endforeach
                             </td>

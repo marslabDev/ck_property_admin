@@ -40,10 +40,6 @@ class UpdateTransactionRequest extends FormRequest
                 'required',
                 'date_format:' . config('panel.date_format'),
             ],
-            'name' => [
-                'string',
-                'nullable',
-            ],
         ];
     }
 }

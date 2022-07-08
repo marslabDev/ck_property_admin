@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyPaymentPlanRequest;
 use App\Http\Requests\StorePaymentPlanRequest;
 use App\Http\Requests\UpdatePaymentPlanRequest;
 use App\Models\ManageHouse;
+use App\Models\PaymentCharge;
 use App\Models\PaymentItem;
 use App\Models\PaymentPlan;
 use App\Models\User;
@@ -23,7 +24,7 @@ class PaymentPlanController extends Controller
     {
         abort_if(Gate::denies('payment_plan_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentPlans = PaymentPlan::with(['user', 'house', 'payment_items', 'created_by'])->get();
+        $paymentPlans = PaymentPlan::with(['user', 'house', 'payment_items', 'extra_charges', 'created_by'])->get();
 
         $users = User::get();
 
@@ -31,7 +32,9 @@ class PaymentPlanController extends Controller
 
         $payment_items = PaymentItem::get();
 
-        return view('frontend.paymentPlans.index', compact('manage_houses', 'paymentPlans', 'payment_items', 'users'));
+        $payment_charges = PaymentCharge::get();
+
+        return view('frontend.paymentPlans.index', compact('manage_houses', 'paymentPlans', 'payment_charges', 'payment_items', 'users'));
     }
 
     public function create()
@@ -44,13 +47,16 @@ class PaymentPlanController extends Controller
 
         $payment_items = PaymentItem::pluck('particular', 'id');
 
-        return view('frontend.paymentPlans.create', compact('houses', 'payment_items', 'users'));
+        $extra_charges = PaymentCharge::pluck('particular', 'id');
+
+        return view('frontend.paymentPlans.create', compact('extra_charges', 'houses', 'payment_items', 'users'));
     }
 
     public function store(StorePaymentPlanRequest $request)
     {
         $paymentPlan = PaymentPlan::create($request->all());
         $paymentPlan->payment_items()->sync($request->input('payment_items', []));
+        $paymentPlan->extra_charges()->sync($request->input('extra_charges', []));
 
         return redirect()->route('frontend.payment-plans.index');
     }
@@ -65,15 +71,18 @@ class PaymentPlanController extends Controller
 
         $payment_items = PaymentItem::pluck('particular', 'id');
 
-        $paymentPlan->load('user', 'house', 'payment_items', 'created_by');
+        $extra_charges = PaymentCharge::pluck('particular', 'id');
 
-        return view('frontend.paymentPlans.edit', compact('houses', 'paymentPlan', 'payment_items', 'users'));
+        $paymentPlan->load('user', 'house', 'payment_items', 'extra_charges', 'created_by');
+
+        return view('frontend.paymentPlans.edit', compact('extra_charges', 'houses', 'paymentPlan', 'payment_items', 'users'));
     }
 
     public function update(UpdatePaymentPlanRequest $request, PaymentPlan $paymentPlan)
     {
         $paymentPlan->update($request->all());
         $paymentPlan->payment_items()->sync($request->input('payment_items', []));
+        $paymentPlan->extra_charges()->sync($request->input('extra_charges', []));
 
         return redirect()->route('frontend.payment-plans.index');
     }
@@ -82,7 +91,7 @@ class PaymentPlanController extends Controller
     {
         abort_if(Gate::denies('payment_plan_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentPlan->load('user', 'house', 'payment_items', 'created_by', 'paymentPlanHomeOwnerTransactions');
+        $paymentPlan->load('user', 'house', 'payment_items', 'extra_charges', 'created_by', 'paymentPlanHomeOwnerTransactions');
 
         return view('frontend.paymentPlans.show', compact('paymentPlan'));
     }

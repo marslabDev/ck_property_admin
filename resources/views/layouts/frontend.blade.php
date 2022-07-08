@@ -197,6 +197,11 @@
                                             {{ trans('cruds.paymentItem.title') }}
                                         </a>
                                     @endcan
+                                    @can('payment_charge_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.payment-charges.index') }}">
+                                            {{ trans('cruds.paymentCharge.title') }}
+                                        </a>
+                                    @endcan
                                     @can('payment_plan_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.payment-plans.index') }}">
                                             {{ trans('cruds.paymentPlan.title') }}
@@ -210,11 +215,6 @@
                                     @can('payment_history_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.payment-histories.index') }}">
                                             {{ trans('cruds.paymentHistory.title') }}
-                                        </a>
-                                    @endcan
-                                    @can('payment_charge_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.payment-charges.index') }}">
-                                            {{ trans('cruds.paymentCharge.title') }}
                                         </a>
                                     @endcan
                                     @can('transaction_management_access')

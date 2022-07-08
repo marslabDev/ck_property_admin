@@ -65,26 +65,18 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.transaction.fields.details') }}
+                        </th>
+                        <td>
+                            {{ $transaction->details }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.transaction.fields.transaction_date') }}
                         </th>
                         <td>
                             {{ $transaction->transaction_date }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.transaction.fields.name') }}
-                        </th>
-                        <td>
-                            {{ $transaction->name }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.transaction.fields.description') }}
-                        </th>
-                        <td>
-                            {{ $transaction->description }}
                         </td>
                     </tr>
                 </tbody>

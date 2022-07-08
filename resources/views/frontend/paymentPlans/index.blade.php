@@ -45,6 +45,9 @@
                                         {{ trans('cruds.paymentPlan.fields.payment_item') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.paymentPlan.fields.extra_charge') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.paymentPlan.fields.recusive_payment') }}
                                     </th>
                                     <th>
@@ -96,6 +99,14 @@
                                         </select>
                                     </td>
                                     <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($payment_charges as $key => $item)
+                                                <option value="{{ $item->particular }}">{{ $item->particular }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -135,6 +146,11 @@
                                         </td>
                                         <td>
                                             @foreach($paymentPlan->payment_items as $key => $item)
+                                                <span>{{ $item->particular }}</span>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach($paymentPlan->extra_charges as $key => $item)
                                                 <span>{{ $item->particular }}</span>
                                             @endforeach
                                         </td>

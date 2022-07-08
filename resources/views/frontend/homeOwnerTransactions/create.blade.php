@@ -90,6 +90,16 @@
                             <span class="help-block">{{ trans('cruds.homeOwnerTransaction.fields.changes_helper') }}</span>
                         </div>
                         <div class="form-group">
+                            <label for="details">{{ trans('cruds.homeOwnerTransaction.fields.details') }}</label>
+                            <textarea class="form-control" name="details" id="details">{{ old('details') }}</textarea>
+                            @if($errors->has('details'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('details') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.homeOwnerTransaction.fields.details_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
                             </button>

@@ -7,11 +7,9 @@ use App\Traits\Auditable;
 use App\Traits\MultiTenantModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class HomeOwnerTransaction extends Model
 {
-    use SoftDeletes;
     use MultiTenantModelTrait;
     use Auditable;
     use HasFactory;
@@ -31,10 +29,11 @@ class HomeOwnerTransaction extends Model
         'payment_type_id',
         'amount_paid',
         'changes',
+        'created_by_id',
+        'details',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function user()
