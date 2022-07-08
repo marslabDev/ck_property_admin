@@ -66,6 +66,24 @@
                 <span class="help-block">{{ trans('cruds.paymentPlan.fields.payment_item_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="extra_charges">{{ trans('cruds.paymentPlan.fields.extra_charge') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('extra_charges') ? 'is-invalid' : '' }}" name="extra_charges[]" id="extra_charges" multiple>
+                    @foreach($extra_charges as $id => $extra_charge)
+                        <option value="{{ $id }}" {{ in_array($id, old('extra_charges', [])) ? 'selected' : '' }}>{{ $extra_charge }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('extra_charges'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('extra_charges') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.paymentPlan.fields.extra_charge_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <div class="form-check {{ $errors->has('recusive_payment') ? 'is-invalid' : '' }}">
                     <input type="hidden" name="recusive_payment" value="0">
                     <input class="form-check-input" type="checkbox" name="recusive_payment" id="recusive_payment" value="1" {{ old('recusive_payment', 0) == 1 ? 'checked' : '' }}>

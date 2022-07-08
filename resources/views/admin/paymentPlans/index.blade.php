@@ -44,6 +44,9 @@
                         {{ trans('cruds.paymentPlan.fields.payment_item') }}
                     </th>
                     <th>
+                        {{ trans('cruds.paymentPlan.fields.extra_charge') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.paymentPlan.fields.recusive_payment') }}
                     </th>
                     <th>
@@ -90,6 +93,14 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($payment_items as $key => $item)
+                                <option value="{{ $item->particular }}">{{ $item->particular }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($payment_charges as $key => $item)
                                 <option value="{{ $item->particular }}">{{ $item->particular }}</option>
                             @endforeach
                         </select>
@@ -171,6 +182,7 @@
 { data: 'house_unit_no', name: 'house.unit_no' },
 { data: 'due_date', name: 'due_date' },
 { data: 'payment_item', name: 'payment_items.particular' },
+{ data: 'extra_charge', name: 'extra_charges.particular' },
 { data: 'recusive_payment', name: 'recusive_payment' },
 { data: 'cycle_every', name: 'cycle_every' },
 { data: 'cycle_by', name: 'cycle_by' },

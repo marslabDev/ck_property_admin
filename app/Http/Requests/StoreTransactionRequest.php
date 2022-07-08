@@ -36,13 +36,12 @@ class StoreTransactionRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'details' => [
+                'required',
+            ],
             'transaction_date' => [
                 'required',
                 'date_format:' . config('panel.date_format'),
-            ],
-            'name' => [
-                'string',
-                'nullable',
             ],
         ];
     }

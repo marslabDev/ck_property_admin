@@ -127,7 +127,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('documents', 'DocumentApiController');
 
     // Transaction
-    Route::apiResource('transactions', 'TransactionApiController');
+    Route::apiResource('transactions', 'TransactionApiController', ['except' => ['store', 'update', 'destroy']]);
 
     // Content Category
     Route::apiResource('content-categories', 'ContentCategoryApiController');
@@ -158,7 +158,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('payment-plans', 'PaymentPlanApiController');
 
     // Home Owner Transaction
-    Route::apiResource('home-owner-transactions', 'HomeOwnerTransactionApiController');
+    Route::apiResource('home-owner-transactions', 'HomeOwnerTransactionApiController', ['except' => ['store', 'show', 'update', 'destroy']]);
 
     // Payment Item
     Route::apiResource('payment-items', 'PaymentItemApiController');

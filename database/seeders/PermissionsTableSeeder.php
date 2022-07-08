@@ -868,298 +868,270 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 215,
-                'title' => 'transaction_create',
-            ],
-            [
-                'id'    => 216,
-                'title' => 'transaction_edit',
-            ],
-            [
-                'id'    => 217,
                 'title' => 'transaction_show',
             ],
             [
-                'id'    => 218,
-                'title' => 'transaction_delete',
-            ],
-            [
-                'id'    => 219,
+                'id'    => 216,
                 'title' => 'transaction_access',
             ],
             [
-                'id'    => 220,
+                'id'    => 217,
                 'title' => 'client_report_create',
             ],
             [
-                'id'    => 221,
+                'id'    => 218,
                 'title' => 'client_report_edit',
             ],
             [
-                'id'    => 222,
+                'id'    => 219,
                 'title' => 'client_report_show',
             ],
             [
-                'id'    => 223,
+                'id'    => 220,
                 'title' => 'client_report_delete',
             ],
             [
-                'id'    => 224,
+                'id'    => 221,
                 'title' => 'client_report_access',
             ],
             [
-                'id'    => 225,
+                'id'    => 222,
                 'title' => 'content_management_access',
             ],
             [
-                'id'    => 226,
+                'id'    => 223,
                 'title' => 'content_category_create',
             ],
             [
-                'id'    => 227,
+                'id'    => 224,
                 'title' => 'content_category_edit',
             ],
             [
-                'id'    => 228,
+                'id'    => 225,
                 'title' => 'content_category_show',
             ],
             [
-                'id'    => 229,
+                'id'    => 226,
                 'title' => 'content_category_delete',
             ],
             [
-                'id'    => 230,
+                'id'    => 227,
                 'title' => 'content_category_access',
             ],
             [
-                'id'    => 231,
+                'id'    => 228,
                 'title' => 'content_tag_create',
             ],
             [
-                'id'    => 232,
+                'id'    => 229,
                 'title' => 'content_tag_edit',
             ],
             [
-                'id'    => 233,
+                'id'    => 230,
                 'title' => 'content_tag_show',
             ],
             [
-                'id'    => 234,
+                'id'    => 231,
                 'title' => 'content_tag_delete',
             ],
             [
-                'id'    => 235,
+                'id'    => 232,
                 'title' => 'content_tag_access',
             ],
             [
-                'id'    => 236,
+                'id'    => 233,
                 'title' => 'content_page_create',
             ],
             [
-                'id'    => 237,
+                'id'    => 234,
                 'title' => 'content_page_edit',
             ],
             [
-                'id'    => 238,
+                'id'    => 235,
                 'title' => 'content_page_show',
             ],
             [
-                'id'    => 239,
+                'id'    => 236,
                 'title' => 'content_page_delete',
             ],
             [
-                'id'    => 240,
+                'id'    => 237,
                 'title' => 'content_page_access',
             ],
             [
-                'id'    => 241,
+                'id'    => 238,
                 'title' => 'house_type_create',
             ],
             [
-                'id'    => 242,
+                'id'    => 239,
                 'title' => 'house_type_edit',
             ],
             [
-                'id'    => 243,
+                'id'    => 240,
                 'title' => 'house_type_show',
             ],
             [
-                'id'    => 244,
+                'id'    => 241,
                 'title' => 'house_type_delete',
             ],
             [
-                'id'    => 245,
+                'id'    => 242,
                 'title' => 'house_type_access',
             ],
             [
-                'id'    => 246,
+                'id'    => 243,
                 'title' => 'manage_price_create',
             ],
             [
-                'id'    => 247,
+                'id'    => 244,
                 'title' => 'manage_price_edit',
             ],
             [
-                'id'    => 248,
+                'id'    => 245,
                 'title' => 'manage_price_show',
             ],
             [
-                'id'    => 249,
+                'id'    => 246,
                 'title' => 'manage_price_delete',
             ],
             [
-                'id'    => 250,
+                'id'    => 247,
                 'title' => 'manage_price_access',
             ],
             [
-                'id'    => 251,
+                'id'    => 248,
                 'title' => 'user_detail_create',
             ],
             [
-                'id'    => 252,
+                'id'    => 249,
                 'title' => 'user_detail_edit',
             ],
             [
-                'id'    => 253,
+                'id'    => 250,
                 'title' => 'user_detail_show',
             ],
             [
-                'id'    => 254,
+                'id'    => 251,
                 'title' => 'user_detail_delete',
             ],
             [
-                'id'    => 255,
+                'id'    => 252,
                 'title' => 'user_detail_access',
             ],
             [
-                'id'    => 256,
+                'id'    => 253,
                 'title' => 'user_card_mgmt_create',
             ],
             [
-                'id'    => 257,
+                'id'    => 254,
                 'title' => 'user_card_mgmt_edit',
             ],
             [
-                'id'    => 258,
+                'id'    => 255,
                 'title' => 'user_card_mgmt_show',
             ],
             [
-                'id'    => 259,
+                'id'    => 256,
                 'title' => 'user_card_mgmt_delete',
             ],
             [
-                'id'    => 260,
+                'id'    => 257,
                 'title' => 'user_card_mgmt_access',
             ],
             [
-                'id'    => 261,
+                'id'    => 258,
                 'title' => 'street_create',
             ],
             [
-                'id'    => 262,
+                'id'    => 259,
                 'title' => 'street_edit',
             ],
             [
-                'id'    => 263,
+                'id'    => 260,
                 'title' => 'street_show',
             ],
             [
-                'id'    => 264,
+                'id'    => 261,
                 'title' => 'street_delete',
             ],
             [
-                'id'    => 265,
+                'id'    => 262,
                 'title' => 'street_access',
             ],
             [
-                'id'    => 266,
+                'id'    => 263,
                 'title' => 'payment_plan_create',
             ],
             [
-                'id'    => 267,
+                'id'    => 264,
                 'title' => 'payment_plan_edit',
             ],
             [
-                'id'    => 268,
+                'id'    => 265,
                 'title' => 'payment_plan_show',
             ],
             [
-                'id'    => 269,
+                'id'    => 266,
                 'title' => 'payment_plan_delete',
             ],
             [
-                'id'    => 270,
+                'id'    => 267,
                 'title' => 'payment_plan_access',
             ],
             [
-                'id'    => 271,
+                'id'    => 268,
                 'title' => 'transaction_management_access',
             ],
             [
-                'id'    => 272,
+                'id'    => 269,
                 'title' => 'setting_access',
             ],
             [
-                'id'    => 273,
-                'title' => 'home_owner_transaction_create',
-            ],
-            [
-                'id'    => 274,
-                'title' => 'home_owner_transaction_edit',
-            ],
-            [
-                'id'    => 275,
-                'title' => 'home_owner_transaction_show',
-            ],
-            [
-                'id'    => 276,
-                'title' => 'home_owner_transaction_delete',
-            ],
-            [
-                'id'    => 277,
+                'id'    => 270,
                 'title' => 'home_owner_transaction_access',
             ],
             [
-                'id'    => 278,
+                'id'    => 271,
                 'title' => 'payment_item_create',
             ],
             [
-                'id'    => 279,
+                'id'    => 272,
                 'title' => 'payment_item_edit',
             ],
             [
-                'id'    => 280,
+                'id'    => 273,
                 'title' => 'payment_item_show',
             ],
             [
-                'id'    => 281,
+                'id'    => 274,
                 'title' => 'payment_item_delete',
             ],
             [
-                'id'    => 282,
+                'id'    => 275,
                 'title' => 'payment_item_access',
             ],
             [
-                'id'    => 283,
+                'id'    => 276,
                 'title' => 'payment_charge_create',
             ],
             [
-                'id'    => 284,
+                'id'    => 277,
                 'title' => 'payment_charge_edit',
             ],
             [
-                'id'    => 285,
+                'id'    => 278,
                 'title' => 'payment_charge_show',
             ],
             [
-                'id'    => 286,
+                'id'    => 279,
                 'title' => 'payment_charge_delete',
             ],
             [
-                'id'    => 287,
+                'id'    => 280,
                 'title' => 'payment_charge_access',
             ],
             [
-                'id'    => 288,
+                'id'    => 281,
                 'title' => 'profile_password_edit',
             ],
         ];

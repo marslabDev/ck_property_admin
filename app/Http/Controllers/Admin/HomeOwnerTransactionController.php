@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\CsvImportTrait;
-use App\Http\Requests\MassDestroyHomeOwnerTransactionRequest;
-use App\Http\Requests\StoreHomeOwnerTransactionRequest;
-use App\Http\Requests\UpdateHomeOwnerTransactionRequest;
 use App\Models\HomeOwnerTransaction;
 use App\Models\ManageHouse;
 use App\Models\PaymentPlan;
@@ -87,76 +84,5 @@ class HomeOwnerTransactionController extends Controller
         $payment_types = PaymentType::get();
 
         return view('admin.homeOwnerTransactions.index', compact('users', 'manage_houses', 'payment_plans', 'payment_types'));
-    }
-
-    public function create()
-    {
-        abort_if(Gate::denies('home_owner_transaction_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $houses = ManageHouse::pluck('unit_no', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $payment_plans = PaymentPlan::pluck('due_date', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $payment_types = PaymentType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('admin.homeOwnerTransactions.create', compact('houses', 'payment_plans', 'payment_types', 'users'));
-    }
-
-    public function store(StoreHomeOwnerTransactionRequest $request)
-    {
-        $homeOwnerTransaction = HomeOwnerTransaction::create($request->all());
-
-        return redirect()->route('admin.home-owner-transactions.index');
-    }
-
-    public function edit(HomeOwnerTransaction $homeOwnerTransaction)
-    {
-        abort_if(Gate::denies('home_owner_transaction_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $houses = ManageHouse::pluck('unit_no', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $payment_plans = PaymentPlan::pluck('due_date', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $payment_types = PaymentType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $homeOwnerTransaction->load('user', 'house', 'payment_plan', 'payment_type', 'created_by');
-
-        return view('admin.homeOwnerTransactions.edit', compact('homeOwnerTransaction', 'houses', 'payment_plans', 'payment_types', 'users'));
-    }
-
-    public function update(UpdateHomeOwnerTransactionRequest $request, HomeOwnerTransaction $homeOwnerTransaction)
-    {
-        $homeOwnerTransaction->update($request->all());
-
-        return redirect()->route('admin.home-owner-transactions.index');
-    }
-
-    public function show(HomeOwnerTransaction $homeOwnerTransaction)
-    {
-        abort_if(Gate::denies('home_owner_transaction_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $homeOwnerTransaction->load('user', 'house', 'payment_plan', 'payment_type', 'created_by');
-
-        return view('admin.homeOwnerTransactions.show', compact('homeOwnerTransaction'));
-    }
-
-    public function destroy(HomeOwnerTransaction $homeOwnerTransaction)
-    {
-        abort_if(Gate::denies('home_owner_transaction_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $homeOwnerTransaction->delete();
-
-        return back();
-    }
-
-    public function massDestroy(MassDestroyHomeOwnerTransactionRequest $request)
-    {
-        HomeOwnerTransaction::whereIn('id', request('ids'))->delete();
-
-        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

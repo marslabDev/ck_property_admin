@@ -71,6 +71,14 @@
                             {{ $homeOwnerTransaction->changes }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.homeOwnerTransaction.fields.details') }}
+                        </th>
+                        <td>
+                            {{ $homeOwnerTransaction->details }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

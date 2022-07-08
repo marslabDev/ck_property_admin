@@ -274,10 +274,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('documents', 'DocumentController');
 
     // Transaction
-    Route::delete('transactions/destroy', 'TransactionController@massDestroy')->name('transactions.massDestroy');
     Route::post('transactions/parse-csv-import', 'TransactionController@parseCsvImport')->name('transactions.parseCsvImport');
     Route::post('transactions/process-csv-import', 'TransactionController@processCsvImport')->name('transactions.processCsvImport');
-    Route::resource('transactions', 'TransactionController');
+    Route::resource('transactions', 'TransactionController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 
     // Client Report
     Route::delete('client-reports/destroy', 'ClientReportController@massDestroy')->name('client-reports.massDestroy');
@@ -340,10 +339,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('payment-plans', 'PaymentPlanController');
 
     // Home Owner Transaction
-    Route::delete('home-owner-transactions/destroy', 'HomeOwnerTransactionController@massDestroy')->name('home-owner-transactions.massDestroy');
     Route::post('home-owner-transactions/parse-csv-import', 'HomeOwnerTransactionController@parseCsvImport')->name('home-owner-transactions.parseCsvImport');
     Route::post('home-owner-transactions/process-csv-import', 'HomeOwnerTransactionController@processCsvImport')->name('home-owner-transactions.processCsvImport');
-    Route::resource('home-owner-transactions', 'HomeOwnerTransactionController');
+    Route::resource('home-owner-transactions', 'HomeOwnerTransactionController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
     // Payment Item
     Route::delete('payment-items/destroy', 'PaymentItemController@massDestroy')->name('payment-items.massDestroy');
@@ -563,8 +561,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::resource('documents', 'DocumentController');
 
     // Transaction
-    Route::delete('transactions/destroy', 'TransactionController@massDestroy')->name('transactions.massDestroy');
-    Route::resource('transactions', 'TransactionController');
+    Route::resource('transactions', 'TransactionController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 
     // Client Report
     Route::delete('client-reports/destroy', 'ClientReportController@massDestroy')->name('client-reports.massDestroy');
@@ -609,8 +606,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::resource('payment-plans', 'PaymentPlanController');
 
     // Home Owner Transaction
-    Route::delete('home-owner-transactions/destroy', 'HomeOwnerTransactionController@massDestroy')->name('home-owner-transactions.massDestroy');
-    Route::resource('home-owner-transactions', 'HomeOwnerTransactionController');
+    Route::resource('home-owner-transactions', 'HomeOwnerTransactionController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
     // Payment Item
     Route::delete('payment-items/destroy', 'PaymentItemController@massDestroy')->name('payment-items.massDestroy');

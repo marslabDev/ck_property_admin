@@ -1028,10 +1028,6 @@ return [
             'currency_helper'         => ' ',
             'transaction_date'        => 'Transaction Date',
             'transaction_date_helper' => ' ',
-            'name'                    => 'Name',
-            'name_helper'             => ' ',
-            'description'             => 'Description',
-            'description_helper'      => ' ',
             'created_at'              => 'Created at',
             'created_at_helper'       => ' ',
             'updated_at'              => 'Updated At',
@@ -1040,6 +1036,8 @@ return [
             'deleted_at_helper'       => ' ',
             'created_by'              => 'Created By',
             'created_by_helper'       => ' ',
+            'details'                 => 'Details',
+            'details_helper'          => ' ',
         ],
     ],
     'clientReport' => [
@@ -1280,6 +1278,8 @@ return [
             'no_of_cycle_helper'      => ' ',
             'payment_item'            => 'Payment Item',
             'payment_item_helper'     => ' ',
+            'extra_charge'            => 'Extra Charge',
+            'extra_charge_helper'     => ' ',
         ],
     ],
     'transactionManagement' => [
@@ -1316,6 +1316,8 @@ return [
             'deleted_at_helper'   => ' ',
             'created_by'          => 'Created By',
             'created_by_helper'   => ' ',
+            'details'             => 'Details',
+            'details_helper'      => ' ',
         ],
     ],
     'paymentItem' => [

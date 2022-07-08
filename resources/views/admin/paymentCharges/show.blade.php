@@ -58,6 +58,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#extra_charge_payment_plans" role="tab" data-toggle="tab">
+                {{ trans('cruds.paymentPlan.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="extra_charge_payment_plans">
+            @includeIf('admin.paymentCharges.relationships.extraChargePaymentPlans', ['paymentPlans' => $paymentCharge->extraChargePaymentPlans])
+        </div>
+    </div>
+</div>
 
 @endsection

@@ -36,6 +36,12 @@ class StorePaymentPlanRequest extends FormRequest
                 'required',
                 'array',
             ],
+            'extra_charges.*' => [
+                'integer',
+            ],
+            'extra_charges' => [
+                'array',
+            ],
             'cycle_every' => [
                 'nullable',
                 'integer',

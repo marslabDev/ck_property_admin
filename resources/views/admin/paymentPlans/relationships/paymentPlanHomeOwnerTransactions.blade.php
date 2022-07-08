@@ -1,13 +1,3 @@
-@can('home_owner_transaction_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.home-owner-transactions.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.homeOwnerTransaction.title_singular') }}
-            </a>
-        </div>
-    </div>
-@endcan
-
 <div class="card">
     <div class="card-header">
         {{ trans('cruds.homeOwnerTransaction.title_singular') }} {{ trans('global.list') }}
@@ -81,25 +71,8 @@
                                 {{ $homeOwnerTransaction->changes ?? '' }}
                             </td>
                             <td>
-                                @can('home_owner_transaction_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.home-owner-transactions.show', $homeOwnerTransaction->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
 
-                                @can('home_owner_transaction_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.home-owner-transactions.edit', $homeOwnerTransaction->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
 
-                                @can('home_owner_transaction_delete')
-                                    <form action="{{ route('admin.home-owner-transactions.destroy', $homeOwnerTransaction->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
 
                             </td>
 
@@ -116,36 +89,7 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('home_owner_transaction_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
-  let deleteButton = {
-    text: deleteButtonTrans,
-    url: "{{ route('admin.home-owner-transactions.massDestroy') }}",
-    className: 'btn-danger',
-    action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
-      });
-
-      if (ids.length === 0) {
-        alert('{{ trans('global.datatables.zero_selected') }}')
-
-        return
-      }
-
-      if (confirm('{{ trans('global.areYouSure') }}')) {
-        $.ajax({
-          headers: {'x-csrf-token': _token},
-          method: 'POST',
-          url: config.url,
-          data: { ids: ids, _method: 'DELETE' }})
-          .done(function () { location.reload() })
-      }
-    }
-  }
-  dtButtons.push(deleteButton)
-@endcan
-
+  
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],

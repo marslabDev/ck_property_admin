@@ -12,8 +12,8 @@ class CreateHomeOwnerTransactionsTable extends Migration
             $table->bigIncrements('id');
             $table->decimal('amount_paid', 15, 2);
             $table->decimal('changes', 15, 2);
+            $table->longText('details')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 }
