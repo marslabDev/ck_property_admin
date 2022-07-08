@@ -187,6 +187,11 @@
                                             {{ trans('cruds.managePrice.title') }}
                                         </a>
                                     @endcan
+                                    @can('house_status_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.house-statuses.index') }}">
+                                            {{ trans('cruds.houseStatus.title') }}
+                                        </a>
+                                    @endcan
                                     @can('payment_management_access')
                                         <a class="dropdown-item disabled" href="#">
                                             {{ trans('cruds.paymentManagement.title') }}

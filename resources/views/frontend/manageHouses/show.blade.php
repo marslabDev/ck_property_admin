@@ -84,10 +84,12 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.manageHouse.fields.house_status') }}
+                                        {{ trans('cruds.manageHouse.fields.parking_lot') }}
                                     </th>
                                     <td>
-                                        {{ App\Models\ManageHouse::HOUSE_STATUS_SELECT[$manageHouse->house_status] ?? '' }}
+                                        @foreach($manageHouse->parking_lots as $key => $parking_lot)
+                                            <span class="label label-info">{{ $parking_lot->lot_no }}</span>
+                                        @endforeach
                                     </td>
                                 </tr>
                                 <tr>
@@ -104,6 +106,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.manageHouse.fields.house_status') }}
+                                    </th>
+                                    <td>
+                                        {{ $manageHouse->house_status->status ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.manageHouse.fields.owned_by') }}
                                     </th>
                                     <td>
@@ -114,12 +124,18 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.manageHouse.fields.parking_lot') }}
+                                        {{ trans('cruds.manageHouse.fields.contact_person') }}
                                     </th>
                                     <td>
-                                        @foreach($manageHouse->parking_lots as $key => $parking_lot)
-                                            <span class="label label-info">{{ $parking_lot->lot_no }}</span>
-                                        @endforeach
+                                        {{ $manageHouse->contact_person->name ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.manageHouse.fields.contact_person_2') }}
+                                    </th>
+                                    <td>
+                                        {{ $manageHouse->contact_person_2->name ?? '' }}
                                     </td>
                                 </tr>
                             </tbody>

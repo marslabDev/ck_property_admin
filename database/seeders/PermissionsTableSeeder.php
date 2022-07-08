@@ -1132,6 +1132,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 281,
+                'title' => 'house_status_create',
+            ],
+            [
+                'id'    => 282,
+                'title' => 'house_status_edit',
+            ],
+            [
+                'id'    => 283,
+                'title' => 'house_status_show',
+            ],
+            [
+                'id'    => 284,
+                'title' => 'house_status_delete',
+            ],
+            [
+                'id'    => 285,
+                'title' => 'house_status_access',
+            ],
+            [
+                'id'    => 286,
                 'title' => 'profile_password_edit',
             ],
         ];

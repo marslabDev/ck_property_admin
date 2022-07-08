@@ -165,4 +165,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Payment Charge
     Route::apiResource('payment-charges', 'PaymentChargeApiController');
+
+    // House Status
+    Route::apiResource('house-statuses', 'HouseStatusApiController');
 });

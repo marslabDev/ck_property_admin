@@ -9,6 +9,7 @@ use App\Http\Requests\MassDestroyManageHouseRequest;
 use App\Http\Requests\StoreManageHouseRequest;
 use App\Http\Requests\UpdateManageHouseRequest;
 use App\Models\Area;
+use App\Models\HouseStatus;
 use App\Models\HouseType;
 use App\Models\ManageHouse;
 use App\Models\ParkingLot;
@@ -28,7 +29,7 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouses = ManageHouse::with(['house_type', 'area', 'street', 'owned_bies', 'parking_lots', 'created_by', 'media'])->get();
+        $manageHouses = ManageHouse::with(['house_type', 'area', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'created_by', 'media'])->get();
 
         $house_types = HouseType::get();
 
@@ -36,11 +37,13 @@ class ManageHouseController extends Controller
 
         $streets = Street::get();
 
-        $users = User::get();
-
         $parking_lots = ParkingLot::get();
 
-        return view('frontend.manageHouses.index', compact('areas', 'house_types', 'manageHouses', 'parking_lots', 'streets', 'users'));
+        $house_statuses = HouseStatus::get();
+
+        $users = User::get();
+
+        return view('frontend.manageHouses.index', compact('areas', 'house_statuses', 'house_types', 'manageHouses', 'parking_lots', 'streets', 'users'));
     }
 
     public function create()
@@ -53,18 +56,24 @@ class ManageHouseController extends Controller
 
         $streets = Street::pluck('street_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $owned_bies = User::pluck('name', 'id');
-
         $parking_lots = ParkingLot::pluck('lot_no', 'id');
 
-        return view('frontend.manageHouses.create', compact('areas', 'house_types', 'owned_bies', 'parking_lots', 'streets'));
+        $house_statuses = HouseStatus::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $owned_bies = User::pluck('name', 'id');
+
+        $contact_people = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $contact_person_2s = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('frontend.manageHouses.create', compact('areas', 'contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'owned_bies', 'parking_lots', 'streets'));
     }
 
     public function store(StoreManageHouseRequest $request)
     {
         $manageHouse = ManageHouse::create($request->all());
-        $manageHouse->owned_bies()->sync($request->input('owned_bies', []));
         $manageHouse->parking_lots()->sync($request->input('parking_lots', []));
+        $manageHouse->owned_bies()->sync($request->input('owned_bies', []));
         foreach ($request->input('documents', []) as $file) {
             $manageHouse->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('documents');
         }
@@ -86,20 +95,26 @@ class ManageHouseController extends Controller
 
         $streets = Street::pluck('street_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $owned_bies = User::pluck('name', 'id');
-
         $parking_lots = ParkingLot::pluck('lot_no', 'id');
 
-        $manageHouse->load('house_type', 'area', 'street', 'owned_bies', 'parking_lots', 'created_by');
+        $house_statuses = HouseStatus::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.manageHouses.edit', compact('areas', 'house_types', 'manageHouse', 'owned_bies', 'parking_lots', 'streets'));
+        $owned_bies = User::pluck('name', 'id');
+
+        $contact_people = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $contact_person_2s = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $manageHouse->load('house_type', 'area', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'created_by');
+
+        return view('frontend.manageHouses.edit', compact('areas', 'contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'manageHouse', 'owned_bies', 'parking_lots', 'streets'));
     }
 
     public function update(UpdateManageHouseRequest $request, ManageHouse $manageHouse)
     {
         $manageHouse->update($request->all());
-        $manageHouse->owned_bies()->sync($request->input('owned_bies', []));
         $manageHouse->parking_lots()->sync($request->input('parking_lots', []));
+        $manageHouse->owned_bies()->sync($request->input('owned_bies', []));
         if (count($manageHouse->documents) > 0) {
             foreach ($manageHouse->documents as $media) {
                 if (!in_array($media->file_name, $request->input('documents', []))) {
@@ -121,7 +136,7 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouse->load('house_type', 'area', 'street', 'owned_bies', 'parking_lots', 'created_by');
+        $manageHouse->load('house_type', 'area', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'created_by', 'housePaymentPlans', 'houseHomeOwnerTransactions');
 
         return view('frontend.manageHouses.show', compact('manageHouse'));
     }

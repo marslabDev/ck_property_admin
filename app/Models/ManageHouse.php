@@ -20,11 +20,6 @@ class ManageHouse extends Model implements HasMedia
     use Auditable;
     use HasFactory;
 
-    public const HOUSE_STATUS_SELECT = [
-        'available' => 'Available',
-        'sold_out'  => 'Sold Out',
-    ];
-
     public $table = 'manage_houses';
 
     protected $appends = [
@@ -45,7 +40,9 @@ class ManageHouse extends Model implements HasMedia
         'area_id',
         'street_id',
         'square_feet',
-        'house_status',
+        'house_status_id',
+        'contact_person_id',
+        'contact_person_2_id',
         'created_by_id',
         'created_at',
         'updated_at',
@@ -83,9 +80,19 @@ class ManageHouse extends Model implements HasMedia
         return $this->belongsTo(Street::class, 'street_id');
     }
 
+    public function parking_lots()
+    {
+        return $this->belongsToMany(ParkingLot::class);
+    }
+
     public function getDocumentsAttribute()
     {
         return $this->getMedia('documents');
+    }
+
+    public function house_status()
+    {
+        return $this->belongsTo(HouseStatus::class, 'house_status_id');
     }
 
     public function owned_bies()
@@ -93,9 +100,14 @@ class ManageHouse extends Model implements HasMedia
         return $this->belongsToMany(User::class);
     }
 
-    public function parking_lots()
+    public function contact_person()
     {
-        return $this->belongsToMany(ParkingLot::class);
+        return $this->belongsTo(User::class, 'contact_person_id');
+    }
+
+    public function contact_person_2()
+    {
+        return $this->belongsTo(User::class, 'contact_person_2_id');
     }
 
     public function created_by()

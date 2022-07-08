@@ -185,7 +185,7 @@
             </li>
         @endcan
         @can('house_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/areas*") ? "c-show" : "" }} {{ request()->is("admin/streets*") ? "c-show" : "" }} {{ request()->is("admin/parking-lots*") ? "c-show" : "" }} {{ request()->is("admin/house-types*") ? "c-show" : "" }} {{ request()->is("admin/manage-houses*") ? "c-show" : "" }} {{ request()->is("admin/manage-prices*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/areas*") ? "c-show" : "" }} {{ request()->is("admin/streets*") ? "c-show" : "" }} {{ request()->is("admin/parking-lots*") ? "c-show" : "" }} {{ request()->is("admin/house-types*") ? "c-show" : "" }} {{ request()->is("admin/manage-houses*") ? "c-show" : "" }} {{ request()->is("admin/manage-prices*") ? "c-show" : "" }} {{ request()->is("admin/house-statuses*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-home c-sidebar-nav-icon">
 
@@ -253,6 +253,16 @@
                             </a>
                         </li>
                     @endcan
+                    @can('house_status_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.house-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/house-statuses") || request()->is("admin/house-statuses/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.houseStatus.title') }}
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
         @endcan
@@ -278,7 +288,7 @@
                     @can('payment_charge_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.payment-charges.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payment-charges") || request()->is("admin/payment-charges/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+                                <i class="fa-fw fas fa-percent c-sidebar-nav-icon">
 
                                 </i>
                                 {{ trans('cruds.paymentCharge.title') }}

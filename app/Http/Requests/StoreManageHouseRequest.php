@@ -41,11 +41,18 @@ class StoreManageHouseRequest extends FormRequest
                 'numeric',
                 'required',
             ],
-            'house_status' => [
-                'required',
+            'parking_lots.*' => [
+                'integer',
+            ],
+            'parking_lots' => [
+                'array',
             ],
             'documents' => [
                 'array',
+            ],
+            'house_status_id' => [
+                'required',
+                'integer',
             ],
             'owned_bies.*' => [
                 'integer',
@@ -53,11 +60,9 @@ class StoreManageHouseRequest extends FormRequest
             'owned_bies' => [
                 'array',
             ],
-            'parking_lots.*' => [
+            'contact_person_id' => [
+                'required',
                 'integer',
-            ],
-            'parking_lots' => [
-                'array',
             ],
         ];
     }

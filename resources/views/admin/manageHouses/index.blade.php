@@ -50,16 +50,28 @@
                         {{ trans('cruds.manageHouse.fields.square_feet') }}
                     </th>
                     <th>
-                        {{ trans('cruds.manageHouse.fields.house_status') }}
+                        {{ trans('cruds.manageHouse.fields.parking_lot') }}
                     </th>
                     <th>
                         {{ trans('cruds.manageHouse.fields.documents') }}
                     </th>
                     <th>
+                        {{ trans('cruds.manageHouse.fields.house_status') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.manageHouse.fields.owned_by') }}
                     </th>
                     <th>
-                        {{ trans('cruds.manageHouse.fields.parking_lot') }}
+                        {{ trans('cruds.manageHouse.fields.contact_person') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.phone_no') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.manageHouse.fields.contact_person_2') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.phone_no') }}
                     </th>
                     <th>
                         &nbsp;
@@ -108,10 +120,36 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <select class="search" strict="true">
+                        <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach(App\Models\ManageHouse::HOUSE_STATUS_SELECT as $key => $item)
-                                <option value="{{ $key }}">{{ $item }}</option>
+                            @foreach($parking_lots as $key => $item)
+                                <option value="{{ $item->lot_no }}">{{ $item->lot_no }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($house_statuses as $key => $item)
+                                <option value="{{ $item->status }}">{{ $item->status }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($users as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($users as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -126,12 +164,6 @@
                         </select>
                     </td>
                     <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($parking_lots as $key => $item)
-                                <option value="{{ $item->lot_no }}">{{ $item->lot_no }}</option>
-                            @endforeach
-                        </select>
                     </td>
                     <td>
                     </td>
@@ -196,10 +228,14 @@
 { data: 'area_name', name: 'area.name' },
 { data: 'street_street_name', name: 'street.street_name' },
 { data: 'square_feet', name: 'square_feet' },
-{ data: 'house_status', name: 'house_status' },
-{ data: 'documents', name: 'documents', sortable: false, searchable: false },
-{ data: 'owned_by', name: 'owned_bies.name' },
 { data: 'parking_lot', name: 'parking_lots.lot_no' },
+{ data: 'documents', name: 'documents', sortable: false, searchable: false },
+{ data: 'house_status_status', name: 'house_status.status' },
+{ data: 'owned_by', name: 'owned_bies.name' },
+{ data: 'contact_person_name', name: 'contact_person.name' },
+{ data: 'contact_person.phone_no', name: 'contact_person.phone_no' },
+{ data: 'contact_person_2_name', name: 'contact_person_2.name' },
+{ data: 'contact_person_2.phone_no', name: 'contact_person_2.phone_no' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

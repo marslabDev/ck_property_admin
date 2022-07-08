@@ -355,6 +355,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('payment-charges/process-csv-import', 'PaymentChargeController@processCsvImport')->name('payment-charges.processCsvImport');
     Route::resource('payment-charges', 'PaymentChargeController');
 
+    // House Status
+    Route::delete('house-statuses/destroy', 'HouseStatusController@massDestroy')->name('house-statuses.massDestroy');
+    Route::post('house-statuses/parse-csv-import', 'HouseStatusController@parseCsvImport')->name('house-statuses.parseCsvImport');
+    Route::post('house-statuses/process-csv-import', 'HouseStatusController@processCsvImport')->name('house-statuses.processCsvImport');
+    Route::resource('house-statuses', 'HouseStatusController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -615,6 +621,10 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Payment Charge
     Route::delete('payment-charges/destroy', 'PaymentChargeController@massDestroy')->name('payment-charges.massDestroy');
     Route::resource('payment-charges', 'PaymentChargeController');
+
+    // House Status
+    Route::delete('house-statuses/destroy', 'HouseStatusController@massDestroy')->name('house-statuses.massDestroy');
+    Route::resource('house-statuses', 'HouseStatusController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');
