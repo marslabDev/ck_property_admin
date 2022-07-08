@@ -129,6 +129,16 @@ class User extends Authenticatable
         return $this->hasMany(HomeOwnerTransaction::class, 'user_id', 'id');
     }
 
+    public function contactPersonManageHouses()
+    {
+        return $this->hasMany(ManageHouse::class, 'contact_person_id', 'id');
+    }
+
+    public function contactPerson2ManageHouses()
+    {
+        return $this->hasMany(ManageHouse::class, 'contact_person_2_id', 'id');
+    }
+
     public function userUserAlerts()
     {
         return $this->belongsToMany(UserAlert::class);

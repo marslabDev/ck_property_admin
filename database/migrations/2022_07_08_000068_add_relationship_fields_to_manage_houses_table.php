@@ -15,6 +15,12 @@ class AddRelationshipFieldsToManageHousesTable extends Migration
             $table->foreign('area_id', 'area_fk_6898905')->references('id')->on('areas');
             $table->unsignedBigInteger('street_id')->nullable();
             $table->foreign('street_id', 'street_fk_6937200')->references('id')->on('streets');
+            $table->unsignedBigInteger('house_status_id')->nullable();
+            $table->foreign('house_status_id', 'house_status_fk_6947744')->references('id')->on('house_statuses');
+            $table->unsignedBigInteger('contact_person_id')->nullable();
+            $table->foreign('contact_person_id', 'contact_person_fk_6947745')->references('id')->on('users');
+            $table->unsignedBigInteger('contact_person_2_id')->nullable();
+            $table->foreign('contact_person_2_id', 'contact_person_2_fk_6947746')->references('id')->on('users');
             $table->unsignedBigInteger('created_by_id')->nullable();
             $table->foreign('created_by_id', 'created_by_fk_6872519')->references('id')->on('users');
         });

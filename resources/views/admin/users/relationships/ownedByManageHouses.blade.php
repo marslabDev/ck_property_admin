@@ -46,16 +46,28 @@
                             {{ trans('cruds.manageHouse.fields.square_feet') }}
                         </th>
                         <th>
-                            {{ trans('cruds.manageHouse.fields.house_status') }}
+                            {{ trans('cruds.manageHouse.fields.parking_lot') }}
                         </th>
                         <th>
                             {{ trans('cruds.manageHouse.fields.documents') }}
                         </th>
                         <th>
+                            {{ trans('cruds.manageHouse.fields.house_status') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.manageHouse.fields.owned_by') }}
                         </th>
                         <th>
-                            {{ trans('cruds.manageHouse.fields.parking_lot') }}
+                            {{ trans('cruds.manageHouse.fields.contact_person') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.phone_no') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.manageHouse.fields.contact_person_2') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.phone_no') }}
                         </th>
                         <th>
                             &nbsp;
@@ -93,7 +105,9 @@
                                 {{ $manageHouse->square_feet ?? '' }}
                             </td>
                             <td>
-                                {{ App\Models\ManageHouse::HOUSE_STATUS_SELECT[$manageHouse->house_status] ?? '' }}
+                                @foreach($manageHouse->parking_lots as $key => $item)
+                                    <span class="badge badge-info">{{ $item->lot_no }}</span>
+                                @endforeach
                             </td>
                             <td>
                                 @foreach($manageHouse->documents as $key => $media)
@@ -103,14 +117,24 @@
                                 @endforeach
                             </td>
                             <td>
+                                {{ $manageHouse->house_status->status ?? '' }}
+                            </td>
+                            <td>
                                 @foreach($manageHouse->owned_bies as $key => $item)
                                     <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
                             </td>
                             <td>
-                                @foreach($manageHouse->parking_lots as $key => $item)
-                                    <span class="badge badge-info">{{ $item->lot_no }}</span>
-                                @endforeach
+                                {{ $manageHouse->contact_person->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $manageHouse->contact_person->phone_no ?? '' }}
+                            </td>
+                            <td>
+                                {{ $manageHouse->contact_person_2->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $manageHouse->contact_person_2->phone_no ?? '' }}
                             </td>
                             <td>
                                 @can('manage_house_show')

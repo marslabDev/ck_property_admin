@@ -134,6 +134,16 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="#contact_person_manage_houses" role="tab" data-toggle="tab">
+                {{ trans('cruds.manageHouse.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#contact_person2_manage_houses" role="tab" data-toggle="tab">
+                {{ trans('cruds.manageHouse.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#user_user_alerts" role="tab" data-toggle="tab">
                 {{ trans('cruds.userAlert.title') }}
             </a>
@@ -156,6 +166,12 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="user_home_owner_transactions">
             @includeIf('admin.users.relationships.userHomeOwnerTransactions', ['homeOwnerTransactions' => $user->userHomeOwnerTransactions])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="contact_person_manage_houses">
+            @includeIf('admin.users.relationships.contactPersonManageHouses', ['manageHouses' => $user->contactPersonManageHouses])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="contact_person2_manage_houses">
+            @includeIf('admin.users.relationships.contactPerson2ManageHouses', ['manageHouses' => $user->contactPerson2ManageHouses])
         </div>
         <div class="tab-pane" role="tabpanel" id="user_user_alerts">
             @includeIf('admin.users.relationships.userUserAlerts', ['userAlerts' => $user->userUserAlerts])

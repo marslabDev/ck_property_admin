@@ -62,7 +62,7 @@ class PaymentChargeController extends Controller
     {
         abort_if(Gate::denies('payment_charge_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentCharge->load('created_by');
+        $paymentCharge->load('created_by', 'extraChargePaymentPlans');
 
         return view('frontend.paymentCharges.show', compact('paymentCharge'));
     }
