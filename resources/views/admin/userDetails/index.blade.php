@@ -32,6 +32,9 @@
                         {{ trans('cruds.userDetail.fields.user') }}
                     </th>
                     <th>
+                        {{ trans('cruds.user.fields.email') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.userDetail.fields.ic_no') }}
                     </th>
                     <th>
@@ -75,6 +78,8 @@
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
+                    </td>
+                    <td>
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -164,6 +169,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'user_name', name: 'user.name' },
+{ data: 'user.email', name: 'user.email' },
 { data: 'ic_no', name: 'ic_no' },
 { data: 'gender', name: 'gender' },
 { data: 'date_of_birth', name: 'date_of_birth' },

@@ -29,6 +29,11 @@ class Permission extends Model
         'deleted_at',
     ];
 
+    public function permissionsRoles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

@@ -51,6 +51,9 @@ class UserDetailController extends Controller
                 return $row->user ? $row->user->name : '';
             });
 
+            $table->editColumn('user.email', function ($row) {
+                return $row->user ? (is_string($row->user) ? $row->user : $row->user->email) : '';
+            });
             $table->editColumn('ic_no', function ($row) {
                 return $row->ic_no ? $row->ic_no : '';
             });

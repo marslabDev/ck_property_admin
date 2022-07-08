@@ -28,6 +28,9 @@
                             {{ trans('cruds.userDetail.fields.user') }}
                         </th>
                         <th>
+                            {{ trans('cruds.user.fields.email') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.userDetail.fields.ic_no') }}
                         </th>
                         <th>
@@ -70,6 +73,9 @@
                             </td>
                             <td>
                                 {{ $userDetail->user->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $userDetail->user->email ?? '' }}
                             </td>
                             <td>
                                 {{ $userDetail->ic_no ?? '' }}
