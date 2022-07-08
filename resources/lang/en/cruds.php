@@ -205,6 +205,8 @@ return [
             'created_by_helper' => ' ',
             'lot_no'            => 'Lot No',
             'lot_no_helper'     => ' ',
+            'floor'             => 'Floor',
+            'floor_helper'      => ' ',
         ],
     ],
     'notice' => [

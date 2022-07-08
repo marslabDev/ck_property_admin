@@ -11,6 +11,7 @@ class CreateParkingLotsTable extends Migration
         Schema::create('parking_lots', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('lot_no');
+            $table->integer('floor')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
