@@ -66,9 +66,6 @@
                                         {{ trans('cruds.manageHouse.fields.contact_person') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.user.fields.phone_no') }}
-                                    </th>
-                                    <th>
                                         {{ trans('cruds.manageHouse.fields.contact_person_2') }}
                                     </th>
                                     <th>
@@ -150,17 +147,15 @@
                                         <select class="search">
                                             <option value>{{ trans('global.all') }}</option>
                                             @foreach($users as $key => $item)
-                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->phone_no }}">{{ $item->phone_no }}</option>
                                             @endforeach
                                         </select>
-                                    </td>
-                                    <td>
                                     </td>
                                     <td>
                                         <select class="search">
                                             <option value>{{ trans('global.all') }}</option>
                                             @foreach($users as $key => $item)
-                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->phone_no }}">{{ $item->phone_no }}</option>
                                             @endforeach
                                         </select>
                                     </td>
@@ -218,13 +213,10 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            {{ $manageHouse->contact_person->name ?? '' }}
-                                        </td>
-                                        <td>
                                             {{ $manageHouse->contact_person->phone_no ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $manageHouse->contact_person_2->name ?? '' }}
+                                            {{ $manageHouse->contact_person_2->phone_no ?? '' }}
                                         </td>
                                         <td>
                                             {{ $manageHouse->contact_person_2->phone_no ?? '' }}

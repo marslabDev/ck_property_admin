@@ -61,9 +61,6 @@
                             {{ trans('cruds.manageHouse.fields.contact_person') }}
                         </th>
                         <th>
-                            {{ trans('cruds.user.fields.phone_no') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.manageHouse.fields.contact_person_2') }}
                         </th>
                         <th>
@@ -125,13 +122,10 @@
                                 @endforeach
                             </td>
                             <td>
-                                {{ $manageHouse->contact_person->name ?? '' }}
-                            </td>
-                            <td>
                                 {{ $manageHouse->contact_person->phone_no ?? '' }}
                             </td>
                             <td>
-                                {{ $manageHouse->contact_person_2->name ?? '' }}
+                                {{ $manageHouse->contact_person_2->phone_no ?? '' }}
                             </td>
                             <td>
                                 {{ $manageHouse->contact_person_2->phone_no ?? '' }}

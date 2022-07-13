@@ -110,15 +110,12 @@ class ManageHouseController extends Controller
 
                 return implode(' ', $labels);
             });
-            $table->addColumn('contact_person_name', function ($row) {
-                return $row->contact_person ? $row->contact_person->name : '';
+            $table->addColumn('contact_person_phone_no', function ($row) {
+                return $row->contact_person ? $row->contact_person->phone_no : '';
             });
 
-            $table->editColumn('contact_person.phone_no', function ($row) {
-                return $row->contact_person ? (is_string($row->contact_person) ? $row->contact_person : $row->contact_person->phone_no) : '';
-            });
-            $table->addColumn('contact_person_2_name', function ($row) {
-                return $row->contact_person_2 ? $row->contact_person_2->name : '';
+            $table->addColumn('contact_person_2_phone_no', function ($row) {
+                return $row->contact_person_2 ? $row->contact_person_2->phone_no : '';
             });
 
             $table->editColumn('contact_person_2.phone_no', function ($row) {
@@ -156,9 +153,9 @@ class ManageHouseController extends Controller
 
         $owned_bies = User::pluck('name', 'id');
 
-        $contact_people = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $contact_people = User::pluck('phone_no', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $contact_person_2s = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $contact_person_2s = User::pluck('phone_no', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.manageHouses.create', compact('areas', 'contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'owned_bies', 'parking_lots', 'streets'));
     }
@@ -195,9 +192,9 @@ class ManageHouseController extends Controller
 
         $owned_bies = User::pluck('name', 'id');
 
-        $contact_people = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $contact_people = User::pluck('phone_no', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $contact_person_2s = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $contact_person_2s = User::pluck('phone_no', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $manageHouse->load('house_type', 'area', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'created_by');
 

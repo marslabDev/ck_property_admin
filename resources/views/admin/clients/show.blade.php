@@ -116,10 +116,18 @@
                 {{ trans('cruds.project.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#supplier_checklists" role="tab" data-toggle="tab">
+                {{ trans('cruds.checklist.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="client_projects">
             @includeIf('admin.clients.relationships.clientProjects', ['projects' => $client->clientProjects])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="supplier_checklists">
+            @includeIf('admin.clients.relationships.supplierChecklists', ['checklists' => $client->supplierChecklists])
         </div>
     </div>
 </div>

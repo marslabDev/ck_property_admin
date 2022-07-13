@@ -124,7 +124,7 @@
                             {{ trans('cruds.manageHouse.fields.contact_person') }}
                         </th>
                         <td>
-                            {{ $manageHouse->contact_person->name ?? '' }}
+                            {{ $manageHouse->contact_person->phone_no ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -132,7 +132,7 @@
                             {{ trans('cruds.manageHouse.fields.contact_person_2') }}
                         </th>
                         <td>
-                            {{ $manageHouse->contact_person_2->name ?? '' }}
+                            {{ $manageHouse->contact_person_2->phone_no ?? '' }}
                         </td>
                     </tr>
                 </tbody>

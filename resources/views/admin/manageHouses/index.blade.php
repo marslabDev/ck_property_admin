@@ -65,9 +65,6 @@
                         {{ trans('cruds.manageHouse.fields.contact_person') }}
                     </th>
                     <th>
-                        {{ trans('cruds.user.fields.phone_no') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.manageHouse.fields.contact_person_2') }}
                     </th>
                     <th>
@@ -149,17 +146,15 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($users as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                <option value="{{ $item->phone_no }}">{{ $item->phone_no }}</option>
                             @endforeach
                         </select>
-                    </td>
-                    <td>
                     </td>
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($users as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                <option value="{{ $item->phone_no }}">{{ $item->phone_no }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -232,9 +227,8 @@
 { data: 'documents', name: 'documents', sortable: false, searchable: false },
 { data: 'house_status_status', name: 'house_status.status' },
 { data: 'owned_by', name: 'owned_bies.name' },
-{ data: 'contact_person_name', name: 'contact_person.name' },
-{ data: 'contact_person.phone_no', name: 'contact_person.phone_no' },
-{ data: 'contact_person_2_name', name: 'contact_person_2.name' },
+{ data: 'contact_person_phone_no', name: 'contact_person.phone_no' },
+{ data: 'contact_person_2_phone_no', name: 'contact_person_2.phone_no' },
 { data: 'contact_person_2.phone_no', name: 'contact_person_2.phone_no' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

@@ -168,4 +168,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // House Status
     Route::apiResource('house-statuses', 'HouseStatusApiController');
+
+    // Checklist
+    Route::apiResource('checklists', 'ChecklistApiController');
 });
