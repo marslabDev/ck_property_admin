@@ -45,6 +45,11 @@ class Client extends Model
         return $this->hasMany(Project::class, 'client_id', 'id');
     }
 
+    public function supplierChecklists()
+    {
+        return $this->hasMany(Checklist::class, 'supplier_id', 'id');
+    }
+
     public function status()
     {
         return $this->belongsTo(ClientStatus::class, 'status_id');

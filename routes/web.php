@@ -361,6 +361,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('house-statuses/process-csv-import', 'HouseStatusController@processCsvImport')->name('house-statuses.processCsvImport');
     Route::resource('house-statuses', 'HouseStatusController');
 
+    // Checklist
+    Route::delete('checklists/destroy', 'ChecklistController@massDestroy')->name('checklists.massDestroy');
+    Route::post('checklists/parse-csv-import', 'ChecklistController@parseCsvImport')->name('checklists.parseCsvImport');
+    Route::post('checklists/process-csv-import', 'ChecklistController@processCsvImport')->name('checklists.processCsvImport');
+    Route::resource('checklists', 'ChecklistController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -625,6 +631,10 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // House Status
     Route::delete('house-statuses/destroy', 'HouseStatusController@massDestroy')->name('house-statuses.massDestroy');
     Route::resource('house-statuses', 'HouseStatusController');
+
+    // Checklist
+    Route::delete('checklists/destroy', 'ChecklistController@massDestroy')->name('checklists.massDestroy');
+    Route::resource('checklists', 'ChecklistController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

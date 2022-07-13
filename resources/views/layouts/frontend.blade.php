@@ -262,6 +262,11 @@
                                             {{ trans('cruds.transaction.title') }}
                                         </a>
                                     @endcan
+                                    @can('checklist_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.checklists.index') }}">
+                                            {{ trans('cruds.checklist.title') }}
+                                        </a>
+                                    @endcan
                                     @can('client_management_setting_access')
                                         <a class="dropdown-item disabled" href="#">
                                             {{ trans('cruds.clientManagementSetting.title') }}

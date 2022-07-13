@@ -1152,6 +1152,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 286,
+                'title' => 'checklist_create',
+            ],
+            [
+                'id'    => 287,
+                'title' => 'checklist_edit',
+            ],
+            [
+                'id'    => 288,
+                'title' => 'checklist_show',
+            ],
+            [
+                'id'    => 289,
+                'title' => 'checklist_delete',
+            ],
+            [
+                'id'    => 290,
+                'title' => 'checklist_access',
+            ],
+            [
+                'id'    => 291,
                 'title' => 'profile_password_edit',
             ],
         ];

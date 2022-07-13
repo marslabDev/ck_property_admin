@@ -351,7 +351,7 @@
             </li>
         @endcan
         @can('client_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/clients*") ? "c-show" : "" }} {{ request()->is("admin/projects*") ? "c-show" : "" }} {{ request()->is("admin/notes*") ? "c-show" : "" }} {{ request()->is("admin/documents*") ? "c-show" : "" }} {{ request()->is("admin/transactions*") ? "c-show" : "" }} {{ request()->is("admin/client-reports*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/clients*") ? "c-show" : "" }} {{ request()->is("admin/projects*") ? "c-show" : "" }} {{ request()->is("admin/notes*") ? "c-show" : "" }} {{ request()->is("admin/documents*") ? "c-show" : "" }} {{ request()->is("admin/transactions*") ? "c-show" : "" }} {{ request()->is("admin/client-reports*") ? "c-show" : "" }} {{ request()->is("admin/checklists*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
 
@@ -416,6 +416,16 @@
 
                                 </i>
                                 {{ trans('cruds.clientReport.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('checklist_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.checklists.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/checklists") || request()->is("admin/checklists/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-check-double c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.checklist.title') }}
                             </a>
                         </li>
                     @endcan

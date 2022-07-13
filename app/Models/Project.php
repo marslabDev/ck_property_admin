@@ -39,6 +39,11 @@ class Project extends Model
         'created_by_id',
     ];
 
+    public function projectChecklists()
+    {
+        return $this->hasMany(Checklist::class, 'project_id', 'id');
+    }
+
     public function getStartDateAttribute($value)
     {
         return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
