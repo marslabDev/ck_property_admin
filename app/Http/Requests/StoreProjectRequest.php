@@ -21,12 +21,26 @@ class StoreProjectRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'areas.*' => [
+                'integer',
+            ],
+            'areas' => [
+                'required',
+                'array',
+            ],
             'start_date' => [
+                'required',
                 'date_format:' . config('panel.date_format'),
-                'nullable',
             ],
             'budget' => [
                 'numeric',
+            ],
+            'suppliers.*' => [
+                'integer',
+            ],
+            'suppliers' => [
+                'required',
+                'array',
             ],
             'status_id' => [
                 'required',

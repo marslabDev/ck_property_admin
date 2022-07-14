@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Area;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\ProjectStatus;
@@ -23,7 +24,9 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $projects = Project::with(['client', 'status', 'created_by'])->get();
+        $projects = Project::with(['areas', 'suppliers', 'status', 'created_by'])->get();
+
+        $areas = Area::get();
 
         $clients = Client::get();
 
@@ -31,23 +34,27 @@ class ProjectController extends Controller
 
         $users = User::get();
 
-        return view('frontend.projects.index', compact('clients', 'project_statuses', 'projects', 'users'));
+        return view('frontend.projects.index', compact('areas', 'clients', 'project_statuses', 'projects', 'users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('project_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::pluck('company', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $areas = Area::pluck('name', 'id');
+
+        $suppliers = Client::pluck('company', 'id');
 
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.projects.create', compact('clients', 'statuses'));
+        return view('frontend.projects.create', compact('areas', 'statuses', 'suppliers'));
     }
 
     public function store(StoreProjectRequest $request)
     {
         $project = Project::create($request->all());
+        $project->areas()->sync($request->input('areas', []));
+        $project->suppliers()->sync($request->input('suppliers', []));
 
         return redirect()->route('frontend.projects.index');
     }
@@ -56,18 +63,22 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::pluck('company', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $areas = Area::pluck('name', 'id');
+
+        $suppliers = Client::pluck('company', 'id');
 
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $project->load('client', 'status', 'created_by');
+        $project->load('areas', 'suppliers', 'status', 'created_by');
 
-        return view('frontend.projects.edit', compact('clients', 'project', 'statuses'));
+        return view('frontend.projects.edit', compact('areas', 'project', 'statuses', 'suppliers'));
     }
 
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $project->update($request->all());
+        $project->areas()->sync($request->input('areas', []));
+        $project->suppliers()->sync($request->input('suppliers', []));
 
         return redirect()->route('frontend.projects.index');
     }
@@ -76,7 +87,7 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $project->load('client', 'status', 'created_by');
+        $project->load('areas', 'suppliers', 'status', 'created_by', 'projectChecklists');
 
         return view('frontend.projects.show', compact('project'));
     }

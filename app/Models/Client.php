@@ -40,14 +40,14 @@ class Client extends Model
         'created_by_id',
     ];
 
-    public function clientProjects()
-    {
-        return $this->hasMany(Project::class, 'client_id', 'id');
-    }
-
     public function supplierChecklists()
     {
         return $this->hasMany(Checklist::class, 'supplier_id', 'id');
+    }
+
+    public function supplierProjects()
+    {
+        return $this->belongsToMany(Project::class);
     }
 
     public function status()
