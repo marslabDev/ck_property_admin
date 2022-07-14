@@ -61,6 +61,11 @@ class Area extends Model
         return $this->hasMany(Street::class, 'area_id', 'id');
     }
 
+    public function areaProjects()
+    {
+        return $this->belongsToMany(Project::class);
+    }
+
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

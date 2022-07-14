@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Area;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\ProjectStatus;
@@ -25,7 +26,7 @@ class ProjectController extends Controller
         abort_if(Gate::denies('project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Project::with(['client', 'status', 'created_by'])->select(sprintf('%s.*', (new Project())->table));
+            $query = Project::with(['areas', 'suppliers', 'status', 'created_by'])->select(sprintf('%s.*', (new Project())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -55,44 +56,61 @@ class ProjectController extends Controller
             $table->editColumn('description', function ($row) {
                 return $row->description ? $row->description : '';
             });
+            $table->editColumn('area', function ($row) {
+                $labels = [];
+                foreach ($row->areas as $area) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $area->name);
+                }
+
+                return implode(' ', $labels);
+            });
 
             $table->editColumn('budget', function ($row) {
                 return $row->budget ? $row->budget : '';
             });
-            $table->addColumn('client_company', function ($row) {
-                return $row->client ? $row->client->company : '';
-            });
+            $table->editColumn('supplier', function ($row) {
+                $labels = [];
+                foreach ($row->suppliers as $supplier) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $supplier->company);
+                }
 
+                return implode(' ', $labels);
+            });
             $table->addColumn('status_name', function ($row) {
                 return $row->status ? $row->status->name : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'client', 'status']);
+            $table->rawColumns(['actions', 'placeholder', 'area', 'supplier', 'status']);
 
             return $table->make(true);
         }
 
+        $areas            = Area::get();
         $clients          = Client::get();
         $project_statuses = ProjectStatus::get();
         $users            = User::get();
 
-        return view('admin.projects.index', compact('clients', 'project_statuses', 'users'));
+        return view('admin.projects.index', compact('areas', 'clients', 'project_statuses', 'users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('project_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::pluck('company', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $areas = Area::pluck('name', 'id');
+
+        $suppliers = Client::pluck('company', 'id');
 
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.projects.create', compact('clients', 'statuses'));
+        return view('admin.projects.create', compact('areas', 'statuses', 'suppliers'));
     }
 
     public function store(StoreProjectRequest $request)
     {
         $project = Project::create($request->all());
+        $project->areas()->sync($request->input('areas', []));
+        $project->suppliers()->sync($request->input('suppliers', []));
 
         return redirect()->route('admin.projects.index');
     }
@@ -101,18 +119,22 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::pluck('company', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $areas = Area::pluck('name', 'id');
+
+        $suppliers = Client::pluck('company', 'id');
 
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $project->load('client', 'status', 'created_by');
+        $project->load('areas', 'suppliers', 'status', 'created_by');
 
-        return view('admin.projects.edit', compact('clients', 'project', 'statuses'));
+        return view('admin.projects.edit', compact('areas', 'project', 'statuses', 'suppliers'));
     }
 
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $project->update($request->all());
+        $project->areas()->sync($request->input('areas', []));
+        $project->suppliers()->sync($request->input('suppliers', []));
 
         return redirect()->route('admin.projects.index');
     }
@@ -121,7 +143,7 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $project->load('client', 'status', 'created_by', 'projectChecklists');
+        $project->load('areas', 'suppliers', 'status', 'created_by', 'projectChecklists');
 
         return view('admin.projects.show', compact('project'));
     }

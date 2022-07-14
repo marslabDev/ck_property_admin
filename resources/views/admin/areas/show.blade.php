@@ -104,6 +104,11 @@
                 {{ trans('cruds.street.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#area_projects" role="tab" data-toggle="tab">
+                {{ trans('cruds.project.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="area_manage_houses">
@@ -120,6 +125,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="area_streets">
             @includeIf('admin.areas.relationships.areaStreets', ['streets' => $area->areaStreets])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="area_projects">
+            @includeIf('admin.areas.relationships.areaProjects', ['projects' => $area->areaProjects])
         </div>
     </div>
 </div>

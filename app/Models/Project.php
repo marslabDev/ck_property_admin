@@ -31,17 +31,21 @@ class Project extends Model
         'description',
         'start_date',
         'budget',
-        'client_id',
         'status_id',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function projectChecklists()
     {
         return $this->hasMany(Checklist::class, 'project_id', 'id');
+    }
+
+    public function areas()
+    {
+        return $this->belongsToMany(Area::class);
     }
 
     public function getStartDateAttribute($value)
@@ -54,9 +58,9 @@ class Project extends Model
         $this->attributes['start_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     }
 
-    public function client()
+    public function suppliers()
     {
-        return $this->belongsTo(Client::class, 'client_id');
+        return $this->belongsToMany(Client::class);
     }
 
     public function status()

@@ -34,8 +34,26 @@
                             <span class="help-block">{{ trans('cruds.project.fields.description_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="start_date">{{ trans('cruds.project.fields.start_date') }}</label>
-                            <input class="form-control date" type="text" name="start_date" id="start_date" value="{{ old('start_date') }}">
+                            <label class="required" for="areas">{{ trans('cruds.project.fields.area') }}</label>
+                            <div style="padding-bottom: 4px">
+                                <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                                <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                            </div>
+                            <select class="form-control select2" name="areas[]" id="areas" multiple required>
+                                @foreach($areas as $id => $area)
+                                    <option value="{{ $id }}" {{ in_array($id, old('areas', [])) ? 'selected' : '' }}>{{ $area }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('areas'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('areas') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.project.fields.area_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="start_date">{{ trans('cruds.project.fields.start_date') }}</label>
+                            <input class="form-control date" type="text" name="start_date" id="start_date" value="{{ old('start_date') }}" required>
                             @if($errors->has('start_date'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('start_date') }}
@@ -54,18 +72,22 @@
                             <span class="help-block">{{ trans('cruds.project.fields.budget_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="client_id">{{ trans('cruds.project.fields.client') }}</label>
-                            <select class="form-control select2" name="client_id" id="client_id">
-                                @foreach($clients as $id => $entry)
-                                    <option value="{{ $id }}" {{ old('client_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                            <label class="required" for="suppliers">{{ trans('cruds.project.fields.supplier') }}</label>
+                            <div style="padding-bottom: 4px">
+                                <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                                <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                            </div>
+                            <select class="form-control select2" name="suppliers[]" id="suppliers" multiple required>
+                                @foreach($suppliers as $id => $supplier)
+                                    <option value="{{ $id }}" {{ in_array($id, old('suppliers', [])) ? 'selected' : '' }}>{{ $supplier }}</option>
                                 @endforeach
                             </select>
-                            @if($errors->has('client'))
+                            @if($errors->has('suppliers'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('client') }}
+                                    {{ $errors->first('suppliers') }}
                                 </div>
                             @endif
-                            <span class="help-block">{{ trans('cruds.project.fields.client_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.project.fields.supplier_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <label class="required" for="status_id">{{ trans('cruds.project.fields.status') }}</label>

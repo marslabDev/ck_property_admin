@@ -107,7 +107,7 @@ class AreaController extends Controller
     {
         abort_if(Gate::denies('area_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $area->load('created_by', 'areaManageHouses', 'areaHouseTypes', 'peopleInAreaNotices', 'areaManagePrices', 'areaStreets');
+        $area->load('created_by', 'areaManageHouses', 'areaHouseTypes', 'peopleInAreaNotices', 'areaManagePrices', 'areaStreets', 'areaProjects');
 
         return view('admin.areas.show', compact('area'));
     }

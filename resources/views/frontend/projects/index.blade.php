@@ -36,13 +36,16 @@
                                         {{ trans('cruds.project.fields.description') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.project.fields.area') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.project.fields.start_date') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.project.fields.budget') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.project.fields.client') }}
+                                        {{ trans('cruds.project.fields.supplier') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.project.fields.status') }}
@@ -62,6 +65,14 @@
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($areas as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                     <td>
                                     </td>
@@ -101,13 +112,20 @@
                                             {{ $project->description ?? '' }}
                                         </td>
                                         <td>
+                                            @foreach($project->areas as $key => $item)
+                                                <span>{{ $item->name }}</span>
+                                            @endforeach
+                                        </td>
+                                        <td>
                                             {{ $project->start_date ?? '' }}
                                         </td>
                                         <td>
                                             {{ $project->budget ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $project->client->company ?? '' }}
+                                            @foreach($project->suppliers as $key => $item)
+                                                <span>{{ $item->company }}</span>
+                                            @endforeach
                                         </td>
                                         <td>
                                             {{ $project->status->name ?? '' }}

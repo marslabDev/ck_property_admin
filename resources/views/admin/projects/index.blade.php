@@ -35,13 +35,16 @@
                         {{ trans('cruds.project.fields.description') }}
                     </th>
                     <th>
+                        {{ trans('cruds.project.fields.area') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.project.fields.start_date') }}
                     </th>
                     <th>
                         {{ trans('cruds.project.fields.budget') }}
                     </th>
                     <th>
-                        {{ trans('cruds.project.fields.client') }}
+                        {{ trans('cruds.project.fields.supplier') }}
                     </th>
                     <th>
                         {{ trans('cruds.project.fields.status') }}
@@ -61,6 +64,14 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($areas as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                     </td>
@@ -141,9 +152,10 @@
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
 { data: 'description', name: 'description' },
+{ data: 'area', name: 'areas.name' },
 { data: 'start_date', name: 'start_date' },
 { data: 'budget', name: 'budget' },
-{ data: 'client_company', name: 'client.company' },
+{ data: 'supplier', name: 'suppliers.company' },
 { data: 'status_name', name: 'status.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
