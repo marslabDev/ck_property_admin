@@ -49,6 +49,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.paymentPlan.fields.due_day') }}
+                        </th>
+                        <td>
+                            {{ App\Models\PaymentPlan::DUE_DAY_SELECT[$paymentPlan->due_day] ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.paymentPlan.fields.payment_item') }}
                         </th>
                         <td>

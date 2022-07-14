@@ -61,6 +61,9 @@ class PaymentPlanController extends Controller
                 return $row->house ? $row->house->unit_no : '';
             });
 
+            $table->editColumn('due_day', function ($row) {
+                return $row->due_day ? PaymentPlan::DUE_DAY_SELECT[$row->due_day] : '';
+            });
             $table->editColumn('payment_item', function ($row) {
                 $labels = [];
                 foreach ($row->payment_items as $payment_item) {

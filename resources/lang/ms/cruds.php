@@ -1288,6 +1288,8 @@ return [
             'payment_item_helper'     => ' ',
             'extra_charge'            => 'Extra Charge',
             'extra_charge_helper'     => ' ',
+            'due_day'                 => 'Due Day',
+            'due_day_helper'          => ' ',
         ],
     ],
     'transactionManagement' => [

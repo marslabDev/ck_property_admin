@@ -29,6 +29,9 @@ class UpdatePaymentPlanRequest extends FormRequest
                 'required',
                 'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
             ],
+            'due_day' => [
+                'required',
+            ],
             'payment_items.*' => [
                 'integer',
             ],

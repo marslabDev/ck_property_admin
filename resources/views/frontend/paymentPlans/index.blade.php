@@ -42,6 +42,9 @@
                                         {{ trans('cruds.paymentPlan.fields.due_date') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.paymentPlan.fields.due_day') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.paymentPlan.fields.payment_item') }}
                                     </th>
                                     <th>
@@ -89,6 +92,14 @@
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <select class="search" strict="true">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach(App\Models\PaymentPlan::DUE_DAY_SELECT as $key => $item)
+                                                <option value="{{ $item }}">{{ $item }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                     <td>
                                         <select class="search">
@@ -143,6 +154,9 @@
                                         </td>
                                         <td>
                                             {{ $paymentPlan->due_date ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ App\Models\PaymentPlan::DUE_DAY_SELECT[$paymentPlan->due_day] ?? '' }}
                                         </td>
                                         <td>
                                             @foreach($paymentPlan->payment_items as $key => $item)

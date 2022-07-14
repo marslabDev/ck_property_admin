@@ -41,6 +41,9 @@
                         {{ trans('cruds.paymentPlan.fields.due_date') }}
                     </th>
                     <th>
+                        {{ trans('cruds.paymentPlan.fields.due_day') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.paymentPlan.fields.payment_item') }}
                     </th>
                     <th>
@@ -88,6 +91,14 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search" strict="true">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach(App\Models\PaymentPlan::DUE_DAY_SELECT as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                         <select class="search">
@@ -181,6 +192,7 @@
 { data: 'user.email', name: 'user.email' },
 { data: 'house_unit_no', name: 'house.unit_no' },
 { data: 'due_date', name: 'due_date' },
+{ data: 'due_day', name: 'due_day' },
 { data: 'payment_item', name: 'payment_items.particular' },
 { data: 'extra_charge', name: 'extra_charges.particular' },
 { data: 'recusive_payment', name: 'recusive_payment' },

@@ -52,6 +52,21 @@
                             <span class="help-block">{{ trans('cruds.paymentPlan.fields.due_date_helper') }}</span>
                         </div>
                         <div class="form-group">
+                            <label class="required">{{ trans('cruds.paymentPlan.fields.due_day') }}</label>
+                            <select class="form-control" name="due_day" id="due_day" required>
+                                <option value disabled {{ old('due_day', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                @foreach(App\Models\PaymentPlan::DUE_DAY_SELECT as $key => $label)
+                                    <option value="{{ $key }}" {{ old('due_day', $paymentPlan->due_day) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('due_day'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('due_day') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.paymentPlan.fields.due_day_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <label class="required" for="payment_items">{{ trans('cruds.paymentPlan.fields.payment_item') }}</label>
                             <div style="padding-bottom: 4px">
                                 <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
