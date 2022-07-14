@@ -24,6 +24,16 @@ class PaymentPlan extends Model
         'YEAR'  => 'Year(s)',
     ];
 
+    public const DUE_DAY_SELECT = [
+        'MONDAY'    => 'Monday',
+        'TUESDAY'   => 'Tuesday',
+        'WEDNESDAY' => 'Wednesday',
+        'THURSDAY'  => 'Thursday',
+        'FRIDAY'    => 'Friday',
+        'SATURDAY'  => 'Saturday',
+        'SUNDAY'    => 'Sunday',
+    ];
+
     public $table = 'payment_plans';
 
     protected $dates = [
@@ -37,6 +47,7 @@ class PaymentPlan extends Model
         'user_id',
         'house_id',
         'due_date',
+        'due_day',
         'recusive_payment',
         'cycle_every',
         'cycle_by',

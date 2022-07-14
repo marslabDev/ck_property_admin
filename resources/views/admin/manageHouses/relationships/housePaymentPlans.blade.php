@@ -37,6 +37,9 @@
                             {{ trans('cruds.paymentPlan.fields.due_date') }}
                         </th>
                         <th>
+                            {{ trans('cruds.paymentPlan.fields.due_day') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.paymentPlan.fields.payment_item') }}
                         </th>
                         <th>
@@ -79,6 +82,9 @@
                             </td>
                             <td>
                                 {{ $paymentPlan->due_date ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\PaymentPlan::DUE_DAY_SELECT[$paymentPlan->due_day] ?? '' }}
                             </td>
                             <td>
                                 @foreach($paymentPlan->payment_items as $key => $item)
