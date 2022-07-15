@@ -26,6 +26,20 @@ class UsersTableSeeder extends Seeder
             ],
         ];
 
-        User::insert($users);
+        User::upsert(
+            $users,
+            ['id'],
+            [
+                'name',
+                'email',
+                'password',
+                'remember_token',
+                'approved',
+                'verified',
+                'verified_at',
+                'verification_token',
+                'two_factor_code',
+            ]
+        );
     }
 }

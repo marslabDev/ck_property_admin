@@ -1180,6 +1180,10 @@ class PermissionsTableSeeder extends Seeder
             ],
         ];
 
-        Permission::insert($permissions);
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate([
+                'title' => $permission['title']
+            ]);
+        }
     }
 }
