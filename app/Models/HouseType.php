@@ -16,6 +16,11 @@ class HouseType extends Model
     use Auditable;
     use HasFactory;
 
+    public const TYPE_SELECT = [
+        'LANDED'    => 'Landed',
+        'HIGH_RISE' => 'High Rise',
+    ];
+
     public $table = 'house_types';
 
     protected $dates = [
@@ -26,6 +31,7 @@ class HouseType extends Model
 
     protected $fillable = [
         'name',
+        'type',
         'area_id',
         'created_by_id',
         'created_at',

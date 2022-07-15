@@ -1150,6 +1150,8 @@ return [
             'created_by_helper' => ' ',
             'area'              => 'Area',
             'area_helper'       => ' ',
+            'type'              => 'Type',
+            'type_helper'       => ' ',
         ],
     ],
     'managePrice' => [

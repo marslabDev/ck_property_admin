@@ -51,6 +51,9 @@ class HouseTypeController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
+            $table->editColumn('type', function ($row) {
+                return $row->type ? HouseType::TYPE_SELECT[$row->type] : '';
+            });
             $table->addColumn('area_name', function ($row) {
                 return $row->area ? $row->area->name : '';
             });

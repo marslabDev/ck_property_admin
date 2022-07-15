@@ -32,6 +32,9 @@
                         {{ trans('cruds.houseType.fields.name') }}
                     </th>
                     <th>
+                        {{ trans('cruds.houseType.fields.type') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.houseType.fields.area') }}
                     </th>
                     <th>
@@ -46,6 +49,14 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search" strict="true">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach(App\Models\HouseType::TYPE_SELECT as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                         <select class="search">
@@ -112,6 +123,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
+{ data: 'type', name: 'type' },
 { data: 'area_name', name: 'area.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

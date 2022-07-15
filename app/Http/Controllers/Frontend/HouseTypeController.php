@@ -69,7 +69,7 @@ class HouseTypeController extends Controller
     {
         abort_if(Gate::denies('house_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $houseType->load('area', 'created_by', 'houseTypeManageHouses');
+        $houseType->load('area', 'created_by', 'houseTypeManageHouses', 'houseTypeManagePrices');
 
         return view('frontend.houseTypes.show', compact('houseType'));
     }

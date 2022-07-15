@@ -21,6 +21,9 @@ class StoreHouseTypeRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'type' => [
+                'required',
+            ],
             'area_id' => [
                 'required',
                 'integer',
