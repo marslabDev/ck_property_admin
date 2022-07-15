@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.clients.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.clients.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="person_in_change">{{ trans('cruds.client.fields.person_in_change') }}</label>
@@ -51,7 +51,7 @@
             </div>
             <div class="form-group">
                 <label for="phone">{{ trans('cruds.client.fields.phone') }}</label>
-                <input class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" type="text" name="phone" id="phone" value="{{ old('phone', '') }}">
+                <input class="form-control phone_no_mask {{ $errors->has('phone') ? 'is-invalid' : '' }}" type="text" name="phone" id="phone" value="{{ old('phone', '') }}">
                 @if($errors->has('phone'))
                     <div class="invalid-feedback">
                         {{ $errors->first('phone') }}
@@ -71,7 +71,7 @@
             </div>
             <div class="form-group">
                 <label class="required" for="whatapps">{{ trans('cruds.client.fields.whatapps') }}</label>
-                <input class="form-control {{ $errors->has('whatapps') ? 'is-invalid' : '' }}" type="text" name="whatapps" id="whatapps" value="{{ old('whatapps', '') }}" required>
+                <input class="form-control phone_no_mask {{ $errors->has('whatapps') ? 'is-invalid' : '' }}" type="text" name="whatapps" id="whatapps" value="{{ old('whatapps', '') }}" required>
                 @if($errors->has('whatapps'))
                     <div class="invalid-feedback">
                         {{ $errors->first('whatapps') }}

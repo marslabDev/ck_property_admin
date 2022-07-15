@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label class="required" for="card_no">{{ trans('cruds.userCardMgmt.fields.card_no') }}</label>
-                <input class="form-control {{ $errors->has('card_no') ? 'is-invalid' : '' }}" type="text" name="card_no" id="card_no" value="{{ old('card_no', '') }}" required>
+                <input class="form-control bank_card_mask {{ $errors->has('card_no') ? 'is-invalid' : '' }}" type="text" name="card_no" id="card_no" value="{{ old('card_no', '') }}" required>
                 @if($errors->has('card_no'))
                     <div class="invalid-feedback">
                         {{ $errors->first('card_no') }}

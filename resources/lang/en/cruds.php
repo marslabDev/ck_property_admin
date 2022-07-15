@@ -799,8 +799,8 @@ return [
         ],
     ],
     'clientManagementSetting' => [
-        'title'          => 'Client management settings',
-        'title_singular' => 'Client management settings',
+        'title'          => 'Supplier Mgmt settings',
+        'title_singular' => 'Supplier Mgmt settings',
     ],
     'currency' => [
         'title'          => 'Currencies',
@@ -865,8 +865,8 @@ return [
         ],
     ],
     'clientStatus' => [
-        'title'          => 'Client statuses',
-        'title_singular' => 'Client status',
+        'title'          => 'Supplier statuses',
+        'title_singular' => 'Supplier status',
         'fields'         => [
             'id'                => 'ID',
             'id_helper'         => ' ',
@@ -903,12 +903,12 @@ return [
         ],
     ],
     'clientManagement' => [
-        'title'          => 'Client management',
-        'title_singular' => 'Client management',
+        'title'          => 'Supplier management',
+        'title_singular' => 'Supplier management',
     ],
     'client' => [
-        'title'          => 'Clients',
-        'title_singular' => 'Client',
+        'title'          => 'Suppliers',
+        'title_singular' => 'Supplier',
         'fields'         => [
             'id'                      => 'ID',
             'id_helper'               => ' ',
@@ -950,6 +950,8 @@ return [
             'id_helper'          => ' ',
             'name'               => 'Name',
             'name_helper'        => ' ',
+            'client'             => 'Supplier',
+            'client_helper'      => ' ',
             'description'        => 'Description',
             'description_helper' => ' ',
             'start_date'         => 'Start Date',
@@ -1023,8 +1025,8 @@ return [
         ],
     ],
     'transaction' => [
-        'title'          => 'Transactions',
-        'title_singular' => 'Transaction',
+        'title'          => 'Supplier Transactions',
+        'title_singular' => 'Supplier Transaction',
         'fields'         => [
             'id'                      => 'ID',
             'id_helper'               => ' ',
@@ -1219,7 +1221,7 @@ return [
             'cycle_by'                => 'Cycle By',
             'cycle_by_helper'         => ' ',
             'no_of_cycle'             => 'No. of Cycle',
-            'no_of_cycle_helper'      => ' ',
+            'no_of_cycle_helper'      => 'NOTE: Put it empty value, if you want to recusive indefinitely.',
             'payment_item'            => 'Payment Item',
             'payment_item_helper'     => ' ',
             'extra_charge'            => 'Extra Charge',
