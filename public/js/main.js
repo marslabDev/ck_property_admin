@@ -2,7 +2,7 @@ $(document).ready(function () {
   window._token = $('meta[name="csrf-token"]').attr('content')
 
   moment.updateLocale('en', {
-    week: {dow: 1} // Monday is the first day of the week
+    week: { dow: 1 } // Monday is the first day of the week
   })
 
   $('.date').datetimepicker({
@@ -71,4 +71,16 @@ $(document).ready(function () {
     }, 400);
   });
 
+
+  $('.phone_no_mask').mask('000-0000 0000', {
+    onKeyPress: function (val, e, field, options) {
+      if (val.length > 12) {
+        $('.phone_no_mask').mask('000-0000 0000', options);
+      } else {
+        $('.phone_no_mask').mask('000-000 00000', options);
+      }
+    }
+  });
+
+  $('.bank_card_mask').mask('0000 0000 0000 0000');
 })
