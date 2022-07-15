@@ -21,6 +21,9 @@ class UpdateHouseTypeRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'type' => [
+                'required',
+            ],
             'area_id' => [
                 'required',
                 'integer',

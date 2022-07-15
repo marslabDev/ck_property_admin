@@ -28,6 +28,9 @@
                             {{ trans('cruds.houseType.fields.name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.houseType.fields.type') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.houseType.fields.area') }}
                         </th>
                         <th>
@@ -46,6 +49,9 @@
                             </td>
                             <td>
                                 {{ $houseType->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\HouseType::TYPE_SELECT[$houseType->type] ?? '' }}
                             </td>
                             <td>
                                 {{ $houseType->area->name ?? '' }}

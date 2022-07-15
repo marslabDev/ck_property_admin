@@ -11,6 +11,7 @@ class CreateHouseTypesTable extends Migration
         Schema::create('house_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('type');
             $table->timestamps();
             $table->softDeletes();
         });
