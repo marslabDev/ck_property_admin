@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\ManageHouse;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 class StoreManageHouseRequest extends FormRequest
 {
@@ -23,7 +22,7 @@ class StoreManageHouseRequest extends FormRequest
             ],
             'floor' => [
                 'string',
-                'nullable',
+                Rule::requiredIf($this->input('house_type_type') == 'HIGH_RISE'),
             ],
             'block' => [
                 'string',

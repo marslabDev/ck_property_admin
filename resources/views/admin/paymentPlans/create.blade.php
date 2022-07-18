@@ -100,7 +100,7 @@
                 <div class="form-check {{ $errors->has('recusive_payment') ? 'is-invalid' : '' }}">
                     <input type="hidden" name="recusive_payment" value="0">
                     <input class="form-check-input" type="checkbox" name="recusive_payment" id="recusive_payment"
-                        value="1" {{ old('recusive_payment', 0)==1 ? 'checked' : '' }}>
+                        value="1">
                     <label class="form-check-label" for="recusive_payment">{{
                         trans('cruds.paymentPlan.fields.recusive_payment') }}</label>
                 </div>
@@ -186,7 +186,8 @@
                             {{ $errors->first('no_of_cycle') }}
                         </div>
                         @endif
-                        <span class="help-block tw-text-amber-500 tw-font-semibold">{{ trans('cruds.paymentPlan.fields.no_of_cycle_helper') }}</span>
+                        <span class="help-block tw-text-amber-500 tw-font-semibold">{{
+                            trans('cruds.paymentPlan.fields.no_of_cycle_helper') }}</span>
                     </div>
                 </div>
             </div>
@@ -212,6 +213,8 @@
     $(function () {
         $('#due_day_field').hide();
         $('#due_day').prop('disabled', true);
+
+        console.log($('#recusive_payment').checked);
 
         $('#recusive_payment').change(function (e) { 
             if (this.checked) {

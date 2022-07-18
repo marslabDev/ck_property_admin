@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Models\PaymentPlan;
-use Gate;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
@@ -26,11 +27,11 @@ class StorePaymentPlanRequest extends FormRequest
                 'integer',
             ],
             'due_date' => [
-                'required',
+                Rule::requiredIf($this->input('due_day') == null),
                 'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
             ],
             'due_day' => [
-                'required',
+                Rule::requiredIf($this->input('due_date') == null),
             ],
             'payment_items.*' => [
                 'integer',

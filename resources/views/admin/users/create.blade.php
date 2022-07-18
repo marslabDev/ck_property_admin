@@ -109,7 +109,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.password_helper') }}</span>
             </div>
             <div class="form-group">
-                <button class="btn btn-danger" type="submit">
+                <button class="btn btn-danger tw-bg-red-500" type="submit">
                     {{ trans('global.save') }}
                 </button>
             </div>

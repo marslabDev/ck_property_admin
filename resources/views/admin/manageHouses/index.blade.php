@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 @section('content')
 @can('manage_house_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.manage-houses.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.manageHouse.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'ManageHouse', 'route' => 'admin.manage-houses.parseCsvImport'])
-        </div>
+<div style="margin-bottom: 10px;" class="row">
+    <div class="col-lg-12">
+        <a class="btn btn-success" href="{{ route('admin.manage-houses.create') }}">
+            {{ trans('global.add') }} {{ trans('cruds.manageHouse.title_singular') }}
+        </a>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+            {{ trans('global.app_csvImport') }}
+        </button>
+        @include('csvImport.modal', ['model' => 'ManageHouse', 'route' => 'admin.manage-houses.parseCsvImport'])
     </div>
+</div>
 @endcan
 <div class="card">
     <div class="card-header">
@@ -84,7 +84,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($house_types as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -100,8 +100,16 @@
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
+                            @foreach($areas as $key => $item)
+                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
                             @foreach($streets as $key => $item)
-                                <option value="{{ $item->street_name }}">{{ $item->street_name }}</option>
+                            <option value="{{ $item->street_name }}">{{ $item->street_name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -112,7 +120,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($parking_lots as $key => $item)
-                                <option value="{{ $item->lot_no }}">{{ $item->lot_no }}</option>
+                            <option value="{{ $item->lot_no }}">{{ $item->lot_no }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -122,7 +130,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($house_statuses as $key => $item)
-                                <option value="{{ $item->status }}">{{ $item->status }}</option>
+                            <option value="{{ $item->status }}">{{ $item->status }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -130,7 +138,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($users as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -138,7 +146,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($users as $key => $item)
-                                <option value="{{ $item->phone_no }}">{{ $item->phone_no }}</option>
+                            <option value="{{ $item->phone_no }}">{{ $item->phone_no }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -146,7 +154,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($users as $key => $item)
-                                <option value="{{ $item->phone_no }}">{{ $item->phone_no }}</option>
+                            <option value="{{ $item->phone_no }}">{{ $item->phone_no }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -156,7 +164,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($areas as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>

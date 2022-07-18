@@ -15,6 +15,7 @@ use App\Models\ManageHouse;
 use App\Models\ParkingLot;
 use App\Models\Street;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -150,9 +151,9 @@ class ManageHouseController extends Controller
 
         $owned_bies = User::pluck('name', 'id');
 
-        $contact_people = User::pluck('phone_no', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $contact_people = Role::where('title', 'Home Owner')->first()->rolesUsers;
 
-        $contact_person_2s = User::pluck('phone_no', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $contact_person_2s = Role::where('title', 'Home Owner')->first()->rolesUsers;
 
         return view('admin.manageHouses.create', compact('contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'owned_bies', 'parking_lots', 'streets'));
     }
@@ -187,9 +188,9 @@ class ManageHouseController extends Controller
 
         $owned_bies = User::pluck('name', 'id');
 
-        $contact_people = User::pluck('phone_no', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $contact_people = Role::where('title', 'Home Owner')->first()->rolesUsers;
 
-        $contact_person_2s = User::pluck('phone_no', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $contact_person_2s = Role::where('title', 'Home Owner')->first()->rolesUsers;
 
         $manageHouse->load('house_type', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'from_area', 'created_by');
 

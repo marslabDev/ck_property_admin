@@ -83,4 +83,10 @@ $(document).ready(function () {
   });
 
   $('.bank_card_mask').mask('0000 0000 0000 0000');
-})
+});
+
+window.isNotEmptyString = function (str) {
+  return str !== null
+    && str !== undefined
+    && str !== '';
+};
