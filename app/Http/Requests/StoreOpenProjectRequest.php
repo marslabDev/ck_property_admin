@@ -35,13 +35,6 @@ class StoreOpenProjectRequest extends FormRequest
             'budget' => [
                 'numeric',
             ],
-            'suppliers.*' => [
-                'integer',
-            ],
-            'suppliers' => [
-                'required',
-                'array',
-            ],
             'status_id' => [
                 'required',
                 'integer',

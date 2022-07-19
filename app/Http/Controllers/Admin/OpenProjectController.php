@@ -8,7 +8,6 @@ use App\Http\Requests\MassDestroyOpenProjectRequest;
 use App\Http\Requests\StoreOpenProjectRequest;
 use App\Http\Requests\UpdateOpenProjectRequest;
 use App\Models\Area;
-use App\Models\Client;
 use App\Models\OpenProject;
 use App\Models\ProjectStatus;
 use App\Models\User;
@@ -26,7 +25,7 @@ class OpenProjectController extends Controller
         abort_if(Gate::denies('open_project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = OpenProject::with(['areas', 'suppliers', 'status', 'created_by'])->select(sprintf('%s.*', (new OpenProject())->table));
+            $query = OpenProject::with(['areas', 'status', 'created_by'])->select(sprintf('%s.*', (new OpenProject())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -68,29 +67,20 @@ class OpenProjectController extends Controller
             $table->editColumn('budget', function ($row) {
                 return $row->budget ? $row->budget : '';
             });
-            $table->editColumn('supplier', function ($row) {
-                $labels = [];
-                foreach ($row->suppliers as $supplier) {
-                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $supplier->company);
-                }
-
-                return implode(' ', $labels);
-            });
             $table->addColumn('status_name', function ($row) {
                 return $row->status ? $row->status->name : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'area', 'supplier', 'status']);
+            $table->rawColumns(['actions', 'placeholder', 'area', 'status']);
 
             return $table->make(true);
         }
 
         $areas            = Area::get();
-        $clients          = Client::get();
         $project_statuses = ProjectStatus::get();
         $users            = User::get();
 
-        return view('admin.openProjects.index', compact('areas', 'clients', 'project_statuses', 'users'));
+        return view('admin.openProjects.index', compact('areas', 'project_statuses', 'users'));
     }
 
     public function create()
@@ -99,18 +89,15 @@ class OpenProjectController extends Controller
 
         $areas = Area::pluck('name', 'id');
 
-        $suppliers = Client::pluck('company', 'id');
-
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.openProjects.create', compact('areas', 'statuses', 'suppliers'));
+        return view('admin.openProjects.create', compact('areas', 'statuses'));
     }
 
     public function store(StoreOpenProjectRequest $request)
     {
         $openProject = OpenProject::create($request->all());
         $openProject->areas()->sync($request->input('areas', []));
-        $openProject->suppliers()->sync($request->input('suppliers', []));
 
         return redirect()->route('admin.open-projects.index');
     }
@@ -121,20 +108,17 @@ class OpenProjectController extends Controller
 
         $areas = Area::pluck('name', 'id');
 
-        $suppliers = Client::pluck('company', 'id');
-
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $openProject->load('areas', 'suppliers', 'status', 'created_by');
+        $openProject->load('areas', 'status', 'created_by');
 
-        return view('admin.openProjects.edit', compact('areas', 'openProject', 'statuses', 'suppliers'));
+        return view('admin.openProjects.edit', compact('areas', 'openProject', 'statuses'));
     }
 
     public function update(UpdateOpenProjectRequest $request, OpenProject $openProject)
     {
         $openProject->update($request->all());
         $openProject->areas()->sync($request->input('areas', []));
-        $openProject->suppliers()->sync($request->input('suppliers', []));
 
         return redirect()->route('admin.open-projects.index');
     }
@@ -143,7 +127,7 @@ class OpenProjectController extends Controller
     {
         abort_if(Gate::denies('open_project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $openProject->load('areas', 'suppliers', 'status', 'created_by', 'openProjectSupplierProposals');
+        $openProject->load('areas', 'status', 'created_by', 'openProjectSupplierProposals');
 
         return view('admin.openProjects.show', compact('openProject'));
     }

@@ -58,11 +58,6 @@ class OpenProject extends Model
         $this->attributes['start_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     }
 
-    public function suppliers()
-    {
-        return $this->belongsToMany(Client::class);
-    }
-
     public function status()
     {
         return $this->belongsTo(ProjectStatus::class, 'status_id');

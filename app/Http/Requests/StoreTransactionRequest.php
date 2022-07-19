@@ -25,7 +25,7 @@ class StoreTransactionRequest extends FormRequest
                 'required',
                 'integer',
             ],
-            'income_source_id' => [
+            'supplier_id' => [
                 'required',
                 'integer',
             ],

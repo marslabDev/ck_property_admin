@@ -27,7 +27,7 @@ class Transaction extends Model
     protected $fillable = [
         'project_id',
         'transaction_type_id',
-        'income_source_id',
+        'supplier_id',
         'amount',
         'currency_id',
         'details',
@@ -48,9 +48,9 @@ class Transaction extends Model
         return $this->belongsTo(TransactionType::class, 'transaction_type_id');
     }
 
-    public function income_source()
+    public function supplier()
     {
-        return $this->belongsTo(IncomeSource::class, 'income_source_id');
+        return $this->belongsTo(Client::class, 'supplier_id');
     }
 
     public function currency()

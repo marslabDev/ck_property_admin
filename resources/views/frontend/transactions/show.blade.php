@@ -44,10 +44,10 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.transaction.fields.income_source') }}
+                                        {{ trans('cruds.transaction.fields.supplier') }}
                                     </th>
                                     <td>
-                                        {{ $transaction->income_source->name ?? '' }}
+                                        {{ $transaction->supplier->company ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>

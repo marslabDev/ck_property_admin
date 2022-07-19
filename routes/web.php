@@ -276,7 +276,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Transaction
     Route::post('transactions/parse-csv-import', 'TransactionController@parseCsvImport')->name('transactions.parseCsvImport');
     Route::post('transactions/process-csv-import', 'TransactionController@processCsvImport')->name('transactions.processCsvImport');
-    Route::resource('transactions', 'TransactionController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('transactions', 'TransactionController', ['except' => ['edit', 'update', 'destroy']]);
 
     // Client Report
     Route::delete('client-reports/destroy', 'ClientReportController@massDestroy')->name('client-reports.massDestroy');
@@ -581,7 +581,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::resource('documents', 'DocumentController');
 
     // Transaction
-    Route::resource('transactions', 'TransactionController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('transactions', 'TransactionController', ['except' => ['edit', 'update', 'destroy']]);
 
     // Client Report
     Route::delete('client-reports/destroy', 'ClientReportController@massDestroy')->name('client-reports.massDestroy');
