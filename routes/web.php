@@ -361,17 +361,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('house-statuses/process-csv-import', 'HouseStatusController@processCsvImport')->name('house-statuses.processCsvImport');
     Route::resource('house-statuses', 'HouseStatusController');
 
-    // Checklist
-    Route::delete('checklists/destroy', 'ChecklistController@massDestroy')->name('checklists.massDestroy');
-    Route::post('checklists/parse-csv-import', 'ChecklistController@parseCsvImport')->name('checklists.parseCsvImport');
-    Route::post('checklists/process-csv-import', 'ChecklistController@processCsvImport')->name('checklists.processCsvImport');
-    Route::resource('checklists', 'ChecklistController');
-
     // Open Project
     Route::delete('open-projects/destroy', 'OpenProjectController@massDestroy')->name('open-projects.massDestroy');
     Route::post('open-projects/parse-csv-import', 'OpenProjectController@parseCsvImport')->name('open-projects.parseCsvImport');
     Route::post('open-projects/process-csv-import', 'OpenProjectController@processCsvImport')->name('open-projects.processCsvImport');
     Route::resource('open-projects', 'OpenProjectController');
+
+    // Supplier Proposal
+    Route::delete('supplier-proposals/destroy', 'SupplierProposalController@massDestroy')->name('supplier-proposals.massDestroy');
+    Route::post('supplier-proposals/media', 'SupplierProposalController@storeMedia')->name('supplier-proposals.storeMedia');
+    Route::post('supplier-proposals/ckmedia', 'SupplierProposalController@storeCKEditorImages')->name('supplier-proposals.storeCKEditorImages');
+    Route::post('supplier-proposals/parse-csv-import', 'SupplierProposalController@parseCsvImport')->name('supplier-proposals.parseCsvImport');
+    Route::post('supplier-proposals/process-csv-import', 'SupplierProposalController@processCsvImport')->name('supplier-proposals.processCsvImport');
+    Route::resource('supplier-proposals', 'SupplierProposalController');
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
@@ -638,13 +640,15 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::delete('house-statuses/destroy', 'HouseStatusController@massDestroy')->name('house-statuses.massDestroy');
     Route::resource('house-statuses', 'HouseStatusController');
 
-    // Checklist
-    Route::delete('checklists/destroy', 'ChecklistController@massDestroy')->name('checklists.massDestroy');
-    Route::resource('checklists', 'ChecklistController');
-
     // Open Project
     Route::delete('open-projects/destroy', 'OpenProjectController@massDestroy')->name('open-projects.massDestroy');
     Route::resource('open-projects', 'OpenProjectController');
+
+    // Supplier Proposal
+    Route::delete('supplier-proposals/destroy', 'SupplierProposalController@massDestroy')->name('supplier-proposals.massDestroy');
+    Route::post('supplier-proposals/media', 'SupplierProposalController@storeMedia')->name('supplier-proposals.storeMedia');
+    Route::post('supplier-proposals/ckmedia', 'SupplierProposalController@storeCKEditorImages')->name('supplier-proposals.storeCKEditorImages');
+    Route::resource('supplier-proposals', 'SupplierProposalController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

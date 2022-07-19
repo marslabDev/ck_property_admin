@@ -94,6 +94,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#open_project_supplier_proposals" role="tab" data-toggle="tab">
+                {{ trans('cruds.supplierProposal.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="open_project_supplier_proposals">
+            @includeIf('admin.openProjects.relationships.openProjectSupplierProposals', ['supplierProposals' => $openProject->openProjectSupplierProposals])
+        </div>
+    </div>
+</div>
 
 @endsection

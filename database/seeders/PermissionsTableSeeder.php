@@ -1152,43 +1152,43 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 286,
-                'title' => 'checklist_create',
-            ],
-            [
-                'id'    => 287,
-                'title' => 'checklist_edit',
-            ],
-            [
-                'id'    => 288,
-                'title' => 'checklist_show',
-            ],
-            [
-                'id'    => 289,
-                'title' => 'checklist_delete',
-            ],
-            [
-                'id'    => 290,
-                'title' => 'checklist_access',
-            ],
-            [
-                'id'    => 291,
                 'title' => 'open_project_create',
             ],
             [
-                'id'    => 292,
+                'id'    => 287,
                 'title' => 'open_project_edit',
             ],
             [
-                'id'    => 293,
+                'id'    => 288,
                 'title' => 'open_project_show',
             ],
             [
-                'id'    => 294,
+                'id'    => 289,
                 'title' => 'open_project_delete',
             ],
             [
-                'id'    => 295,
+                'id'    => 290,
                 'title' => 'open_project_access',
+            ],
+            [
+                'id'    => 291,
+                'title' => 'supplier_proposal_create',
+            ],
+            [
+                'id'    => 292,
+                'title' => 'supplier_proposal_edit',
+            ],
+            [
+                'id'    => 293,
+                'title' => 'supplier_proposal_show',
+            ],
+            [
+                'id'    => 294,
+                'title' => 'supplier_proposal_delete',
+            ],
+            [
+                'id'    => 295,
+                'title' => 'supplier_proposal_access',
             ],
             [
                 'id'    => 296,
