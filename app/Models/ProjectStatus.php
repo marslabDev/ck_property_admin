@@ -37,6 +37,11 @@ class ProjectStatus extends Model
         return $this->hasMany(Project::class, 'status_id', 'id');
     }
 
+    public function statusOpenProjects()
+    {
+        return $this->hasMany(OpenProject::class, 'status_id', 'id');
+    }
+
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

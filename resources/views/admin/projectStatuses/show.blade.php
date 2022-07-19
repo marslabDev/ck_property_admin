@@ -52,10 +52,18 @@
                 {{ trans('cruds.project.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#status_open_projects" role="tab" data-toggle="tab">
+                {{ trans('cruds.openProject.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="status_projects">
             @includeIf('admin.projectStatuses.relationships.statusProjects', ['projects' => $projectStatus->statusProjects])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="status_open_projects">
+            @includeIf('admin.projectStatuses.relationships.statusOpenProjects', ['openProjects' => $projectStatus->statusOpenProjects])
         </div>
     </div>
 </div>

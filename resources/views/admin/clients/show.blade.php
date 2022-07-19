@@ -121,6 +121,11 @@
                 {{ trans('cruds.project.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#supplier_open_projects" role="tab" data-toggle="tab">
+                {{ trans('cruds.openProject.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="supplier_checklists">
@@ -128,6 +133,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="supplier_projects">
             @includeIf('admin.clients.relationships.supplierProjects', ['projects' => $client->supplierProjects])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="supplier_open_projects">
+            @includeIf('admin.clients.relationships.supplierOpenProjects', ['openProjects' => $client->supplierOpenProjects])
         </div>
     </div>
 </div>

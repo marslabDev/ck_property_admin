@@ -5,59 +5,62 @@ namespace App\Models;
 use \DateTimeInterface;
 use App\Traits\Auditable;
 use App\Traits\MultiTenantModelTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Client extends Model
+class OpenProject extends Model
 {
     use SoftDeletes;
     use MultiTenantModelTrait;
     use Auditable;
     use HasFactory;
 
-    public $table = 'clients';
+    public $table = 'open_projects';
 
     protected $dates = [
+        'start_date',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
     protected $fillable = [
-        'person_in_change',
-        'company',
-        'desc',
-        'email',
-        'phone',
-        'website',
-        'whatapps',
-        'country',
+        'name',
+        'description',
+        'start_date',
+        'budget',
         'status_id',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
-    public function supplierChecklists()
+    public function areas()
     {
-        return $this->hasMany(Checklist::class, 'supplier_id', 'id');
+        return $this->belongsToMany(Area::class);
     }
 
-    public function supplierProjects()
+    public function getStartDateAttribute($value)
     {
-        return $this->belongsToMany(Project::class);
+        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
     }
 
-    public function supplierOpenProjects()
+    public function setStartDateAttribute($value)
     {
-        return $this->belongsToMany(OpenProject::class);
+        $this->attributes['start_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+    }
+
+    public function suppliers()
+    {
+        return $this->belongsToMany(Client::class);
     }
 
     public function status()
     {
-        return $this->belongsTo(ClientStatus::class, 'status_id');
+        return $this->belongsTo(ProjectStatus::class, 'status_id');
     }
 
     public function created_by()
