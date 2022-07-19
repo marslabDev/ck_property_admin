@@ -21,6 +21,13 @@ class UpdateOpenProjectRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'documents' => [
+                'array',
+                'required',
+            ],
+            'documents.*' => [
+                'required',
+            ],
             'areas.*' => [
                 'integer',
             ],
@@ -32,12 +39,12 @@ class UpdateOpenProjectRequest extends FormRequest
                 'required',
                 'date_format:' . config('panel.date_format'),
             ],
-            'budget' => [
-                'numeric',
-            ],
-            'status_id' => [
+            'end_date' => [
                 'required',
-                'integer',
+                'date_format:' . config('panel.date_format'),
+            ],
+            'status' => [
+                'required',
             ],
         ];
     }

@@ -35,13 +35,16 @@
                         {{ trans('cruds.openProject.fields.description') }}
                     </th>
                     <th>
+                        {{ trans('cruds.openProject.fields.documents') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.openProject.fields.area') }}
                     </th>
                     <th>
                         {{ trans('cruds.openProject.fields.start_date') }}
                     </th>
                     <th>
-                        {{ trans('cruds.openProject.fields.budget') }}
+                        {{ trans('cruds.openProject.fields.end_date') }}
                     </th>
                     <th>
                         {{ trans('cruds.openProject.fields.status') }}
@@ -63,6 +66,8 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
+                    </td>
+                    <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($areas as $key => $item)
@@ -73,13 +78,12 @@
                     <td>
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <select class="search">
+                        <select class="search" strict="true">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($project_statuses as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @foreach(App\Models\OpenProject::STATUS_SELECT as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -141,10 +145,11 @@
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
 { data: 'description', name: 'description' },
+{ data: 'documents', name: 'documents', sortable: false, searchable: false },
 { data: 'area', name: 'areas.name' },
 { data: 'start_date', name: 'start_date' },
-{ data: 'budget', name: 'budget' },
-{ data: 'status_name', name: 'status.name' },
+{ data: 'end_date', name: 'end_date' },
+{ data: 'status', name: 'status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

@@ -41,6 +41,18 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.openProject.fields.documents') }}
+                        </th>
+                        <td>
+                            @foreach($openProject->documents as $key => $media)
+                                <a href="{{ $media->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.openProject.fields.area') }}
                         </th>
                         <td>
@@ -59,10 +71,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.openProject.fields.budget') }}
+                            {{ trans('cruds.openProject.fields.end_date') }}
                         </th>
                         <td>
-                            {{ $openProject->budget }}
+                            {{ $openProject->end_date }}
                         </td>
                     </tr>
                     <tr>
@@ -70,7 +82,7 @@
                             {{ trans('cruds.openProject.fields.status') }}
                         </th>
                         <td>
-                            {{ $openProject->status->name ?? '' }}
+                            {{ App\Models\OpenProject::STATUS_SELECT[$openProject->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>
