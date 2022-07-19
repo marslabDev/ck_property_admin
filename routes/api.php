@@ -171,4 +171,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Checklist
     Route::apiResource('checklists', 'ChecklistApiController');
+
+    // Open Project
+    Route::apiResource('open-projects', 'OpenProjectApiController');
 });

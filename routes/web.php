@@ -367,6 +367,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('checklists/process-csv-import', 'ChecklistController@processCsvImport')->name('checklists.processCsvImport');
     Route::resource('checklists', 'ChecklistController');
 
+    // Open Project
+    Route::delete('open-projects/destroy', 'OpenProjectController@massDestroy')->name('open-projects.massDestroy');
+    Route::post('open-projects/parse-csv-import', 'OpenProjectController@parseCsvImport')->name('open-projects.parseCsvImport');
+    Route::post('open-projects/process-csv-import', 'OpenProjectController@processCsvImport')->name('open-projects.processCsvImport');
+    Route::resource('open-projects', 'OpenProjectController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -635,6 +641,10 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Checklist
     Route::delete('checklists/destroy', 'ChecklistController@massDestroy')->name('checklists.massDestroy');
     Route::resource('checklists', 'ChecklistController');
+
+    // Open Project
+    Route::delete('open-projects/destroy', 'OpenProjectController@massDestroy')->name('open-projects.massDestroy');
+    Route::resource('open-projects', 'OpenProjectController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

@@ -247,6 +247,11 @@
                                             {{ trans('cruds.project.title') }}
                                         </a>
                                     @endcan
+                                    @can('open_project_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.open-projects.index') }}">
+                                            {{ trans('cruds.openProject.title') }}
+                                        </a>
+                                    @endcan
                                     @can('note_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.notes.index') }}">
                                             {{ trans('cruds.note.title') }}

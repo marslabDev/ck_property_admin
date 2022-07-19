@@ -66,6 +66,11 @@ class Area extends Model
         return $this->belongsToMany(Project::class);
     }
 
+    public function areaOpenProjects()
+    {
+        return $this->belongsToMany(OpenProject::class);
+    }
+
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

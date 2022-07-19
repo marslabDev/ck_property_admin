@@ -95,7 +95,7 @@ class ProjectStatusController extends Controller
     {
         abort_if(Gate::denies('project_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $projectStatus->load('created_by', 'statusProjects');
+        $projectStatus->load('created_by', 'statusProjects', 'statusOpenProjects');
 
         return view('admin.projectStatuses.show', compact('projectStatus'));
     }
