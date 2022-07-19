@@ -21,6 +21,10 @@ class StoreRoleRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'redirect_to' => [
+                'string',
+                'required',
+            ],
             'permissions.*' => [
                 'integer',
             ],

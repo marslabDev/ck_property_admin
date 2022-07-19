@@ -24,6 +24,7 @@ class Role extends Model
 
     protected $fillable = [
         'title',
+        'redirect_to',
         'created_at',
         'updated_at',
         'deleted_at',

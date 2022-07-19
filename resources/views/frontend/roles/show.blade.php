@@ -36,6 +36,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.role.fields.redirect_to') }}
+                                    </th>
+                                    <td>
+                                        {{ $role->redirect_to }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.role.fields.permissions') }}
                                     </th>
                                     <td>
