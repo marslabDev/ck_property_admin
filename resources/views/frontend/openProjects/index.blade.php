@@ -36,13 +36,16 @@
                                         {{ trans('cruds.openProject.fields.description') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.openProject.fields.documents') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.openProject.fields.area') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.openProject.fields.start_date') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.openProject.fields.budget') }}
+                                        {{ trans('cruds.openProject.fields.end_date') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.openProject.fields.status') }}
@@ -64,6 +67,8 @@
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
+                                    </td>
+                                    <td>
                                         <select class="search">
                                             <option value>{{ trans('global.all') }}</option>
                                             @foreach($areas as $key => $item)
@@ -74,13 +79,12 @@
                                     <td>
                                     </td>
                                     <td>
-                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
-                                        <select class="search">
+                                        <select class="search" strict="true">
                                             <option value>{{ trans('global.all') }}</option>
-                                            @foreach($project_statuses as $key => $item)
-                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @foreach(App\Models\OpenProject::STATUS_SELECT as $key => $item)
+                                                <option value="{{ $item }}">{{ $item }}</option>
                                             @endforeach
                                         </select>
                                     </td>
@@ -101,6 +105,13 @@
                                             {{ $openProject->description ?? '' }}
                                         </td>
                                         <td>
+                                            @foreach($openProject->documents as $key => $media)
+                                                <a href="{{ $media->getUrl() }}" target="_blank">
+                                                    {{ trans('global.view_file') }}
+                                                </a>
+                                            @endforeach
+                                        </td>
+                                        <td>
                                             @foreach($openProject->areas as $key => $item)
                                                 <span>{{ $item->name }}</span>
                                             @endforeach
@@ -109,10 +120,10 @@
                                             {{ $openProject->start_date ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $openProject->budget ?? '' }}
+                                            {{ $openProject->end_date ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $openProject->status->name ?? '' }}
+                                            {{ App\Models\OpenProject::STATUS_SELECT[$openProject->status] ?? '' }}
                                         </td>
                                         <td>
                                             @can('open_project_show')

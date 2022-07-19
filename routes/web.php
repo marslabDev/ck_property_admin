@@ -363,6 +363,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Open Project
     Route::delete('open-projects/destroy', 'OpenProjectController@massDestroy')->name('open-projects.massDestroy');
+    Route::post('open-projects/media', 'OpenProjectController@storeMedia')->name('open-projects.storeMedia');
+    Route::post('open-projects/ckmedia', 'OpenProjectController@storeCKEditorImages')->name('open-projects.storeCKEditorImages');
     Route::post('open-projects/parse-csv-import', 'OpenProjectController@parseCsvImport')->name('open-projects.parseCsvImport');
     Route::post('open-projects/process-csv-import', 'OpenProjectController@processCsvImport')->name('open-projects.processCsvImport');
     Route::resource('open-projects', 'OpenProjectController');
@@ -642,6 +644,8 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
 
     // Open Project
     Route::delete('open-projects/destroy', 'OpenProjectController@massDestroy')->name('open-projects.massDestroy');
+    Route::post('open-projects/media', 'OpenProjectController@storeMedia')->name('open-projects.storeMedia');
+    Route::post('open-projects/ckmedia', 'OpenProjectController@storeCKEditorImages')->name('open-projects.storeCKEditorImages');
     Route::resource('open-projects', 'OpenProjectController');
 
     // Supplier Proposal

@@ -31,13 +31,16 @@
                             {{ trans('cruds.openProject.fields.description') }}
                         </th>
                         <th>
+                            {{ trans('cruds.openProject.fields.documents') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.openProject.fields.area') }}
                         </th>
                         <th>
                             {{ trans('cruds.openProject.fields.start_date') }}
                         </th>
                         <th>
-                            {{ trans('cruds.openProject.fields.budget') }}
+                            {{ trans('cruds.openProject.fields.end_date') }}
                         </th>
                         <th>
                             {{ trans('cruds.openProject.fields.status') }}
@@ -63,6 +66,13 @@
                                 {{ $openProject->description ?? '' }}
                             </td>
                             <td>
+                                @foreach($openProject->documents as $key => $media)
+                                    <a href="{{ $media->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endforeach
+                            </td>
+                            <td>
                                 @foreach($openProject->areas as $key => $item)
                                     <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
@@ -71,10 +81,10 @@
                                 {{ $openProject->start_date ?? '' }}
                             </td>
                             <td>
-                                {{ $openProject->budget ?? '' }}
+                                {{ $openProject->end_date ?? '' }}
                             </td>
                             <td>
-                                {{ $openProject->status->name ?? '' }}
+                                {{ App\Models\OpenProject::STATUS_SELECT[$openProject->status] ?? '' }}
                             </td>
                             <td>
                                 @can('open_project_show')

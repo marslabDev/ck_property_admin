@@ -170,6 +170,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('house-statuses', 'HouseStatusApiController');
 
     // Open Project
+    Route::post('open-projects/media', 'OpenProjectApiController@storeMedia')->name('open-projects.storeMedia');
     Route::apiResource('open-projects', 'OpenProjectApiController');
 
     // Supplier Proposal
