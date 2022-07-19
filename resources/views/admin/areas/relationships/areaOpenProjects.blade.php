@@ -28,9 +28,6 @@
                             {{ trans('cruds.openProject.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.openProject.fields.description') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.openProject.fields.documents') }}
                         </th>
                         <th>
@@ -61,9 +58,6 @@
                             </td>
                             <td>
                                 {{ $openProject->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $openProject->description ?? '' }}
                             </td>
                             <td>
                                 @foreach($openProject->documents as $key => $media)

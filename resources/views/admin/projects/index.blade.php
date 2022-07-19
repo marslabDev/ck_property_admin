@@ -32,19 +32,16 @@
                         {{ trans('cruds.project.fields.name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.project.fields.description') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.project.fields.area') }}
                     </th>
                     <th>
                         {{ trans('cruds.project.fields.start_date') }}
                     </th>
                     <th>
-                        {{ trans('cruds.project.fields.budget') }}
+                        {{ trans('cruds.project.fields.supplier') }}
                     </th>
                     <th>
-                        {{ trans('cruds.project.fields.supplier') }}
+                        {{ trans('cruds.project.fields.documents') }}
                     </th>
                     <th>
                         {{ trans('cruds.project.fields.status') }}
@@ -63,9 +60,6 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($areas as $key => $item)
@@ -76,15 +70,15 @@
                     <td>
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($clients as $key => $item)
                                 <option value="{{ $item->company }}">{{ $item->company }}</option>
                             @endforeach
                         </select>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <select class="search">
@@ -151,11 +145,10 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
-{ data: 'description', name: 'description' },
 { data: 'area', name: 'areas.name' },
 { data: 'start_date', name: 'start_date' },
-{ data: 'budget', name: 'budget' },
 { data: 'supplier', name: 'suppliers.company' },
+{ data: 'documents', name: 'documents' },
 { data: 'status_name', name: 'status.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

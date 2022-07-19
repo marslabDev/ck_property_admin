@@ -255,6 +255,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Project
     Route::delete('projects/destroy', 'ProjectController@massDestroy')->name('projects.massDestroy');
+    Route::post('projects/media', 'ProjectController@storeMedia')->name('projects.storeMedia');
+    Route::post('projects/ckmedia', 'ProjectController@storeCKEditorImages')->name('projects.storeCKEditorImages');
     Route::post('projects/parse-csv-import', 'ProjectController@parseCsvImport')->name('projects.parseCsvImport');
     Route::post('projects/process-csv-import', 'ProjectController@processCsvImport')->name('projects.processCsvImport');
     Route::resource('projects', 'ProjectController');
@@ -570,6 +572,8 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
 
     // Project
     Route::delete('projects/destroy', 'ProjectController@massDestroy')->name('projects.massDestroy');
+    Route::post('projects/media', 'ProjectController@storeMedia')->name('projects.storeMedia');
+    Route::post('projects/ckmedia', 'ProjectController@storeCKEditorImages')->name('projects.storeCKEditorImages');
     Route::resource('projects', 'ProjectController');
 
     // Note

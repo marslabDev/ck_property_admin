@@ -9,11 +9,15 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Project extends Model
+class Project extends Model implements HasMedia
 {
     use SoftDeletes;
     use MultiTenantModelTrait;
+    use InteractsWithMedia;
     use Auditable;
     use HasFactory;
 
@@ -30,13 +34,19 @@ class Project extends Model
         'name',
         'description',
         'start_date',
-        'budget',
+        'documents',
         'status_id',
         'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
+        $this->addMediaConversion('preview')->fit('crop', 120, 120);
+    }
 
     public function areas()
     {

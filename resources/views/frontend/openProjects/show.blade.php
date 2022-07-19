@@ -39,7 +39,7 @@
                                         {{ trans('cruds.openProject.fields.description') }}
                                     </th>
                                     <td>
-                                        {{ $openProject->description }}
+                                        {!! $openProject->description !!}
                                     </td>
                                 </tr>
                                 <tr>

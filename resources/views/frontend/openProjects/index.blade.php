@@ -33,9 +33,6 @@
                                         {{ trans('cruds.openProject.fields.name') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.openProject.fields.description') }}
-                                    </th>
-                                    <th>
                                         {{ trans('cruds.openProject.fields.documents') }}
                                     </th>
                                     <th>
@@ -56,9 +53,6 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                    </td>
-                                    <td>
-                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -100,9 +94,6 @@
                                         </td>
                                         <td>
                                             {{ $openProject->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $openProject->description ?? '' }}
                                         </td>
                                         <td>
                                             @foreach($openProject->documents as $key => $media)

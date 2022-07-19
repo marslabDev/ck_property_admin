@@ -36,7 +36,7 @@
                             {{ trans('cruds.project.fields.description') }}
                         </th>
                         <td>
-                            {{ $project->description }}
+                            {!! $project->description !!}
                         </td>
                     </tr>
                     <tr>
@@ -59,20 +59,20 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.project.fields.budget') }}
-                        </th>
-                        <td>
-                            {{ $project->budget }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.project.fields.supplier') }}
                         </th>
                         <td>
                             @foreach($project->suppliers as $key => $supplier)
                                 <span class="label label-info">{{ $supplier->company }}</span>
                             @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.project.fields.documents') }}
+                        </th>
+                        <td>
+                            {{ $project->documents }}
                         </td>
                     </tr>
                     <tr>

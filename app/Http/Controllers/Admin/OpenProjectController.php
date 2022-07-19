@@ -54,9 +54,6 @@ class OpenProjectController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
-            $table->editColumn('description', function ($row) {
-                return $row->description ? $row->description : '';
-            });
             $table->editColumn('documents', function ($row) {
                 if (!$row->documents) {
                     return '';

@@ -956,8 +956,6 @@ return [
             'description_helper' => ' ',
             'start_date'         => 'Start Date',
             'start_date_helper'  => ' ',
-            'budget'             => 'Budget',
-            'budget_helper'      => ' ',
             'status'             => 'Project Status',
             'status_helper'      => ' ',
             'created_at'         => 'Created at',
@@ -972,6 +970,8 @@ return [
             'supplier_helper'    => ' ',
             'area'               => 'Area',
             'area_helper'        => ' ',
+            'documents'          => 'Documents',
+            'documents_helper'   => ' ',
         ],
     ],
     'note' => [
