@@ -151,9 +151,9 @@ class ManageHouseController extends Controller
 
         $owned_bies = User::pluck('name', 'id');
 
-        $contact_people = Role::where('title', 'Home Owner')->first()->rolesUsers;
+        $contact_people = Role::where('title', 'Home Owner')->first()->rolesUsers ?? [];
 
-        $contact_person_2s = Role::where('title', 'Home Owner')->first()->rolesUsers;
+        $contact_person_2s = Role::where('title', 'Home Owner')->first()->rolesUsers ?? [];
 
         return view('admin.manageHouses.create', compact('contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'owned_bies', 'parking_lots', 'streets'));
     }
@@ -188,9 +188,9 @@ class ManageHouseController extends Controller
 
         $owned_bies = User::pluck('name', 'id');
 
-        $contact_people = Role::where('title', 'Home Owner')->first()->rolesUsers;
+        $contact_people = Role::where('title', 'Home Owner')->first()->rolesUsers ?? [];
 
-        $contact_person_2s = Role::where('title', 'Home Owner')->first()->rolesUsers;
+        $contact_person_2s = Role::where('title', 'Home Owner')->first()->rolesUsers ?? [];
 
         $manageHouse->load('house_type', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'from_area', 'created_by');
 

@@ -40,11 +40,12 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        if (auth()->user()->is_admin) {
-            return '/admin';
-        }
-
-        return '/home';
+        // if (auth()->user()->is_admin) {
+        //     return '/admin';
+        // }
+        
+        // return '/home';
+        return '/admin';
     }
 
     protected function authenticated(Request $request, $user)

@@ -302,7 +302,7 @@
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/clients*") ? "c-show" : "" }} {{ request()->is("admin/projects*") ? "c-show" : "" }} {{ request()->is("admin/open-projects*") ? "c-show" : "" }} {{ request()->is("admin/notes*") ? "c-show" : "" }} {{ request()->is("admin/documents*") ? "c-show" : "" }} {{ request()->is("admin/supplier-proposals*") ? "c-show" : "" }} {{ request()->is("admin/transactions*") ? "c-show" : "" }} {{ request()->is("admin/client-reports*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
-
+                        
                     </i>
                     {{ trans('cruds.clientManagement.title') }}
                 </a>
@@ -387,108 +387,110 @@
                             </a>
                         </li>
                     @endcan
-                </ul>
-            </li>
-        @endcan
-        @can('task_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/task-statuses*") ? "c-show" : "" }} {{ request()->is("admin/task-tags*") ? "c-show" : "" }} {{ request()->is("admin/tasks*") ? "c-show" : "" }} {{ request()->is("admin/tasks-calendars*") ? "c-show" : "" }}">
-                <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-list c-sidebar-nav-icon">
 
-                    </i>
-                    {{ trans('cruds.taskManagement.title') }}
-                </a>
-                <ul class="c-sidebar-nav-dropdown-items">
-                    @can('task_status_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.task-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/task-statuses") || request()->is("admin/task-statuses/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-server c-sidebar-nav-icon">
+                    @can('task_management_access')
+                        <li class="c-sidebar-nav-dropdown {{ request()->is("admin/task-statuses*") ? "c-show" : "" }} {{ request()->is("admin/task-tags*") ? "c-show" : "" }} {{ request()->is("admin/tasks*") ? "c-show" : "" }} {{ request()->is("admin/tasks-calendars*") ? "c-show" : "" }}">
+                            <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                                <i class="fa-fw fas fa-list c-sidebar-nav-icon">
 
                                 </i>
-                                {{ trans('cruds.taskStatus.title') }}
+                                {{ trans('cruds.taskManagement.title') }}
                             </a>
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                @can('task_status_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.task-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/task-statuses") || request()->is("admin/task-statuses/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-server c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.taskStatus.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('task_tag_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.task-tags.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/task-tags") || request()->is("admin/task-tags/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-server c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.taskTag.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('task_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.tasks.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/tasks") || request()->is("admin/tasks/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.task.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('tasks_calendar_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.tasks-calendars.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/tasks-calendars") || request()->is("admin/tasks-calendars/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-calendar c-sidebar-nav-icon">
+
+                                            </i>
+                                            {{ trans('cruds.tasksCalendar.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
                         </li>
                     @endcan
-                    @can('task_tag_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.task-tags.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/task-tags") || request()->is("admin/task-tags/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-server c-sidebar-nav-icon">
+
+                    @can('client_management_setting_access')
+                        <li class="c-sidebar-nav-dropdown {{ request()->is("admin/transaction-types*") ? "c-show" : "" }} {{ request()->is("admin/income-sources*") ? "c-show" : "" }} {{ request()->is("admin/client-statuses*") ? "c-show" : "" }} {{ request()->is("admin/project-statuses*") ? "c-show" : "" }}">
+                            <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                                <i class="fa-fw fas fa-cog c-sidebar-nav-icon">
 
                                 </i>
-                                {{ trans('cruds.taskTag.title') }}
+                                {{ trans('cruds.clientManagementSetting.title') }}
                             </a>
-                        </li>
-                    @endcan
-                    @can('task_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.tasks.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/tasks") || request()->is("admin/tasks/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                @can('transaction_type_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.transaction-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/transaction-types") || request()->is("admin/transaction-types/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-money-check c-sidebar-nav-icon">
 
-                                </i>
-                                {{ trans('cruds.task.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('tasks_calendar_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.tasks-calendars.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/tasks-calendars") || request()->is("admin/tasks-calendars/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-calendar c-sidebar-nav-icon">
+                                            </i>
+                                            {{ trans('cruds.transactionType.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('income_source_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.income-sources.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/income-sources") || request()->is("admin/income-sources/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-database c-sidebar-nav-icon">
 
-                                </i>
-                                {{ trans('cruds.tasksCalendar.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-            </li>
-        @endcan
-        @can('client_management_setting_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/transaction-types*") ? "c-show" : "" }} {{ request()->is("admin/income-sources*") ? "c-show" : "" }} {{ request()->is("admin/client-statuses*") ? "c-show" : "" }} {{ request()->is("admin/project-statuses*") ? "c-show" : "" }}">
-                <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-cog c-sidebar-nav-icon">
+                                            </i>
+                                            {{ trans('cruds.incomeSource.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('client_status_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.client-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/client-statuses") || request()->is("admin/client-statuses/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-server c-sidebar-nav-icon">
 
-                    </i>
-                    {{ trans('cruds.clientManagementSetting.title') }}
-                </a>
-                <ul class="c-sidebar-nav-dropdown-items">
-                    @can('transaction_type_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.transaction-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/transaction-types") || request()->is("admin/transaction-types/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-money-check c-sidebar-nav-icon">
+                                            </i>
+                                            {{ trans('cruds.clientStatus.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('project_status_access')
+                                    <li class="c-sidebar-nav-item">
+                                        <a href="{{ route("admin.project-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/project-statuses") || request()->is("admin/project-statuses/*") ? "c-active" : "" }}">
+                                            <i class="fa-fw fas fa-server c-sidebar-nav-icon">
 
-                                </i>
-                                {{ trans('cruds.transactionType.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('income_source_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.income-sources.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/income-sources") || request()->is("admin/income-sources/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-database c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.incomeSource.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('client_status_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.client-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/client-statuses") || request()->is("admin/client-statuses/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-server c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.clientStatus.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('project_status_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.project-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/project-statuses") || request()->is("admin/project-statuses/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-server c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.projectStatus.title') }}
-                            </a>
+                                            </i>
+                                            {{ trans('cruds.projectStatus.title') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
                         </li>
                     @endcan
                 </ul>

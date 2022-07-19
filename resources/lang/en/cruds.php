@@ -644,8 +644,8 @@ return [
         ],
     ],
     'taskManagement' => [
-        'title'          => 'Task management',
-        'title_singular' => 'Task management',
+        'title'          => 'Suppliers Tasks',
+        'title_singular' => 'Suppliers Task',
     ],
     'taskStatus' => [
         'title'          => 'Statuses',
@@ -799,8 +799,8 @@ return [
         ],
     ],
     'clientManagementSetting' => [
-        'title'          => 'Supplier Mgmt settings',
-        'title_singular' => 'Supplier Mgmt settings',
+        'title'          => 'Supplier Mgmt Settings',
+        'title_singular' => 'Supplier Mgmt Setting',
     ],
     'currency' => [
         'title'          => 'Currencies',
@@ -943,8 +943,8 @@ return [
         ],
     ],
     'project' => [
-        'title'          => 'Projects',
-        'title_singular' => 'Project',
+        'title'          => 'Active Projects',
+        'title_singular' => 'Active Project',
         'fields'         => [
             'id'                 => 'ID',
             'id_helper'          => ' ',

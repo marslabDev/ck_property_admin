@@ -27,6 +27,15 @@
         rel="stylesheet" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+    <style>
+        .c-sidebar .c-sidebar-nav-link.c-active {
+            background-color: #321fdb !important;
+        }
+
+        .btn.btn-danger {
+            background-color: #e55353 !important;
+        }
+    </style>
     @yield('styles')
 </head>
 
