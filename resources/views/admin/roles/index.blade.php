@@ -32,6 +32,9 @@
                         {{ trans('cruds.role.fields.title') }}
                     </th>
                     <th>
+                        {{ trans('cruds.role.fields.redirect_to') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.role.fields.permissions') }}
                     </th>
                     <th>
@@ -40,6 +43,9 @@
                 </tr>
                 <tr>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -112,6 +118,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'title', name: 'title' },
+{ data: 'redirect_to', name: 'redirect_to' },
 { data: 'permissions', name: 'permissions.title' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

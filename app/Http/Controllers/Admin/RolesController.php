@@ -50,6 +50,9 @@ class RolesController extends Controller
             $table->editColumn('title', function ($row) {
                 return $row->title ? $row->title : '';
             });
+            $table->editColumn('redirect_to', function ($row) {
+                return $row->redirect_to ? $row->redirect_to : '';
+            });
             $table->editColumn('permissions', function ($row) {
                 $labels = [];
                 foreach ($row->permissions as $permission) {

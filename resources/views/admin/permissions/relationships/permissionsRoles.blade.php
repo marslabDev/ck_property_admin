@@ -28,6 +28,9 @@
                             {{ trans('cruds.role.fields.title') }}
                         </th>
                         <th>
+                            {{ trans('cruds.role.fields.redirect_to') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.role.fields.permissions') }}
                         </th>
                         <th>
@@ -46,6 +49,9 @@
                             </td>
                             <td>
                                 {{ $role->title ?? '' }}
+                            </td>
+                            <td>
+                                {{ $role->redirect_to ?? '' }}
                             </td>
                             <td>
                                 @foreach($role->permissions as $key => $item)

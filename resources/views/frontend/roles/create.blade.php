@@ -24,6 +24,16 @@
                             <span class="help-block">{{ trans('cruds.role.fields.title_helper') }}</span>
                         </div>
                         <div class="form-group">
+                            <label class="required" for="redirect_to">{{ trans('cruds.role.fields.redirect_to') }}</label>
+                            <input class="form-control" type="text" name="redirect_to" id="redirect_to" value="{{ old('redirect_to', '') }}" required>
+                            @if($errors->has('redirect_to'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('redirect_to') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.role.fields.redirect_to_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <label class="required" for="permissions">{{ trans('cruds.role.fields.permissions') }}</label>
                             <div style="padding-bottom: 4px">
                                 <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
