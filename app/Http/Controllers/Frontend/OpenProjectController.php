@@ -8,7 +8,6 @@ use App\Http\Requests\MassDestroyOpenProjectRequest;
 use App\Http\Requests\StoreOpenProjectRequest;
 use App\Http\Requests\UpdateOpenProjectRequest;
 use App\Models\Area;
-use App\Models\Client;
 use App\Models\OpenProject;
 use App\Models\ProjectStatus;
 use App\Models\User;
@@ -24,17 +23,15 @@ class OpenProjectController extends Controller
     {
         abort_if(Gate::denies('open_project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $openProjects = OpenProject::with(['areas', 'suppliers', 'status', 'created_by'])->get();
+        $openProjects = OpenProject::with(['areas', 'status', 'created_by'])->get();
 
         $areas = Area::get();
-
-        $clients = Client::get();
 
         $project_statuses = ProjectStatus::get();
 
         $users = User::get();
 
-        return view('frontend.openProjects.index', compact('areas', 'clients', 'openProjects', 'project_statuses', 'users'));
+        return view('frontend.openProjects.index', compact('areas', 'openProjects', 'project_statuses', 'users'));
     }
 
     public function create()
@@ -43,18 +40,15 @@ class OpenProjectController extends Controller
 
         $areas = Area::pluck('name', 'id');
 
-        $suppliers = Client::pluck('company', 'id');
-
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.openProjects.create', compact('areas', 'statuses', 'suppliers'));
+        return view('frontend.openProjects.create', compact('areas', 'statuses'));
     }
 
     public function store(StoreOpenProjectRequest $request)
     {
         $openProject = OpenProject::create($request->all());
         $openProject->areas()->sync($request->input('areas', []));
-        $openProject->suppliers()->sync($request->input('suppliers', []));
 
         return redirect()->route('frontend.open-projects.index');
     }
@@ -65,20 +59,17 @@ class OpenProjectController extends Controller
 
         $areas = Area::pluck('name', 'id');
 
-        $suppliers = Client::pluck('company', 'id');
-
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $openProject->load('areas', 'suppliers', 'status', 'created_by');
+        $openProject->load('areas', 'status', 'created_by');
 
-        return view('frontend.openProjects.edit', compact('areas', 'openProject', 'statuses', 'suppliers'));
+        return view('frontend.openProjects.edit', compact('areas', 'openProject', 'statuses'));
     }
 
     public function update(UpdateOpenProjectRequest $request, OpenProject $openProject)
     {
         $openProject->update($request->all());
         $openProject->areas()->sync($request->input('areas', []));
-        $openProject->suppliers()->sync($request->input('suppliers', []));
 
         return redirect()->route('frontend.open-projects.index');
     }
@@ -87,7 +78,7 @@ class OpenProjectController extends Controller
     {
         abort_if(Gate::denies('open_project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $openProject->load('areas', 'suppliers', 'status', 'created_by');
+        $openProject->load('areas', 'status', 'created_by', 'openProjectSupplierProposals');
 
         return view('frontend.openProjects.show', compact('openProject'));
     }

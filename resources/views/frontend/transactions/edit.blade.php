@@ -42,18 +42,18 @@
                             <span class="help-block">{{ trans('cruds.transaction.fields.transaction_type_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label class="required" for="income_source_id">{{ trans('cruds.transaction.fields.income_source') }}</label>
-                            <select class="form-control select2" name="income_source_id" id="income_source_id" required>
-                                @foreach($income_sources as $id => $entry)
-                                    <option value="{{ $id }}" {{ (old('income_source_id') ? old('income_source_id') : $transaction->income_source->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                            <label class="required" for="supplier_id">{{ trans('cruds.transaction.fields.supplier') }}</label>
+                            <select class="form-control select2" name="supplier_id" id="supplier_id" required>
+                                @foreach($suppliers as $id => $entry)
+                                    <option value="{{ $id }}" {{ (old('supplier_id') ? old('supplier_id') : $transaction->supplier->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach
                             </select>
-                            @if($errors->has('income_source'))
+                            @if($errors->has('supplier'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('income_source') }}
+                                    {{ $errors->first('supplier') }}
                                 </div>
                             @endif
-                            <span class="help-block">{{ trans('cruds.transaction.fields.income_source_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.transaction.fields.supplier_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <label class="required" for="amount">{{ trans('cruds.transaction.fields.amount') }}</label>

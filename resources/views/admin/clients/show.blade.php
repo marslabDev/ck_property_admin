@@ -112,22 +112,22 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
+            <a class="nav-link" href="#supplier_transactions" role="tab" data-toggle="tab">
+                {{ trans('cruds.transaction.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#supplier_projects" role="tab" data-toggle="tab">
                 {{ trans('cruds.project.title') }}
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#supplier_open_projects" role="tab" data-toggle="tab">
-                {{ trans('cruds.openProject.title') }}
-            </a>
-        </li>
     </ul>
     <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="supplier_transactions">
+            @includeIf('admin.clients.relationships.supplierTransactions', ['transactions' => $client->supplierTransactions])
+        </div>
         <div class="tab-pane" role="tabpanel" id="supplier_projects">
             @includeIf('admin.clients.relationships.supplierProjects', ['projects' => $client->supplierProjects])
-        </div>
-        <div class="tab-pane" role="tabpanel" id="supplier_open_projects">
-            @includeIf('admin.clients.relationships.supplierOpenProjects', ['openProjects' => $client->supplierOpenProjects])
         </div>
     </div>
 </div>

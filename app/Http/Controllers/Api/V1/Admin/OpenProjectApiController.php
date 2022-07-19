@@ -17,14 +17,13 @@ class OpenProjectApiController extends Controller
     {
         abort_if(Gate::denies('open_project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new OpenProjectResource(OpenProject::with(['areas', 'suppliers', 'status', 'created_by'])->get());
+        return new OpenProjectResource(OpenProject::with(['areas', 'status', 'created_by'])->get());
     }
 
     public function store(StoreOpenProjectRequest $request)
     {
         $openProject = OpenProject::create($request->all());
         $openProject->areas()->sync($request->input('areas', []));
-        $openProject->suppliers()->sync($request->input('suppliers', []));
 
         return (new OpenProjectResource($openProject))
             ->response()
@@ -35,14 +34,13 @@ class OpenProjectApiController extends Controller
     {
         abort_if(Gate::denies('open_project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new OpenProjectResource($openProject->load(['areas', 'suppliers', 'status', 'created_by']));
+        return new OpenProjectResource($openProject->load(['areas', 'status', 'created_by']));
     }
 
     public function update(UpdateOpenProjectRequest $request, OpenProject $openProject)
     {
         $openProject->update($request->all());
         $openProject->areas()->sync($request->input('areas', []));
-        $openProject->suppliers()->sync($request->input('suppliers', []));
 
         return (new OpenProjectResource($openProject))
             ->response()

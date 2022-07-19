@@ -40,9 +40,6 @@
                             {{ trans('cruds.openProject.fields.budget') }}
                         </th>
                         <th>
-                            {{ trans('cruds.openProject.fields.supplier') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.openProject.fields.status') }}
                         </th>
                         <th>
@@ -75,11 +72,6 @@
                             </td>
                             <td>
                                 {{ $openProject->budget ?? '' }}
-                            </td>
-                            <td>
-                                @foreach($openProject->suppliers as $key => $item)
-                                    <span class="badge badge-info">{{ $item->company }}</span>
-                                @endforeach
                             </td>
                             <td>
                                 {{ $openProject->status->name ?? '' }}

@@ -67,16 +67,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.openProject.fields.supplier') }}
-                        </th>
-                        <td>
-                            @foreach($openProject->suppliers as $key => $supplier)
-                                <span class="label label-info">{{ $supplier->company }}</span>
-                            @endforeach
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.openProject.fields.status') }}
                         </th>
                         <td>

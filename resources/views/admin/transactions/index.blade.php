@@ -1,6 +1,18 @@
 @extends('layouts.admin')
 @section('content')
-
+@can('transaction_create')
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('admin.transactions.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.transaction.title_singular') }}
+            </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'Transaction', 'route' => 'admin.transactions.parseCsvImport'])
+        </div>
+    </div>
+@endcan
 <div class="card">
     <div class="card-header">
         {{ trans('cruds.transaction.title_singular') }} {{ trans('global.list') }}
@@ -23,7 +35,10 @@
                         {{ trans('cruds.transaction.fields.transaction_type') }}
                     </th>
                     <th>
-                        {{ trans('cruds.transaction.fields.income_source') }}
+                        {{ trans('cruds.transaction.fields.supplier') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.client.fields.email') }}
                     </th>
                     <th>
                         {{ trans('cruds.transaction.fields.amount') }}
@@ -63,10 +78,12 @@
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($income_sources as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @foreach($clients as $key => $item)
+                                <option value="{{ $item->company }}">{{ $item->company }}</option>
                             @endforeach
                         </select>
+                    </td>
+                    <td>
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -110,7 +127,8 @@
 { data: 'id', name: 'id' },
 { data: 'project_name', name: 'project.name' },
 { data: 'transaction_type_name', name: 'transaction_type.name' },
-{ data: 'income_source_name', name: 'income_source.name' },
+{ data: 'supplier_company', name: 'supplier.company' },
+{ data: 'supplier.email', name: 'supplier.email' },
 { data: 'amount', name: 'amount' },
 { data: 'currency_name', name: 'currency.name' },
 { data: 'transaction_date', name: 'transaction_date' },

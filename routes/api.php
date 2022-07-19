@@ -127,7 +127,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('documents', 'DocumentApiController');
 
     // Transaction
-    Route::apiResource('transactions', 'TransactionApiController', ['except' => ['store', 'update', 'destroy']]);
+    Route::apiResource('transactions', 'TransactionApiController', ['except' => ['update', 'destroy']]);
 
     // Content Category
     Route::apiResource('content-categories', 'ContentCategoryApiController');

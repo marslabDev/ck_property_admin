@@ -72,24 +72,6 @@
                             <span class="help-block">{{ trans('cruds.openProject.fields.budget_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label class="required" for="suppliers">{{ trans('cruds.openProject.fields.supplier') }}</label>
-                            <div style="padding-bottom: 4px">
-                                <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                                <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                            </div>
-                            <select class="form-control select2" name="suppliers[]" id="suppliers" multiple required>
-                                @foreach($suppliers as $id => $supplier)
-                                    <option value="{{ $id }}" {{ in_array($id, old('suppliers', [])) ? 'selected' : '' }}>{{ $supplier }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('suppliers'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('suppliers') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.openProject.fields.supplier_helper') }}</span>
-                        </div>
-                        <div class="form-group">
                             <label class="required" for="status_id">{{ trans('cruds.openProject.fields.status') }}</label>
                             <select class="form-control select2" name="status_id" id="status_id" required>
                                 @foreach($statuses as $id => $entry)

@@ -45,9 +45,6 @@
                                         {{ trans('cruds.openProject.fields.budget') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.openProject.fields.supplier') }}
-                                    </th>
-                                    <th>
                                         {{ trans('cruds.openProject.fields.status') }}
                                     </th>
                                     <th>
@@ -78,14 +75,6 @@
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                    </td>
-                                    <td>
-                                        <select class="search">
-                                            <option value>{{ trans('global.all') }}</option>
-                                            @foreach($clients as $key => $item)
-                                                <option value="{{ $item->company }}">{{ $item->company }}</option>
-                                            @endforeach
-                                        </select>
                                     </td>
                                     <td>
                                         <select class="search">
@@ -121,11 +110,6 @@
                                         </td>
                                         <td>
                                             {{ $openProject->budget ?? '' }}
-                                        </td>
-                                        <td>
-                                            @foreach($openProject->suppliers as $key => $item)
-                                                <span>{{ $item->company }}</span>
-                                            @endforeach
                                         </td>
                                         <td>
                                             {{ $openProject->status->name ?? '' }}

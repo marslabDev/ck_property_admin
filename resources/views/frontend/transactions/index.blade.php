@@ -3,7 +3,19 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-
+            @can('transaction_create')
+                <div style="margin-bottom: 10px;" class="row">
+                    <div class="col-lg-12">
+                        <a class="btn btn-success" href="{{ route('frontend.transactions.create') }}">
+                            {{ trans('global.add') }} {{ trans('cruds.transaction.title_singular') }}
+                        </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'Transaction', 'route' => 'admin.transactions.parseCsvImport'])
+                    </div>
+                </div>
+            @endcan
             <div class="card">
                 <div class="card-header">
                     {{ trans('cruds.transaction.title_singular') }} {{ trans('global.list') }}
@@ -24,7 +36,10 @@
                                         {{ trans('cruds.transaction.fields.transaction_type') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.transaction.fields.income_source') }}
+                                        {{ trans('cruds.transaction.fields.supplier') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.client.fields.email') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.transaction.fields.amount') }}
@@ -64,10 +79,12 @@
                                     <td>
                                         <select class="search">
                                             <option value>{{ trans('global.all') }}</option>
-                                            @foreach($income_sources as $key => $item)
-                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @foreach($clients as $key => $item)
+                                                <option value="{{ $item->company }}">{{ $item->company }}</option>
                                             @endforeach
                                         </select>
+                                    </td>
+                                    <td>
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -99,7 +116,10 @@
                                             {{ $transaction->transaction_type->name ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $transaction->income_source->name ?? '' }}
+                                            {{ $transaction->supplier->company ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $transaction->supplier->email ?? '' }}
                                         </td>
                                         <td>
                                             {{ $transaction->amount ?? '' }}
