@@ -8,15 +8,23 @@ use App\Traits\MultiTenantModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Client extends Model
+class SupplierProposal extends Model implements HasMedia
 {
     use SoftDeletes;
     use MultiTenantModelTrait;
+    use InteractsWithMedia;
     use Auditable;
     use HasFactory;
 
-    public $table = 'clients';
+    public $table = 'supplier_proposals';
+
+    protected $appends = [
+        'documents',
+    ];
 
     protected $dates = [
         'created_at',
@@ -25,34 +33,29 @@ class Client extends Model
     ];
 
     protected $fillable = [
-        'person_in_change',
-        'company',
-        'desc',
-        'email',
-        'phone',
-        'website',
-        'whatapps',
-        'country',
-        'status_id',
+        'representative_name',
+        'contact_no',
         'created_at',
+        'open_project_id',
         'updated_at',
         'deleted_at',
         'created_by_id',
     ];
 
-    public function supplierProjects()
+    public function registerMediaConversions(Media $media = null): void
     {
-        return $this->belongsToMany(Project::class);
+        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
+        $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 
-    public function supplierOpenProjects()
+    public function getDocumentsAttribute()
     {
-        return $this->belongsToMany(OpenProject::class);
+        return $this->getMedia('documents');
     }
 
-    public function status()
+    public function open_project()
     {
-        return $this->belongsTo(ClientStatus::class, 'status_id');
+        return $this->belongsTo(OpenProject::class, 'open_project_id');
     }
 
     public function created_by()

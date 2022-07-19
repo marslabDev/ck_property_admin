@@ -38,6 +38,11 @@ class OpenProject extends Model
         'deleted_at',
     ];
 
+    public function openProjectSupplierProposals()
+    {
+        return $this->hasMany(SupplierProposal::class, 'open_project_id', 'id');
+    }
+
     public function areas()
     {
         return $this->belongsToMany(Area::class);

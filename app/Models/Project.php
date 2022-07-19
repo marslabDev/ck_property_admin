@@ -38,11 +38,6 @@ class Project extends Model
         'deleted_at',
     ];
 
-    public function projectChecklists()
-    {
-        return $this->hasMany(Checklist::class, 'project_id', 'id');
-    }
-
     public function areas()
     {
         return $this->belongsToMany(Area::class);

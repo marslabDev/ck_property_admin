@@ -143,7 +143,7 @@ class OpenProjectController extends Controller
     {
         abort_if(Gate::denies('open_project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $openProject->load('areas', 'suppliers', 'status', 'created_by');
+        $openProject->load('areas', 'suppliers', 'status', 'created_by', 'openProjectSupplierProposals');
 
         return view('admin.openProjects.show', compact('openProject'));
     }
