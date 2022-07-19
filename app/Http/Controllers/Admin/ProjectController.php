@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\CsvImportTrait;
+use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
@@ -14,11 +15,13 @@ use App\Models\ProjectStatus;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
 {
+    use MediaUploadingTrait;
     use CsvImportTrait;
 
     public function index(Request $request)
@@ -53,9 +56,6 @@ class ProjectController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
-            $table->editColumn('description', function ($row) {
-                return $row->description ? $row->description : '';
-            });
             $table->editColumn('area', function ($row) {
                 $labels = [];
                 foreach ($row->areas as $area) {
@@ -65,9 +65,6 @@ class ProjectController extends Controller
                 return implode(' ', $labels);
             });
 
-            $table->editColumn('budget', function ($row) {
-                return $row->budget ? $row->budget : '';
-            });
             $table->editColumn('supplier', function ($row) {
                 $labels = [];
                 foreach ($row->suppliers as $supplier) {
@@ -75,6 +72,9 @@ class ProjectController extends Controller
                 }
 
                 return implode(' ', $labels);
+            });
+            $table->editColumn('documents', function ($row) {
+                return $row->documents ? $row->documents : '';
             });
             $table->addColumn('status_name', function ($row) {
                 return $row->status ? $row->status->name : '';
@@ -111,6 +111,9 @@ class ProjectController extends Controller
         $project = Project::create($request->all());
         $project->areas()->sync($request->input('areas', []));
         $project->suppliers()->sync($request->input('suppliers', []));
+        if ($media = $request->input('ck-media', false)) {
+            Media::whereIn('id', $media)->update(['model_id' => $project->id]);
+        }
 
         return redirect()->route('admin.projects.index');
     }
@@ -162,5 +165,17 @@ class ProjectController extends Controller
         Project::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function storeCKEditorImages(Request $request)
+    {
+        abort_if(Gate::denies('project_create') && Gate::denies('project_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $model         = new Project();
+        $model->id     = $request->input('crud_id', 0);
+        $model->exists = true;
+        $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
+
+        return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }
 }

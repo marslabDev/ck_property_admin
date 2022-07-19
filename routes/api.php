@@ -117,6 +117,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('clients', 'ClientApiController');
 
     // Project
+    Route::post('projects/media', 'ProjectApiController@storeMedia')->name('projects.storeMedia');
     Route::apiResource('projects', 'ProjectApiController');
 
     // Note

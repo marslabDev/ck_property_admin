@@ -32,9 +32,6 @@
                         {{ trans('cruds.openProject.fields.name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.openProject.fields.description') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.openProject.fields.documents') }}
                     </th>
                     <th>
@@ -55,9 +52,6 @@
                 </tr>
                 <tr>
                     <td>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -144,7 +138,6 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
-{ data: 'description', name: 'description' },
 { data: 'documents', name: 'documents', sortable: false, searchable: false },
 { data: 'area', name: 'areas.name' },
 { data: 'start_date', name: 'start_date' },

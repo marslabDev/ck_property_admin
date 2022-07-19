@@ -28,19 +28,16 @@
                             {{ trans('cruds.project.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.project.fields.description') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.project.fields.area') }}
                         </th>
                         <th>
                             {{ trans('cruds.project.fields.start_date') }}
                         </th>
                         <th>
-                            {{ trans('cruds.project.fields.budget') }}
+                            {{ trans('cruds.project.fields.supplier') }}
                         </th>
                         <th>
-                            {{ trans('cruds.project.fields.supplier') }}
+                            {{ trans('cruds.project.fields.documents') }}
                         </th>
                         <th>
                             {{ trans('cruds.project.fields.status') }}
@@ -63,9 +60,6 @@
                                 {{ $project->name ?? '' }}
                             </td>
                             <td>
-                                {{ $project->description ?? '' }}
-                            </td>
-                            <td>
                                 @foreach($project->areas as $key => $item)
                                     <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
@@ -74,12 +68,12 @@
                                 {{ $project->start_date ?? '' }}
                             </td>
                             <td>
-                                {{ $project->budget ?? '' }}
-                            </td>
-                            <td>
                                 @foreach($project->suppliers as $key => $item)
                                     <span class="badge badge-info">{{ $item->company }}</span>
                                 @endforeach
+                            </td>
+                            <td>
+                                {{ $project->documents ?? '' }}
                             </td>
                             <td>
                                 {{ $project->status->name ?? '' }}

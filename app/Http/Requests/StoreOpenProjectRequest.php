@@ -23,10 +23,6 @@ class StoreOpenProjectRequest extends FormRequest
             ],
             'documents' => [
                 'array',
-                'required',
-            ],
-            'documents.*' => [
-                'required',
             ],
             'areas.*' => [
                 'integer',

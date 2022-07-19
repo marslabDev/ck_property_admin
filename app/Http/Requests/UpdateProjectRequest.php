@@ -32,15 +32,16 @@ class UpdateProjectRequest extends FormRequest
                 'required',
                 'date_format:' . config('panel.date_format'),
             ],
-            'budget' => [
-                'numeric',
-            ],
             'suppliers.*' => [
                 'integer',
             ],
             'suppliers' => [
                 'required',
                 'array',
+            ],
+            'documents' => [
+                'string',
+                'nullable',
             ],
             'status_id' => [
                 'required',

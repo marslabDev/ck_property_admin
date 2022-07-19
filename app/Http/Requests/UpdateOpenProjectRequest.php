@@ -23,10 +23,6 @@ class UpdateOpenProjectRequest extends FormRequest
             ],
             'documents' => [
                 'array',
-                'required',
-            ],
-            'documents.*' => [
-                'required',
             ],
             'areas.*' => [
                 'integer',
