@@ -23,6 +23,10 @@ class Project extends Model implements HasMedia
 
     public $table = 'projects';
 
+    protected $appends = [
+        'documents',
+    ];
+
     protected $dates = [
         'start_date',
         'created_at',
@@ -34,7 +38,6 @@ class Project extends Model implements HasMedia
         'name',
         'description',
         'start_date',
-        'documents',
         'status_id',
         'created_by_id',
         'created_at',
@@ -66,6 +69,11 @@ class Project extends Model implements HasMedia
     public function suppliers()
     {
         return $this->belongsToMany(Client::class);
+    }
+
+    public function getDocumentsAttribute()
+    {
+        return $this->getMedia('documents');
     }
 
     public function status()

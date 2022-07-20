@@ -72,10 +72,6 @@ class SupplierProposalController extends Controller
                 return $row->open_project ? $row->open_project->name : '';
             });
 
-            $table->editColumn('open_project.description', function ($row) {
-                return $row->open_project ? (is_string($row->open_project) ? $row->open_project : $row->open_project->description) : '';
-            });
-
             $table->rawColumns(['actions', 'placeholder', 'documents', 'open_project']);
 
             return $table->make(true);

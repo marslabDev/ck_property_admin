@@ -74,13 +74,21 @@ class ProjectController extends Controller
                 return implode(' ', $labels);
             });
             $table->editColumn('documents', function ($row) {
-                return $row->documents ? $row->documents : '';
+                if (!$row->documents) {
+                    return '';
+                }
+                $links = [];
+                foreach ($row->documents as $media) {
+                    $links[] = '<a href="' . $media->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>';
+                }
+
+                return implode(', ', $links);
             });
             $table->addColumn('status_name', function ($row) {
                 return $row->status ? $row->status->name : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'area', 'supplier', 'status']);
+            $table->rawColumns(['actions', 'placeholder', 'area', 'supplier', 'documents', 'status']);
 
             return $table->make(true);
         }
@@ -111,6 +119,10 @@ class ProjectController extends Controller
         $project = Project::create($request->all());
         $project->areas()->sync($request->input('areas', []));
         $project->suppliers()->sync($request->input('suppliers', []));
+        foreach ($request->input('documents', []) as $file) {
+            $project->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('documents');
+        }
+
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $project->id]);
         }
@@ -138,6 +150,19 @@ class ProjectController extends Controller
         $project->update($request->all());
         $project->areas()->sync($request->input('areas', []));
         $project->suppliers()->sync($request->input('suppliers', []));
+        if (count($project->documents) > 0) {
+            foreach ($project->documents as $media) {
+                if (!in_array($media->file_name, $request->input('documents', []))) {
+                    $media->delete();
+                }
+            }
+        }
+        $media = $project->documents->pluck('file_name')->toArray();
+        foreach ($request->input('documents', []) as $file) {
+            if (count($media) === 0 || !in_array($file, $media)) {
+                $project->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('documents');
+            }
+        }
 
         return redirect()->route('admin.projects.index');
     }

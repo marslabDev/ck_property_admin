@@ -28,6 +28,9 @@ class ProjectApiController extends Controller
         $project = Project::create($request->all());
         $project->areas()->sync($request->input('areas', []));
         $project->suppliers()->sync($request->input('suppliers', []));
+        foreach ($request->input('documents', []) as $file) {
+            $project->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('documents');
+        }
 
         return (new ProjectResource($project))
             ->response()
@@ -46,6 +49,19 @@ class ProjectApiController extends Controller
         $project->update($request->all());
         $project->areas()->sync($request->input('areas', []));
         $project->suppliers()->sync($request->input('suppliers', []));
+        if (count($project->documents) > 0) {
+            foreach ($project->documents as $media) {
+                if (!in_array($media->file_name, $request->input('documents', []))) {
+                    $media->delete();
+                }
+            }
+        }
+        $media = $project->documents->pluck('file_name')->toArray();
+        foreach ($request->input('documents', []) as $file) {
+            if (count($media) === 0 || !in_array($file, $media)) {
+                $project->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('documents');
+            }
+        }
 
         return (new ProjectResource($project))
             ->response()

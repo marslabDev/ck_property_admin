@@ -13,7 +13,6 @@ class CreateProjectsTable extends Migration
             $table->string('name')->nullable();
             $table->longText('description')->nullable();
             $table->date('start_date')->nullable();
-            $table->string('documents')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

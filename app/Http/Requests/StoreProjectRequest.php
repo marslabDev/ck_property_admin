@@ -40,8 +40,7 @@ class StoreProjectRequest extends FormRequest
                 'array',
             ],
             'documents' => [
-                'string',
-                'nullable',
+                'array',
             ],
             'status_id' => [
                 'required',

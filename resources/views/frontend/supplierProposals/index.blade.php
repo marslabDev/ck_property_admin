@@ -42,9 +42,6 @@
                                         {{ trans('cruds.supplierProposal.fields.open_project') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.openProject.fields.description') }}
-                                    </th>
-                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -72,8 +69,6 @@
                                     </td>
                                     <td>
                                     </td>
-                                    <td>
-                                    </td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -97,9 +92,6 @@
                                         </td>
                                         <td>
                                             {{ $supplierProposal->open_project->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $supplierProposal->open_project->description ?? '' }}
                                         </td>
                                         <td>
                                             @can('supplier_proposal_show')

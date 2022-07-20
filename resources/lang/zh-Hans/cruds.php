@@ -1444,7 +1444,7 @@ return [
             'deleted_at_helper'          => ' ',
             'created_by'                 => 'Created By',
             'created_by_helper'          => ' ',
-            'open_project'               => 'Open Project',
+            'open_project'               => 'Project',
             'open_project_helper'        => ' ',
         ],
     ],

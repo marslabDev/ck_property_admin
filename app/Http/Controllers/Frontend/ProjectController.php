@@ -27,7 +27,7 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $projects = Project::with(['areas', 'suppliers', 'status', 'created_by'])->get();
+        $projects = Project::with(['areas', 'suppliers', 'status', 'created_by', 'media'])->get();
 
         $areas = Area::get();
 
@@ -58,6 +58,10 @@ class ProjectController extends Controller
         $project = Project::create($request->all());
         $project->areas()->sync($request->input('areas', []));
         $project->suppliers()->sync($request->input('suppliers', []));
+        foreach ($request->input('documents', []) as $file) {
+            $project->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('documents');
+        }
+
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $project->id]);
         }
@@ -85,6 +89,19 @@ class ProjectController extends Controller
         $project->update($request->all());
         $project->areas()->sync($request->input('areas', []));
         $project->suppliers()->sync($request->input('suppliers', []));
+        if (count($project->documents) > 0) {
+            foreach ($project->documents as $media) {
+                if (!in_array($media->file_name, $request->input('documents', []))) {
+                    $media->delete();
+                }
+            }
+        }
+        $media = $project->documents->pluck('file_name')->toArray();
+        foreach ($request->input('documents', []) as $file) {
+            if (count($media) === 0 || !in_array($file, $media)) {
+                $project->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('documents');
+            }
+        }
 
         return redirect()->route('frontend.projects.index');
     }
