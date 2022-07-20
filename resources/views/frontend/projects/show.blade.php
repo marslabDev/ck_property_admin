@@ -75,7 +75,11 @@
                                         {{ trans('cruds.project.fields.documents') }}
                                     </th>
                                     <td>
-                                        {{ $project->documents }}
+                                        @foreach($project->documents as $key => $media)
+                                            <a href="{{ $media->getUrl() }}" target="_blank">
+                                                {{ trans('global.view_file') }}
+                                            </a>
+                                        @endforeach
                                     </td>
                                 </tr>
                                 <tr>

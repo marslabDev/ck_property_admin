@@ -79,7 +79,6 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
                                         <select class="search">
@@ -116,7 +115,11 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            {{ $project->documents ?? '' }}
+                                            @foreach($project->documents as $key => $media)
+                                                <a href="{{ $media->getUrl() }}" target="_blank">
+                                                    {{ trans('global.view_file') }}
+                                                </a>
+                                            @endforeach
                                         </td>
                                         <td>
                                             {{ $project->status->name ?? '' }}

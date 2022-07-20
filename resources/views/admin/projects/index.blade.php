@@ -78,7 +78,6 @@
                         </select>
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <select class="search">
@@ -148,7 +147,7 @@
 { data: 'area', name: 'areas.name' },
 { data: 'start_date', name: 'start_date' },
 { data: 'supplier', name: 'suppliers.company' },
-{ data: 'documents', name: 'documents' },
+{ data: 'documents', name: 'documents', sortable: false, searchable: false },
 { data: 'status_name', name: 'status.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

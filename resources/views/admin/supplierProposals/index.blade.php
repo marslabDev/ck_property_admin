@@ -41,9 +41,6 @@
                         {{ trans('cruds.supplierProposal.fields.open_project') }}
                     </th>
                     <th>
-                        {{ trans('cruds.openProject.fields.description') }}
-                    </th>
-                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -68,8 +65,6 @@
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
-                    </td>
-                    <td>
                     </td>
                     <td>
                     </td>
@@ -131,7 +126,6 @@
 { data: 'contact_no', name: 'contact_no' },
 { data: 'documents', name: 'documents', sortable: false, searchable: false },
 { data: 'open_project_name', name: 'open_project.name' },
-{ data: 'open_project.description', name: 'open_project.description' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
