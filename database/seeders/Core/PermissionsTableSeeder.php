@@ -1,14 +1,17 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Core;
 
 use App\Models\Permission;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class PermissionsTableSeeder extends Seeder
 {
     public function run()
     {
+        Permission::truncate();
+
         $permissions = [
             [
                 'id'    => 1,

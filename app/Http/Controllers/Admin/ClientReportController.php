@@ -66,10 +66,12 @@ class ClientReportController extends Controller
             $currentProject = '';
         }
 
-        return view('admin.clientReports.index', compact(
-            'entries',
-            'projects',
-            'currentProject'
-        ));
+        // return view('admin.clientReports.index', compact(
+        //     'entries',
+        //     'projects',
+        //     'currentProject'
+        // ));
+
+        return view('comingSoon');
     }
 }

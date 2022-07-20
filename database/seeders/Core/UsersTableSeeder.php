@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Core;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -9,6 +9,8 @@ class UsersTableSeeder extends Seeder
 {
     public function run()
     {
+        User::truncate();
+
         $users = [
             [
                 'id'                 => 1,
@@ -19,6 +21,21 @@ class UsersTableSeeder extends Seeder
                 'approved'           => 1,
                 'verified'           => 1,
                 'verified_at'        => '2022-08-03 04:17:45',
+                'username'           => '',
+                'phone_no'           => '',
+                'two_factor_code'    => '',
+                'verification_token' => '',
+            ],
+
+            [
+                'id'                 => 2,
+                'name'               => 'Supplier Manager',
+                'email'              => 'supplier@demo.com',
+                'password'           => bcrypt('password'),
+                'remember_token'     => null,
+                'approved'           => 1,
+                'verified'           => 1,
+                'verified_at'        => '2022-07-08 03:24:29',
                 'username'           => '',
                 'phone_no'           => '',
                 'two_factor_code'    => '',

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Core;
 
 use App\Models\AssetStatus;
 use Illuminate\Database\Seeder;
@@ -9,6 +9,8 @@ class AssetStatusTableSeeder extends Seeder
 {
     public function run()
     {
+        AssetStatus::truncate();
+
         $assetStatuses = [
             [
                 'id'         => 1,

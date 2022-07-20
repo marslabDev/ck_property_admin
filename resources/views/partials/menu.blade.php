@@ -348,7 +348,7 @@
                         </li>
                     @endcan
                     @can('document_access')
-                        <li class="c-sidebar-nav-item">
+                        <li class="c-sidebar-nav-item d-none">
                             <a href="{{ route("admin.documents.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/documents") || request()->is("admin/documents/*") ? "c-active" : "" }}">
                                 <i class="fa-fw fas fa-file-alt c-sidebar-nav-icon">
 
@@ -461,7 +461,7 @@
                                     </li>
                                 @endcan
                                 @can('income_source_access')
-                                    <li class="c-sidebar-nav-item">
+                                    <li class="c-sidebar-nav-item d-none">
                                         <a href="{{ route("admin.income-sources.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/income-sources") || request()->is("admin/income-sources/*") ? "c-active" : "" }}">
                                             <i class="fa-fw fas fa-database c-sidebar-nav-icon">
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Core;
 
 use App\Models\TaskStatus;
 use Illuminate\Database\Seeder;
@@ -9,6 +9,8 @@ class TaskStatusTableSeeder extends Seeder
 {
     public function run()
     {
+        TaskStatus::truncate();
+
         $taskStatuses = [
             [
                 'id'   => 1,
