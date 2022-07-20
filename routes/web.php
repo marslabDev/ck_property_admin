@@ -8,6 +8,10 @@ Route::get('userVerification/{token}', 'UserVerificationController@approve')->na
 
 Auth::routes();
 
+Route::get('portals', 'PortalsController@index')
+    ->middleware(['auth', '2fa'])
+    ->name('portals');
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth', '2fa']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     // Permissions

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -54,7 +54,12 @@
                 <i class="fas fa-fw fa-bars"></i>
             </button>
 
-            <ul class="c-header-nav ml-auto">
+            <button class="btn ml-auto" onclick="window.location.href='{{ route('portals') }}';">
+                {{-- <i class="fab fa-buromobelexperte"></i> --}}
+                <i class="fas fa-th"></i>
+            </button>
+
+            <ul class="c-header-nav">
                 @if(count(config('panel.available_languages', [])) > 1)
                 <li class="c-header-nav-item dropdown d-md-down-none">
                     <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"

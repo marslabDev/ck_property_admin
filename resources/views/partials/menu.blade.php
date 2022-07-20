@@ -460,8 +460,8 @@
                                         </a>
                                     </li>
                                 @endcan
-                                @can('income_source_access')
-                                    <li class="c-sidebar-nav-item d-none">
+                                @can('income_source_access d-none')
+                                    <li class="c-sidebar-nav-item">
                                         <a href="{{ route("admin.income-sources.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/income-sources") || request()->is("admin/income-sources/*") ? "c-active" : "" }}">
                                             <i class="fa-fw fas fa-database c-sidebar-nav-icon">
 
