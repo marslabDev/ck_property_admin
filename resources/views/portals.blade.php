@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Select Portal</title>
+    <title>{{ trans('panel.select_portals') }}</title>
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
@@ -85,9 +85,15 @@
                                     @foreach ($roles as $role)
                                     <tr>
                                         <td>
-                                            <a href="{{ $role->redirect_to }}">
-                                                <i class="fas fa-door-open mx-2"></i> {{ $role->title }}
-                                            </a>
+                                            <form id="portal_{{ $role->id }}"
+                                                action="{{ route('portals.redirect', ['role' => $role]) }}"
+                                                method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
+                                            <button class="btn btn-link w-100 text-left" type="button"
+                                                onclick="event.preventDefault(); document.getElementById('portal_{{ $role->id }}').submit();">
+                                                <i class="fas fa-door-open mr-2"></i>{{ $role->title }}
+                                            </button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -110,6 +116,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/perfect-scrollbar.min.js">
     </script>
     <script src="https://unpkg.com/@coreui/coreui@3.2/dist/js/coreui.min.js"></script>
+
+    <script>
+
+    </script>
 </body>
 
 </html>
