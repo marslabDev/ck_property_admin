@@ -122,14 +122,14 @@
                                             {{ trans('cruds.myCase.title') }}
                                         </a>
                                     @endcan
-                                    @can('cases_category_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.cases-categories.index') }}">
-                                            {{ trans('cruds.casesCategory.title') }}
-                                        </a>
-                                    @endcan
                                     @can('complaint_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.complaints.index') }}">
                                             {{ trans('cruds.complaint.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('cases_category_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.cases-categories.index') }}">
+                                            {{ trans('cruds.casesCategory.title') }}
                                         </a>
                                     @endcan
                                     @can('complaint_status_access')

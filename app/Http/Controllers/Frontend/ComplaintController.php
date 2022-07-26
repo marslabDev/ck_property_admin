@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyComplaintRequest;
+use App\Http\Requests\StoreComplaintRequest;
 use App\Http\Requests\UpdateComplaintRequest;
 use App\Models\Complaint;
 use App\Models\ComplaintStatus;
@@ -31,6 +32,30 @@ class ComplaintController extends Controller
         $users = User::get();
 
         return view('frontend.complaints.index', compact('complaint_statuses', 'complaints', 'users'));
+    }
+
+    public function create()
+    {
+        abort_if(Gate::denies('complaint_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $statuses = ComplaintStatus::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('frontend.complaints.create', compact('statuses'));
+    }
+
+    public function store(StoreComplaintRequest $request)
+    {
+        $complaint = Complaint::create($request->all());
+
+        foreach ($request->input('image', []) as $file) {
+            $complaint->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('image');
+        }
+
+        if ($media = $request->input('ck-media', false)) {
+            Media::whereIn('id', $media)->update(['model_id' => $complaint->id]);
+        }
+
+        return redirect()->route('frontend.complaints.index');
     }
 
     public function edit(Complaint $complaint)

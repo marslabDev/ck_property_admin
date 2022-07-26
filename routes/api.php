@@ -176,7 +176,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Complaint
     Route::post('complaints/media', 'ComplaintApiController@storeMedia')->name('complaints.storeMedia');
-    Route::apiResource('complaints', 'ComplaintApiController', ['except' => ['store']]);
+    Route::apiResource('complaints', 'ComplaintApiController');
 
     // Complaint Status
     Route::apiResource('complaint-statuses', 'ComplaintStatusApiController');

@@ -1180,42 +1180,46 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 293,
-                'title' => 'complaint_edit',
+                'title' => 'complaint_create',
             ],
             [
                 'id'    => 294,
-                'title' => 'complaint_show',
+                'title' => 'complaint_edit',
             ],
             [
                 'id'    => 295,
-                'title' => 'complaint_delete',
+                'title' => 'complaint_show',
             ],
             [
                 'id'    => 296,
-                'title' => 'complaint_access',
+                'title' => 'complaint_delete',
             ],
             [
                 'id'    => 297,
-                'title' => 'complaint_status_create',
+                'title' => 'complaint_access',
             ],
             [
                 'id'    => 298,
-                'title' => 'complaint_status_edit',
+                'title' => 'complaint_status_create',
             ],
             [
                 'id'    => 299,
-                'title' => 'complaint_status_show',
+                'title' => 'complaint_status_edit',
             ],
             [
                 'id'    => 300,
-                'title' => 'complaint_status_delete',
+                'title' => 'complaint_status_show',
             ],
             [
                 'id'    => 301,
-                'title' => 'complaint_status_access',
+                'title' => 'complaint_status_delete',
             ],
             [
                 'id'    => 302,
+                'title' => 'complaint_status_access',
+            ],
+            [
+                'id'    => 303,
                 'title' => 'profile_password_edit',
             ],
         ];

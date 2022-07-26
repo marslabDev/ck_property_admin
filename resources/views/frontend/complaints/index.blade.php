@@ -3,7 +3,19 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-
+            @can('complaint_create')
+                <div style="margin-bottom: 10px;" class="row">
+                    <div class="col-lg-12">
+                        <a class="btn btn-success" href="{{ route('frontend.complaints.create') }}">
+                            {{ trans('global.add') }} {{ trans('cruds.complaint.title_singular') }}
+                        </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'Complaint', 'route' => 'admin.complaints.parseCsvImport'])
+                    </div>
+                </div>
+            @endcan
             <div class="card">
                 <div class="card-header">
                     {{ trans('cruds.complaint.title_singular') }} {{ trans('global.list') }}
