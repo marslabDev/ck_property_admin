@@ -28,7 +28,7 @@ class MyCase extends Model implements HasMedia
     ];
 
     protected $dates = [
-        'date_reported',
+        'opened_at',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -36,18 +36,15 @@ class MyCase extends Model implements HasMedia
 
     protected $fillable = [
         'title',
+        'opened_at',
         'category_id',
-        'location',
-        'urgent_status',
-        'progress',
-        'date_reported',
         'description',
-        'report_by_id',
         'handle_by_id',
+        'report_to_id',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function registerMediaConversions(Media $media = null): void
@@ -56,41 +53,46 @@ class MyCase extends Model implements HasMedia
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 
+    public function getOpenedAtAttribute($value)
+    {
+        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
+    }
+
+    public function setOpenedAtAttribute($value)
+    {
+        $this->attributes['opened_at'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
+    }
+
+    public function complaints()
+    {
+        return $this->belongsToMany(Complaint::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(CasesCategory::class, 'category_id');
     }
 
-    public function getDateReportedAttribute($value)
-    {
-        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
-    }
-
-    public function setDateReportedAttribute($value)
-    {
-        $this->attributes['date_reported'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
-    }
-
     public function getImageAttribute()
     {
-        $file = $this->getMedia('image')->last();
-        if ($file) {
-            $file->url       = $file->getUrl();
-            $file->thumbnail = $file->getUrl('thumb');
-            $file->preview   = $file->getUrl('preview');
-        }
+        $files = $this->getMedia('image');
+        $files->each(function ($item) {
+            $item->url = $item->getUrl();
+            $item->thumbnail = $item->getUrl('thumb');
+            $item->preview = $item->getUrl('preview');
+        });
 
-        return $file;
-    }
-
-    public function report_by()
-    {
-        return $this->belongsTo(User::class, 'report_by_id');
+        return $files;
     }
 
     public function handle_by()
     {
         return $this->belongsTo(User::class, 'handle_by_id');
+    }
+
+    public function report_to()
+    {
+        return $this->belongsTo(User::class, 'report_to_id');
     }
 
     public function created_by()

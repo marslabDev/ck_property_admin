@@ -32,25 +32,34 @@
                         {{ trans('cruds.myCase.fields.title') }}
                     </th>
                     <th>
+                        {{ trans('cruds.myCase.fields.opened_at') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.myCase.fields.complaint') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.myCase.fields.category') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.myCase.fields.urgent_status') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.myCase.fields.progress') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.myCase.fields.date_reported') }}
                     </th>
                     <th>
                         {{ trans('cruds.myCase.fields.image') }}
                     </th>
                     <th>
-                        {{ trans('cruds.myCase.fields.report_by') }}
+                        {{ trans('cruds.myCase.fields.handle_by') }}
                     </th>
                     <th>
-                        {{ trans('cruds.myCase.fields.handle_by') }}
+                        {{ trans('cruds.user.fields.email') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.myCase.fields.report_to') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.email') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.myCase.fields.created_by') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.email') }}
                     </th>
                     <th>
                         &nbsp;
@@ -66,6 +75,17 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($complaints as $key => $item)
+                                <option value="{{ $item->title }}">{{ $item->title }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($cases_categories as $key => $item)
@@ -74,12 +94,14 @@
                         </select>
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($users as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                     </td>
@@ -92,12 +114,16 @@
                         </select>
                     </td>
                     <td>
+                    </td>
+                    <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($users as $key => $item)
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
+                    </td>
+                    <td>
                     </td>
                     <td>
                     </td>
@@ -156,13 +182,16 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'title', name: 'title' },
+{ data: 'opened_at', name: 'opened_at' },
+{ data: 'complaint', name: 'complaints.title' },
 { data: 'category_title', name: 'category.title' },
-{ data: 'urgent_status', name: 'urgent_status' },
-{ data: 'progress', name: 'progress' },
-{ data: 'date_reported', name: 'date_reported' },
 { data: 'image', name: 'image', sortable: false, searchable: false },
-{ data: 'report_by_name', name: 'report_by.name' },
 { data: 'handle_by_name', name: 'handle_by.name' },
+{ data: 'handle_by.email', name: 'handle_by.email' },
+{ data: 'report_to_name', name: 'report_to.name' },
+{ data: 'report_to.email', name: 'report_to.email' },
+{ data: 'created_by_name', name: 'created_by.name' },
+{ data: 'created_by.email', name: 'created_by.email' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

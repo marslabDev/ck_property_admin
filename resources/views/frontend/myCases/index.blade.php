@@ -33,25 +33,34 @@
                                         {{ trans('cruds.myCase.fields.title') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.myCase.fields.opened_at') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.myCase.fields.complaint') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.myCase.fields.category') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.myCase.fields.urgent_status') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.myCase.fields.progress') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.myCase.fields.date_reported') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.myCase.fields.image') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.myCase.fields.report_by') }}
+                                        {{ trans('cruds.myCase.fields.handle_by') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.myCase.fields.handle_by') }}
+                                        {{ trans('cruds.user.fields.email') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.myCase.fields.report_to') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.user.fields.email') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.myCase.fields.created_by') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.user.fields.email') }}
                                     </th>
                                     <th>
                                         &nbsp;
@@ -67,6 +76,17 @@
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($complaints as $key => $item)
+                                                <option value="{{ $item->title }}">{{ $item->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
                                         <select class="search">
                                             <option value>{{ trans('global.all') }}</option>
                                             @foreach($cases_categories as $key => $item)
@@ -75,12 +95,14 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
-                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                    </td>
-                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($users as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                     <td>
                                     </td>
@@ -93,12 +115,16 @@
                                         </select>
                                     </td>
                                     <td>
+                                    </td>
+                                    <td>
                                         <select class="search">
                                             <option value>{{ trans('global.all') }}</option>
                                             @foreach($users as $key => $item)
                                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
+                                    </td>
+                                    <td>
                                     </td>
                                     <td>
                                     </td>
@@ -114,29 +140,40 @@
                                             {{ $myCase->title ?? '' }}
                                         </td>
                                         <td>
+                                            {{ $myCase->opened_at ?? '' }}
+                                        </td>
+                                        <td>
+                                            @foreach($myCase->complaints as $key => $item)
+                                                <span>{{ $item->title }}</span>
+                                            @endforeach
+                                        </td>
+                                        <td>
                                             {{ $myCase->category->title ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $myCase->urgent_status ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $myCase->progress ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $myCase->date_reported ?? '' }}
-                                        </td>
-                                        <td>
-                                            @if($myCase->image)
-                                                <a href="{{ $myCase->image->getUrl() }}" target="_blank" style="display: inline-block">
-                                                    <img src="{{ $myCase->image->getUrl('thumb') }}">
+                                            @foreach($myCase->image as $key => $media)
+                                                <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
+                                                    <img src="{{ $media->getUrl('thumb') }}">
                                                 </a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ $myCase->report_by->name ?? '' }}
+                                            @endforeach
                                         </td>
                                         <td>
                                             {{ $myCase->handle_by->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $myCase->handle_by->email ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $myCase->report_to->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $myCase->report_to->email ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $myCase->created_by->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $myCase->created_by->email ?? '' }}
                                         </td>
                                         <td>
                                             @can('my_case_show')

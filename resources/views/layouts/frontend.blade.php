@@ -112,6 +112,31 @@
                                             {{ trans('cruds.userCardMgmt.title') }}
                                         </a>
                                     @endcan
+                                    @can('complaint_management_access')
+                                        <a class="dropdown-item disabled" href="#">
+                                            {{ trans('cruds.complaintManagement.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('my_case_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.my-cases.index') }}">
+                                            {{ trans('cruds.myCase.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('cases_category_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.cases-categories.index') }}">
+                                            {{ trans('cruds.casesCategory.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('complaint_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.complaints.index') }}">
+                                            {{ trans('cruds.complaint.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('complaint_status_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.complaint-statuses.index') }}">
+                                            {{ trans('cruds.complaintStatus.title') }}
+                                        </a>
+                                    @endcan
                                     @can('other_access')
                                         <a class="dropdown-item disabled" href="#">
                                             {{ trans('cruds.other.title') }}
@@ -127,16 +152,6 @@
                                             {{ trans('cruds.article.title') }}
                                         </a>
                                     @endcan
-                                    @can('my_case_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.my-cases.index') }}">
-                                            {{ trans('cruds.myCase.title') }}
-                                        </a>
-                                    @endcan
-                                    @can('cases_category_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.cases-categories.index') }}">
-                                            {{ trans('cruds.casesCategory.title') }}
-                                        </a>
-                                    @endcan
                                     @can('maintanance_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.maintanances.index') }}">
                                             {{ trans('cruds.maintanance.title') }}
@@ -145,11 +160,6 @@
                                     @can('maintanance_type_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.maintanance-types.index') }}">
                                             {{ trans('cruds.maintananceType.title') }}
-                                        </a>
-                                    @endcan
-                                    @can('complaint_system_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.complaint-systems.index') }}">
-                                            {{ trans('cruds.complaintSystem.title') }}
                                         </a>
                                     @endcan
                                     @can('house_management_access')

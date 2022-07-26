@@ -109,6 +109,11 @@ class User extends Authenticatable
         return $this->roles()->where('id', 1)->exists();
     }
 
+    public function createdByMyCases()
+    {
+        return $this->hasMany(MyCase::class, 'created_by_id', 'id');
+    }
+
     public function userUserDetails()
     {
         return $this->hasMany(UserDetail::class, 'user_id', 'id');
@@ -137,6 +142,21 @@ class User extends Authenticatable
     public function contactPerson2ManageHouses()
     {
         return $this->hasMany(ManageHouse::class, 'contact_person_2_id', 'id');
+    }
+
+    public function createdByComplaints()
+    {
+        return $this->hasMany(Complaint::class, 'created_by_id', 'id');
+    }
+
+    public function handleByMyCases()
+    {
+        return $this->hasMany(MyCase::class, 'handle_by_id', 'id');
+    }
+
+    public function reportToMyCases()
+    {
+        return $this->hasMany(MyCase::class, 'report_to_id', 'id');
     }
 
     public function userUserAlerts()

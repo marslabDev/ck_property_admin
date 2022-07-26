@@ -9,6 +9,7 @@ use App\Http\Requests\MassDestroyMyCaseRequest;
 use App\Http\Requests\StoreMyCaseRequest;
 use App\Http\Requests\UpdateMyCaseRequest;
 use App\Models\CasesCategory;
+use App\Models\Complaint;
 use App\Models\MyCase;
 use App\Models\User;
 use Gate;
@@ -27,7 +28,7 @@ class MyCasesController extends Controller
         abort_if(Gate::denies('my_case_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = MyCase::with(['category', 'report_by', 'handle_by', 'created_by'])->select(sprintf('%s.*', (new MyCase())->table));
+            $query = MyCase::with(['complaints', 'category', 'handle_by', 'report_to', 'created_by'])->select(sprintf('%s.*', (new MyCase())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -54,66 +55,85 @@ class MyCasesController extends Controller
             $table->editColumn('title', function ($row) {
                 return $row->title ? $row->title : '';
             });
+
+            $table->editColumn('complaint', function ($row) {
+                $labels = [];
+                foreach ($row->complaints as $complaint) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $complaint->title);
+                }
+
+                return implode(' ', $labels);
+            });
             $table->addColumn('category_title', function ($row) {
                 return $row->category ? $row->category->title : '';
             });
 
-            $table->editColumn('urgent_status', function ($row) {
-                return $row->urgent_status ? $row->urgent_status : '';
-            });
-            $table->editColumn('progress', function ($row) {
-                return $row->progress ? $row->progress : '';
-            });
-
             $table->editColumn('image', function ($row) {
-                if ($photo = $row->image) {
-                    return sprintf(
-        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
-        $photo->url,
-        $photo->thumbnail
-    );
+                if (!$row->image) {
+                    return '';
+                }
+                $links = [];
+                foreach ($row->image as $media) {
+                    $links[] = '<a href="' . $media->getUrl() . '" target="_blank"><img src="' . $media->getUrl('thumb') . '" width="50px" height="50px"></a>';
                 }
 
-                return '';
+                return implode(' ', $links);
             });
-            $table->addColumn('report_by_name', function ($row) {
-                return $row->report_by ? $row->report_by->name : '';
-            });
-
             $table->addColumn('handle_by_name', function ($row) {
                 return $row->handle_by ? $row->handle_by->name : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'category', 'image', 'report_by', 'handle_by']);
+            $table->editColumn('handle_by.email', function ($row) {
+                return $row->handle_by ? (is_string($row->handle_by) ? $row->handle_by : $row->handle_by->email) : '';
+            });
+            $table->addColumn('report_to_name', function ($row) {
+                return $row->report_to ? $row->report_to->name : '';
+            });
+
+            $table->editColumn('report_to.email', function ($row) {
+                return $row->report_to ? (is_string($row->report_to) ? $row->report_to : $row->report_to->email) : '';
+            });
+            $table->addColumn('created_by_name', function ($row) {
+                return $row->created_by ? $row->created_by->name : '';
+            });
+
+            $table->editColumn('created_by.email', function ($row) {
+                return $row->created_by ? (is_string($row->created_by) ? $row->created_by : $row->created_by->email) : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'complaint', 'category', 'image', 'handle_by', 'report_to', 'created_by']);
 
             return $table->make(true);
         }
 
+        $complaints       = Complaint::get();
         $cases_categories = CasesCategory::get();
         $users            = User::get();
 
-        return view('admin.myCases.index', compact('cases_categories', 'users'));
+        return view('admin.myCases.index', compact('complaints', 'cases_categories', 'users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('my_case_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = CasesCategory::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $complaints = Complaint::pluck('title', 'id');
 
-        $report_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $categories = CasesCategory::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $handle_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.myCases.create', compact('categories', 'handle_bies', 'report_bies'));
+        $report_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.myCases.create', compact('categories', 'complaints', 'handle_bies', 'report_tos'));
     }
 
     public function store(StoreMyCaseRequest $request)
     {
         $myCase = MyCase::create($request->all());
-
-        if ($request->input('image', false)) {
-            $myCase->addMedia(storage_path('tmp/uploads/' . basename($request->input('image'))))->toMediaCollection('image');
+        $myCase->complaints()->sync($request->input('complaints', []));
+        foreach ($request->input('image', []) as $file) {
+            $myCase->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('image');
         }
 
         if ($media = $request->input('ck-media', false)) {
@@ -127,30 +147,35 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = CasesCategory::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $complaints = Complaint::pluck('title', 'id');
 
-        $report_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $categories = CasesCategory::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $handle_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $myCase->load('category', 'report_by', 'handle_by', 'created_by');
+        $report_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.myCases.edit', compact('categories', 'handle_bies', 'myCase', 'report_bies'));
+        $myCase->load('complaints', 'category', 'handle_by', 'report_to', 'created_by');
+
+        return view('admin.myCases.edit', compact('categories', 'complaints', 'handle_bies', 'myCase', 'report_tos'));
     }
 
     public function update(UpdateMyCaseRequest $request, MyCase $myCase)
     {
         $myCase->update($request->all());
-
-        if ($request->input('image', false)) {
-            if (!$myCase->image || $request->input('image') !== $myCase->image->file_name) {
-                if ($myCase->image) {
-                    $myCase->image->delete();
+        $myCase->complaints()->sync($request->input('complaints', []));
+        if (count($myCase->image) > 0) {
+            foreach ($myCase->image as $media) {
+                if (!in_array($media->file_name, $request->input('image', []))) {
+                    $media->delete();
                 }
-                $myCase->addMedia(storage_path('tmp/uploads/' . basename($request->input('image'))))->toMediaCollection('image');
             }
-        } elseif ($myCase->image) {
-            $myCase->image->delete();
+        }
+        $media = $myCase->image->pluck('file_name')->toArray();
+        foreach ($request->input('image', []) as $file) {
+            if (count($media) === 0 || !in_array($file, $media)) {
+                $myCase->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('image');
+            }
         }
 
         return redirect()->route('admin.my-cases.index');
@@ -160,7 +185,7 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $myCase->load('category', 'report_by', 'handle_by', 'created_by');
+        $myCase->load('complaints', 'category', 'handle_by', 'report_to', 'created_by');
 
         return view('admin.myCases.show', compact('myCase'));
     }

@@ -114,6 +114,11 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
+            <a class="nav-link" href="#created_by_my_cases" role="tab" data-toggle="tab">
+                {{ trans('cruds.myCase.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#user_user_details" role="tab" data-toggle="tab">
                 {{ trans('cruds.userDetail.title') }}
             </a>
@@ -144,6 +149,21 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="#created_by_complaints" role="tab" data-toggle="tab">
+                {{ trans('cruds.complaint.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#handle_by_my_cases" role="tab" data-toggle="tab">
+                {{ trans('cruds.myCase.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#report_to_my_cases" role="tab" data-toggle="tab">
+                {{ trans('cruds.myCase.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#user_user_alerts" role="tab" data-toggle="tab">
                 {{ trans('cruds.userAlert.title') }}
             </a>
@@ -155,6 +175,9 @@
         </li>
     </ul>
     <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="created_by_my_cases">
+            @includeIf('admin.users.relationships.createdByMyCases', ['myCases' => $user->createdByMyCases])
+        </div>
         <div class="tab-pane" role="tabpanel" id="user_user_details">
             @includeIf('admin.users.relationships.userUserDetails', ['userDetails' => $user->userUserDetails])
         </div>
@@ -172,6 +195,15 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="contact_person2_manage_houses">
             @includeIf('admin.users.relationships.contactPerson2ManageHouses', ['manageHouses' => $user->contactPerson2ManageHouses])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="created_by_complaints">
+            @includeIf('admin.users.relationships.createdByComplaints', ['complaints' => $user->createdByComplaints])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="handle_by_my_cases">
+            @includeIf('admin.users.relationships.handleByMyCases', ['myCases' => $user->handleByMyCases])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="report_to_my_cases">
+            @includeIf('admin.users.relationships.reportToMyCases', ['myCases' => $user->reportToMyCases])
         </div>
         <div class="tab-pane" role="tabpanel" id="user_user_alerts">
             @includeIf('admin.users.relationships.userUserAlerts', ['userAlerts' => $user->userUserAlerts])

@@ -102,8 +102,60 @@
                 </ul>
             </li>
         @endcan
+        @can('complaint_management_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/my-cases*") ? "c-show" : "" }} {{ request()->is("admin/complaints*") ? "c-show" : "" }} {{ request()->is("admin/cases-categories*") ? "c-show" : "" }} {{ request()->is("admin/complaint-statuses*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-exclamation-circle c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.complaintManagement.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('my_case_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.my-cases.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/my-cases") || request()->is("admin/my-cases/*") ? "c-active" : "" }}">
+                                <i class="fa-fw far fa-folder-open c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.myCase.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('complaint_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.complaints.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/complaints") || request()->is("admin/complaints/*") ? "c-active" : "" }}">
+                                <i class="fa-fw far fa-comment-alt c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.complaint.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('cases_category_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.cases-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/cases-categories") || request()->is("admin/cases-categories/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.casesCategory.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('complaint_status_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.complaint-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/complaint-statuses") || request()->is("admin/complaint-statuses/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.complaintStatus.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
         @can('other_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/notices*") ? "c-show" : "" }} {{ request()->is("admin/articles*") ? "c-show" : "" }} {{ request()->is("admin/my-cases*") ? "c-show" : "" }} {{ request()->is("admin/cases-categories*") ? "c-show" : "" }} {{ request()->is("admin/maintanances*") ? "c-show" : "" }} {{ request()->is("admin/maintanance-types*") ? "c-show" : "" }} {{ request()->is("admin/complaint-systems*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/notices*") ? "c-show" : "" }} {{ request()->is("admin/articles*") ? "c-show" : "" }} {{ request()->is("admin/maintanances*") ? "c-show" : "" }} {{ request()->is("admin/maintanance-types*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
@@ -131,26 +183,6 @@
                             </a>
                         </li>
                     @endcan
-                    @can('my_case_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.my-cases.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/my-cases") || request()->is("admin/my-cases/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-calendar c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.myCase.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('cases_category_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.cases-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/cases-categories") || request()->is("admin/cases-categories/*") ? "c-active" : "" }}">
-                                <i class="fa-fw far fa-calendar c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.casesCategory.title') }}
-                            </a>
-                        </li>
-                    @endcan
                     @can('maintanance_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.maintanances.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/maintanances") || request()->is("admin/maintanances/*") ? "c-active" : "" }}">
@@ -168,16 +200,6 @@
 
                                 </i>
                                 {{ trans('cruds.maintananceType.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('complaint_system_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.complaint-systems.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/complaint-systems") || request()->is("admin/complaint-systems/*") ? "c-active" : "" }}">
-                                <i class="fa-fw far fa-comment-alt c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.complaintSystem.title') }}
                             </a>
                         </li>
                     @endcan
