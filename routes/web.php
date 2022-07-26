@@ -377,7 +377,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('complaints/ckmedia', 'ComplaintController@storeCKEditorImages')->name('complaints.storeCKEditorImages');
     Route::post('complaints/parse-csv-import', 'ComplaintController@parseCsvImport')->name('complaints.parseCsvImport');
     Route::post('complaints/process-csv-import', 'ComplaintController@processCsvImport')->name('complaints.processCsvImport');
-    Route::resource('complaints', 'ComplaintController', ['except' => ['create', 'store']]);
+    Route::resource('complaints', 'ComplaintController');
 
     // Complaint Status
     Route::delete('complaint-statuses/destroy', 'ComplaintStatusController@massDestroy')->name('complaint-statuses.massDestroy');
@@ -662,7 +662,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::delete('complaints/destroy', 'ComplaintController@massDestroy')->name('complaints.massDestroy');
     Route::post('complaints/media', 'ComplaintController@storeMedia')->name('complaints.storeMedia');
     Route::post('complaints/ckmedia', 'ComplaintController@storeCKEditorImages')->name('complaints.storeCKEditorImages');
-    Route::resource('complaints', 'ComplaintController', ['except' => ['create', 'store']]);
+    Route::resource('complaints', 'ComplaintController');
 
     // Complaint Status
     Route::delete('complaint-statuses/destroy', 'ComplaintStatusController@massDestroy')->name('complaint-statuses.massDestroy');

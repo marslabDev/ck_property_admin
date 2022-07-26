@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
+use App\Http\Requests\StoreComplaintRequest;
 use App\Http\Requests\UpdateComplaintRequest;
 use App\Http\Resources\Admin\ComplaintResource;
 use App\Models\Complaint;
@@ -20,6 +21,19 @@ class ComplaintApiController extends Controller
         abort_if(Gate::denies('complaint_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new ComplaintResource(Complaint::with(['status', 'created_by'])->get());
+    }
+
+    public function store(StoreComplaintRequest $request)
+    {
+        $complaint = Complaint::create($request->all());
+
+        foreach ($request->input('image', []) as $file) {
+            $complaint->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('image');
+        }
+
+        return (new ComplaintResource($complaint))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     public function show(Complaint $complaint)
