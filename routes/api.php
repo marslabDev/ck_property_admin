@@ -75,10 +75,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Payment History
     Route::apiResource('payment-histories', 'PaymentHistoryApiController', ['except' => ['store', 'show', 'update', 'destroy']]);
 
-    // Complaint System
-    Route::post('complaint-systems/media', 'ComplaintSystemApiController@storeMedia')->name('complaint-systems.storeMedia');
-    Route::apiResource('complaint-systems', 'ComplaintSystemApiController');
-
     // Task Status
     Route::apiResource('task-statuses', 'TaskStatusApiController');
 
@@ -177,4 +173,11 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Supplier Proposal
     Route::post('supplier-proposals/media', 'SupplierProposalApiController@storeMedia')->name('supplier-proposals.storeMedia');
     Route::apiResource('supplier-proposals', 'SupplierProposalApiController');
+
+    // Complaint
+    Route::post('complaints/media', 'ComplaintApiController@storeMedia')->name('complaints.storeMedia');
+    Route::apiResource('complaints', 'ComplaintApiController', ['except' => ['store']]);
+
+    // Complaint Status
+    Route::apiResource('complaint-statuses', 'ComplaintStatusApiController');
 });

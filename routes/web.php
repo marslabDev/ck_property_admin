@@ -164,14 +164,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('payment-histories/process-csv-import', 'PaymentHistoryController@processCsvImport')->name('payment-histories.processCsvImport');
     Route::resource('payment-histories', 'PaymentHistoryController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
-    // Complaint System
-    Route::delete('complaint-systems/destroy', 'ComplaintSystemController@massDestroy')->name('complaint-systems.massDestroy');
-    Route::post('complaint-systems/media', 'ComplaintSystemController@storeMedia')->name('complaint-systems.storeMedia');
-    Route::post('complaint-systems/ckmedia', 'ComplaintSystemController@storeCKEditorImages')->name('complaint-systems.storeCKEditorImages');
-    Route::post('complaint-systems/parse-csv-import', 'ComplaintSystemController@parseCsvImport')->name('complaint-systems.parseCsvImport');
-    Route::post('complaint-systems/process-csv-import', 'ComplaintSystemController@processCsvImport')->name('complaint-systems.processCsvImport');
-    Route::resource('complaint-systems', 'ComplaintSystemController');
-
     // Task Status
     Route::delete('task-statuses/destroy', 'TaskStatusController@massDestroy')->name('task-statuses.massDestroy');
     Route::post('task-statuses/parse-csv-import', 'TaskStatusController@parseCsvImport')->name('task-statuses.parseCsvImport');
@@ -379,6 +371,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('supplier-proposals/process-csv-import', 'SupplierProposalController@processCsvImport')->name('supplier-proposals.processCsvImport');
     Route::resource('supplier-proposals', 'SupplierProposalController');
 
+    // Complaint
+    Route::delete('complaints/destroy', 'ComplaintController@massDestroy')->name('complaints.massDestroy');
+    Route::post('complaints/media', 'ComplaintController@storeMedia')->name('complaints.storeMedia');
+    Route::post('complaints/ckmedia', 'ComplaintController@storeCKEditorImages')->name('complaints.storeCKEditorImages');
+    Route::post('complaints/parse-csv-import', 'ComplaintController@parseCsvImport')->name('complaints.parseCsvImport');
+    Route::post('complaints/process-csv-import', 'ComplaintController@processCsvImport')->name('complaints.processCsvImport');
+    Route::resource('complaints', 'ComplaintController', ['except' => ['create', 'store']]);
+
+    // Complaint Status
+    Route::delete('complaint-statuses/destroy', 'ComplaintStatusController@massDestroy')->name('complaint-statuses.massDestroy');
+    Route::post('complaint-statuses/parse-csv-import', 'ComplaintStatusController@parseCsvImport')->name('complaint-statuses.parseCsvImport');
+    Route::post('complaint-statuses/process-csv-import', 'ComplaintStatusController@processCsvImport')->name('complaint-statuses.processCsvImport');
+    Route::resource('complaint-statuses', 'ComplaintStatusController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -506,12 +512,6 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
 
     // Payment History
     Route::resource('payment-histories', 'PaymentHistoryController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
-
-    // Complaint System
-    Route::delete('complaint-systems/destroy', 'ComplaintSystemController@massDestroy')->name('complaint-systems.massDestroy');
-    Route::post('complaint-systems/media', 'ComplaintSystemController@storeMedia')->name('complaint-systems.storeMedia');
-    Route::post('complaint-systems/ckmedia', 'ComplaintSystemController@storeCKEditorImages')->name('complaint-systems.storeCKEditorImages');
-    Route::resource('complaint-systems', 'ComplaintSystemController');
 
     // Task Status
     Route::delete('task-statuses/destroy', 'TaskStatusController@massDestroy')->name('task-statuses.massDestroy');
@@ -657,6 +657,16 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::post('supplier-proposals/media', 'SupplierProposalController@storeMedia')->name('supplier-proposals.storeMedia');
     Route::post('supplier-proposals/ckmedia', 'SupplierProposalController@storeCKEditorImages')->name('supplier-proposals.storeCKEditorImages');
     Route::resource('supplier-proposals', 'SupplierProposalController');
+
+    // Complaint
+    Route::delete('complaints/destroy', 'ComplaintController@massDestroy')->name('complaints.massDestroy');
+    Route::post('complaints/media', 'ComplaintController@storeMedia')->name('complaints.storeMedia');
+    Route::post('complaints/ckmedia', 'ComplaintController@storeCKEditorImages')->name('complaints.storeCKEditorImages');
+    Route::resource('complaints', 'ComplaintController', ['except' => ['create', 'store']]);
+
+    // Complaint Status
+    Route::delete('complaint-statuses/destroy', 'ComplaintStatusController@massDestroy')->name('complaint-statuses.massDestroy');
+    Route::resource('complaint-statuses', 'ComplaintStatusController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

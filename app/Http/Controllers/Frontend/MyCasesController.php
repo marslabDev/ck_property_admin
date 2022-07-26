@@ -9,6 +9,7 @@ use App\Http\Requests\MassDestroyMyCaseRequest;
 use App\Http\Requests\StoreMyCaseRequest;
 use App\Http\Requests\UpdateMyCaseRequest;
 use App\Models\CasesCategory;
+use App\Models\Complaint;
 use App\Models\MyCase;
 use App\Models\User;
 use Gate;
@@ -25,34 +26,38 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $myCases = MyCase::with(['category', 'report_by', 'handle_by', 'created_by', 'media'])->get();
+        $myCases = MyCase::with(['complaints', 'category', 'handle_by', 'report_to', 'created_by', 'media'])->get();
+
+        $complaints = Complaint::get();
 
         $cases_categories = CasesCategory::get();
 
         $users = User::get();
 
-        return view('frontend.myCases.index', compact('cases_categories', 'myCases', 'users'));
+        return view('frontend.myCases.index', compact('cases_categories', 'complaints', 'myCases', 'users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('my_case_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = CasesCategory::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $complaints = Complaint::pluck('title', 'id');
 
-        $report_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $categories = CasesCategory::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $handle_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.myCases.create', compact('categories', 'handle_bies', 'report_bies'));
+        $report_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('frontend.myCases.create', compact('categories', 'complaints', 'handle_bies', 'report_tos'));
     }
 
     public function store(StoreMyCaseRequest $request)
     {
         $myCase = MyCase::create($request->all());
-
-        if ($request->input('image', false)) {
-            $myCase->addMedia(storage_path('tmp/uploads/' . basename($request->input('image'))))->toMediaCollection('image');
+        $myCase->complaints()->sync($request->input('complaints', []));
+        foreach ($request->input('image', []) as $file) {
+            $myCase->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('image');
         }
 
         if ($media = $request->input('ck-media', false)) {
@@ -66,30 +71,35 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = CasesCategory::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $complaints = Complaint::pluck('title', 'id');
 
-        $report_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $categories = CasesCategory::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $handle_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $myCase->load('category', 'report_by', 'handle_by', 'created_by');
+        $report_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.myCases.edit', compact('categories', 'handle_bies', 'myCase', 'report_bies'));
+        $myCase->load('complaints', 'category', 'handle_by', 'report_to', 'created_by');
+
+        return view('frontend.myCases.edit', compact('categories', 'complaints', 'handle_bies', 'myCase', 'report_tos'));
     }
 
     public function update(UpdateMyCaseRequest $request, MyCase $myCase)
     {
         $myCase->update($request->all());
-
-        if ($request->input('image', false)) {
-            if (!$myCase->image || $request->input('image') !== $myCase->image->file_name) {
-                if ($myCase->image) {
-                    $myCase->image->delete();
+        $myCase->complaints()->sync($request->input('complaints', []));
+        if (count($myCase->image) > 0) {
+            foreach ($myCase->image as $media) {
+                if (!in_array($media->file_name, $request->input('image', []))) {
+                    $media->delete();
                 }
-                $myCase->addMedia(storage_path('tmp/uploads/' . basename($request->input('image'))))->toMediaCollection('image');
             }
-        } elseif ($myCase->image) {
-            $myCase->image->delete();
+        }
+        $media = $myCase->image->pluck('file_name')->toArray();
+        foreach ($request->input('image', []) as $file) {
+            if (count($media) === 0 || !in_array($file, $media)) {
+                $myCase->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('image');
+            }
         }
 
         return redirect()->route('frontend.my-cases.index');
@@ -99,7 +109,7 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $myCase->load('category', 'report_by', 'handle_by', 'created_by');
+        $myCase->load('complaints', 'category', 'handle_by', 'report_to', 'created_by');
 
         return view('frontend.myCases.show', compact('myCase'));
     }

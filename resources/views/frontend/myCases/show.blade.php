@@ -36,6 +36,24 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.myCase.fields.opened_at') }}
+                                    </th>
+                                    <td>
+                                        {{ $myCase->opened_at }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.myCase.fields.complaint') }}
+                                    </th>
+                                    <td>
+                                        @foreach($myCase->complaints as $key => $complaint)
+                                            <span class="label label-info">{{ $complaint->title }}</span>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.myCase.fields.category') }}
                                     </th>
                                     <td>
@@ -44,26 +62,10 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.myCase.fields.location') }}
+                                        {{ trans('cruds.myCase.fields.description') }}
                                     </th>
                                     <td>
-                                        {{ $myCase->location }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.myCase.fields.urgent_status') }}
-                                    </th>
-                                    <td>
-                                        {{ $myCase->urgent_status }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.myCase.fields.progress') }}
-                                    </th>
-                                    <td>
-                                        {{ $myCase->progress }}
+                                        {!! $myCase->description !!}
                                     </td>
                                 </tr>
                                 <tr>
@@ -71,27 +73,11 @@
                                         {{ trans('cruds.myCase.fields.image') }}
                                     </th>
                                     <td>
-                                        @if($myCase->image)
-                                            <a href="{{ $myCase->image->getUrl() }}" target="_blank" style="display: inline-block">
-                                                <img src="{{ $myCase->image->getUrl('thumb') }}">
+                                        @foreach($myCase->image as $key => $media)
+                                            <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
+                                                <img src="{{ $media->getUrl('thumb') }}">
                                             </a>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.myCase.fields.description') }}
-                                    </th>
-                                    <td>
-                                        {{ $myCase->description }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.myCase.fields.report_by') }}
-                                    </th>
-                                    <td>
-                                        {{ $myCase->report_by->name ?? '' }}
+                                        @endforeach
                                     </td>
                                 </tr>
                                 <tr>
@@ -100,6 +86,22 @@
                                     </th>
                                     <td>
                                         {{ $myCase->handle_by->name ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.myCase.fields.report_to') }}
+                                    </th>
+                                    <td>
+                                        {{ $myCase->report_to->name ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.myCase.fields.created_by') }}
+                                    </th>
+                                    <td>
+                                        {{ $myCase->created_by->name ?? '' }}
                                     </td>
                                 </tr>
                             </tbody>

@@ -11,10 +11,10 @@ class AddRelationshipFieldsToMyCasesTable extends Migration
         Schema::table('my_cases', function (Blueprint $table) {
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id', 'category_fk_6836000')->references('id')->on('cases_categories');
-            $table->unsignedBigInteger('report_by_id')->nullable();
-            $table->foreign('report_by_id', 'report_by_fk_6836001')->references('id')->on('users');
             $table->unsignedBigInteger('handle_by_id')->nullable();
-            $table->foreign('handle_by_id', 'handle_by_fk_6836002')->references('id')->on('users');
+            $table->foreign('handle_by_id', 'handle_by_fk_7043458')->references('id')->on('users');
+            $table->unsignedBigInteger('report_to_id')->nullable();
+            $table->foreign('report_to_id', 'report_to_fk_7043459')->references('id')->on('users');
             $table->unsignedBigInteger('created_by_id')->nullable();
             $table->foreign('created_by_id', 'created_by_fk_6872523')->references('id')->on('users');
         });

@@ -11,10 +11,7 @@ class CreateMyCasesTable extends Migration
         Schema::create('my_cases', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('location');
-            $table->string('urgent_status');
-            $table->string('progress')->nullable();
-            $table->date('date_reported');
+            $table->datetime('opened_at');
             $table->longText('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

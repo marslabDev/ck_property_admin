@@ -21,31 +21,29 @@ class StoreMyCaseRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'opened_at' => [
+                'required',
+                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
+            ],
+            'complaints.*' => [
+                'integer',
+            ],
+            'complaints' => [
+                'required',
+                'array',
+            ],
             'category_id' => [
                 'required',
                 'integer',
             ],
-            'location' => [
-                'string',
-                'required',
+            'image' => [
+                'array',
             ],
-            'urgent_status' => [
-                'string',
-                'required',
-            ],
-            'progress' => [
-                'string',
-                'nullable',
-            ],
-            'date_reported' => [
-                'required',
-                'date_format:' . config('panel.date_format'),
-            ],
-            'report_by_id' => [
+            'handle_by_id' => [
                 'required',
                 'integer',
             ],
-            'handle_by_id' => [
+            'report_to_id' => [
                 'required',
                 'integer',
             ],

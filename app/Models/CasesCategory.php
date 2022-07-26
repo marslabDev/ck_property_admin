@@ -26,10 +26,10 @@ class CasesCategory extends Model
 
     protected $fillable = [
         'title',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function created_by()
