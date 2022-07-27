@@ -35,6 +35,7 @@ class MyCase extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'case_no',
         'title',
         'opened_at',
         'category_id',

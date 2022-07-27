@@ -10,6 +10,7 @@ class CreateComplaintsTable extends Migration
     {
         Schema::create('complaints', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('ticker_no')->nullable();
             $table->string('title');
             $table->longText('description');
             $table->timestamps();

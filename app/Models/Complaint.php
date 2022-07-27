@@ -22,6 +22,10 @@ class Complaint extends Model implements HasMedia
 
     public $table = 'complaints';
 
+    public static $searchable = [
+        'ticker_no',
+    ];
+
     protected $appends = [
         'image',
     ];
@@ -33,6 +37,7 @@ class Complaint extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'ticker_no',
         'title',
         'description',
         'status_id',

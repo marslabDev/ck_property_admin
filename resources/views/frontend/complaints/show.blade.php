@@ -28,6 +28,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.complaint.fields.ticker_no') }}
+                                    </th>
+                                    <td>
+                                        {{ $complaint->ticker_no }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.complaint.fields.title') }}
                                     </th>
                                     <td>
