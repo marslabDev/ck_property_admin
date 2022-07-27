@@ -32,6 +32,11 @@ class CasesCategory extends Model
         'deleted_at',
     ];
 
+    public function categoryMyCases()
+    {
+        return $this->hasMany(MyCase::class, 'category_id', 'id');
+    }
+
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');
