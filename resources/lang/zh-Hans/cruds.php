@@ -1446,8 +1446,8 @@ return [
             'created_by_helper'  => ' ',
             'status'             => 'Status',
             'status_helper'      => ' ',
-            'ticker_no'          => 'Ticker No',
-            'ticker_no_helper'   => ' ',
+            'ticket_no'          => 'Ticket No',
+            'ticket_no_helper'   => ' ',
         ],
     ],
     'complaintStatus' => [

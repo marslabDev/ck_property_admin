@@ -25,10 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.complaint.fields.ticker_no') }}
+                            {{ trans('cruds.complaint.fields.ticket_no') }}
                         </th>
                         <td>
-                            {{ $complaint->ticker_no }}
+                            {{ $complaint->ticket_no }}
                         </td>
                     </tr>
                     <tr>
