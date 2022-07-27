@@ -29,6 +29,9 @@
                         {{ trans('cruds.complaint.fields.id') }}
                     </th>
                     <th>
+                        {{ trans('cruds.complaint.fields.ticker_no') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.complaint.fields.title') }}
                     </th>
                     <th>
@@ -52,6 +55,9 @@
                 </tr>
                 <tr>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -138,6 +144,7 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'ticker_no', name: 'ticker_no' },
 { data: 'title', name: 'title' },
 { data: 'status_status', name: 'status.status' },
 { data: 'image', name: 'image', sortable: false, searchable: false },

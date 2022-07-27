@@ -10,6 +10,7 @@ class CreateMyCasesTable extends Migration
     {
         Schema::create('my_cases', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('case_no')->nullable();
             $table->string('title');
             $table->datetime('opened_at');
             $table->longText('description')->nullable();

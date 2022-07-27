@@ -25,6 +25,9 @@
                             {{ trans('cruds.myCase.fields.id') }}
                         </th>
                         <th>
+                            {{ trans('cruds.myCase.fields.case_no') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.myCase.fields.title') }}
                         </th>
                         <th>
@@ -70,6 +73,9 @@
                             </td>
                             <td>
                                 {{ $myCase->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $myCase->case_no ?? '' }}
                             </td>
                             <td>
                                 {{ $myCase->title ?? '' }}

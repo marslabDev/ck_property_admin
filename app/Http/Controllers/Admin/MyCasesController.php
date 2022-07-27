@@ -52,6 +52,9 @@ class MyCasesController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
+            $table->editColumn('case_no', function ($row) {
+                return $row->case_no ? $row->case_no : '';
+            });
             $table->editColumn('title', function ($row) {
                 return $row->title ? $row->title : '';
             });

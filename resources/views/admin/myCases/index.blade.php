@@ -29,6 +29,9 @@
                         {{ trans('cruds.myCase.fields.id') }}
                     </th>
                     <th>
+                        {{ trans('cruds.myCase.fields.case_no') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.myCase.fields.title') }}
                     </th>
                     <th>
@@ -67,6 +70,9 @@
                 </tr>
                 <tr>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -181,6 +187,7 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'case_no', name: 'case_no' },
 { data: 'title', name: 'title' },
 { data: 'opened_at', name: 'opened_at' },
 { data: 'complaint', name: 'complaints.title' },
