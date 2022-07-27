@@ -149,11 +149,6 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#created_by_complaints" role="tab" data-toggle="tab">
-                {{ trans('cruds.complaint.title') }}
-            </a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="#handle_by_my_cases" role="tab" data-toggle="tab">
                 {{ trans('cruds.myCase.title') }}
             </a>
@@ -195,9 +190,6 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="contact_person2_manage_houses">
             @includeIf('admin.users.relationships.contactPerson2ManageHouses', ['manageHouses' => $user->contactPerson2ManageHouses])
-        </div>
-        <div class="tab-pane" role="tabpanel" id="created_by_complaints">
-            @includeIf('admin.users.relationships.createdByComplaints', ['complaints' => $user->createdByComplaints])
         </div>
         <div class="tab-pane" role="tabpanel" id="handle_by_my_cases">
             @includeIf('admin.users.relationships.handleByMyCases', ['myCases' => $user->handleByMyCases])

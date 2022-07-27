@@ -144,11 +144,6 @@ class User extends Authenticatable
         return $this->hasMany(ManageHouse::class, 'contact_person_2_id', 'id');
     }
 
-    public function createdByComplaints()
-    {
-        return $this->hasMany(Complaint::class, 'created_by_id', 'id');
-    }
-
     public function handleByMyCases()
     {
         return $this->hasMany(MyCase::class, 'handle_by_id', 'id');
