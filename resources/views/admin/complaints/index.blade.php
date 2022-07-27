@@ -29,7 +29,7 @@
                         {{ trans('cruds.complaint.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.complaint.fields.ticker_no') }}
+                        {{ trans('cruds.complaint.fields.ticket_no') }}
                     </th>
                     <th>
                         {{ trans('cruds.complaint.fields.title') }}
@@ -144,7 +144,7 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'ticker_no', name: 'ticker_no' },
+{ data: 'ticket_no', name: 'ticket_no' },
 { data: 'title', name: 'title' },
 { data: 'status_status', name: 'status.status' },
 { data: 'image', name: 'image', sortable: false, searchable: false },

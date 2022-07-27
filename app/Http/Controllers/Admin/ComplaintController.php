@@ -51,8 +51,8 @@ class ComplaintController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-            $table->editColumn('ticker_no', function ($row) {
-                return $row->ticker_no ? $row->ticker_no : '';
+            $table->editColumn('ticket_no', function ($row) {
+                return $row->ticket_no ? $row->ticket_no : '';
             });
             $table->editColumn('title', function ($row) {
                 return $row->title ? $row->title : '';
