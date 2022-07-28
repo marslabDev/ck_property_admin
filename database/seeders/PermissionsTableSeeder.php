@@ -1220,6 +1220,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 303,
+                'title' => 'case_status_create',
+            ],
+            [
+                'id'    => 304,
+                'title' => 'case_status_edit',
+            ],
+            [
+                'id'    => 305,
+                'title' => 'case_status_show',
+            ],
+            [
+                'id'    => 306,
+                'title' => 'case_status_delete',
+            ],
+            [
+                'id'    => 307,
+                'title' => 'case_status_access',
+            ],
+            [
+                'id'    => 308,
                 'title' => 'profile_password_edit',
             ],
         ];
