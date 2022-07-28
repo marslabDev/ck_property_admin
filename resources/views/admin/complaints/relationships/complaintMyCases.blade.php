@@ -43,6 +43,9 @@
                             {{ trans('cruds.myCase.fields.image') }}
                         </th>
                         <th>
+                            {{ trans('cruds.myCase.fields.status') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.myCase.fields.handle_by') }}
                         </th>
                         <th>
@@ -97,6 +100,9 @@
                                         <img src="{{ $media->getUrl('thumb') }}">
                                     </a>
                                 @endforeach
+                            </td>
+                            <td>
+                                {{ $myCase->status->name ?? '' }}
                             </td>
                             <td>
                                 {{ $myCase->handle_by->name ?? '' }}

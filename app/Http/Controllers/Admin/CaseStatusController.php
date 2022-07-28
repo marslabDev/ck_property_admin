@@ -95,7 +95,7 @@ class CaseStatusController extends Controller
     {
         abort_if(Gate::denies('case_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $caseStatus->load('created_by');
+        $caseStatus->load('created_by', 'statusMyCases');
 
         return view('admin.caseStatuses.show', compact('caseStatus'));
     }

@@ -42,6 +42,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#status_my_cases" role="tab" data-toggle="tab">
+                {{ trans('cruds.myCase.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="status_my_cases">
+            @includeIf('admin.caseStatuses.relationships.statusMyCases', ['myCases' => $caseStatus->statusMyCases])
+        </div>
+    </div>
+</div>
 
 @endsection

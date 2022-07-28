@@ -303,6 +303,8 @@ return [
             'complaint_helper'   => ' ',
             'case_no'            => 'Case No',
             'case_no_helper'     => ' ',
+            'status'             => 'Status',
+            'status_helper'      => ' ',
         ],
     ],
     'casesCategory' => [

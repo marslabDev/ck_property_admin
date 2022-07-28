@@ -39,6 +39,10 @@ class UpdateMyCaseRequest extends FormRequest
             'image' => [
                 'array',
             ],
+            'status_id' => [
+                'required',
+                'integer',
+            ],
             'handle_by_id' => [
                 'required',
                 'integer',

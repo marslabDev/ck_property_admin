@@ -40,6 +40,7 @@ class MyCase extends Model implements HasMedia
         'opened_at',
         'category_id',
         'description',
+        'status_id',
         'handle_by_id',
         'report_to_id',
         'created_by_id',
@@ -84,6 +85,11 @@ class MyCase extends Model implements HasMedia
         });
 
         return $files;
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(CaseStatus::class, 'status_id');
     }
 
     public function handle_by()

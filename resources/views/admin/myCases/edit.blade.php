@@ -84,6 +84,20 @@
                 <span class="help-block">{{ trans('cruds.myCase.fields.image_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="status_id">{{ trans('cruds.myCase.fields.status') }}</label>
+                <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status_id" id="status_id" required>
+                    @foreach($statuses as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('status_id') ? old('status_id') : $myCase->status->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('status'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.myCase.fields.status_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="handle_by_id">{{ trans('cruds.myCase.fields.handle_by') }}</label>
                 <select class="form-control select2 {{ $errors->has('handle_by') ? 'is-invalid' : '' }}" name="handle_by_id" id="handle_by_id" required>
                     @foreach($handle_bies as $id => $entry)

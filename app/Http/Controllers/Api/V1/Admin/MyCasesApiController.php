@@ -20,7 +20,7 @@ class MyCasesApiController extends Controller
     {
         abort_if(Gate::denies('my_case_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new MyCaseResource(MyCase::with(['complaints', 'category', 'handle_by', 'report_to', 'created_by'])->get());
+        return new MyCaseResource(MyCase::with(['complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by'])->get());
     }
 
     public function store(StoreMyCaseRequest $request)
@@ -40,7 +40,7 @@ class MyCasesApiController extends Controller
     {
         abort_if(Gate::denies('my_case_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new MyCaseResource($myCase->load(['complaints', 'category', 'handle_by', 'report_to', 'created_by']));
+        return new MyCaseResource($myCase->load(['complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by']));
     }
 
     public function update(UpdateMyCaseRequest $request, MyCase $myCase)
