@@ -47,6 +47,9 @@
                         {{ trans('cruds.myCase.fields.image') }}
                     </th>
                     <th>
+                        {{ trans('cruds.myCase.fields.status') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.myCase.fields.handle_by') }}
                     </th>
                     <th>
@@ -100,6 +103,14 @@
                         </select>
                     </td>
                     <td>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($case_statuses as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                         <select class="search">
@@ -193,6 +204,7 @@
 { data: 'complaint', name: 'complaints.title' },
 { data: 'category_title', name: 'category.title' },
 { data: 'image', name: 'image', sortable: false, searchable: false },
+{ data: 'status_name', name: 'status.name' },
 { data: 'handle_by_name', name: 'handle_by.name' },
 { data: 'handle_by.email', name: 'handle_by.email' },
 { data: 'report_to_name', name: 'report_to.name' },

@@ -9,6 +9,7 @@ use App\Http\Requests\MassDestroyMyCaseRequest;
 use App\Http\Requests\StoreMyCaseRequest;
 use App\Http\Requests\UpdateMyCaseRequest;
 use App\Models\CasesCategory;
+use App\Models\CaseStatus;
 use App\Models\Complaint;
 use App\Models\MyCase;
 use App\Models\User;
@@ -28,7 +29,7 @@ class MyCasesController extends Controller
         abort_if(Gate::denies('my_case_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = MyCase::with(['complaints', 'category', 'handle_by', 'report_to', 'created_by'])->select(sprintf('%s.*', (new MyCase())->table));
+            $query = MyCase::with(['complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by'])->select(sprintf('%s.*', (new MyCase())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -82,6 +83,10 @@ class MyCasesController extends Controller
 
                 return implode(' ', $links);
             });
+            $table->addColumn('status_name', function ($row) {
+                return $row->status ? $row->status->name : '';
+            });
+
             $table->addColumn('handle_by_name', function ($row) {
                 return $row->handle_by ? $row->handle_by->name : '';
             });
@@ -104,16 +109,17 @@ class MyCasesController extends Controller
                 return $row->created_by ? (is_string($row->created_by) ? $row->created_by : $row->created_by->email) : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'complaint', 'category', 'image', 'handle_by', 'report_to', 'created_by']);
+            $table->rawColumns(['actions', 'placeholder', 'complaint', 'category', 'image', 'status', 'handle_by', 'report_to', 'created_by']);
 
             return $table->make(true);
         }
 
         $complaints       = Complaint::get();
         $cases_categories = CasesCategory::get();
+        $case_statuses    = CaseStatus::get();
         $users            = User::get();
 
-        return view('admin.myCases.index', compact('complaints', 'cases_categories', 'users'));
+        return view('admin.myCases.index', compact('complaints', 'cases_categories', 'case_statuses', 'users'));
     }
 
     public function create()
@@ -124,11 +130,13 @@ class MyCasesController extends Controller
 
         $categories = CasesCategory::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $statuses = CaseStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $handle_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $report_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.myCases.create', compact('categories', 'complaints', 'handle_bies', 'report_tos'));
+        return view('admin.myCases.create', compact('categories', 'complaints', 'handle_bies', 'report_tos', 'statuses'));
     }
 
     public function store(StoreMyCaseRequest $request)
@@ -154,13 +162,15 @@ class MyCasesController extends Controller
 
         $categories = CasesCategory::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $statuses = CaseStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $handle_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $report_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $myCase->load('complaints', 'category', 'handle_by', 'report_to', 'created_by');
+        $myCase->load('complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by');
 
-        return view('admin.myCases.edit', compact('categories', 'complaints', 'handle_bies', 'myCase', 'report_tos'));
+        return view('admin.myCases.edit', compact('categories', 'complaints', 'handle_bies', 'myCase', 'report_tos', 'statuses'));
     }
 
     public function update(UpdateMyCaseRequest $request, MyCase $myCase)
@@ -188,7 +198,7 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $myCase->load('complaints', 'category', 'handle_by', 'report_to', 'created_by');
+        $myCase->load('complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by');
 
         return view('admin.myCases.show', compact('myCase'));
     }

@@ -127,6 +127,11 @@
                                             {{ trans('cruds.complaint.title') }}
                                         </a>
                                     @endcan
+                                    @can('case_status_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.case-statuses.index') }}">
+                                            {{ trans('cruds.caseStatus.title') }}
+                                        </a>
+                                    @endcan
                                     @can('cases_category_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.cases-categories.index') }}">
                                             {{ trans('cruds.casesCategory.title') }}
@@ -135,11 +140,6 @@
                                     @can('complaint_status_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.complaint-statuses.index') }}">
                                             {{ trans('cruds.complaintStatus.title') }}
-                                        </a>
-                                    @endcan
-                                    @can('case_status_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.case-statuses.index') }}">
-                                            {{ trans('cruds.caseStatus.title') }}
                                         </a>
                                     @endcan
                                     @can('other_access')

@@ -11,6 +11,8 @@ class AddRelationshipFieldsToMyCasesTable extends Migration
         Schema::table('my_cases', function (Blueprint $table) {
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id', 'category_fk_6836000')->references('id')->on('cases_categories');
+            $table->unsignedBigInteger('status_id')->nullable();
+            $table->foreign('status_id', 'status_fk_7059806')->references('id')->on('case_statuses');
             $table->unsignedBigInteger('handle_by_id')->nullable();
             $table->foreign('handle_by_id', 'handle_by_fk_7043458')->references('id')->on('users');
             $table->unsignedBigInteger('report_to_id')->nullable();

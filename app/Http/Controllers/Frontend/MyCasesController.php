@@ -9,6 +9,7 @@ use App\Http\Requests\MassDestroyMyCaseRequest;
 use App\Http\Requests\StoreMyCaseRequest;
 use App\Http\Requests\UpdateMyCaseRequest;
 use App\Models\CasesCategory;
+use App\Models\CaseStatus;
 use App\Models\Complaint;
 use App\Models\MyCase;
 use App\Models\User;
@@ -26,15 +27,17 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $myCases = MyCase::with(['complaints', 'category', 'handle_by', 'report_to', 'created_by', 'media'])->get();
+        $myCases = MyCase::with(['complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by', 'media'])->get();
 
         $complaints = Complaint::get();
 
         $cases_categories = CasesCategory::get();
 
+        $case_statuses = CaseStatus::get();
+
         $users = User::get();
 
-        return view('frontend.myCases.index', compact('cases_categories', 'complaints', 'myCases', 'users'));
+        return view('frontend.myCases.index', compact('case_statuses', 'cases_categories', 'complaints', 'myCases', 'users'));
     }
 
     public function create()
@@ -45,11 +48,13 @@ class MyCasesController extends Controller
 
         $categories = CasesCategory::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $statuses = CaseStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $handle_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $report_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.myCases.create', compact('categories', 'complaints', 'handle_bies', 'report_tos'));
+        return view('frontend.myCases.create', compact('categories', 'complaints', 'handle_bies', 'report_tos', 'statuses'));
     }
 
     public function store(StoreMyCaseRequest $request)
@@ -75,13 +80,15 @@ class MyCasesController extends Controller
 
         $categories = CasesCategory::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $statuses = CaseStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $handle_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $report_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $myCase->load('complaints', 'category', 'handle_by', 'report_to', 'created_by');
+        $myCase->load('complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by');
 
-        return view('frontend.myCases.edit', compact('categories', 'complaints', 'handle_bies', 'myCase', 'report_tos'));
+        return view('frontend.myCases.edit', compact('categories', 'complaints', 'handle_bies', 'myCase', 'report_tos', 'statuses'));
     }
 
     public function update(UpdateMyCaseRequest $request, MyCase $myCase)
@@ -109,7 +116,7 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $myCase->load('complaints', 'category', 'handle_by', 'report_to', 'created_by');
+        $myCase->load('complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by');
 
         return view('frontend.myCases.show', compact('myCase'));
     }

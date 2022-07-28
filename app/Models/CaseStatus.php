@@ -32,6 +32,11 @@ class CaseStatus extends Model
         'created_by_id',
     ];
 
+    public function statusMyCases()
+    {
+        return $this->hasMany(MyCase::class, 'status_id', 'id');
+    }
+
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

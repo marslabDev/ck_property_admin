@@ -90,6 +90,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.myCase.fields.status') }}
+                                    </th>
+                                    <td>
+                                        {{ $myCase->status->name ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.myCase.fields.handle_by') }}
                                     </th>
                                     <td>
