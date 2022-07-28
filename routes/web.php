@@ -385,6 +385,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('complaint-statuses/process-csv-import', 'ComplaintStatusController@processCsvImport')->name('complaint-statuses.processCsvImport');
     Route::resource('complaint-statuses', 'ComplaintStatusController');
 
+    // Case Status
+    Route::delete('case-statuses/destroy', 'CaseStatusController@massDestroy')->name('case-statuses.massDestroy');
+    Route::post('case-statuses/parse-csv-import', 'CaseStatusController@parseCsvImport')->name('case-statuses.parseCsvImport');
+    Route::post('case-statuses/process-csv-import', 'CaseStatusController@processCsvImport')->name('case-statuses.processCsvImport');
+    Route::resource('case-statuses', 'CaseStatusController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -667,6 +673,10 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Complaint Status
     Route::delete('complaint-statuses/destroy', 'ComplaintStatusController@massDestroy')->name('complaint-statuses.massDestroy');
     Route::resource('complaint-statuses', 'ComplaintStatusController');
+
+    // Case Status
+    Route::delete('case-statuses/destroy', 'CaseStatusController@massDestroy')->name('case-statuses.massDestroy');
+    Route::resource('case-statuses', 'CaseStatusController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

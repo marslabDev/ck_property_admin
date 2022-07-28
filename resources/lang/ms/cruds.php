@@ -1468,4 +1468,22 @@ return [
             'created_by_helper' => ' ',
         ],
     ],
+    'caseStatus' => [
+        'title'          => 'Case Status',
+        'title_singular' => 'Case Status',
+        'fields'         => [
+            'id'                => 'ID',
+            'id_helper'         => ' ',
+            'name'              => 'Name',
+            'name_helper'       => ' ',
+            'created_at'        => 'Created at',
+            'created_at_helper' => ' ',
+            'updated_at'        => 'Updated at',
+            'updated_at_helper' => ' ',
+            'deleted_at'        => 'Deleted at',
+            'deleted_at_helper' => ' ',
+            'created_by'        => 'Created By',
+            'created_by_helper' => ' ',
+        ],
+    ],
 ];

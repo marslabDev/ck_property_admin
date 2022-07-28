@@ -137,6 +137,11 @@
                                             {{ trans('cruds.complaintStatus.title') }}
                                         </a>
                                     @endcan
+                                    @can('case_status_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.case-statuses.index') }}">
+                                            {{ trans('cruds.caseStatus.title') }}
+                                        </a>
+                                    @endcan
                                     @can('other_access')
                                         <a class="dropdown-item disabled" href="#">
                                             {{ trans('cruds.other.title') }}

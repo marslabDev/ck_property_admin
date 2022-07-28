@@ -103,7 +103,7 @@
             </li>
         @endcan
         @can('complaint_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/my-cases*") ? "c-show" : "" }} {{ request()->is("admin/complaints*") ? "c-show" : "" }} {{ request()->is("admin/cases-categories*") ? "c-show" : "" }} {{ request()->is("admin/complaint-statuses*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/my-cases*") ? "c-show" : "" }} {{ request()->is("admin/complaints*") ? "c-show" : "" }} {{ request()->is("admin/case-statuses*") ? "c-show" : "" }} {{ request()->is("admin/cases-categories*") ? "c-show" : "" }} {{ request()->is("admin/complaint-statuses*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-exclamation-circle c-sidebar-nav-icon">
 
@@ -128,6 +128,16 @@
 
                                 </i>
                                 {{ trans('cruds.complaint.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('case_status_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.case-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/case-statuses") || request()->is("admin/case-statuses/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.caseStatus.title') }}
                             </a>
                         </li>
                     @endcan

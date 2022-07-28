@@ -180,4 +180,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Complaint Status
     Route::apiResource('complaint-statuses', 'ComplaintStatusApiController');
+
+    // Case Status
+    Route::apiResource('case-statuses', 'CaseStatusApiController');
 });
