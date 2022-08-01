@@ -11,6 +11,7 @@ class CreateCaseStatusesTable extends Migration
         Schema::create('case_statuses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->boolean('status_linking')->default(0)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

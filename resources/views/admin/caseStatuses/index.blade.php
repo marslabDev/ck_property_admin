@@ -32,6 +32,12 @@
                         {{ trans('cruds.caseStatus.fields.name') }}
                     </th>
                     <th>
+                        {{ trans('cruds.caseStatus.fields.status_linking') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.caseStatus.fields.complaint_status') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -43,6 +49,16 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($complaint_statuses as $key => $item)
+                                <option value="{{ $item->status }}">{{ $item->status }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                     </td>
@@ -101,6 +117,8 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
+{ data: 'status_linking', name: 'status_linking' },
+{ data: 'complaint_status_status', name: 'complaint_status.status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

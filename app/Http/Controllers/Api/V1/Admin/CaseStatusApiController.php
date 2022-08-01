@@ -17,7 +17,7 @@ class CaseStatusApiController extends Controller
     {
         abort_if(Gate::denies('case_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new CaseStatusResource(CaseStatus::with(['created_by'])->get());
+        return new CaseStatusResource(CaseStatus::with(['complaint_status', 'created_by'])->get());
     }
 
     public function store(StoreCaseStatusRequest $request)
@@ -33,7 +33,7 @@ class CaseStatusApiController extends Controller
     {
         abort_if(Gate::denies('case_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new CaseStatusResource($caseStatus->load(['created_by']));
+        return new CaseStatusResource($caseStatus->load(['complaint_status', 'created_by']));
     }
 
     public function update(UpdateCaseStatusRequest $request, CaseStatus $caseStatus)

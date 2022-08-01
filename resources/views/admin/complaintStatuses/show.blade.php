@@ -52,10 +52,18 @@
                 {{ trans('cruds.complaint.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#complaint_status_case_statuses" role="tab" data-toggle="tab">
+                {{ trans('cruds.caseStatus.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="status_complaints">
             @includeIf('admin.complaintStatuses.relationships.statusComplaints', ['complaints' => $complaintStatus->statusComplaints])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="complaint_status_case_statuses">
+            @includeIf('admin.complaintStatuses.relationships.complaintStatusCaseStatuses', ['caseStatuses' => $complaintStatus->complaintStatusCaseStatuses])
         </div>
     </div>
 </div>
