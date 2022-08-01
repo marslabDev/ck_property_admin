@@ -95,7 +95,7 @@ class ComplaintStatusController extends Controller
     {
         abort_if(Gate::denies('complaint_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $complaintStatus->load('created_by', 'statusComplaints');
+        $complaintStatus->load('created_by', 'statusComplaints', 'complaintStatusCaseStatuses');
 
         return view('admin.complaintStatuses.show', compact('complaintStatus'));
     }

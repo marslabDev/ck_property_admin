@@ -26,15 +26,22 @@ class CaseStatus extends Model
 
     protected $fillable = [
         'name',
+        'status_linking',
+        'complaint_status_id',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function statusMyCases()
     {
         return $this->hasMany(MyCase::class, 'status_id', 'id');
+    }
+
+    public function complaint_status()
+    {
+        return $this->belongsTo(ComplaintStatus::class, 'complaint_status_id');
     }
 
     public function created_by()

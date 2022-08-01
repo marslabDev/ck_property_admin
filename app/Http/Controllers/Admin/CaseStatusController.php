@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyCaseStatusRequest;
 use App\Http\Requests\StoreCaseStatusRequest;
 use App\Http\Requests\UpdateCaseStatusRequest;
 use App\Models\CaseStatus;
+use App\Models\ComplaintStatus;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class CaseStatusController extends Controller
         abort_if(Gate::denies('case_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = CaseStatus::with(['created_by'])->select(sprintf('%s.*', (new CaseStatus())->table));
+            $query = CaseStatus::with(['complaint_status', 'created_by'])->select(sprintf('%s.*', (new CaseStatus())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -50,22 +51,31 @@ class CaseStatusController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
+            $table->editColumn('status_linking', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->status_linking ? 'checked' : null) . '>';
+            });
+            $table->addColumn('complaint_status_status', function ($row) {
+                return $row->complaint_status ? $row->complaint_status->status : '';
+            });
 
-            $table->rawColumns(['actions', 'placeholder']);
+            $table->rawColumns(['actions', 'placeholder', 'status_linking', 'complaint_status']);
 
             return $table->make(true);
         }
 
-        $users = User::get();
+        $complaint_statuses = ComplaintStatus::get();
+        $users              = User::get();
 
-        return view('admin.caseStatuses.index', compact('users'));
+        return view('admin.caseStatuses.index', compact('complaint_statuses', 'users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('case_status_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.caseStatuses.create');
+        $complaint_statuses = ComplaintStatus::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.caseStatuses.create', compact('complaint_statuses'));
     }
 
     public function store(StoreCaseStatusRequest $request)
@@ -79,9 +89,11 @@ class CaseStatusController extends Controller
     {
         abort_if(Gate::denies('case_status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $caseStatus->load('created_by');
+        $complaint_statuses = ComplaintStatus::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.caseStatuses.edit', compact('caseStatus'));
+        $caseStatus->load('complaint_status', 'created_by');
+
+        return view('admin.caseStatuses.edit', compact('caseStatus', 'complaint_statuses'));
     }
 
     public function update(UpdateCaseStatusRequest $request, CaseStatus $caseStatus)
@@ -95,7 +107,7 @@ class CaseStatusController extends Controller
     {
         abort_if(Gate::denies('case_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $caseStatus->load('created_by', 'statusMyCases');
+        $caseStatus->load('complaint_status', 'created_by', 'statusMyCases');
 
         return view('admin.caseStatuses.show', compact('caseStatus'));
     }

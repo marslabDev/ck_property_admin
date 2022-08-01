@@ -37,6 +37,11 @@ class ComplaintStatus extends Model
         return $this->hasMany(Complaint::class, 'status_id', 'id');
     }
 
+    public function complaintStatusCaseStatuses()
+    {
+        return $this->hasMany(CaseStatus::class, 'complaint_status_id', 'id');
+    }
+
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

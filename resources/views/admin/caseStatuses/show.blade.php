@@ -31,6 +31,22 @@
                             {{ $caseStatus->name }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.caseStatus.fields.status_linking') }}
+                        </th>
+                        <td>
+                            <input type="checkbox" disabled="disabled" {{ $caseStatus->status_linking ? 'checked' : '' }}>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.caseStatus.fields.complaint_status') }}
+                        </th>
+                        <td>
+                            {{ $caseStatus->complaint_status->status ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

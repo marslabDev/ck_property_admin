@@ -33,6 +33,12 @@
                                         {{ trans('cruds.caseStatus.fields.name') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.caseStatus.fields.status_linking') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.caseStatus.fields.complaint_status') }}
+                                    </th>
+                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -47,6 +53,16 @@
                                     </td>
                                     <td>
                                     </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($complaint_statuses as $key => $item)
+                                                <option value="{{ $item->status }}">{{ $item->status }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                    </td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,6 +73,13 @@
                                         </td>
                                         <td>
                                             {{ $caseStatus->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            <span style="display:none">{{ $caseStatus->status_linking ?? '' }}</span>
+                                            <input type="checkbox" disabled="disabled" {{ $caseStatus->status_linking ? 'checked' : '' }}>
+                                        </td>
+                                        <td>
+                                            {{ $caseStatus->complaint_status->status ?? '' }}
                                         </td>
                                         <td>
                                             @can('case_status_show')
