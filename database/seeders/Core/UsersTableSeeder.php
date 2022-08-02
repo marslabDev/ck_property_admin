@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
 
             [
                 'id'                 => 2,
-                'name'               => 'Supplier Manager',
+                'name'               => 'Manage Jason',
                 'email'              => 'supplier@demo.com',
                 'password'           => bcrypt('password'),
                 'remember_token'     => null,

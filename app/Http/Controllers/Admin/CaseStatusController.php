@@ -11,7 +11,7 @@ use App\Models\Area;
 use App\Models\CaseStatus;
 use App\Models\ComplaintStatus;
 use App\Models\User;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -38,12 +38,12 @@ class CaseStatusController extends Controller
                 $crudRoutePart = 'case-statuses';
 
                 return view('partials.datatablesActions', compact(
-                'viewGate',
-                'editGate',
-                'deleteGate',
-                'crudRoutePart',
-                'row'
-            ));
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
             });
 
             $table->editColumn('id', function ($row) {
@@ -100,7 +100,16 @@ class CaseStatusController extends Controller
 
     public function update(UpdateCaseStatusRequest $request, CaseStatus $caseStatus)
     {
-        $caseStatus->update($request->all());
+        $validated = $request->validated();
+
+        if ($validated['status_linking'] == '1') {
+            $caseStatus->update($request->all());
+        } else {
+            $caseStatus->name = $validated['name'];
+            $caseStatus->status_linking = $validated['status_linking'];
+            $caseStatus->complaint_status_id = null;
+            $caseStatus->save();
+        }
 
         return redirect()->route('admin.case-statuses.index');
     }

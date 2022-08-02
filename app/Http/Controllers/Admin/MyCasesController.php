@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\MyCaseStatusChangedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
@@ -14,7 +15,9 @@ use App\Models\CaseStatus;
 use App\Models\Complaint;
 use App\Models\MyCase;
 use App\Models\User;
-use Gate;
+use Carbon\Carbon;
+use Faker\Provider\ar_EG\Company;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,12 +46,12 @@ class MyCasesController extends Controller
                 $crudRoutePart = 'my-cases';
 
                 return view('partials.datatablesActions', compact(
-                'viewGate',
-                'editGate',
-                'deleteGate',
-                'crudRoutePart',
-                'row'
-            ));
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
             });
 
             $table->editColumn('id', function ($row) {
@@ -149,6 +152,11 @@ class MyCasesController extends Controller
     {
         $myCase = MyCase::create($request->all());
         $myCase->complaints()->sync($request->input('complaints', []));
+
+        // CS stand for MyCase
+        $myCase->case_no = Carbon::now()->format('Ymd') . 'CS' . sprintf('%04d', $myCase->id);
+        $myCase->save();
+
         foreach ($request->input('image', []) as $file) {
             $myCase->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('image');
         }
@@ -156,6 +164,9 @@ class MyCasesController extends Controller
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $myCase->id]);
         }
+
+        $savedCase = MyCase::find($myCase->id);
+        MyCaseStatusChangedEvent::dispatch($savedCase);
 
         return redirect()->route('admin.my-cases.index');
     }
@@ -183,6 +194,7 @@ class MyCasesController extends Controller
     {
         $myCase->update($request->all());
         $myCase->complaints()->sync($request->input('complaints', []));
+
         if (count($myCase->image) > 0) {
             foreach ($myCase->image as $media) {
                 if (!in_array($media->file_name, $request->input('image', []))) {
@@ -190,12 +202,15 @@ class MyCasesController extends Controller
                 }
             }
         }
+
         $media = $myCase->image->pluck('file_name')->toArray();
         foreach ($request->input('image', []) as $file) {
             if (count($media) === 0 || !in_array($file, $media)) {
                 $myCase->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('image');
             }
         }
+
+        MyCaseStatusChangedEvent::dispatch($myCase);
 
         return redirect()->route('admin.my-cases.index');
     }

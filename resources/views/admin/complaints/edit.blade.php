@@ -9,7 +9,7 @@
     <div class="card-body">
         <form method="POST" action="{{ route("admin.complaints.update", [$complaint->id]) }}" enctype="multipart/form-data">
             @method('PUT')
-            @csrf
+            @csrf            
             <div class="form-group">
                 <label class="required" for="title">{{ trans('cruds.complaint.fields.title') }}</label>
                 <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', $complaint->title) }}" required>

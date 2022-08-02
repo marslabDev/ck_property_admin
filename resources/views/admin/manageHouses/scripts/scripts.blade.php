@@ -43,6 +43,8 @@
             const option = $(this).find(':selected');
             const type = $(option).data('housetype-type');
             $('#house_type_type').val(type);
+
+            // TODO: Put "disabled" attribute into "floor" field if hidden, and enable it when "floor" is displayed.
             if (type === 'HIGH_RISE') {
                 highRiseFields.show();
             } else {

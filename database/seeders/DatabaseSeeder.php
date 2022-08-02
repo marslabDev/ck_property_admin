@@ -12,21 +12,21 @@ class DatabaseSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
 
-        // $this->call([
-        //     Core\PermissionsTableSeeder::class,
-        //     Core\RolesTableSeeder::class,
-        //     Core\PermissionRoleTableSeeder::class,
-        //     Core\UsersTableSeeder::class,
-        //     Core\RoleUserTableSeeder::class,
+        $this->call([
+            Core\PermissionsTableSeeder::class,
+            Core\RolesTableSeeder::class,
+            Core\PermissionRoleTableSeeder::class,
+            Core\UsersTableSeeder::class,
+            Core\RoleUserTableSeeder::class,
 
-        //     Core\AssetStatusTableSeeder::class,
-        //     Core\TaskStatusTableSeeder::class,
+            Core\AssetStatusTableSeeder::class,
+            Core\TaskStatusTableSeeder::class,
 
-        //     SupplierManager\PermissionsSeeder::class,
-        // ]);
+            SupplierManager\PermissionsSeeder::class,
+        ]);
 
-        $sql = file_get_contents(storage_path() . '/ck_admin.sql');
-        DB::unprepared($sql);
+        // $sql = file_get_contents(storage_path() . '/ck_admin.sql');
+        // DB::unprepared($sql);
 
         Schema::enableForeignKeyConstraints();
     }

@@ -1,7 +1,9 @@
 <div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show">
 
-    <div class="c-sidebar-brand d-md-down-none">
-        <a class="c-sidebar-brand-full h4" href="#">
+    <div class="c-sidebar-brand">
+        <a class="c-sidebar-brand-full h5 text-center tw-pb-1" href="{{ route('admin.home') }}">
+            <img src="{{ asset('img/LOGO_STRAQTA_WHITE.svg') }}" alt="Straqta Logo" class="tw-px-4 tw-py-2 tw-w-1/2 tw-mx-auto" />
+            <hr class="tw-bg-slate-400 tw-my-2 tw-mx-4">
             {{ trans('panel.site_title') }}
         </a>
     </div>
@@ -9,13 +11,11 @@
     <ul class="c-sidebar-nav">
         <li>
             <select class="searchable-field form-control">
-
             </select>
         </li>
         <li class="c-sidebar-nav-item">
             <a href="{{ route("admin.home") }}" class="c-sidebar-nav-link">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-tachometer-alt">
-
                 </i>
                 {{ trans('global.dashboard') }}
             </a>

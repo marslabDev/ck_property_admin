@@ -12,7 +12,8 @@ use App\Models\Area;
 use App\Models\Complaint;
 use App\Models\ComplaintStatus;
 use App\Models\User;
-use Gate;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,12 +42,12 @@ class ComplaintController extends Controller
                 $crudRoutePart = 'complaints';
 
                 return view('partials.datatablesActions', compact(
-                'viewGate',
-                'editGate',
-                'deleteGate',
-                'crudRoutePart',
-                'row'
-            ));
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
             });
 
             $table->editColumn('id', function ($row) {
@@ -109,6 +110,10 @@ class ComplaintController extends Controller
     public function store(StoreComplaintRequest $request)
     {
         $complaint = Complaint::create($request->all());
+
+        // CP stand for Complaint
+        $complaint->ticket_no = Carbon::now()->format('Ymd') . 'CP' . sprintf('%04d', $complaint->id);
+        $complaint->save();
 
         foreach ($request->input('image', []) as $file) {
             $complaint->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('image');
