@@ -60,6 +60,26 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.user.fields.roles') }}
+                                    </th>
+                                    <td>
+                                        @foreach($user->roles as $key => $roles)
+                                            <span class="label label-info">{{ $roles->title }}</span>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.user.fields.area') }}
+                                    </th>
+                                    <td>
+                                        @foreach($user->areas as $key => $area)
+                                            <span class="label label-info">{{ $area->name }}</span>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.user.fields.two_factor') }}
                                     </th>
                                     <td>
@@ -88,16 +108,6 @@
                                     </th>
                                     <td>
                                         {{ $user->email_verified_at }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.user.fields.roles') }}
-                                    </th>
-                                    <td>
-                                        @foreach($user->roles as $key => $roles)
-                                            <span class="label label-info">{{ $roles->title }}</span>
-                                        @endforeach
                                     </td>
                                 </tr>
                             </tbody>

@@ -19,7 +19,9 @@ class UserAlertsController extends Controller
 
         $userAlerts = UserAlert::with(['users'])->get();
 
-        return view('frontend.userAlerts.index', compact('userAlerts'));
+        $users = User::get();
+
+        return view('frontend.userAlerts.index', compact('userAlerts', 'users'));
     }
 
     public function create()

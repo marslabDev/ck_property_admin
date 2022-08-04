@@ -20,7 +20,7 @@ class ManageHouseApiController extends Controller
     {
         abort_if(Gate::denies('manage_house_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ManageHouseResource(ManageHouse::with(['house_type', 'area', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'created_by'])->get());
+        return new ManageHouseResource(ManageHouse::with(['house_type', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'from_area', 'created_by'])->get());
     }
 
     public function store(StoreManageHouseRequest $request)
@@ -41,7 +41,7 @@ class ManageHouseApiController extends Controller
     {
         abort_if(Gate::denies('manage_house_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ManageHouseResource($manageHouse->load(['house_type', 'area', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'created_by']));
+        return new ManageHouseResource($manageHouse->load(['house_type', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'from_area', 'created_by']));
     }
 
     public function update(UpdateManageHouseRequest $request, ManageHouse $manageHouse)

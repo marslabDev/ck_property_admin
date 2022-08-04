@@ -27,6 +27,7 @@ class PaymentType extends Model
     protected $fillable = [
         'name',
         'created_at',
+        'from_area_id',
         'updated_at',
         'deleted_at',
         'created_by_id',
@@ -40,6 +41,11 @@ class PaymentType extends Model
     public function paymentTypeHomeOwnerTransactions()
     {
         return $this->hasMany(HomeOwnerTransaction::class, 'payment_type_id', 'id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

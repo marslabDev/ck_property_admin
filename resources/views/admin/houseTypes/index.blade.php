@@ -35,7 +35,7 @@
                         {{ trans('cruds.houseType.fields.type') }}
                     </th>
                     <th>
-                        {{ trans('cruds.houseType.fields.area') }}
+                        {{ trans('cruds.houseType.fields.from_area') }}
                     </th>
                     <th>
                         &nbsp;
@@ -124,7 +124,7 @@
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
 { data: 'type', name: 'type' },
-{ data: 'area_name', name: 'area.name' },
+{ data: 'from_area_name', name: 'from_area.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

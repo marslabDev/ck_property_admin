@@ -23,11 +23,11 @@ class ManagePriceController extends Controller
     {
         abort_if(Gate::denies('manage_price_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $managePrices = ManagePrice::with(['area', 'house_type', 'created_by'])->get();
-
-        $areas = Area::get();
+        $managePrices = ManagePrice::with(['house_type', 'from_area', 'created_by'])->get();
 
         $house_types = HouseType::get();
+
+        $areas = Area::get();
 
         $users = User::get();
 
@@ -38,11 +38,9 @@ class ManagePriceController extends Controller
     {
         abort_if(Gate::denies('manage_price_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $house_types = HouseType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.managePrices.create', compact('areas', 'house_types'));
+        return view('frontend.managePrices.create', compact('house_types'));
     }
 
     public function store(StoreManagePriceRequest $request)
@@ -56,13 +54,11 @@ class ManagePriceController extends Controller
     {
         abort_if(Gate::denies('manage_price_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $house_types = HouseType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $managePrice->load('area', 'house_type', 'created_by');
+        $managePrice->load('house_type', 'from_area', 'created_by');
 
-        return view('frontend.managePrices.edit', compact('areas', 'house_types', 'managePrice'));
+        return view('frontend.managePrices.edit', compact('house_types', 'managePrice'));
     }
 
     public function update(UpdateManagePriceRequest $request, ManagePrice $managePrice)
@@ -76,7 +72,7 @@ class ManagePriceController extends Controller
     {
         abort_if(Gate::denies('manage_price_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $managePrice->load('area', 'house_type', 'created_by');
+        $managePrice->load('house_type', 'from_area', 'created_by');
 
         return view('frontend.managePrices.show', compact('managePrice'));
     }

@@ -58,6 +58,9 @@
                             {{ trans('cruds.user.fields.email') }}
                         </th>
                         <th>
+                            {{ trans('cruds.myCase.fields.from_area') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.myCase.fields.created_by') }}
                         </th>
                         <th>
@@ -115,6 +118,9 @@
                             </td>
                             <td>
                                 {{ $myCase->report_to->email ?? '' }}
+                            </td>
+                            <td>
+                                {{ $myCase->from_area->name ?? '' }}
                             </td>
                             <td>
                                 {{ $myCase->created_by->name ?? '' }}

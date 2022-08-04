@@ -45,9 +45,6 @@
                                         {{ trans('cruds.article.fields.people_in_area') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.area.fields.address_line') }}
-                                    </th>
-                                    <th>
                                         {{ trans('cruds.article.fields.created_at') }}
                                     </th>
                                     <th>
@@ -91,8 +88,6 @@
                                         </select>
                                     </td>
                                     <td>
-                                    </td>
-                                    <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
@@ -119,9 +114,6 @@
                                         </td>
                                         <td>
                                             {{ $article->people_in_area->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $article->people_in_area->address_line ?? '' }}
                                         </td>
                                         <td>
                                             {{ $article->created_at ?? '' }}

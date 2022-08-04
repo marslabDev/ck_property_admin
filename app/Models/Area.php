@@ -36,29 +36,139 @@ class Area extends Model
         'deleted_at',
     ];
 
-    public function areaManageHouses()
-    {
-        return $this->hasMany(ManageHouse::class, 'area_id', 'id');
-    }
-
-    public function areaHouseTypes()
-    {
-        return $this->hasMany(HouseType::class, 'area_id', 'id');
-    }
-
     public function peopleInAreaNotices()
     {
         return $this->hasMany(Notice::class, 'people_in_area_id', 'id');
     }
 
-    public function areaManagePrices()
+    public function fromAreaMyCases()
     {
-        return $this->hasMany(ManagePrice::class, 'area_id', 'id');
+        return $this->hasMany(MyCase::class, 'from_area_id', 'id');
     }
 
-    public function areaStreets()
+    public function fromAreaComplaints()
     {
-        return $this->hasMany(Street::class, 'area_id', 'id');
+        return $this->hasMany(Complaint::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaParkingLots()
+    {
+        return $this->hasMany(ParkingLot::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaManageHouses()
+    {
+        return $this->hasMany(ManageHouse::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaHouseTypes()
+    {
+        return $this->hasMany(HouseType::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaStreets()
+    {
+        return $this->hasMany(Street::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaManagePrices()
+    {
+        return $this->hasMany(ManagePrice::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaHouseStatuses()
+    {
+        return $this->hasMany(HouseStatus::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaCaseStatuses()
+    {
+        return $this->hasMany(CaseStatus::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaCasesCategories()
+    {
+        return $this->hasMany(CasesCategory::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaComplaintStatuses()
+    {
+        return $this->hasMany(ComplaintStatus::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaClients()
+    {
+        return $this->hasMany(Client::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaProjects()
+    {
+        return $this->hasMany(Project::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaOpenProjects()
+    {
+        return $this->hasMany(OpenProject::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaNotes()
+    {
+        return $this->hasMany(Note::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaDocuments()
+    {
+        return $this->hasMany(Document::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaTaskStatuses()
+    {
+        return $this->hasMany(TaskStatus::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaTaskTags()
+    {
+        return $this->hasMany(TaskTag::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaTasks()
+    {
+        return $this->hasMany(Task::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaTransactionTypes()
+    {
+        return $this->hasMany(TransactionType::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaClientStatuses()
+    {
+        return $this->hasMany(ClientStatus::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaPaymentItems()
+    {
+        return $this->hasMany(PaymentItem::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaPaymentCharges()
+    {
+        return $this->hasMany(PaymentCharge::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaPaymentTypes()
+    {
+        return $this->hasMany(PaymentType::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaHomeOwnerTransactions()
+    {
+        return $this->hasMany(HomeOwnerTransaction::class, 'from_area_id', 'id');
     }
 
     public function areaProjects()
@@ -69,6 +179,11 @@ class Area extends Model
     public function areaOpenProjects()
     {
         return $this->belongsToMany(OpenProject::class);
+    }
+
+    public function areaUsers()
+    {
+        return $this->belongsToMany(User::class);
     }
 
     public function created_by()

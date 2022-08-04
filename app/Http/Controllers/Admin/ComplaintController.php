@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyComplaintRequest;
 use App\Http\Requests\StoreComplaintRequest;
 use App\Http\Requests\UpdateComplaintRequest;
+use App\Models\Area;
 use App\Models\Complaint;
 use App\Models\ComplaintStatus;
 use App\Models\User;
@@ -27,7 +28,7 @@ class ComplaintController extends Controller
         abort_if(Gate::denies('complaint_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Complaint::with(['status', 'created_by'])->select(sprintf('%s.*', (new Complaint())->table));
+            $query = Complaint::with(['status', 'from_area', 'created_by'])->select(sprintf('%s.*', (new Complaint())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -72,6 +73,10 @@ class ComplaintController extends Controller
 
                 return implode(' ', $links);
             });
+            $table->addColumn('from_area_name', function ($row) {
+                return $row->from_area ? $row->from_area->name : '';
+            });
+
             $table->addColumn('created_by_name', function ($row) {
                 return $row->created_by ? $row->created_by->name : '';
             });
@@ -80,15 +85,16 @@ class ComplaintController extends Controller
                 return $row->created_by ? (is_string($row->created_by) ? $row->created_by : $row->created_by->email) : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'status', 'image', 'created_by']);
+            $table->rawColumns(['actions', 'placeholder', 'status', 'image', 'from_area', 'created_by']);
 
             return $table->make(true);
         }
 
         $complaint_statuses = ComplaintStatus::get();
+        $areas              = Area::get();
         $users              = User::get();
 
-        return view('admin.complaints.index', compact('complaint_statuses', 'users'));
+        return view('admin.complaints.index', compact('complaint_statuses', 'areas', 'users'));
     }
 
     public function create()
@@ -121,7 +127,7 @@ class ComplaintController extends Controller
 
         $statuses = ComplaintStatus::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $complaint->load('status', 'created_by');
+        $complaint->load('status', 'from_area', 'created_by');
 
         return view('admin.complaints.edit', compact('complaint', 'statuses'));
     }
@@ -151,7 +157,7 @@ class ComplaintController extends Controller
     {
         abort_if(Gate::denies('complaint_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $complaint->load('status', 'created_by', 'complaintMyCases');
+        $complaint->load('status', 'from_area', 'created_by', 'complaintMyCases');
 
         return view('admin.complaints.show', compact('complaint'));
     }

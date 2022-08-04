@@ -30,6 +30,7 @@ class HomeOwnerTransaction extends Model
         'amount_paid',
         'changes',
         'created_by_id',
+        'from_area_id',
         'details',
         'created_at',
         'updated_at',
@@ -59,6 +60,11 @@ class HomeOwnerTransaction extends Model
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

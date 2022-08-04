@@ -14,20 +14,6 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
-                            <label class="required" for="area_id">{{ trans('cruds.managePrice.fields.area') }}</label>
-                            <select class="form-control select2" name="area_id" id="area_id" required>
-                                @foreach($areas as $id => $entry)
-                                    <option value="{{ $id }}" {{ old('area_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('area'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('area') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.managePrice.fields.area_helper') }}</span>
-                        </div>
-                        <div class="form-group">
                             <label class="required" for="house_type_id">{{ trans('cruds.managePrice.fields.house_type') }}</label>
                             <select class="form-control select2" name="house_type_id" id="house_type_id" required>
                                 @foreach($house_types as $id => $entry)

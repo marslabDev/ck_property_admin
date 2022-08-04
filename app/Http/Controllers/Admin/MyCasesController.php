@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyMyCaseRequest;
 use App\Http\Requests\StoreMyCaseRequest;
 use App\Http\Requests\UpdateMyCaseRequest;
+use App\Models\Area;
 use App\Models\CasesCategory;
 use App\Models\CaseStatus;
 use App\Models\Complaint;
@@ -29,7 +30,7 @@ class MyCasesController extends Controller
         abort_if(Gate::denies('my_case_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = MyCase::with(['complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by'])->select(sprintf('%s.*', (new MyCase())->table));
+            $query = MyCase::with(['complaints', 'category', 'status', 'handle_by', 'report_to', 'from_area', 'created_by'])->select(sprintf('%s.*', (new MyCase())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -101,6 +102,10 @@ class MyCasesController extends Controller
             $table->editColumn('report_to.email', function ($row) {
                 return $row->report_to ? (is_string($row->report_to) ? $row->report_to : $row->report_to->email) : '';
             });
+            $table->addColumn('from_area_name', function ($row) {
+                return $row->from_area ? $row->from_area->name : '';
+            });
+
             $table->addColumn('created_by_name', function ($row) {
                 return $row->created_by ? $row->created_by->name : '';
             });
@@ -109,7 +114,7 @@ class MyCasesController extends Controller
                 return $row->created_by ? (is_string($row->created_by) ? $row->created_by : $row->created_by->email) : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'complaint', 'category', 'image', 'status', 'handle_by', 'report_to', 'created_by']);
+            $table->rawColumns(['actions', 'placeholder', 'complaint', 'category', 'image', 'status', 'handle_by', 'report_to', 'from_area', 'created_by']);
 
             return $table->make(true);
         }
@@ -118,8 +123,9 @@ class MyCasesController extends Controller
         $cases_categories = CasesCategory::get();
         $case_statuses    = CaseStatus::get();
         $users            = User::get();
+        $areas            = Area::get();
 
-        return view('admin.myCases.index', compact('complaints', 'cases_categories', 'case_statuses', 'users'));
+        return view('admin.myCases.index', compact('complaints', 'cases_categories', 'case_statuses', 'users', 'areas'));
     }
 
     public function create()
@@ -168,7 +174,7 @@ class MyCasesController extends Controller
 
         $report_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $myCase->load('complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by');
+        $myCase->load('complaints', 'category', 'status', 'handle_by', 'report_to', 'from_area', 'created_by');
 
         return view('admin.myCases.edit', compact('categories', 'complaints', 'handle_bies', 'myCase', 'report_tos', 'statuses'));
     }
@@ -198,7 +204,7 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $myCase->load('complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by');
+        $myCase->load('complaints', 'category', 'status', 'handle_by', 'report_to', 'from_area', 'created_by');
 
         return view('admin.myCases.show', compact('myCase'));
     }

@@ -63,7 +63,9 @@ class UserAlertsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.userAlerts.index');
+        $users = User::get();
+
+        return view('admin.userAlerts.index', compact('users'));
     }
 
     public function create()

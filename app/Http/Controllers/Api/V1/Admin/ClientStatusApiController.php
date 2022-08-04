@@ -17,7 +17,7 @@ class ClientStatusApiController extends Controller
     {
         abort_if(Gate::denies('client_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ClientStatusResource(ClientStatus::with(['created_by'])->get());
+        return new ClientStatusResource(ClientStatus::with(['from_area', 'created_by'])->get());
     }
 
     public function store(StoreClientStatusRequest $request)
@@ -33,7 +33,7 @@ class ClientStatusApiController extends Controller
     {
         abort_if(Gate::denies('client_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ClientStatusResource($clientStatus->load(['created_by']));
+        return new ClientStatusResource($clientStatus->load(['from_area', 'created_by']));
     }
 
     public function update(UpdateClientStatusRequest $request, ClientStatus $clientStatus)

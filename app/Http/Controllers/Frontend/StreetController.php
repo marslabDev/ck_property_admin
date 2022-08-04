@@ -22,7 +22,7 @@ class StreetController extends Controller
     {
         abort_if(Gate::denies('street_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $streets = Street::with(['area', 'created_by'])->get();
+        $streets = Street::with(['from_area', 'created_by'])->get();
 
         $areas = Area::get();
 
@@ -35,9 +35,7 @@ class StreetController extends Controller
     {
         abort_if(Gate::denies('street_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('frontend.streets.create', compact('areas'));
+        return view('frontend.streets.create');
     }
 
     public function store(StoreStreetRequest $request)
@@ -51,11 +49,9 @@ class StreetController extends Controller
     {
         abort_if(Gate::denies('street_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $street->load('from_area', 'created_by');
 
-        $street->load('area', 'created_by');
-
-        return view('frontend.streets.edit', compact('areas', 'street'));
+        return view('frontend.streets.edit', compact('street'));
     }
 
     public function update(UpdateStreetRequest $request, Street $street)
@@ -69,7 +65,7 @@ class StreetController extends Controller
     {
         abort_if(Gate::denies('street_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $street->load('area', 'created_by');
+        $street->load('from_area', 'created_by', 'streetManageHouses');
 
         return view('frontend.streets.show', compact('street'));
     }

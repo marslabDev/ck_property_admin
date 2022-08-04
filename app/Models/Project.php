@@ -23,6 +23,10 @@ class Project extends Model implements HasMedia
 
     public $table = 'projects';
 
+    public static $searchable = [
+        'from_area',
+    ];
+
     protected $appends = [
         'documents',
     ];
@@ -39,6 +43,7 @@ class Project extends Model implements HasMedia
         'description',
         'start_date',
         'status_id',
+        'from_area_id',
         'created_by_id',
         'created_at',
         'updated_at',
@@ -79,6 +84,11 @@ class Project extends Model implements HasMedia
     public function status()
     {
         return $this->belongsTo(ProjectStatus::class, 'status_id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

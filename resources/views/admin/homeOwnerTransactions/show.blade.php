@@ -73,6 +73,22 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.homeOwnerTransaction.fields.created_by') }}
+                        </th>
+                        <td>
+                            {{ $homeOwnerTransaction->created_by->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.homeOwnerTransaction.fields.from_area') }}
+                        </th>
+                        <td>
+                            {{ $homeOwnerTransaction->from_area->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.homeOwnerTransaction.fields.details') }}
                         </th>
                         <td>

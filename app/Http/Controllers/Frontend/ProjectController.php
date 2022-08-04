@@ -27,7 +27,7 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $projects = Project::with(['areas', 'suppliers', 'status', 'created_by', 'media'])->get();
+        $projects = Project::with(['areas', 'suppliers', 'status', 'from_area', 'created_by', 'media'])->get();
 
         $areas = Area::get();
 
@@ -79,7 +79,7 @@ class ProjectController extends Controller
 
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $project->load('areas', 'suppliers', 'status', 'created_by');
+        $project->load('areas', 'suppliers', 'status', 'from_area', 'created_by');
 
         return view('frontend.projects.edit', compact('areas', 'project', 'statuses', 'suppliers'));
     }
@@ -110,7 +110,7 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $project->load('areas', 'suppliers', 'status', 'created_by');
+        $project->load('areas', 'suppliers', 'status', 'from_area', 'created_by');
 
         return view('frontend.projects.show', compact('project'));
     }

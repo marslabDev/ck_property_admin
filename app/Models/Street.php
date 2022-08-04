@@ -27,10 +27,10 @@ class Street extends Model
     protected $fillable = [
         'street_name',
         'created_at',
-        'area_id',
+        'from_area_id',
+        'created_by_id',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function streetManageHouses()
@@ -38,9 +38,9 @@ class Street extends Model
         return $this->hasMany(ManageHouse::class, 'street_id', 'id');
     }
 
-    public function area()
+    public function from_area()
     {
-        return $this->belongsTo(Area::class, 'area_id');
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\CsvImportTrait;
+use App\Models\Area;
 use App\Models\HomeOwnerTransaction;
 use App\Models\ManageHouse;
 use App\Models\PaymentPlan;
@@ -23,7 +24,7 @@ class HomeOwnerTransactionController extends Controller
         abort_if(Gate::denies('home_owner_transaction_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = HomeOwnerTransaction::with(['user', 'house', 'payment_plan', 'payment_type', 'created_by'])->select(sprintf('%s.*', (new HomeOwnerTransaction())->table));
+            $query = HomeOwnerTransaction::with(['user', 'house', 'payment_plan', 'payment_type', 'created_by', 'from_area'])->select(sprintf('%s.*', (new HomeOwnerTransaction())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -72,8 +73,15 @@ class HomeOwnerTransactionController extends Controller
             $table->editColumn('changes', function ($row) {
                 return $row->changes ? $row->changes : '';
             });
+            $table->addColumn('created_by_name', function ($row) {
+                return $row->created_by ? $row->created_by->name : '';
+            });
 
-            $table->rawColumns(['actions', 'placeholder', 'user', 'house', 'payment_plan', 'payment_type']);
+            $table->addColumn('from_area_name', function ($row) {
+                return $row->from_area ? $row->from_area->name : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'user', 'house', 'payment_plan', 'payment_type', 'created_by', 'from_area']);
 
             return $table->make(true);
         }
@@ -82,7 +90,8 @@ class HomeOwnerTransactionController extends Controller
         $manage_houses = ManageHouse::get();
         $payment_plans = PaymentPlan::get();
         $payment_types = PaymentType::get();
+        $areas         = Area::get();
 
-        return view('admin.homeOwnerTransactions.index', compact('users', 'manage_houses', 'payment_plans', 'payment_types'));
+        return view('admin.homeOwnerTransactions.index', compact('users', 'manage_houses', 'payment_plans', 'payment_types', 'areas'));
     }
 }

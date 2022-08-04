@@ -107,7 +107,7 @@ class AreaController extends Controller
     {
         abort_if(Gate::denies('area_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $area->load('created_by', 'areaManageHouses', 'areaHouseTypes', 'peopleInAreaNotices', 'areaManagePrices', 'areaStreets', 'areaProjects', 'areaOpenProjects');
+        $area->load('created_by', 'peopleInAreaNotices', 'fromAreaMyCases', 'fromAreaComplaints', 'fromAreaParkingLots', 'fromAreaManageHouses', 'fromAreaHouseTypes', 'fromAreaStreets', 'fromAreaManagePrices', 'fromAreaHouseStatuses', 'fromAreaCaseStatuses', 'fromAreaCasesCategories', 'fromAreaComplaintStatuses', 'fromAreaClients', 'fromAreaProjects', 'fromAreaOpenProjects', 'fromAreaNotes', 'fromAreaTransactions', 'fromAreaDocuments', 'fromAreaTaskStatuses', 'fromAreaTaskTags', 'fromAreaTasks', 'fromAreaTransactionTypes', 'fromAreaClientStatuses', 'fromAreaPaymentItems', 'fromAreaPaymentCharges', 'fromAreaPaymentTypes', 'fromAreaHomeOwnerTransactions', 'areaProjects', 'areaOpenProjects', 'areaUsers');
 
         return view('admin.areas.show', compact('area'));
     }

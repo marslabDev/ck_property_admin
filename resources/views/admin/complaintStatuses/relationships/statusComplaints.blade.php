@@ -37,6 +37,9 @@
                             {{ trans('cruds.complaint.fields.image') }}
                         </th>
                         <th>
+                            {{ trans('cruds.complaint.fields.from_area') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.complaint.fields.created_by') }}
                         </th>
                         <th>
@@ -74,6 +77,9 @@
                                         <img src="{{ $media->getUrl('thumb') }}">
                                     </a>
                                 @endforeach
+                            </td>
+                            <td>
+                                {{ $complaint->from_area->name ?? '' }}
                             </td>
                             <td>
                                 {{ $complaint->created_by->name ?? '' }}

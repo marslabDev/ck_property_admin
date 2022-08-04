@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\StoreTransactionRequest;
+use App\Models\Area;
 use App\Models\Client;
 use App\Models\Currency;
 use App\Models\Project;
@@ -23,7 +24,7 @@ class TransactionController extends Controller
     {
         abort_if(Gate::denies('transaction_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transactions = Transaction::with(['project', 'transaction_type', 'supplier', 'currency', 'created_by'])->get();
+        $transactions = Transaction::with(['project', 'transaction_type', 'supplier', 'currency', 'from_area', 'created_by'])->get();
 
         $projects = Project::get();
 
@@ -33,9 +34,11 @@ class TransactionController extends Controller
 
         $currencies = Currency::get();
 
+        $areas = Area::get();
+
         $users = User::get();
 
-        return view('frontend.transactions.index', compact('clients', 'currencies', 'projects', 'transaction_types', 'transactions', 'users'));
+        return view('frontend.transactions.index', compact('areas', 'clients', 'currencies', 'projects', 'transaction_types', 'transactions', 'users'));
     }
 
     public function create()
@@ -64,7 +67,7 @@ class TransactionController extends Controller
     {
         abort_if(Gate::denies('transaction_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transaction->load('project', 'transaction_type', 'supplier', 'currency', 'created_by');
+        $transaction->load('project', 'transaction_type', 'supplier', 'currency', 'from_area', 'created_by');
 
         return view('frontend.transactions.show', compact('transaction'));
     }

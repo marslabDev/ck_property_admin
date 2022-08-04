@@ -36,10 +36,10 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.street.fields.area') }}
+                                        {{ trans('cruds.street.fields.from_area') }}
                                     </th>
                                     <td>
-                                        {{ $street->area->name ?? '' }}
+                                        {{ $street->from_area->name ?? '' }}
                                     </td>
                                 </tr>
                             </tbody>

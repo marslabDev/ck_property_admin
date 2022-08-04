@@ -27,7 +27,7 @@ class OpenProjectController extends Controller
         abort_if(Gate::denies('open_project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = OpenProject::with(['areas', 'created_by'])->select(sprintf('%s.*', (new OpenProject())->table));
+            $query = OpenProject::with(['areas', 'created_by', 'from_area'])->select(sprintf('%s.*', (new OpenProject())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -119,7 +119,7 @@ class OpenProjectController extends Controller
 
         $areas = Area::pluck('name', 'id');
 
-        $openProject->load('areas', 'created_by');
+        $openProject->load('areas', 'created_by', 'from_area');
 
         return view('admin.openProjects.edit', compact('areas', 'openProject'));
     }
@@ -149,7 +149,7 @@ class OpenProjectController extends Controller
     {
         abort_if(Gate::denies('open_project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $openProject->load('areas', 'created_by', 'openProjectSupplierProposals');
+        $openProject->load('areas', 'created_by', 'from_area', 'openProjectSupplierProposals');
 
         return view('admin.openProjects.show', compact('openProject'));
     }

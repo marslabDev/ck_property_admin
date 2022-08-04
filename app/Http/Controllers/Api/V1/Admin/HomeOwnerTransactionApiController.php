@@ -15,6 +15,6 @@ class HomeOwnerTransactionApiController extends Controller
     {
         abort_if(Gate::denies('home_owner_transaction_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new HomeOwnerTransactionResource(HomeOwnerTransaction::with(['user', 'house', 'payment_plan', 'payment_type', 'created_by'])->get());
+        return new HomeOwnerTransactionResource(HomeOwnerTransaction::with(['user', 'house', 'payment_plan', 'payment_type', 'created_by', 'from_area'])->get());
     }
 }

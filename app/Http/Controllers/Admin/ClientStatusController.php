@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyClientStatusRequest;
 use App\Http\Requests\StoreClientStatusRequest;
 use App\Http\Requests\UpdateClientStatusRequest;
+use App\Models\Area;
 use App\Models\ClientStatus;
 use App\Models\User;
 use Gate;
@@ -23,7 +24,7 @@ class ClientStatusController extends Controller
         abort_if(Gate::denies('client_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ClientStatus::with(['created_by'])->select(sprintf('%s.*', (new ClientStatus())->table));
+            $query = ClientStatus::with(['from_area', 'created_by'])->select(sprintf('%s.*', (new ClientStatus())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -56,9 +57,10 @@ class ClientStatusController extends Controller
             return $table->make(true);
         }
 
+        $areas = Area::get();
         $users = User::get();
 
-        return view('admin.clientStatuses.index', compact('users'));
+        return view('admin.clientStatuses.index', compact('areas', 'users'));
     }
 
     public function create()
@@ -79,7 +81,7 @@ class ClientStatusController extends Controller
     {
         abort_if(Gate::denies('client_status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clientStatus->load('created_by');
+        $clientStatus->load('from_area', 'created_by');
 
         return view('admin.clientStatuses.edit', compact('clientStatus'));
     }
@@ -95,7 +97,7 @@ class ClientStatusController extends Controller
     {
         abort_if(Gate::denies('client_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clientStatus->load('created_by');
+        $clientStatus->load('from_area', 'created_by');
 
         return view('admin.clientStatuses.show', compact('clientStatus'));
     }

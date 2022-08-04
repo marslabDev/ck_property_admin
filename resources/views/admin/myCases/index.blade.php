@@ -62,6 +62,9 @@
                         {{ trans('cruds.user.fields.email') }}
                     </th>
                     <th>
+                        {{ trans('cruds.myCase.fields.from_area') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.myCase.fields.created_by') }}
                     </th>
                     <th>
@@ -131,6 +134,14 @@
                         </select>
                     </td>
                     <td>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($areas as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                         <select class="search">
@@ -209,6 +220,7 @@
 { data: 'handle_by.email', name: 'handle_by.email' },
 { data: 'report_to_name', name: 'report_to.name' },
 { data: 'report_to.email', name: 'report_to.email' },
+{ data: 'from_area_name', name: 'from_area.name' },
 { data: 'created_by_name', name: 'created_by.name' },
 { data: 'created_by.email', name: 'created_by.email' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }

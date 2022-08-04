@@ -111,6 +111,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.myCase.fields.from_area') }}
+                        </th>
+                        <td>
+                            {{ $myCase->from_area->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.myCase.fields.created_by') }}
                         </th>
                         <td>

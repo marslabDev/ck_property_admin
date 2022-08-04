@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyComplaintStatusRequest;
 use App\Http\Requests\StoreComplaintStatusRequest;
 use App\Http\Requests\UpdateComplaintStatusRequest;
+use App\Models\Area;
 use App\Models\ComplaintStatus;
 use App\Models\User;
 use Gate;
@@ -23,7 +24,7 @@ class ComplaintStatusController extends Controller
         abort_if(Gate::denies('complaint_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ComplaintStatus::with(['created_by'])->select(sprintf('%s.*', (new ComplaintStatus())->table));
+            $query = ComplaintStatus::with(['from_area', 'created_by'])->select(sprintf('%s.*', (new ComplaintStatus())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -56,9 +57,10 @@ class ComplaintStatusController extends Controller
             return $table->make(true);
         }
 
+        $areas = Area::get();
         $users = User::get();
 
-        return view('admin.complaintStatuses.index', compact('users'));
+        return view('admin.complaintStatuses.index', compact('areas', 'users'));
     }
 
     public function create()
@@ -79,7 +81,7 @@ class ComplaintStatusController extends Controller
     {
         abort_if(Gate::denies('complaint_status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $complaintStatus->load('created_by');
+        $complaintStatus->load('from_area', 'created_by');
 
         return view('admin.complaintStatuses.edit', compact('complaintStatus'));
     }
@@ -95,7 +97,7 @@ class ComplaintStatusController extends Controller
     {
         abort_if(Gate::denies('complaint_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $complaintStatus->load('created_by', 'statusComplaints', 'complaintStatusCaseStatuses');
+        $complaintStatus->load('from_area', 'created_by', 'statusComplaints', 'complaintStatusCaseStatuses');
 
         return view('admin.complaintStatuses.show', compact('complaintStatus'));
     }

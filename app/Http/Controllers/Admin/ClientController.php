@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyClientRequest;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use App\Models\Area;
 use App\Models\Client;
 use App\Models\ClientStatus;
 use App\Models\User;
@@ -24,7 +25,7 @@ class ClientController extends Controller
         abort_if(Gate::denies('client_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Client::with(['status', 'created_by'])->select(sprintf('%s.*', (new Client())->table));
+            $query = Client::with(['status', 'from_area', 'created_by'])->select(sprintf('%s.*', (new Client())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -82,9 +83,10 @@ class ClientController extends Controller
         }
 
         $client_statuses = ClientStatus::get();
+        $areas           = Area::get();
         $users           = User::get();
 
-        return view('admin.clients.index', compact('client_statuses', 'users'));
+        return view('admin.clients.index', compact('client_statuses', 'areas', 'users'));
     }
 
     public function create()
@@ -109,7 +111,7 @@ class ClientController extends Controller
 
         $statuses = ClientStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $client->load('status', 'created_by');
+        $client->load('status', 'from_area', 'created_by');
 
         return view('admin.clients.edit', compact('client', 'statuses'));
     }
@@ -125,7 +127,7 @@ class ClientController extends Controller
     {
         abort_if(Gate::denies('client_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $client->load('status', 'created_by', 'supplierTransactions', 'supplierProjects');
+        $client->load('status', 'from_area', 'created_by', 'supplierTransactions', 'supplierProjects');
 
         return view('admin.clients.show', compact('client'));
     }

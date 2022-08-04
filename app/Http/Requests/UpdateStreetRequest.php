@@ -20,10 +20,6 @@ class UpdateStreetRequest extends FormRequest
             'street_name' => [
                 'required',
             ],
-            'area_id' => [
-                'required',
-                'integer',
-            ],
         ];
     }
 }

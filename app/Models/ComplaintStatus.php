@@ -26,10 +26,11 @@ class ComplaintStatus extends Model
 
     protected $fillable = [
         'status',
+        'from_area_id',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function statusComplaints()
@@ -40,6 +41,11 @@ class ComplaintStatus extends Model
     public function complaintStatusCaseStatuses()
     {
         return $this->hasMany(CaseStatus::class, 'complaint_status_id', 'id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

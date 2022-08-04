@@ -43,6 +43,7 @@ class MyCase extends Model implements HasMedia
         'status_id',
         'handle_by_id',
         'report_to_id',
+        'from_area_id',
         'created_by_id',
         'created_at',
         'updated_at',
@@ -100,6 +101,11 @@ class MyCase extends Model implements HasMedia
     public function report_to()
     {
         return $this->belongsTo(User::class, 'report_to_id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

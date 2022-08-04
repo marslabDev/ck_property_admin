@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyCaseStatusRequest;
 use App\Http\Requests\StoreCaseStatusRequest;
 use App\Http\Requests\UpdateCaseStatusRequest;
+use App\Models\Area;
 use App\Models\CaseStatus;
 use App\Models\ComplaintStatus;
 use App\Models\User;
@@ -22,13 +23,15 @@ class CaseStatusController extends Controller
     {
         abort_if(Gate::denies('case_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $caseStatuses = CaseStatus::with(['complaint_status', 'created_by'])->get();
+        $caseStatuses = CaseStatus::with(['complaint_status', 'from_area', 'created_by'])->get();
 
         $complaint_statuses = ComplaintStatus::get();
 
+        $areas = Area::get();
+
         $users = User::get();
 
-        return view('frontend.caseStatuses.index', compact('caseStatuses', 'complaint_statuses', 'users'));
+        return view('frontend.caseStatuses.index', compact('areas', 'caseStatuses', 'complaint_statuses', 'users'));
     }
 
     public function create()
@@ -53,7 +56,7 @@ class CaseStatusController extends Controller
 
         $complaint_statuses = ComplaintStatus::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $caseStatus->load('complaint_status', 'created_by');
+        $caseStatus->load('complaint_status', 'from_area', 'created_by');
 
         return view('frontend.caseStatuses.edit', compact('caseStatus', 'complaint_statuses'));
     }
@@ -69,7 +72,7 @@ class CaseStatusController extends Controller
     {
         abort_if(Gate::denies('case_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $caseStatus->load('complaint_status', 'created_by', 'statusMyCases');
+        $caseStatus->load('complaint_status', 'from_area', 'created_by', 'statusMyCases');
 
         return view('frontend.caseStatuses.show', compact('caseStatus'));
     }

@@ -37,6 +37,7 @@ class Complaint extends Model implements HasMedia
         'title',
         'description',
         'status_id',
+        'from_area_id',
         'created_by_id',
         'created_at',
         'updated_at',
@@ -69,6 +70,11 @@ class Complaint extends Model implements HasMedia
         });
 
         return $files;
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

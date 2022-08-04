@@ -29,11 +29,9 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouses = ManageHouse::with(['house_type', 'area', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'created_by', 'media'])->get();
+        $manageHouses = ManageHouse::with(['house_type', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'from_area', 'created_by', 'media'])->get();
 
         $house_types = HouseType::get();
-
-        $areas = Area::get();
 
         $streets = Street::get();
 
@@ -43,6 +41,8 @@ class ManageHouseController extends Controller
 
         $users = User::get();
 
+        $areas = Area::get();
+
         return view('frontend.manageHouses.index', compact('areas', 'house_statuses', 'house_types', 'manageHouses', 'parking_lots', 'streets', 'users'));
     }
 
@@ -51,8 +51,6 @@ class ManageHouseController extends Controller
         abort_if(Gate::denies('manage_house_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $house_types = HouseType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $streets = Street::pluck('street_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -66,7 +64,7 @@ class ManageHouseController extends Controller
 
         $contact_person_2s = User::pluck('phone_no', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.manageHouses.create', compact('areas', 'contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'owned_bies', 'parking_lots', 'streets'));
+        return view('frontend.manageHouses.create', compact('contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'owned_bies', 'parking_lots', 'streets'));
     }
 
     public function store(StoreManageHouseRequest $request)
@@ -91,8 +89,6 @@ class ManageHouseController extends Controller
 
         $house_types = HouseType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $streets = Street::pluck('street_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $parking_lots = ParkingLot::pluck('lot_no', 'id');
@@ -105,9 +101,9 @@ class ManageHouseController extends Controller
 
         $contact_person_2s = User::pluck('phone_no', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $manageHouse->load('house_type', 'area', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'created_by');
+        $manageHouse->load('house_type', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'from_area', 'created_by');
 
-        return view('frontend.manageHouses.edit', compact('areas', 'contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'manageHouse', 'owned_bies', 'parking_lots', 'streets'));
+        return view('frontend.manageHouses.edit', compact('contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'manageHouse', 'owned_bies', 'parking_lots', 'streets'));
     }
 
     public function update(UpdateManageHouseRequest $request, ManageHouse $manageHouse)
@@ -136,7 +132,7 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouse->load('house_type', 'area', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'created_by', 'housePaymentPlans', 'houseHomeOwnerTransactions');
+        $manageHouse->load('house_type', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'from_area', 'created_by', 'housePaymentPlans', 'houseHomeOwnerTransactions');
 
         return view('frontend.manageHouses.show', compact('manageHouse'));
     }

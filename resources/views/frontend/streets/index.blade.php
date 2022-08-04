@@ -33,10 +33,7 @@
                                         {{ trans('cruds.street.fields.street_name') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.street.fields.area') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.area.fields.city') }}
+                                        {{ trans('cruds.street.fields.from_area') }}
                                     </th>
                                     <th>
                                         &nbsp;
@@ -61,8 +58,6 @@
                                     </td>
                                     <td>
                                     </td>
-                                    <td>
-                                    </td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,10 +70,7 @@
                                             {{ $street->street_name ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $street->area->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $street->area->city ?? '' }}
+                                            {{ $street->from_area->name ?? '' }}
                                         </td>
                                         <td>
                                             @can('street_show')

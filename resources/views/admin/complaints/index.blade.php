@@ -41,6 +41,9 @@
                         {{ trans('cruds.complaint.fields.image') }}
                     </th>
                     <th>
+                        {{ trans('cruds.complaint.fields.from_area') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.complaint.fields.created_by') }}
                     </th>
                     <th>
@@ -74,6 +77,14 @@
                         </select>
                     </td>
                     <td>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($areas as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                         <select class="search">
@@ -148,6 +159,7 @@
 { data: 'title', name: 'title' },
 { data: 'status_status', name: 'status.status' },
 { data: 'image', name: 'image', sortable: false, searchable: false },
+{ data: 'from_area_name', name: 'from_area.name' },
 { data: 'created_by_name', name: 'created_by.name' },
 { data: 'created_by.email', name: 'created_by.email' },
 { data: 'created_at', name: 'created_at' },

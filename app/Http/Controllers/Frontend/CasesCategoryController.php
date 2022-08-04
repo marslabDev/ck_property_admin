@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyCasesCategoryRequest;
 use App\Http\Requests\StoreCasesCategoryRequest;
 use App\Http\Requests\UpdateCasesCategoryRequest;
+use App\Models\Area;
 use App\Models\CasesCategory;
 use App\Models\User;
 use Gate;
@@ -21,11 +22,13 @@ class CasesCategoryController extends Controller
     {
         abort_if(Gate::denies('cases_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $casesCategories = CasesCategory::with(['created_by'])->get();
+        $casesCategories = CasesCategory::with(['from_area', 'created_by'])->get();
+
+        $areas = Area::get();
 
         $users = User::get();
 
-        return view('frontend.casesCategories.index', compact('casesCategories', 'users'));
+        return view('frontend.casesCategories.index', compact('areas', 'casesCategories', 'users'));
     }
 
     public function create()
@@ -46,7 +49,7 @@ class CasesCategoryController extends Controller
     {
         abort_if(Gate::denies('cases_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $casesCategory->load('created_by');
+        $casesCategory->load('from_area', 'created_by');
 
         return view('frontend.casesCategories.edit', compact('casesCategory'));
     }
@@ -62,7 +65,7 @@ class CasesCategoryController extends Controller
     {
         abort_if(Gate::denies('cases_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $casesCategory->load('created_by');
+        $casesCategory->load('from_area', 'created_by', 'categoryMyCases');
 
         return view('frontend.casesCategories.show', compact('casesCategory'));
     }

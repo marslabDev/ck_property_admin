@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Area;
 use App\Models\Role;
 use App\Models\User;
 use Gate;
@@ -21,11 +22,13 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with(['roles'])->get();
+        $users = User::with(['roles', 'areas'])->get();
 
         $roles = Role::get();
 
-        return view('frontend.users.index', compact('roles', 'users'));
+        $areas = Area::get();
+
+        return view('frontend.users.index', compact('areas', 'roles', 'users'));
     }
 
     public function create()
@@ -34,13 +37,16 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        return view('frontend.users.create', compact('roles'));
+        $areas = Area::pluck('name', 'id');
+
+        return view('frontend.users.create', compact('areas', 'roles'));
     }
 
     public function store(StoreUserRequest $request)
     {
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
+        $user->areas()->sync($request->input('areas', []));
 
         return redirect()->route('frontend.users.index');
     }
@@ -51,15 +57,18 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        $user->load('roles');
+        $areas = Area::pluck('name', 'id');
 
-        return view('frontend.users.edit', compact('roles', 'user'));
+        $user->load('roles', 'areas');
+
+        return view('frontend.users.edit', compact('areas', 'roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
+        $user->areas()->sync($request->input('areas', []));
 
         return redirect()->route('frontend.users.index');
     }
@@ -68,7 +77,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->load('roles', 'userUserDetails', 'userUserCardMgmts', 'userPaymentPlans', 'userHomeOwnerTransactions', 'userUserAlerts', 'ownedByManageHouses');
+        $user->load('roles', 'areas', 'createdByMyCases', 'userUserDetails', 'userUserCardMgmts', 'userPaymentPlans', 'userHomeOwnerTransactions', 'contactPersonManageHouses', 'contactPerson2ManageHouses', 'handleByMyCases', 'reportToMyCases', 'userUserAlerts', 'ownedByManageHouses');
 
         return view('frontend.users.show', compact('user'));
     }

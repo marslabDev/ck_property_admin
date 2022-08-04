@@ -28,6 +28,7 @@ class CaseStatus extends Model
         'name',
         'status_linking',
         'complaint_status_id',
+        'from_area_id',
         'created_by_id',
         'created_at',
         'updated_at',
@@ -42,6 +43,11 @@ class CaseStatus extends Model
     public function complaint_status()
     {
         return $this->belongsTo(ComplaintStatus::class, 'complaint_status_id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

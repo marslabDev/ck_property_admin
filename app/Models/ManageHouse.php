@@ -37,12 +37,12 @@ class ManageHouse extends Model implements HasMedia
         'unit_no',
         'floor',
         'block',
-        'area_id',
         'street_id',
         'square_feet',
         'house_status_id',
         'contact_person_id',
         'contact_person_2_id',
+        'from_area_id',
         'created_by_id',
         'created_at',
         'updated_at',
@@ -68,11 +68,6 @@ class ManageHouse extends Model implements HasMedia
     public function house_type()
     {
         return $this->belongsTo(HouseType::class, 'house_type_id');
-    }
-
-    public function area()
-    {
-        return $this->belongsTo(Area::class, 'area_id');
     }
 
     public function street()
@@ -108,6 +103,11 @@ class ManageHouse extends Model implements HasMedia
     public function contact_person_2()
     {
         return $this->belongsTo(User::class, 'contact_person_2_id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

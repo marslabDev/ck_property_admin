@@ -27,6 +27,7 @@ class HouseStatus extends Model
     protected $fillable = [
         'status',
         'created_at',
+        'from_area_id',
         'updated_at',
         'deleted_at',
         'created_by_id',
@@ -35,6 +36,11 @@ class HouseStatus extends Model
     public function houseStatusManageHouses()
     {
         return $this->hasMany(ManageHouse::class, 'house_status_id', 'id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

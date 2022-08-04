@@ -41,6 +41,7 @@ class Task extends Model implements HasMedia
         'due_date',
         'assigned_to_id',
         'created_at',
+        'from_area_id',
         'updated_at',
         'deleted_at',
         'created_by_id',
@@ -80,6 +81,11 @@ class Task extends Model implements HasMedia
     public function assigned_to()
     {
         return $this->belongsTo(User::class, 'assigned_to_id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

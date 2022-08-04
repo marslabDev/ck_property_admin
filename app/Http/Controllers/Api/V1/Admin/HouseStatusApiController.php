@@ -17,7 +17,7 @@ class HouseStatusApiController extends Controller
     {
         abort_if(Gate::denies('house_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new HouseStatusResource(HouseStatus::with(['created_by'])->get());
+        return new HouseStatusResource(HouseStatus::with(['from_area', 'created_by'])->get());
     }
 
     public function store(StoreHouseStatusRequest $request)
@@ -33,7 +33,7 @@ class HouseStatusApiController extends Controller
     {
         abort_if(Gate::denies('house_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new HouseStatusResource($houseStatus->load(['created_by']));
+        return new HouseStatusResource($houseStatus->load(['from_area', 'created_by']));
     }
 
     public function update(UpdateHouseStatusRequest $request, HouseStatus $houseStatus)

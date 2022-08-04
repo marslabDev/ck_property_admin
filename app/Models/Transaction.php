@@ -32,6 +32,7 @@ class Transaction extends Model
         'currency_id',
         'details',
         'transaction_date',
+        'from_area_id',
         'created_by_id',
         'created_at',
         'updated_at',
@@ -66,6 +67,11 @@ class Transaction extends Model
     public function setTransactionDateAttribute($value)
     {
         $this->attributes['transaction_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

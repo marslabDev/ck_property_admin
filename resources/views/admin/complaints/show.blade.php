@@ -69,6 +69,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.complaint.fields.from_area') }}
+                        </th>
+                        <td>
+                            {{ $complaint->from_area->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.complaint.fields.created_by') }}
                         </th>
                         <td>

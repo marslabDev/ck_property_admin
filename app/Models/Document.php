@@ -36,10 +36,11 @@ class Document extends Model implements HasMedia
         'project_id',
         'name',
         'description',
+        'from_area_id',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function registerMediaConversions(Media $media = null): void
@@ -56,6 +57,11 @@ class Document extends Model implements HasMedia
     public function getDocumentFileAttribute()
     {
         return $this->getMedia('document_file')->last();
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

@@ -40,6 +40,13 @@ class UpdateUserRequest extends FormRequest
                 'required',
                 'array',
             ],
+            'areas.*' => [
+                'integer',
+            ],
+            'areas' => [
+                'required',
+                'array',
+            ],
         ];
     }
 }

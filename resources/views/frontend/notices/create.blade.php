@@ -131,7 +131,7 @@
 @if(isset($notice) && $notice->image)
       var file = {!! json_encode($notice->image) !!}
           this.options.addedfile.call(this, file)
-      this.options.thumbnail.call(this, file, file.preview)
+      this.options.thumbnail.call(this, file, file.preview ?? file.preview_url)
       file.previewElement.classList.add('dz-complete')
       $('form').append('<input type="hidden" name="image" value="' + file.file_name + '">')
       this.options.maxFiles = this.options.maxFiles - 1
@@ -154,5 +154,6 @@
         return _results
     }
 }
+
 </script>
 @endsection

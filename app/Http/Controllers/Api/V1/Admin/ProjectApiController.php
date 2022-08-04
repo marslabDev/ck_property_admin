@@ -20,7 +20,7 @@ class ProjectApiController extends Controller
     {
         abort_if(Gate::denies('project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ProjectResource(Project::with(['areas', 'suppliers', 'status', 'created_by'])->get());
+        return new ProjectResource(Project::with(['areas', 'suppliers', 'status', 'from_area', 'created_by'])->get());
     }
 
     public function store(StoreProjectRequest $request)
@@ -41,7 +41,7 @@ class ProjectApiController extends Controller
     {
         abort_if(Gate::denies('project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ProjectResource($project->load(['areas', 'suppliers', 'status', 'created_by']));
+        return new ProjectResource($project->load(['areas', 'suppliers', 'status', 'from_area', 'created_by']));
     }
 
     public function update(UpdateProjectRequest $request, Project $project)

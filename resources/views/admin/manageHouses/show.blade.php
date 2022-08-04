@@ -57,14 +57,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.manageHouse.fields.area') }}
-                        </th>
-                        <td>
-                            {{ $manageHouse->area->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.manageHouse.fields.street') }}
                         </th>
                         <td>
@@ -133,6 +125,14 @@
                         </th>
                         <td>
                             {{ $manageHouse->contact_person_2->phone_no ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.manageHouse.fields.from_area') }}
+                        </th>
+                        <td>
+                            {{ $manageHouse->from_area->name ?? '' }}
                         </td>
                     </tr>
                 </tbody>

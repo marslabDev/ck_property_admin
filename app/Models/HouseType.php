@@ -32,7 +32,7 @@ class HouseType extends Model
     protected $fillable = [
         'name',
         'type',
-        'area_id',
+        'from_area_id',
         'created_by_id',
         'created_at',
         'updated_at',
@@ -49,9 +49,9 @@ class HouseType extends Model
         return $this->hasMany(ManagePrice::class, 'house_type_id', 'id');
     }
 
-    public function area()
+    public function from_area()
     {
-        return $this->belongsTo(Area::class, 'area_id');
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()
