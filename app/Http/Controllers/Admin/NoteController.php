@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyNoteRequest;
 use App\Http\Requests\StoreNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
+use App\Models\Area;
 use App\Models\Note;
 use App\Models\Project;
 use App\Models\User;
@@ -24,7 +25,7 @@ class NoteController extends Controller
         abort_if(Gate::denies('note_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Note::with(['project', 'created_by'])->select(sprintf('%s.*', (new Note())->table));
+            $query = Note::with(['project', 'from_area', 'created_by'])->select(sprintf('%s.*', (new Note())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -62,9 +63,10 @@ class NoteController extends Controller
         }
 
         $projects = Project::get();
+        $areas    = Area::get();
         $users    = User::get();
 
-        return view('admin.notes.index', compact('projects', 'users'));
+        return view('admin.notes.index', compact('projects', 'areas', 'users'));
     }
 
     public function create()
@@ -89,7 +91,7 @@ class NoteController extends Controller
 
         $projects = Project::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $note->load('project', 'created_by');
+        $note->load('project', 'from_area', 'created_by');
 
         return view('admin.notes.edit', compact('note', 'projects'));
     }
@@ -105,7 +107,7 @@ class NoteController extends Controller
     {
         abort_if(Gate::denies('note_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $note->load('project', 'created_by');
+        $note->load('project', 'from_area', 'created_by');
 
         return view('admin.notes.show', compact('note'));
     }

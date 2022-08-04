@@ -63,6 +63,9 @@
                                         {{ trans('cruds.user.fields.email') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.myCase.fields.from_area') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.myCase.fields.created_by') }}
                                     </th>
                                     <th>
@@ -136,6 +139,14 @@
                                     <td>
                                         <select class="search">
                                             <option value>{{ trans('global.all') }}</option>
+                                            @foreach($areas as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
                                             @foreach($users as $key => $item)
                                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                                             @endforeach
@@ -191,6 +202,9 @@
                                         </td>
                                         <td>
                                             {{ $myCase->report_to->email ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $myCase->from_area->name ?? '' }}
                                         </td>
                                         <td>
                                             {{ $myCase->created_by->name ?? '' }}

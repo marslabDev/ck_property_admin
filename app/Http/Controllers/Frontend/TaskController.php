@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyTaskRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Area;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\TaskTag;
@@ -26,7 +27,7 @@ class TaskController extends Controller
     {
         abort_if(Gate::denies('task_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $tasks = Task::with(['status', 'tags', 'assigned_to', 'created_by', 'media'])->get();
+        $tasks = Task::with(['status', 'tags', 'assigned_to', 'from_area', 'created_by', 'media'])->get();
 
         $task_statuses = TaskStatus::get();
 
@@ -34,7 +35,9 @@ class TaskController extends Controller
 
         $users = User::get();
 
-        return view('frontend.tasks.index', compact('task_statuses', 'task_tags', 'tasks', 'users'));
+        $areas = Area::get();
+
+        return view('frontend.tasks.index', compact('areas', 'task_statuses', 'task_tags', 'tasks', 'users'));
     }
 
     public function create()
@@ -75,7 +78,7 @@ class TaskController extends Controller
 
         $assigned_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $task->load('status', 'tags', 'assigned_to', 'created_by');
+        $task->load('status', 'tags', 'assigned_to', 'from_area', 'created_by');
 
         return view('frontend.tasks.edit', compact('assigned_tos', 'statuses', 'tags', 'task'));
     }
@@ -102,7 +105,7 @@ class TaskController extends Controller
     {
         abort_if(Gate::denies('task_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $task->load('status', 'tags', 'assigned_to', 'created_by');
+        $task->load('status', 'tags', 'assigned_to', 'from_area', 'created_by');
 
         return view('frontend.tasks.show', compact('task'));
     }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyTaskRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Area;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\TaskTag;
@@ -28,7 +29,7 @@ class TaskController extends Controller
         abort_if(Gate::denies('task_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Task::with(['status', 'tags', 'assigned_to', 'created_by'])->select(sprintf('%s.*', (new Task())->table));
+            $query = Task::with(['status', 'tags', 'assigned_to', 'from_area', 'created_by'])->select(sprintf('%s.*', (new Task())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -86,8 +87,9 @@ class TaskController extends Controller
         $task_statuses = TaskStatus::get();
         $task_tags     = TaskTag::get();
         $users         = User::get();
+        $areas         = Area::get();
 
-        return view('admin.tasks.index', compact('task_statuses', 'task_tags', 'users'));
+        return view('admin.tasks.index', compact('task_statuses', 'task_tags', 'users', 'areas'));
     }
 
     public function create()
@@ -128,7 +130,7 @@ class TaskController extends Controller
 
         $assigned_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $task->load('status', 'tags', 'assigned_to', 'created_by');
+        $task->load('status', 'tags', 'assigned_to', 'from_area', 'created_by');
 
         return view('admin.tasks.edit', compact('assigned_tos', 'statuses', 'tags', 'task'));
     }
@@ -155,7 +157,7 @@ class TaskController extends Controller
     {
         abort_if(Gate::denies('task_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $task->load('status', 'tags', 'assigned_to', 'created_by');
+        $task->load('status', 'tags', 'assigned_to', 'from_area', 'created_by');
 
         return view('admin.tasks.show', compact('task'));
     }

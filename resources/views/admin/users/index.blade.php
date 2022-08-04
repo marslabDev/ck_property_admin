@@ -32,7 +32,19 @@
                         {{ trans('cruds.user.fields.name') }}
                     </th>
                     <th>
+                        {{ trans('cruds.user.fields.username') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.user.fields.phone_no') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.email') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.roles') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.area') }}
                     </th>
                     <th>
                         {{ trans('cruds.user.fields.two_factor') }}
@@ -42,9 +54,6 @@
                     </th>
                     <th>
                         {{ trans('cruds.user.fields.verified') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.user.fields.roles') }}
                     </th>
                     <th>
                         &nbsp;
@@ -63,10 +72,10 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                    </td>
-                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <select class="search">
@@ -75,6 +84,20 @@
                                 <option value="{{ $item->title }}">{{ $item->title }}</option>
                             @endforeach
                         </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($areas as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
                     </td>
                     <td>
                     </td>
@@ -133,11 +156,14 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
+{ data: 'username', name: 'username' },
 { data: 'phone_no', name: 'phone_no' },
+{ data: 'email', name: 'email' },
+{ data: 'roles', name: 'roles.title' },
+{ data: 'area', name: 'areas.name' },
 { data: 'two_factor', name: 'two_factor' },
 { data: 'approved', name: 'approved' },
 { data: 'verified', name: 'verified' },
-{ data: 'roles', name: 'roles.title' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

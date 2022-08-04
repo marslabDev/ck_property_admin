@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyPaymentItemRequest;
 use App\Http\Requests\StorePaymentItemRequest;
 use App\Http\Requests\UpdatePaymentItemRequest;
+use App\Models\Area;
 use App\Models\PaymentItem;
 use App\Models\User;
 use Gate;
@@ -23,7 +24,7 @@ class PaymentItemController extends Controller
         abort_if(Gate::denies('payment_item_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = PaymentItem::with(['created_by'])->select(sprintf('%s.*', (new PaymentItem())->table));
+            $query = PaymentItem::with(['from_area', 'created_by'])->select(sprintf('%s.*', (new PaymentItem())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -59,9 +60,10 @@ class PaymentItemController extends Controller
             return $table->make(true);
         }
 
+        $areas = Area::get();
         $users = User::get();
 
-        return view('admin.paymentItems.index', compact('users'));
+        return view('admin.paymentItems.index', compact('areas', 'users'));
     }
 
     public function create()
@@ -82,7 +84,7 @@ class PaymentItemController extends Controller
     {
         abort_if(Gate::denies('payment_item_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentItem->load('created_by');
+        $paymentItem->load('from_area', 'created_by');
 
         return view('admin.paymentItems.edit', compact('paymentItem'));
     }
@@ -98,7 +100,7 @@ class PaymentItemController extends Controller
     {
         abort_if(Gate::denies('payment_item_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentItem->load('created_by', 'paymentItemPaymentPlans');
+        $paymentItem->load('from_area', 'created_by', 'paymentItemPaymentPlans');
 
         return view('admin.paymentItems.show', compact('paymentItem'));
     }

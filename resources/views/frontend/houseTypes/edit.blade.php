@@ -39,20 +39,6 @@
                             <span class="help-block">{{ trans('cruds.houseType.fields.type_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label class="required" for="area_id">{{ trans('cruds.houseType.fields.area') }}</label>
-                            <select class="form-control select2" name="area_id" id="area_id" required>
-                                @foreach($areas as $id => $entry)
-                                    <option value="{{ $id }}" {{ (old('area_id') ? old('area_id') : $houseType->area->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('area'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('area') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.houseType.fields.area_helper') }}</span>
-                        </div>
-                        <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
                             </button>

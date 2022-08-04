@@ -20,7 +20,7 @@ class TaskApiController extends Controller
     {
         abort_if(Gate::denies('task_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TaskResource(Task::with(['status', 'tags', 'assigned_to', 'created_by'])->get());
+        return new TaskResource(Task::with(['status', 'tags', 'assigned_to', 'from_area', 'created_by'])->get());
     }
 
     public function store(StoreTaskRequest $request)
@@ -40,7 +40,7 @@ class TaskApiController extends Controller
     {
         abort_if(Gate::denies('task_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TaskResource($task->load(['status', 'tags', 'assigned_to', 'created_by']));
+        return new TaskResource($task->load(['status', 'tags', 'assigned_to', 'from_area', 'created_by']));
     }
 
     public function update(UpdateTaskRequest $request, Task $task)

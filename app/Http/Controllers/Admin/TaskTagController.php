@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTaskTagRequest;
 use App\Http\Requests\StoreTaskTagRequest;
 use App\Http\Requests\UpdateTaskTagRequest;
+use App\Models\Area;
 use App\Models\TaskTag;
 use App\Models\User;
 use Gate;
@@ -23,7 +24,7 @@ class TaskTagController extends Controller
         abort_if(Gate::denies('task_tag_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = TaskTag::with(['created_by'])->select(sprintf('%s.*', (new TaskTag())->table));
+            $query = TaskTag::with(['from_area', 'created_by'])->select(sprintf('%s.*', (new TaskTag())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -56,9 +57,10 @@ class TaskTagController extends Controller
             return $table->make(true);
         }
 
+        $areas = Area::get();
         $users = User::get();
 
-        return view('admin.taskTags.index', compact('users'));
+        return view('admin.taskTags.index', compact('areas', 'users'));
     }
 
     public function create()
@@ -79,7 +81,7 @@ class TaskTagController extends Controller
     {
         abort_if(Gate::denies('task_tag_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $taskTag->load('created_by');
+        $taskTag->load('from_area', 'created_by');
 
         return view('admin.taskTags.edit', compact('taskTag'));
     }
@@ -95,7 +97,7 @@ class TaskTagController extends Controller
     {
         abort_if(Gate::denies('task_tag_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $taskTag->load('created_by');
+        $taskTag->load('from_area', 'created_by');
 
         return view('admin.taskTags.show', compact('taskTag'));
     }

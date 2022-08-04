@@ -17,7 +17,7 @@ class ManagePriceApiController extends Controller
     {
         abort_if(Gate::denies('manage_price_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ManagePriceResource(ManagePrice::with(['area', 'house_type', 'created_by'])->get());
+        return new ManagePriceResource(ManagePrice::with(['house_type', 'from_area', 'created_by'])->get());
     }
 
     public function store(StoreManagePriceRequest $request)
@@ -33,7 +33,7 @@ class ManagePriceApiController extends Controller
     {
         abort_if(Gate::denies('manage_price_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ManagePriceResource($managePrice->load(['area', 'house_type', 'created_by']));
+        return new ManagePriceResource($managePrice->load(['house_type', 'from_area', 'created_by']));
     }
 
     public function update(UpdateManagePriceRequest $request, ManagePrice $managePrice)

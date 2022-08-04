@@ -29,10 +29,6 @@ class StoreManageHouseRequest extends FormRequest
                 'string',
                 'nullable',
             ],
-            'area_id' => [
-                'required',
-                'integer',
-            ],
             'street_id' => [
                 'required',
                 'integer',

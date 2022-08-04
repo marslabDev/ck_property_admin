@@ -17,7 +17,7 @@ class HouseTypeApiController extends Controller
     {
         abort_if(Gate::denies('house_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new HouseTypeResource(HouseType::with(['area', 'created_by'])->get());
+        return new HouseTypeResource(HouseType::with(['from_area', 'created_by'])->get());
     }
 
     public function store(StoreHouseTypeRequest $request)
@@ -33,7 +33,7 @@ class HouseTypeApiController extends Controller
     {
         abort_if(Gate::denies('house_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new HouseTypeResource($houseType->load(['area', 'created_by']));
+        return new HouseTypeResource($houseType->load(['from_area', 'created_by']));
     }
 
     public function update(UpdateHouseTypeRequest $request, HouseType $houseType)

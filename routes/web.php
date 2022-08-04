@@ -276,26 +276,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('client-reports/destroy', 'ClientReportController@massDestroy')->name('client-reports.massDestroy');
     Route::resource('client-reports', 'ClientReportController');
 
-    // Content Category
-    Route::delete('content-categories/destroy', 'ContentCategoryController@massDestroy')->name('content-categories.massDestroy');
-    Route::post('content-categories/parse-csv-import', 'ContentCategoryController@parseCsvImport')->name('content-categories.parseCsvImport');
-    Route::post('content-categories/process-csv-import', 'ContentCategoryController@processCsvImport')->name('content-categories.processCsvImport');
-    Route::resource('content-categories', 'ContentCategoryController');
-
-    // Content Tag
-    Route::delete('content-tags/destroy', 'ContentTagController@massDestroy')->name('content-tags.massDestroy');
-    Route::post('content-tags/parse-csv-import', 'ContentTagController@parseCsvImport')->name('content-tags.parseCsvImport');
-    Route::post('content-tags/process-csv-import', 'ContentTagController@processCsvImport')->name('content-tags.processCsvImport');
-    Route::resource('content-tags', 'ContentTagController');
-
-    // Content Page
-    Route::delete('content-pages/destroy', 'ContentPageController@massDestroy')->name('content-pages.massDestroy');
-    Route::post('content-pages/media', 'ContentPageController@storeMedia')->name('content-pages.storeMedia');
-    Route::post('content-pages/ckmedia', 'ContentPageController@storeCKEditorImages')->name('content-pages.storeCKEditorImages');
-    Route::post('content-pages/parse-csv-import', 'ContentPageController@parseCsvImport')->name('content-pages.parseCsvImport');
-    Route::post('content-pages/process-csv-import', 'ContentPageController@processCsvImport')->name('content-pages.processCsvImport');
-    Route::resource('content-pages', 'ContentPageController');
-
     // House Type
     Route::delete('house-types/destroy', 'HouseTypeController@massDestroy')->name('house-types.massDestroy');
     Route::post('house-types/parse-csv-import', 'HouseTypeController@parseCsvImport')->name('house-types.parseCsvImport');
@@ -598,20 +578,6 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Client Report
     Route::delete('client-reports/destroy', 'ClientReportController@massDestroy')->name('client-reports.massDestroy');
     Route::resource('client-reports', 'ClientReportController');
-
-    // Content Category
-    Route::delete('content-categories/destroy', 'ContentCategoryController@massDestroy')->name('content-categories.massDestroy');
-    Route::resource('content-categories', 'ContentCategoryController');
-
-    // Content Tag
-    Route::delete('content-tags/destroy', 'ContentTagController@massDestroy')->name('content-tags.massDestroy');
-    Route::resource('content-tags', 'ContentTagController');
-
-    // Content Page
-    Route::delete('content-pages/destroy', 'ContentPageController@massDestroy')->name('content-pages.massDestroy');
-    Route::post('content-pages/media', 'ContentPageController@storeMedia')->name('content-pages.storeMedia');
-    Route::post('content-pages/ckmedia', 'ContentPageController@storeCKEditorImages')->name('content-pages.storeCKEditorImages');
-    Route::resource('content-pages', 'ContentPageController');
 
     // House Type
     Route::delete('house-types/destroy', 'HouseTypeController@massDestroy')->name('house-types.massDestroy');

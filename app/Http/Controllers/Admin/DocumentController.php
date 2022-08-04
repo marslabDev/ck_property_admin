@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyDocumentRequest;
 use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Requests\UpdateDocumentRequest;
+use App\Models\Area;
 use App\Models\Document;
 use App\Models\Project;
 use App\Models\User;
@@ -27,7 +28,7 @@ class DocumentController extends Controller
         abort_if(Gate::denies('document_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Document::with(['project', 'created_by'])->select(sprintf('%s.*', (new Document())->table));
+            $query = Document::with(['project', 'from_area', 'created_by'])->select(sprintf('%s.*', (new Document())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -71,9 +72,10 @@ class DocumentController extends Controller
         }
 
         $projects = Project::get();
+        $areas    = Area::get();
         $users    = User::get();
 
-        return view('admin.documents.index', compact('projects', 'users'));
+        return view('admin.documents.index', compact('projects', 'areas', 'users'));
     }
 
     public function create()
@@ -106,7 +108,7 @@ class DocumentController extends Controller
 
         $projects = Project::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $document->load('project', 'created_by');
+        $document->load('project', 'from_area', 'created_by');
 
         return view('admin.documents.edit', compact('document', 'projects'));
     }
@@ -133,7 +135,7 @@ class DocumentController extends Controller
     {
         abort_if(Gate::denies('document_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $document->load('project', 'created_by');
+        $document->load('project', 'from_area', 'created_by');
 
         return view('admin.documents.show', compact('document'));
     }

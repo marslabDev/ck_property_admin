@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyHouseStatusRequest;
 use App\Http\Requests\StoreHouseStatusRequest;
 use App\Http\Requests\UpdateHouseStatusRequest;
+use App\Models\Area;
 use App\Models\HouseStatus;
 use App\Models\User;
 use Gate;
@@ -23,7 +24,7 @@ class HouseStatusController extends Controller
         abort_if(Gate::denies('house_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = HouseStatus::with(['created_by'])->select(sprintf('%s.*', (new HouseStatus())->table));
+            $query = HouseStatus::with(['from_area', 'created_by'])->select(sprintf('%s.*', (new HouseStatus())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -56,9 +57,10 @@ class HouseStatusController extends Controller
             return $table->make(true);
         }
 
+        $areas = Area::get();
         $users = User::get();
 
-        return view('admin.houseStatuses.index', compact('users'));
+        return view('admin.houseStatuses.index', compact('areas', 'users'));
     }
 
     public function create()
@@ -79,7 +81,7 @@ class HouseStatusController extends Controller
     {
         abort_if(Gate::denies('house_status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $houseStatus->load('created_by');
+        $houseStatus->load('from_area', 'created_by');
 
         return view('admin.houseStatuses.edit', compact('houseStatus'));
     }
@@ -95,7 +97,7 @@ class HouseStatusController extends Controller
     {
         abort_if(Gate::denies('house_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $houseStatus->load('created_by', 'houseStatusManageHouses');
+        $houseStatus->load('from_area', 'created_by', 'houseStatusManageHouses');
 
         return view('admin.houseStatuses.show', compact('houseStatus'));
     }

@@ -31,7 +31,7 @@ class ManageHouseController extends Controller
         abort_if(Gate::denies('manage_house_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ManageHouse::with(['house_type', 'area', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'created_by'])->select(sprintf('%s.*', (new ManageHouse())->table));
+            $query = ManageHouse::with(['house_type', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'from_area', 'created_by'])->select(sprintf('%s.*', (new ManageHouse())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -68,10 +68,6 @@ class ManageHouseController extends Controller
             $table->editColumn('block', function ($row) {
                 return $row->block ? $row->block : '';
             });
-            $table->addColumn('area_name', function ($row) {
-                return $row->area ? $row->area->name : '';
-            });
-
             $table->addColumn('street_street_name', function ($row) {
                 return $row->street ? $row->street->street_name : '';
             });
@@ -121,20 +117,23 @@ class ManageHouseController extends Controller
             $table->editColumn('contact_person_2.phone_no', function ($row) {
                 return $row->contact_person_2 ? (is_string($row->contact_person_2) ? $row->contact_person_2 : $row->contact_person_2->phone_no) : '';
             });
+            $table->addColumn('from_area_name', function ($row) {
+                return $row->from_area ? $row->from_area->name : '';
+            });
 
-            $table->rawColumns(['actions', 'placeholder', 'house_type', 'area', 'street', 'parking_lot', 'documents', 'house_status', 'owned_by', 'contact_person', 'contact_person_2']);
+            $table->rawColumns(['actions', 'placeholder', 'house_type', 'street', 'parking_lot', 'documents', 'house_status', 'owned_by', 'contact_person', 'contact_person_2', 'from_area']);
 
             return $table->make(true);
         }
 
         $house_types    = HouseType::get();
-        $areas          = Area::get();
         $streets        = Street::get();
         $parking_lots   = ParkingLot::get();
         $house_statuses = HouseStatus::get();
         $users          = User::get();
+        $areas          = Area::get();
 
-        return view('admin.manageHouses.index', compact('house_types', 'areas', 'streets', 'parking_lots', 'house_statuses', 'users'));
+        return view('admin.manageHouses.index', compact('house_types', 'streets', 'parking_lots', 'house_statuses', 'users', 'areas'));
     }
 
     public function create()
@@ -142,8 +141,6 @@ class ManageHouseController extends Controller
         abort_if(Gate::denies('manage_house_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $house_types = HouseType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $streets = Street::pluck('street_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -157,7 +154,7 @@ class ManageHouseController extends Controller
 
         $contact_person_2s = User::pluck('phone_no', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.manageHouses.create', compact('areas', 'contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'owned_bies', 'parking_lots', 'streets'));
+        return view('admin.manageHouses.create', compact('contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'owned_bies', 'parking_lots', 'streets'));
     }
 
     public function store(StoreManageHouseRequest $request)
@@ -182,8 +179,6 @@ class ManageHouseController extends Controller
 
         $house_types = HouseType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $streets = Street::pluck('street_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $parking_lots = ParkingLot::pluck('lot_no', 'id');
@@ -196,9 +191,9 @@ class ManageHouseController extends Controller
 
         $contact_person_2s = User::pluck('phone_no', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $manageHouse->load('house_type', 'area', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'created_by');
+        $manageHouse->load('house_type', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'from_area', 'created_by');
 
-        return view('admin.manageHouses.edit', compact('areas', 'contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'manageHouse', 'owned_bies', 'parking_lots', 'streets'));
+        return view('admin.manageHouses.edit', compact('contact_people', 'contact_person_2s', 'house_statuses', 'house_types', 'manageHouse', 'owned_bies', 'parking_lots', 'streets'));
     }
 
     public function update(UpdateManageHouseRequest $request, ManageHouse $manageHouse)
@@ -227,7 +222,7 @@ class ManageHouseController extends Controller
     {
         abort_if(Gate::denies('manage_house_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $manageHouse->load('house_type', 'area', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'created_by', 'housePaymentPlans', 'houseHomeOwnerTransactions');
+        $manageHouse->load('house_type', 'street', 'parking_lots', 'house_status', 'owned_bies', 'contact_person', 'contact_person_2', 'from_area', 'created_by', 'housePaymentPlans', 'houseHomeOwnerTransactions');
 
         return view('admin.manageHouses.show', compact('manageHouse'));
     }

@@ -47,6 +47,7 @@ class OpenProject extends Model implements HasMedia
         'end_date',
         'status',
         'created_by_id',
+        'from_area_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -96,6 +97,11 @@ class OpenProject extends Model implements HasMedia
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

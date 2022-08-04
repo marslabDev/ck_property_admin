@@ -25,7 +25,7 @@ class OpenProjectController extends Controller
     {
         abort_if(Gate::denies('open_project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $openProjects = OpenProject::with(['areas', 'created_by', 'media'])->get();
+        $openProjects = OpenProject::with(['areas', 'created_by', 'from_area', 'media'])->get();
 
         $areas = Area::get();
 
@@ -64,7 +64,7 @@ class OpenProjectController extends Controller
 
         $areas = Area::pluck('name', 'id');
 
-        $openProject->load('areas', 'created_by');
+        $openProject->load('areas', 'created_by', 'from_area');
 
         return view('frontend.openProjects.edit', compact('areas', 'openProject'));
     }
@@ -94,7 +94,7 @@ class OpenProjectController extends Controller
     {
         abort_if(Gate::denies('open_project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $openProject->load('areas', 'created_by', 'openProjectSupplierProposals');
+        $openProject->load('areas', 'created_by', 'from_area', 'openProjectSupplierProposals');
 
         return view('frontend.openProjects.show', compact('openProject'));
     }

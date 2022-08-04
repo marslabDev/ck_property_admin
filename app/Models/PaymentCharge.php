@@ -34,6 +34,7 @@ class PaymentCharge extends Model
         'type',
         'amount',
         'created_at',
+        'from_area_id',
         'updated_at',
         'deleted_at',
         'created_by_id',
@@ -42,6 +43,11 @@ class PaymentCharge extends Model
     public function extraChargePaymentPlans()
     {
         return $this->belongsToMany(PaymentPlan::class);
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

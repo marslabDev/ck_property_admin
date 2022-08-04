@@ -55,20 +55,6 @@
                 <span class="help-block">{{ trans('cruds.manageHouse.fields.block_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="area_id">{{ trans('cruds.manageHouse.fields.area') }}</label>
-                <select class="form-control select2 {{ $errors->has('area') ? 'is-invalid' : '' }}" name="area_id" id="area_id" required>
-                    @foreach($areas as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('area_id') ? old('area_id') : $manageHouse->area->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('area'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('area') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.manageHouse.fields.area_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label class="required" for="street_id">{{ trans('cruds.manageHouse.fields.street') }}</label>
                 <select class="form-control select2 {{ $errors->has('street') ? 'is-invalid' : '' }}" name="street_id" id="street_id" required>
                     @foreach($streets as $id => $entry)

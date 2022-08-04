@@ -17,7 +17,7 @@ class NoteApiController extends Controller
     {
         abort_if(Gate::denies('note_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new NoteResource(Note::with(['project', 'created_by'])->get());
+        return new NoteResource(Note::with(['project', 'from_area', 'created_by'])->get());
     }
 
     public function store(StoreNoteRequest $request)
@@ -33,7 +33,7 @@ class NoteApiController extends Controller
     {
         abort_if(Gate::denies('note_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new NoteResource($note->load(['project', 'created_by']));
+        return new NoteResource($note->load(['project', 'from_area', 'created_by']));
     }
 
     public function update(UpdateNoteRequest $request, Note $note)

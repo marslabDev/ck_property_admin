@@ -32,10 +32,7 @@
                         {{ trans('cruds.street.fields.street_name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.street.fields.area') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.area.fields.city') }}
+                        {{ trans('cruds.street.fields.from_area') }}
                     </th>
                     <th>
                         &nbsp;
@@ -57,8 +54,6 @@
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
-                    </td>
-                    <td>
                     </td>
                     <td>
                     </td>
@@ -117,8 +112,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'street_name', name: 'street_name' },
-{ data: 'area_name', name: 'area.name' },
-{ data: 'area.city', name: 'area.city' },
+{ data: 'from_area_name', name: 'from_area.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

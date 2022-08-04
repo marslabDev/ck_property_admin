@@ -17,7 +17,7 @@ class CasesCategoryApiController extends Controller
     {
         abort_if(Gate::denies('cases_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new CasesCategoryResource(CasesCategory::with(['created_by'])->get());
+        return new CasesCategoryResource(CasesCategory::with(['from_area', 'created_by'])->get());
     }
 
     public function store(StoreCasesCategoryRequest $request)
@@ -33,7 +33,7 @@ class CasesCategoryApiController extends Controller
     {
         abort_if(Gate::denies('cases_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new CasesCategoryResource($casesCategory->load(['created_by']));
+        return new CasesCategoryResource($casesCategory->load(['from_area', 'created_by']));
     }
 
     public function update(UpdateCasesCategoryRequest $request, CasesCategory $casesCategory)

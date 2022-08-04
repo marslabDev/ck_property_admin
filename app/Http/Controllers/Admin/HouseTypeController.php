@@ -24,7 +24,7 @@ class HouseTypeController extends Controller
         abort_if(Gate::denies('house_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = HouseType::with(['area', 'created_by'])->select(sprintf('%s.*', (new HouseType())->table));
+            $query = HouseType::with(['from_area', 'created_by'])->select(sprintf('%s.*', (new HouseType())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -54,11 +54,11 @@ class HouseTypeController extends Controller
             $table->editColumn('type', function ($row) {
                 return $row->type ? HouseType::TYPE_SELECT[$row->type] : '';
             });
-            $table->addColumn('area_name', function ($row) {
-                return $row->area ? $row->area->name : '';
+            $table->addColumn('from_area_name', function ($row) {
+                return $row->from_area ? $row->from_area->name : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'area']);
+            $table->rawColumns(['actions', 'placeholder', 'from_area']);
 
             return $table->make(true);
         }
@@ -73,9 +73,7 @@ class HouseTypeController extends Controller
     {
         abort_if(Gate::denies('house_type_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('admin.houseTypes.create', compact('areas'));
+        return view('admin.houseTypes.create');
     }
 
     public function store(StoreHouseTypeRequest $request)
@@ -89,11 +87,9 @@ class HouseTypeController extends Controller
     {
         abort_if(Gate::denies('house_type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $houseType->load('from_area', 'created_by');
 
-        $houseType->load('area', 'created_by');
-
-        return view('admin.houseTypes.edit', compact('areas', 'houseType'));
+        return view('admin.houseTypes.edit', compact('houseType'));
     }
 
     public function update(UpdateHouseTypeRequest $request, HouseType $houseType)
@@ -107,7 +103,7 @@ class HouseTypeController extends Controller
     {
         abort_if(Gate::denies('house_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $houseType->load('area', 'created_by', 'houseTypeManageHouses', 'houseTypeManagePrices');
+        $houseType->load('from_area', 'created_by', 'houseTypeManageHouses', 'houseTypeManagePrices');
 
         return view('admin.houseTypes.show', compact('houseType'));
     }

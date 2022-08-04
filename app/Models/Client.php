@@ -34,10 +34,11 @@ class Client extends Model
         'whatapps',
         'country',
         'status_id',
+        'from_area_id',
+        'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function supplierTransactions()
@@ -53,6 +54,11 @@ class Client extends Model
     public function status()
     {
         return $this->belongsTo(ClientStatus::class, 'status_id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

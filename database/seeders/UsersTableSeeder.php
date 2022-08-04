@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
                 'remember_token'     => null,
                 'approved'           => 1,
                 'verified'           => 1,
-                'verified_at'        => '2022-07-08 03:24:29',
+                'verified_at'        => '2022-08-03 04:17:45',
                 'username'           => '',
                 'phone_no'           => '',
                 'two_factor_code'    => '',

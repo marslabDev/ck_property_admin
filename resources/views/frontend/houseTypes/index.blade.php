@@ -36,7 +36,7 @@
                                         {{ trans('cruds.houseType.fields.type') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.houseType.fields.area') }}
+                                        {{ trans('cruds.houseType.fields.from_area') }}
                                     </th>
                                     <th>
                                         &nbsp;
@@ -84,7 +84,7 @@
                                             {{ App\Models\HouseType::TYPE_SELECT[$houseType->type] ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $houseType->area->name ?? '' }}
+                                            {{ $houseType->from_area->name ?? '' }}
                                         </td>
                                         <td>
                                             @can('house_type_show')

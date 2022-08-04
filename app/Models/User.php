@@ -32,10 +32,10 @@ class User extends Authenticatable
     protected $dates = [
         'verified_at',
         'email_verified_at',
+        'two_factor_expires_at',
         'created_at',
         'updated_at',
         'deleted_at',
-        'two_factor_expires_at',
     ];
 
     protected $fillable = [
@@ -52,10 +52,10 @@ class User extends Authenticatable
         'two_factor_code',
         'password',
         'remember_token',
+        'two_factor_expires_at',
         'created_at',
         'updated_at',
         'deleted_at',
-        'two_factor_expires_at',
     ];
 
     public function __construct(array $attributes = [])
@@ -134,6 +134,11 @@ class User extends Authenticatable
         return $this->hasMany(HomeOwnerTransaction::class, 'user_id', 'id');
     }
 
+    public function createdByHomeOwnerTransactions()
+    {
+        return $this->hasMany(HomeOwnerTransaction::class, 'created_by_id', 'id');
+    }
+
     public function contactPersonManageHouses()
     {
         return $this->hasMany(ManageHouse::class, 'contact_person_id', 'id');
@@ -164,6 +169,16 @@ class User extends Authenticatable
         return $this->belongsToMany(ManageHouse::class);
     }
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function areas()
+    {
+        return $this->belongsToMany(Area::class);
+    }
+
     public function getVerifiedAtAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
@@ -182,11 +197,6 @@ class User extends Authenticatable
     public function setEmailVerifiedAtAttribute($value)
     {
         $this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
-    }
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
     }
 
     public function setPasswordAttribute($input)

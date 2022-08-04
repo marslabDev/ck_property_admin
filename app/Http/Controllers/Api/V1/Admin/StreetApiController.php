@@ -17,7 +17,7 @@ class StreetApiController extends Controller
     {
         abort_if(Gate::denies('street_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new StreetResource(Street::with(['area', 'created_by'])->get());
+        return new StreetResource(Street::with(['from_area', 'created_by'])->get());
     }
 
     public function store(StoreStreetRequest $request)
@@ -33,7 +33,7 @@ class StreetApiController extends Controller
     {
         abort_if(Gate::denies('street_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new StreetResource($street->load(['area', 'created_by']));
+        return new StreetResource($street->load(['from_area', 'created_by']));
     }
 
     public function update(UpdateStreetRequest $request, Street $street)

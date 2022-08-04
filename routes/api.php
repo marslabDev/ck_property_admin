@@ -126,16 +126,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Transaction
     Route::apiResource('transactions', 'TransactionApiController', ['except' => ['update', 'destroy']]);
 
-    // Content Category
-    Route::apiResource('content-categories', 'ContentCategoryApiController');
-
-    // Content Tag
-    Route::apiResource('content-tags', 'ContentTagApiController');
-
-    // Content Page
-    Route::post('content-pages/media', 'ContentPageApiController@storeMedia')->name('content-pages.storeMedia');
-    Route::apiResource('content-pages', 'ContentPageApiController');
-
     // House Type
     Route::apiResource('house-types', 'HouseTypeApiController');
 

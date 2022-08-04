@@ -41,10 +41,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.houseType.fields.area') }}
+                            {{ trans('cruds.houseType.fields.from_area') }}
                         </th>
                         <td>
-                            {{ $houseType->area->name ?? '' }}
+                            {{ $houseType->from_area->name ?? '' }}
                         </td>
                     </tr>
                 </tbody>

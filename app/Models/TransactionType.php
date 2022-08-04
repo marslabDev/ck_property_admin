@@ -27,10 +27,16 @@ class TransactionType extends Model
     protected $fillable = [
         'name',
         'created_at',
+        'from_area_id',
         'updated_at',
         'deleted_at',
         'created_by_id',
     ];
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
+    }
 
     public function created_by()
     {

@@ -42,9 +42,6 @@
                                         {{ trans('cruds.manageHouse.fields.block') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.manageHouse.fields.area') }}
-                                    </th>
-                                    <th>
                                         {{ trans('cruds.manageHouse.fields.street') }}
                                     </th>
                                     <th>
@@ -72,6 +69,9 @@
                                         {{ trans('cruds.user.fields.phone_no') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.manageHouse.fields.from_area') }}
+                                    </th>
+                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -97,14 +97,6 @@
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                    </td>
-                                    <td>
-                                        <select class="search">
-                                            <option value>{{ trans('global.all') }}</option>
-                                            @foreach($areas as $key => $item)
-                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
                                     </td>
                                     <td>
                                         <select class="search">
@@ -162,6 +154,14 @@
                                     <td>
                                     </td>
                                     <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($areas as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
                                     </td>
                                 </tr>
                             </thead>
@@ -182,9 +182,6 @@
                                         </td>
                                         <td>
                                             {{ $manageHouse->block ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $manageHouse->area->name ?? '' }}
                                         </td>
                                         <td>
                                             {{ $manageHouse->street->street_name ?? '' }}
@@ -220,6 +217,9 @@
                                         </td>
                                         <td>
                                             {{ $manageHouse->contact_person_2->phone_no ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $manageHouse->from_area->name ?? '' }}
                                         </td>
                                         <td>
                                             @can('manage_house_show')

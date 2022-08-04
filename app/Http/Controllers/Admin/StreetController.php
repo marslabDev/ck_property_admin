@@ -24,7 +24,7 @@ class StreetController extends Controller
         abort_if(Gate::denies('street_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Street::with(['area', 'created_by'])->select(sprintf('%s.*', (new Street())->table));
+            $query = Street::with(['from_area', 'created_by'])->select(sprintf('%s.*', (new Street())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -51,15 +51,11 @@ class StreetController extends Controller
             $table->editColumn('street_name', function ($row) {
                 return $row->street_name ? $row->street_name : '';
             });
-            $table->addColumn('area_name', function ($row) {
-                return $row->area ? $row->area->name : '';
+            $table->addColumn('from_area_name', function ($row) {
+                return $row->from_area ? $row->from_area->name : '';
             });
 
-            $table->editColumn('area.city', function ($row) {
-                return $row->area ? (is_string($row->area) ? $row->area : $row->area->city) : '';
-            });
-
-            $table->rawColumns(['actions', 'placeholder', 'area']);
+            $table->rawColumns(['actions', 'placeholder', 'from_area']);
 
             return $table->make(true);
         }
@@ -74,9 +70,7 @@ class StreetController extends Controller
     {
         abort_if(Gate::denies('street_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('admin.streets.create', compact('areas'));
+        return view('admin.streets.create');
     }
 
     public function store(StoreStreetRequest $request)
@@ -90,11 +84,9 @@ class StreetController extends Controller
     {
         abort_if(Gate::denies('street_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $areas = Area::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $street->load('from_area', 'created_by');
 
-        $street->load('area', 'created_by');
-
-        return view('admin.streets.edit', compact('areas', 'street'));
+        return view('admin.streets.edit', compact('street'));
     }
 
     public function update(UpdateStreetRequest $request, Street $street)
@@ -108,7 +100,7 @@ class StreetController extends Controller
     {
         abort_if(Gate::denies('street_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $street->load('area', 'created_by', 'streetManageHouses');
+        $street->load('from_area', 'created_by', 'streetManageHouses');
 
         return view('admin.streets.show', compact('street'));
     }

@@ -39,6 +39,12 @@
                                         {{ trans('cruds.homeOwnerTransaction.fields.changes') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.homeOwnerTransaction.fields.created_by') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.homeOwnerTransaction.fields.from_area') }}
+                                    </th>
+                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -89,6 +95,22 @@
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($users as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($areas as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
                                     </td>
                                 </tr>
                             </thead>
@@ -118,6 +140,12 @@
                                         </td>
                                         <td>
                                             {{ $homeOwnerTransaction->changes ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $homeOwnerTransaction->created_by->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $homeOwnerTransaction->from_area->name ?? '' }}
                                         </td>
                                         <td>
 

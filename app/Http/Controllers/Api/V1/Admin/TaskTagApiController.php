@@ -17,7 +17,7 @@ class TaskTagApiController extends Controller
     {
         abort_if(Gate::denies('task_tag_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TaskTagResource(TaskTag::with(['created_by'])->get());
+        return new TaskTagResource(TaskTag::with(['from_area', 'created_by'])->get());
     }
 
     public function store(StoreTaskTagRequest $request)
@@ -33,7 +33,7 @@ class TaskTagApiController extends Controller
     {
         abort_if(Gate::denies('task_tag_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TaskTagResource($taskTag->load(['created_by']));
+        return new TaskTagResource($taskTag->load(['from_area', 'created_by']));
     }
 
     public function update(UpdateTaskTagRequest $request, TaskTag $taskTag)

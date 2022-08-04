@@ -28,7 +28,19 @@
                             {{ trans('cruds.user.fields.name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.user.fields.username') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.user.fields.phone_no') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.email') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.roles') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.area') }}
                         </th>
                         <th>
                             {{ trans('cruds.user.fields.two_factor') }}
@@ -38,9 +50,6 @@
                         </th>
                         <th>
                             {{ trans('cruds.user.fields.verified') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.user.fields.roles') }}
                         </th>
                         <th>
                             &nbsp;
@@ -60,7 +69,23 @@
                                 {{ $user->name ?? '' }}
                             </td>
                             <td>
+                                {{ $user->username ?? '' }}
+                            </td>
+                            <td>
                                 {{ $user->phone_no ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->email ?? '' }}
+                            </td>
+                            <td>
+                                @foreach($user->roles as $key => $item)
+                                    <span class="badge badge-info">{{ $item->title }}</span>
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach($user->areas as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
+                                @endforeach
                             </td>
                             <td>
                                 <span style="display:none">{{ $user->two_factor ?? '' }}</span>
@@ -73,11 +98,6 @@
                             <td>
                                 <span style="display:none">{{ $user->verified ?? '' }}</span>
                                 <input type="checkbox" disabled="disabled" {{ $user->verified ? 'checked' : '' }}>
-                            </td>
-                            <td>
-                                @foreach($user->roles as $key => $item)
-                                    <span class="badge badge-info">{{ $item->title }}</span>
-                                @endforeach
                             </td>
                             <td>
                                 @can('user_show')

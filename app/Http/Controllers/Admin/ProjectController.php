@@ -29,7 +29,7 @@ class ProjectController extends Controller
         abort_if(Gate::denies('project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Project::with(['areas', 'suppliers', 'status', 'created_by'])->select(sprintf('%s.*', (new Project())->table));
+            $query = Project::with(['areas', 'suppliers', 'status', 'from_area', 'created_by'])->select(sprintf('%s.*', (new Project())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -140,7 +140,7 @@ class ProjectController extends Controller
 
         $statuses = ProjectStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $project->load('areas', 'suppliers', 'status', 'created_by');
+        $project->load('areas', 'suppliers', 'status', 'from_area', 'created_by');
 
         return view('admin.projects.edit', compact('areas', 'project', 'statuses', 'suppliers'));
     }
@@ -171,7 +171,7 @@ class ProjectController extends Controller
     {
         abort_if(Gate::denies('project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $project->load('areas', 'suppliers', 'status', 'created_by');
+        $project->load('areas', 'suppliers', 'status', 'from_area', 'created_by');
 
         return view('admin.projects.show', compact('project'));
     }

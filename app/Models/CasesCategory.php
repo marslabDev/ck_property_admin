@@ -26,6 +26,7 @@ class CasesCategory extends Model
 
     protected $fillable = [
         'title',
+        'from_area_id',
         'created_by_id',
         'created_at',
         'updated_at',
@@ -35,6 +36,11 @@ class CasesCategory extends Model
     public function categoryMyCases()
     {
         return $this->hasMany(MyCase::class, 'category_id', 'id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

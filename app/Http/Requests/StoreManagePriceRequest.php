@@ -17,10 +17,6 @@ class StoreManagePriceRequest extends FormRequest
     public function rules()
     {
         return [
-            'area_id' => [
-                'required',
-                'integer',
-            ],
             'house_type_id' => [
                 'required',
                 'integer',

@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyMyCaseRequest;
 use App\Http\Requests\StoreMyCaseRequest;
 use App\Http\Requests\UpdateMyCaseRequest;
+use App\Models\Area;
 use App\Models\CasesCategory;
 use App\Models\CaseStatus;
 use App\Models\Complaint;
@@ -27,7 +28,7 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $myCases = MyCase::with(['complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by', 'media'])->get();
+        $myCases = MyCase::with(['complaints', 'category', 'status', 'handle_by', 'report_to', 'from_area', 'created_by', 'media'])->get();
 
         $complaints = Complaint::get();
 
@@ -37,7 +38,9 @@ class MyCasesController extends Controller
 
         $users = User::get();
 
-        return view('frontend.myCases.index', compact('case_statuses', 'cases_categories', 'complaints', 'myCases', 'users'));
+        $areas = Area::get();
+
+        return view('frontend.myCases.index', compact('areas', 'case_statuses', 'cases_categories', 'complaints', 'myCases', 'users'));
     }
 
     public function create()
@@ -86,7 +89,7 @@ class MyCasesController extends Controller
 
         $report_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $myCase->load('complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by');
+        $myCase->load('complaints', 'category', 'status', 'handle_by', 'report_to', 'from_area', 'created_by');
 
         return view('frontend.myCases.edit', compact('categories', 'complaints', 'handle_bies', 'myCase', 'report_tos', 'statuses'));
     }
@@ -116,7 +119,7 @@ class MyCasesController extends Controller
     {
         abort_if(Gate::denies('my_case_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $myCase->load('complaints', 'category', 'status', 'handle_by', 'report_to', 'created_by');
+        $myCase->load('complaints', 'category', 'status', 'handle_by', 'report_to', 'from_area', 'created_by');
 
         return view('frontend.myCases.show', compact('myCase'));
     }

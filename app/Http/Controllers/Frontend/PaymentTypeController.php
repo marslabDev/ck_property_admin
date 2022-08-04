@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyPaymentTypeRequest;
 use App\Http\Requests\StorePaymentTypeRequest;
 use App\Http\Requests\UpdatePaymentTypeRequest;
+use App\Models\Area;
 use App\Models\PaymentType;
 use App\Models\User;
 use Gate;
@@ -21,11 +22,13 @@ class PaymentTypeController extends Controller
     {
         abort_if(Gate::denies('payment_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentTypes = PaymentType::with(['created_by'])->get();
+        $paymentTypes = PaymentType::with(['from_area', 'created_by'])->get();
+
+        $areas = Area::get();
 
         $users = User::get();
 
-        return view('frontend.paymentTypes.index', compact('paymentTypes', 'users'));
+        return view('frontend.paymentTypes.index', compact('areas', 'paymentTypes', 'users'));
     }
 
     public function create()
@@ -46,7 +49,7 @@ class PaymentTypeController extends Controller
     {
         abort_if(Gate::denies('payment_type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentType->load('created_by');
+        $paymentType->load('from_area', 'created_by');
 
         return view('frontend.paymentTypes.edit', compact('paymentType'));
     }
@@ -62,7 +65,7 @@ class PaymentTypeController extends Controller
     {
         abort_if(Gate::denies('payment_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentType->load('created_by');
+        $paymentType->load('from_area', 'created_by', 'paymentTypePaymentHistories', 'paymentTypeHomeOwnerTransactions');
 
         return view('frontend.paymentTypes.show', compact('paymentType'));
     }

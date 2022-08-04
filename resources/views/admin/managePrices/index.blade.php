@@ -29,13 +29,13 @@
                         {{ trans('cruds.managePrice.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.managePrice.fields.area') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.managePrice.fields.house_type') }}
                     </th>
                     <th>
                         {{ trans('cruds.managePrice.fields.price_per_sq_ft') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.managePrice.fields.from_area') }}
                     </th>
                     <th>
                         &nbsp;
@@ -50,14 +50,6 @@
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($areas as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
                             @foreach($house_types as $key => $item)
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
@@ -65,6 +57,14 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($areas as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                     </td>
@@ -122,9 +122,9 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'area_name', name: 'area.name' },
 { data: 'house_type_name', name: 'house_type.name' },
 { data: 'price_per_sq_ft', name: 'price_per_sq_ft' },
+{ data: 'from_area_name', name: 'from_area.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

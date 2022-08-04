@@ -41,9 +41,6 @@
                         {{ trans('cruds.manageHouse.fields.block') }}
                     </th>
                     <th>
-                        {{ trans('cruds.manageHouse.fields.area') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.manageHouse.fields.street') }}
                     </th>
                     <th>
@@ -71,6 +68,9 @@
                         {{ trans('cruds.user.fields.phone_no') }}
                     </th>
                     <th>
+                        {{ trans('cruds.manageHouse.fields.from_area') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -96,14 +96,6 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($areas as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
                     </td>
                     <td>
                         <select class="search">
@@ -159,6 +151,14 @@
                         </select>
                     </td>
                     <td>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($areas as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                     </td>
@@ -220,7 +220,6 @@
 { data: 'unit_no', name: 'unit_no' },
 { data: 'floor', name: 'floor' },
 { data: 'block', name: 'block' },
-{ data: 'area_name', name: 'area.name' },
 { data: 'street_street_name', name: 'street.street_name' },
 { data: 'square_feet', name: 'square_feet' },
 { data: 'parking_lot', name: 'parking_lots.lot_no' },
@@ -230,6 +229,7 @@
 { data: 'contact_person_phone_no', name: 'contact_person.phone_no' },
 { data: 'contact_person_2_phone_no', name: 'contact_person_2.phone_no' },
 { data: 'contact_person_2.phone_no', name: 'contact_person_2.phone_no' },
+{ data: 'from_area_name', name: 'from_area.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

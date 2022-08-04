@@ -25,23 +25,23 @@ class ManagePrice extends Model
     ];
 
     protected $fillable = [
-        'area_id',
         'house_type_id',
         'price_per_sq_ft',
         'created_at',
+        'from_area_id',
         'updated_at',
         'deleted_at',
         'created_by_id',
     ];
 
-    public function area()
-    {
-        return $this->belongsTo(Area::class, 'area_id');
-    }
-
     public function house_type()
     {
         return $this->belongsTo(HouseType::class, 'house_type_id');
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

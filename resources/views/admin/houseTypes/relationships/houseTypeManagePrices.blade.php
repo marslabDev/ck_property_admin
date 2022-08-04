@@ -25,13 +25,13 @@
                             {{ trans('cruds.managePrice.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.managePrice.fields.area') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.managePrice.fields.house_type') }}
                         </th>
                         <th>
                             {{ trans('cruds.managePrice.fields.price_per_sq_ft') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.managePrice.fields.from_area') }}
                         </th>
                         <th>
                             &nbsp;
@@ -48,13 +48,13 @@
                                 {{ $managePrice->id ?? '' }}
                             </td>
                             <td>
-                                {{ $managePrice->area->name ?? '' }}
-                            </td>
-                            <td>
                                 {{ $managePrice->house_type->name ?? '' }}
                             </td>
                             <td>
                                 {{ $managePrice->price_per_sq_ft ?? '' }}
+                            </td>
+                            <td>
+                                {{ $managePrice->from_area->name ?? '' }}
                             </td>
                             <td>
                                 @can('manage_price_show')

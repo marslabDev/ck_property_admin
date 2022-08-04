@@ -27,6 +27,7 @@ class PaymentItem extends Model
     protected $fillable = [
         'particular',
         'amount',
+        'from_area_id',
         'created_by_id',
         'created_at',
         'updated_at',
@@ -36,6 +37,11 @@ class PaymentItem extends Model
     public function paymentItemPaymentPlans()
     {
         return $this->belongsToMany(PaymentPlan::class);
+    }
+
+    public function from_area()
+    {
+        return $this->belongsTo(Area::class, 'from_area_id');
     }
 
     public function created_by()

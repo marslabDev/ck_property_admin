@@ -50,19 +50,6 @@
                 <span class="help-block">{{ trans('cruds.user.fields.email_helper') }}</span>
             </div>
             <div class="form-group">
-                <div class="form-check {{ $errors->has('approved') ? 'is-invalid' : '' }}">
-                    <input type="hidden" name="approved" value="0">
-                    <input class="form-check-input" type="checkbox" name="approved" id="approved" value="1" {{ old('approved', 0) == 1 ? 'checked' : '' }}>
-                    <label class="form-check-label" for="approved">{{ trans('cruds.user.fields.approved') }}</label>
-                </div>
-                @if($errors->has('approved'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('approved') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.user.fields.approved_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label class="required" for="roles">{{ trans('cruds.user.fields.roles') }}</label>
                 <div style="padding-bottom: 4px">
                     <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
@@ -79,6 +66,37 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="areas">{{ trans('cruds.user.fields.area') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('areas') ? 'is-invalid' : '' }}" name="areas[]" id="areas" multiple required>
+                    @foreach($areas as $id => $area)
+                        <option value="{{ $id }}" {{ in_array($id, old('areas', [])) ? 'selected' : '' }}>{{ $area }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('areas'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('areas') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.area_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <div class="form-check {{ $errors->has('approved') ? 'is-invalid' : '' }}">
+                    <input type="hidden" name="approved" value="0">
+                    <input class="form-check-input" type="checkbox" name="approved" id="approved" value="1" {{ old('approved', 0) == 1 ? 'checked' : '' }}>
+                    <label class="form-check-label" for="approved">{{ trans('cruds.user.fields.approved') }}</label>
+                </div>
+                @if($errors->has('approved'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('approved') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.approved_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="password">{{ trans('cruds.user.fields.password') }}</label>

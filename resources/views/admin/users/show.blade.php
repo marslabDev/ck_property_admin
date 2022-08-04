@@ -57,6 +57,26 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.user.fields.roles') }}
+                        </th>
+                        <td>
+                            @foreach($user->roles as $key => $roles)
+                                <span class="label label-info">{{ $roles->title }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.area') }}
+                        </th>
+                        <td>
+                            @foreach($user->areas as $key => $area)
+                                <span class="label label-info">{{ $area->name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.user.fields.two_factor') }}
                         </th>
                         <td>
@@ -85,16 +105,6 @@
                         </th>
                         <td>
                             {{ $user->email_verified_at }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.roles') }}
-                        </th>
-                        <td>
-                            @foreach($user->roles as $key => $roles)
-                                <span class="label label-info">{{ $roles->title }}</span>
-                            @endforeach
                         </td>
                     </tr>
                 </tbody>
@@ -135,6 +145,11 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#user_home_owner_transactions" role="tab" data-toggle="tab">
+                {{ trans('cruds.homeOwnerTransaction.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#created_by_home_owner_transactions" role="tab" data-toggle="tab">
                 {{ trans('cruds.homeOwnerTransaction.title') }}
             </a>
         </li>
@@ -184,6 +199,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="user_home_owner_transactions">
             @includeIf('admin.users.relationships.userHomeOwnerTransactions', ['homeOwnerTransactions' => $user->userHomeOwnerTransactions])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="created_by_home_owner_transactions">
+            @includeIf('admin.users.relationships.createdByHomeOwnerTransactions', ['homeOwnerTransactions' => $user->createdByHomeOwnerTransactions])
         </div>
         <div class="tab-pane" role="tabpanel" id="contact_person_manage_houses">
             @includeIf('admin.users.relationships.contactPersonManageHouses', ['manageHouses' => $user->contactPersonManageHouses])

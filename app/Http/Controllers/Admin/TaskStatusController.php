@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTaskStatusRequest;
 use App\Http\Requests\StoreTaskStatusRequest;
 use App\Http\Requests\UpdateTaskStatusRequest;
+use App\Models\Area;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Gate;
@@ -23,7 +24,7 @@ class TaskStatusController extends Controller
         abort_if(Gate::denies('task_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = TaskStatus::with(['created_by'])->select(sprintf('%s.*', (new TaskStatus())->table));
+            $query = TaskStatus::with(['from_area', 'created_by'])->select(sprintf('%s.*', (new TaskStatus())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -56,9 +57,10 @@ class TaskStatusController extends Controller
             return $table->make(true);
         }
 
+        $areas = Area::get();
         $users = User::get();
 
-        return view('admin.taskStatuses.index', compact('users'));
+        return view('admin.taskStatuses.index', compact('areas', 'users'));
     }
 
     public function create()
@@ -79,7 +81,7 @@ class TaskStatusController extends Controller
     {
         abort_if(Gate::denies('task_status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $taskStatus->load('created_by');
+        $taskStatus->load('from_area', 'created_by');
 
         return view('admin.taskStatuses.edit', compact('taskStatus'));
     }
@@ -95,7 +97,7 @@ class TaskStatusController extends Controller
     {
         abort_if(Gate::denies('task_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $taskStatus->load('created_by');
+        $taskStatus->load('from_area', 'created_by');
 
         return view('admin.taskStatuses.show', compact('taskStatus'));
     }

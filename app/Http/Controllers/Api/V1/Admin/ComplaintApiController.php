@@ -20,7 +20,7 @@ class ComplaintApiController extends Controller
     {
         abort_if(Gate::denies('complaint_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ComplaintResource(Complaint::with(['status', 'created_by'])->get());
+        return new ComplaintResource(Complaint::with(['status', 'from_area', 'created_by'])->get());
     }
 
     public function store(StoreComplaintRequest $request)
@@ -40,7 +40,7 @@ class ComplaintApiController extends Controller
     {
         abort_if(Gate::denies('complaint_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ComplaintResource($complaint->load(['status', 'created_by']));
+        return new ComplaintResource($complaint->load(['status', 'from_area', 'created_by']));
     }
 
     public function update(UpdateComplaintRequest $request, Complaint $complaint)

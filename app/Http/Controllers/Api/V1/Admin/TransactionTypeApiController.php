@@ -17,7 +17,7 @@ class TransactionTypeApiController extends Controller
     {
         abort_if(Gate::denies('transaction_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TransactionTypeResource(TransactionType::with(['created_by'])->get());
+        return new TransactionTypeResource(TransactionType::with(['from_area', 'created_by'])->get());
     }
 
     public function store(StoreTransactionTypeRequest $request)
@@ -33,7 +33,7 @@ class TransactionTypeApiController extends Controller
     {
         abort_if(Gate::denies('transaction_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TransactionTypeResource($transactionType->load(['created_by']));
+        return new TransactionTypeResource($transactionType->load(['from_area', 'created_by']));
     }
 
     public function update(UpdateTransactionTypeRequest $request, TransactionType $transactionType)

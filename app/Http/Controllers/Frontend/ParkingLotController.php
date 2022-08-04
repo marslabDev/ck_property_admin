@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyParkingLotRequest;
 use App\Http\Requests\StoreParkingLotRequest;
 use App\Http\Requests\UpdateParkingLotRequest;
+use App\Models\Area;
 use App\Models\ParkingLot;
 use App\Models\User;
 use Gate;
@@ -21,11 +22,13 @@ class ParkingLotController extends Controller
     {
         abort_if(Gate::denies('parking_lot_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $parkingLots = ParkingLot::with(['created_by'])->get();
+        $parkingLots = ParkingLot::with(['from_area', 'created_by'])->get();
+
+        $areas = Area::get();
 
         $users = User::get();
 
-        return view('frontend.parkingLots.index', compact('parkingLots', 'users'));
+        return view('frontend.parkingLots.index', compact('areas', 'parkingLots', 'users'));
     }
 
     public function create()
@@ -46,7 +49,7 @@ class ParkingLotController extends Controller
     {
         abort_if(Gate::denies('parking_lot_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $parkingLot->load('created_by');
+        $parkingLot->load('from_area', 'created_by');
 
         return view('frontend.parkingLots.edit', compact('parkingLot'));
     }
@@ -62,7 +65,7 @@ class ParkingLotController extends Controller
     {
         abort_if(Gate::denies('parking_lot_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $parkingLot->load('created_by', 'parkingLotManageHouses');
+        $parkingLot->load('from_area', 'created_by', 'parkingLotManageHouses');
 
         return view('frontend.parkingLots.show', compact('parkingLot'));
     }

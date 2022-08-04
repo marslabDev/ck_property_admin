@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyPaymentChargeRequest;
 use App\Http\Requests\StorePaymentChargeRequest;
 use App\Http\Requests\UpdatePaymentChargeRequest;
+use App\Models\Area;
 use App\Models\PaymentCharge;
 use App\Models\User;
 use Gate;
@@ -21,11 +22,13 @@ class PaymentChargeController extends Controller
     {
         abort_if(Gate::denies('payment_charge_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentCharges = PaymentCharge::with(['created_by'])->get();
+        $paymentCharges = PaymentCharge::with(['from_area', 'created_by'])->get();
+
+        $areas = Area::get();
 
         $users = User::get();
 
-        return view('frontend.paymentCharges.index', compact('paymentCharges', 'users'));
+        return view('frontend.paymentCharges.index', compact('areas', 'paymentCharges', 'users'));
     }
 
     public function create()
@@ -46,7 +49,7 @@ class PaymentChargeController extends Controller
     {
         abort_if(Gate::denies('payment_charge_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentCharge->load('created_by');
+        $paymentCharge->load('from_area', 'created_by');
 
         return view('frontend.paymentCharges.edit', compact('paymentCharge'));
     }
@@ -62,7 +65,7 @@ class PaymentChargeController extends Controller
     {
         abort_if(Gate::denies('payment_charge_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentCharge->load('created_by', 'extraChargePaymentPlans');
+        $paymentCharge->load('from_area', 'created_by', 'extraChargePaymentPlans');
 
         return view('frontend.paymentCharges.show', compact('paymentCharge'));
     }
