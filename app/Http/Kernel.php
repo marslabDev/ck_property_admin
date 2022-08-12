@@ -28,6 +28,7 @@ class Kernel extends HttpKernel
         'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin'            => \App\Http\Middleware\IsAdmin::class,
         '2fa'              => \App\Http\Middleware\TwoFactorMiddleware::class,
+        'validate.area'    => \App\Http\Middleware\ValidateArea::class,
     ];
 
     protected $middlewareGroups = [

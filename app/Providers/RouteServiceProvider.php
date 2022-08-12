@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/portals';
+    public const HOME = '/core/select-portal';
 
     /**
      * The controller namespace for the application.
@@ -47,7 +47,15 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->namespace($this->namespace)
+                ->group(base_path('routes/core.php'));
+
+            Route::middleware('web')
+                ->namespace($this->namespace)
                 ->group(base_path('routes/ajax.php'));
+
+            Route::middleware(['web', 'validate.area'])
+                ->namespace($this->namespace)
+                ->group(base_path('routes/admin.php'));
         });
     }
 

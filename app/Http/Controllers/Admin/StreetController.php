@@ -10,7 +10,7 @@ use App\Http\Requests\UpdateStreetRequest;
 use App\Models\Area;
 use App\Models\Street;
 use App\Models\User;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -19,12 +19,15 @@ class StreetController extends Controller
 {
     use CsvImportTrait;
 
-    public function index(Request $request)
+    public function index(Request $request, Area $area)
     {
         abort_if(Gate::denies('street_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Street::with(['from_area', 'created_by'])->select(sprintf('%s.*', (new Street())->table));
+            $query = Street::with(['from_area', 'created_by'])
+                ->select(sprintf('%s.*', (new Street())->table))
+                ->where('from_area_id', $area->id);
+
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -36,13 +39,13 @@ class StreetController extends Controller
                 $deleteGate = 'street_delete';
                 $crudRoutePart = 'streets';
 
-                return view('partials.datatablesActions', compact(
-                'viewGate',
-                'editGate',
-                'deleteGate',
-                'crudRoutePart',
-                'row'
-            ));
+                return view('partials.admin.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
             });
 
             $table->editColumn('id', function ($row) {
@@ -73,14 +76,14 @@ class StreetController extends Controller
         return view('admin.streets.create');
     }
 
-    public function store(StoreStreetRequest $request)
+    public function store(StoreStreetRequest $request, Area $area)
     {
         $street = Street::create($request->all());
 
-        return redirect()->route('admin.streets.index');
+        return redirect()->route('admin.streets.index', compact('area'));
     }
 
-    public function edit(Street $street)
+    public function edit(Area $area, Street $street)
     {
         abort_if(Gate::denies('street_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -89,14 +92,14 @@ class StreetController extends Controller
         return view('admin.streets.edit', compact('street'));
     }
 
-    public function update(UpdateStreetRequest $request, Street $street)
+    public function update(UpdateStreetRequest $request, Area $area, Street $street)
     {
         $street->update($request->all());
 
-        return redirect()->route('admin.streets.index');
+        return redirect()->route('admin.streets.index', compact('area'));
     }
 
-    public function show(Street $street)
+    public function show(Area $area, Street $street)
     {
         abort_if(Gate::denies('street_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -105,7 +108,7 @@ class StreetController extends Controller
         return view('admin.streets.show', compact('street'));
     }
 
-    public function destroy(Street $street)
+    public function destroy(Area $area, Street $street)
     {
         abort_if(Gate::denies('street_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 

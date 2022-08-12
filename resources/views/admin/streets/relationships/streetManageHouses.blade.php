@@ -1,7 +1,7 @@
 @can('manage_house_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.manage-houses.create') }}">
+            <a class="btn btn-success" href="{{ route('admin.manage-houses.create', [currentArea()]) }}">
                 {{ trans('global.add') }} {{ trans('cruds.manageHouse.title_singular') }}
             </a>
         </div>
@@ -170,7 +170,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.manage-houses.massDestroy') }}",
+    url: "{{ route('admin.manage-houses.massDestroy', [currentArea()]) }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

@@ -1,7 +1,7 @@
 @can('manage_house_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.manage-houses.create') }}">
+            <a class="btn btn-success" href="{{ route('admin.manage-houses.create', [currentArea()]) }}">
                 {{ trans('global.add') }} {{ trans('cruds.manageHouse.title_singular') }}
             </a>
         </div>
@@ -132,19 +132,19 @@
                             </td>
                             <td>
                                 @can('manage_house_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.manage-houses.show', $manageHouse->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.manage-houses.show', [currentArea(), $manageHouse->id]) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
                                 @can('manage_house_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.manage-houses.edit', $manageHouse->id) }}">
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.manage-houses.edit', [currentArea(), $manageHouse->id]) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
                                 @can('manage_house_delete')
-                                    <form action="{{ route('admin.manage-houses.destroy', $manageHouse->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                    <form action="{{ route('admin.manage-houses.destroy', [currentArea(), $manageHouse->id]) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -170,7 +170,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.manage-houses.massDestroy') }}",
+    url: "{{ route('admin.manage-houses.massDestroy', [currentArea()]) }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

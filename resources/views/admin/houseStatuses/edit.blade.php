@@ -7,16 +7,18 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.house-statuses.update", [$houseStatus->id]) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.house-statuses.update', [currentArea(), $houseStatus->id]) }}"
+            enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="form-group">
                 <label class="required" for="status">{{ trans('cruds.houseStatus.fields.status') }}</label>
-                <input class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" type="text" name="status" id="status" value="{{ old('status', $houseStatus->status) }}" required>
+                <input class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" type="text" name="status"
+                    id="status" value="{{ old('status', $houseStatus->status) }}" required>
                 @if($errors->has('status'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('status') }}
-                    </div>
+                <div class="invalid-feedback">
+                    {{ $errors->first('status') }}
+                </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.houseStatus.fields.status_helper') }}</span>
             </div>

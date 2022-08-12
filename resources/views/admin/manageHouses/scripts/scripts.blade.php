@@ -8,7 +8,7 @@
         // Hide the elements first
         streetIdField.hide();
         houseTypeIdField.hide();
-        highRiseFields.hide();
+        toggleHighRiseFields(false);
 
         // Retrieve old value from laravel session
         const oldStreetId = "{{ old('street_id', '') }}";
@@ -16,10 +16,11 @@
 
         // Retrieve saved value from database if existed
         const savedStreetId = "{{ $manageHouse->street->id ?? '' }}";
-        const savedHouseTypeId = "{{ $manageHouse->houseType->id ?? '' }}";
+        const savedHouseTypeId = "{{ $manageHouse->house_type->id ?? '' }}";
 
         // Check if areaId has value
-        const areaId = $('#area_id').val();
+        const areaId = "{{ $area->id ?? ''}}";
+
         // If areaId is not empty, then fetch data
         if(isNotEmptyString(areaId)) {
             getStreet(areaId);
@@ -34,7 +35,7 @@
             } else {
                 streetIdField.hide();
                 houseTypeIdField.hide();
-                highRiseFields.hide();
+                toggleHighRiseFields(false);
             }
         });
 
@@ -44,13 +45,26 @@
             const type = $(option).data('housetype-type');
             $('#house_type_type').val(type);
 
-            // TODO: Put "disabled" attribute into "floor" field if hidden, and enable it when "floor" is displayed.
-            if (type === 'HIGH_RISE') {
+            toggleHighRiseFields(type === 'HIGH_RISE');
+        });
+
+        // False is hide, True is show
+        function toggleHighRiseFields(show) {
+            const highRiseFields = $('#high_rise_fields');
+            if (show === true) {
                 highRiseFields.show();
+                const inputs = highRiseFields.find('input');
+                for (const input of inputs) {
+                    $(input).prop('disabled', false);
+                }
             } else {
                 highRiseFields.hide();
+                const inputs = highRiseFields.find('input');
+                for (const input of inputs) {
+                    $(input).prop('disabled', true);
+                }
             }
-        });
+        }
 
         // Get house type by area id
         function getHouseType(area) {

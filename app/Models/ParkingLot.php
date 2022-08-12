@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\AddAreaTrait;
 use \DateTimeInterface;
 use App\Traits\Auditable;
 use App\Traits\MultiTenantModelTrait;
@@ -13,6 +14,7 @@ class ParkingLot extends Model
 {
     use SoftDeletes;
     use MultiTenantModelTrait;
+    use AddAreaTrait;
     use Auditable;
     use HasFactory;
 

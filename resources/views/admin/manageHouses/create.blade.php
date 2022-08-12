@@ -7,25 +7,9 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route('admin.manage-houses.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.manage-houses.store', [currentArea()]) }}"
+            enctype="multipart/form-data">
             @csrf
-
-            <div class="form-group">
-                <label class="required" for="area_id">{{ trans('cruds.manageHouse.fields.area') }}</label>
-                <select class="form-control select2 {{ $errors->has('area') ? 'is-invalid' : '' }}" name="area_id"
-                    id="area_id" required>
-                    @foreach($areas as $id => $entry)
-                    <option value="{{ $id }}" {{ old('area_id')==$id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('area'))
-                <div class="invalid-feedback">
-                    {{ $errors->first('area') }}
-                </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.manageHouse.fields.area_helper') }}</span>
-            </div>
-
 
             <div class="form-group" id="street_id_field">
                 <label class="required" for="street_id">{{ trans('cruds.manageHouse.fields.street') }}</label>
@@ -76,7 +60,7 @@
                     <div class="form-group">
                         <label class="required" for="floor">{{ trans('cruds.manageHouse.fields.floor') }}</label>
                         <input class="form-control {{ $errors->has('floor') ? 'is-invalid' : '' }}" type="text"
-                            name="floor" id="floor" value="{{ old('floor', '') }}" required>
+                            name="floor" id="floor" value="{{ old('floor', '') }}" required disabled>
                         @if($errors->has('floor'))
                         <div class="invalid-feedback">
                             {{ $errors->first('floor') }}
@@ -88,7 +72,7 @@
                     <div class="form-group">
                         <label for="block">{{ trans('cruds.manageHouse.fields.block') }}</label>
                         <input class="form-control {{ $errors->has('block') ? 'is-invalid' : '' }}" type="text"
-                            name="block" id="block" value="{{ old('block', '') }}">
+                            name="block" id="block" value="{{ old('block', '') }}" disabled>
                         @if($errors->has('block'))
                         <div class="invalid-feedback">
                             {{ $errors->first('block') }}
@@ -237,11 +221,11 @@
 @endsection
 
 @section('scripts')
-@include('admin.manageHouses.scripts.scripts')
+@include('admin.manageHouses.scripts.scripts', ['area' => currentArea()])
 <script>
     var uploadedDocumentsMap = {}
     Dropzone.options.documentsDropzone = {
-        url: '{{ route('admin.manage-houses.storeMedia') }}',
+        url: '{{ route('admin.manage-houses.storeMedia', [currentArea()]) }}',
 
         maxFilesize: 100, // MB
         addRemoveLinks: true,

@@ -40,7 +40,7 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        return '/portals';
+        return RouteServiceProvider::HOME;
     }
 
     protected function authenticated(Request $request, $user)

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\AddAreaTrait;
 use \DateTimeInterface;
 use App\Traits\Auditable;
 use App\Traits\MultiTenantModelTrait;

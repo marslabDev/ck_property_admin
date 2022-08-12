@@ -7,29 +7,10 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route('admin.manage-houses.update', [$manageHouse->id]) }}"
+        <form method="POST" action="{{ route('admin.manage-houses.update', [currentArea(), $manageHouse->id]) }}"
             enctype="multipart/form-data">
             @method('PUT')
             @csrf
-
-            <div class="form-group">
-                <label class="required" for="area_id">{{ trans('cruds.manageHouse.fields.area') }}</label>
-                <select class="form-control select2 {{ $errors->has('area') ? 'is-invalid' : '' }}" name="area_id"
-                    id="area_id" required>
-                    @foreach($areas as $id => $entry)
-                    <option value="{{ $id }}" {{ (old('area_id') ? old('area_id') : $manageHouse->area->id ?? '') == $id
-                        ? 'selected' : '' }}>
-                        {{ $entry }}
-                    </option>
-                    @endforeach
-                </select>
-                @if($errors->has('area'))
-                <div class="invalid-feedback">
-                    {{ $errors->first('area') }}
-                </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.manageHouse.fields.area_helper') }}</span>
-            </div>
 
             <div class="form-group" id="street_id_field">
                 <label class="required" for="street_id">{{ trans('cruds.manageHouse.fields.street') }}</label>
@@ -237,11 +218,11 @@
 @endsection
 
 @section('scripts')
-@include('admin.manageHouses.scripts.scripts')
+@include('admin.manageHouses.scripts.scripts', ['area' => currentArea()])
 <script>
     var uploadedDocumentsMap = {}
     Dropzone.options.documentsDropzone = {
-    url: '{{ route('admin.manage-houses.storeMedia') }}',
+    url: '{{ route('admin.manage-houses.storeMedia', currentArea()) }}',
     maxFilesize: 100, // MB
     addRemoveLinks: true,
     headers: {

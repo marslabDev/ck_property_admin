@@ -4,6 +4,7 @@ namespace App\Models;
 
 use \DateTimeInterface;
 use App\Traits\Auditable;
+use App\Traits\AddAreaTrait;
 use App\Traits\MultiTenantModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,7 @@ class Street extends Model
 {
     use SoftDeletes;
     use MultiTenantModelTrait;
+    use AddAreaTrait;
     use Auditable;
     use HasFactory;
 

@@ -15,17 +15,21 @@ class RolesTableSeeder extends Seeder
             [
                 'id'    => 1,
                 'title' => 'Admin',
+                'redirect_to' => '/admin/select-area',
             ],
             [
                 'id'    => 2,
                 'title' => 'User',
+                'redirect_to' => '/home',
+
             ],
             [
                 'id' => 3,
                 'title' => 'Supplier Manager',
+                'redirect_to' => '/admin/select-area',
             ]
         ];
 
-        Role::upsert($roles, ['id'], ['title']);
+        Role::insert($roles);
     }
 }

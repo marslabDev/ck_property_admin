@@ -9,8 +9,10 @@
                 <div class='row'>
                     <div class='col-md-12'>
 
-                        <form class="form-horizontal" method="POST" action="{{ route($route, ['model' => $model]) }}" enctype="multipart/form-data">
+                        <form class="form-horizontal" method="POST" action="{{ route($route, [currentArea()]) }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
+
+                            <input type="hidden" name="model" value="{{ $model }}" />
 
                             <div class="form-group{{ $errors->has('csv_file') ? ' has-error' : '' }}">
                                 <label for="csv_file" class="col-md-4 control-label">@lang('global.app_csv_file_to_import')</label>

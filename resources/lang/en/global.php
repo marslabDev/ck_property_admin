@@ -2,6 +2,7 @@
 
 return [
     'actions'                        => 'Actions',
+    'manage'                         => 'Manage',
     'add'                            => 'Add',
     'allRightsReserved'              => 'All rights reserved.',
     'areYouSure'                     => 'Are you sure?',
@@ -25,6 +26,7 @@ return [
     'login_password_confirmation'    => 'Password confirmation',
     'logout'                         => 'Logout',
     'month'                          => 'Month',
+    'na'                             => 'N/A',
     'no'                             => 'No',
     'pleaseSelect'                   => 'Please select',
     'register'                       => 'Register',

@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 @section('content')
 @can('manage_price_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.manage-prices.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.managePrice.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'ManagePrice', 'route' => 'admin.manage-prices.parseCsvImport'])
-        </div>
+<div style="margin-bottom: 10px;" class="row">
+    <div class="col-lg-12">
+        <a class="btn btn-success" href="{{ route('admin.manage-prices.create', [currentArea()]) }}">
+            {{ trans('global.add') }} {{ trans('cruds.managePrice.title_singular') }}
+        </a>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+            {{ trans('global.app_csvImport') }}
+        </button>
+        @include('csvImport.modal', ['model' => 'ManagePrice', 'route' => 'admin.manage-prices.parseCsvImport'])
     </div>
+</div>
 @endcan
 <div class="card">
     <div class="card-header">
@@ -51,7 +51,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($house_types as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -62,7 +62,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($areas as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -86,7 +86,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.manage-prices.massDestroy') }}",
+    url: "{{ route('admin.manage-prices.massDestroy', [currentArea()]) }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -118,7 +118,7 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.manage-prices.index') }}",
+    ajax: "{{ route('admin.manage-prices.index', [currentArea()]) }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },

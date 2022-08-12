@@ -40,7 +40,7 @@
 </head>
 
 <body class="c-app">
-    @include('partials.menu')
+    @include('partials.admin.menu')
     <div class="c-wrapper">
         <header class="c-header c-header-fixed px-3">
             <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar"
@@ -54,7 +54,13 @@
                 <i class="fas fa-fw fa-bars"></i>
             </button>
 
-            <button class="btn ml-auto" onclick="window.location.href='{{ route('portals') }}';">
+            <button class="btn ml-auto" onclick="window.location.href='{{ route('core.select-area') }}';">
+                {{-- <i class="fab fa-buromobelexperte"></i> --}}
+                <i class="fas fa-map-marker-alt"></i>
+                {{ currentArea()->name }}
+            </button>
+
+            <button class="btn" onclick="window.location.href='{{ route('core.select-portal') }}';">
                 {{-- <i class="fab fa-buromobelexperte"></i> --}}
                 <i class="fas fa-th"></i>
             </button>
@@ -114,8 +120,6 @@
 
         <div class="c-body">
             <main class="c-main">
-
-
                 <div class="container-fluid">
                     @if(session('message'))
                     <div class="row mb-2">
@@ -134,7 +138,6 @@
                     </div>
                     @endif
                     @yield('content')
-
                 </div>
 
 
@@ -306,7 +309,7 @@
             $('.searchable-field').select2({
                 minimumInputLength: 3,
                 ajax: {
-                    url: '{{ route("admin.globalSearch") }}',
+                    url: '{{ route("admin.globalSearch", [currentArea()]) }}',
                     dataType: 'json',
                     type: 'GET',
                     delay: 200,

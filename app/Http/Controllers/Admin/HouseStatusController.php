@@ -10,7 +10,7 @@ use App\Http\Requests\UpdateHouseStatusRequest;
 use App\Models\Area;
 use App\Models\HouseStatus;
 use App\Models\User;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -19,12 +19,15 @@ class HouseStatusController extends Controller
 {
     use CsvImportTrait;
 
-    public function index(Request $request)
+    public function index(Request $request, Area $area)
     {
         abort_if(Gate::denies('house_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = HouseStatus::with(['from_area', 'created_by'])->select(sprintf('%s.*', (new HouseStatus())->table));
+            $query = HouseStatus::with(['from_area', 'created_by'])
+                ->select(sprintf('%s.*', (new HouseStatus())->table))
+                ->where('from_area_id', $area->id);
+                
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -36,13 +39,13 @@ class HouseStatusController extends Controller
                 $deleteGate = 'house_status_delete';
                 $crudRoutePart = 'house-statuses';
 
-                return view('partials.datatablesActions', compact(
-                'viewGate',
-                'editGate',
-                'deleteGate',
-                'crudRoutePart',
-                'row'
-            ));
+                return view('partials.admin.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
             });
 
             $table->editColumn('id', function ($row) {
@@ -70,14 +73,14 @@ class HouseStatusController extends Controller
         return view('admin.houseStatuses.create');
     }
 
-    public function store(StoreHouseStatusRequest $request)
+    public function store(StoreHouseStatusRequest $request, Area $area)
     {
         $houseStatus = HouseStatus::create($request->all());
 
-        return redirect()->route('admin.house-statuses.index');
+        return redirect()->route('admin.house-statuses.index', compact('area'));
     }
 
-    public function edit(HouseStatus $houseStatus)
+    public function edit(Area $area, HouseStatus $houseStatus)
     {
         abort_if(Gate::denies('house_status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -86,14 +89,14 @@ class HouseStatusController extends Controller
         return view('admin.houseStatuses.edit', compact('houseStatus'));
     }
 
-    public function update(UpdateHouseStatusRequest $request, HouseStatus $houseStatus)
+    public function update(UpdateHouseStatusRequest $request, Area $area, HouseStatus $houseStatus)
     {
         $houseStatus->update($request->all());
 
-        return redirect()->route('admin.house-statuses.index');
+        return redirect()->route('admin.house-statuses.index', compact('area'));
     }
 
-    public function show(HouseStatus $houseStatus)
+    public function show(Area $area, HouseStatus $houseStatus)
     {
         abort_if(Gate::denies('house_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -102,7 +105,7 @@ class HouseStatusController extends Controller
         return view('admin.houseStatuses.show', compact('houseStatus'));
     }
 
-    public function destroy(HouseStatus $houseStatus)
+    public function destroy(Area $area, HouseStatus $houseStatus)
     {
         abort_if(Gate::denies('house_status_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 

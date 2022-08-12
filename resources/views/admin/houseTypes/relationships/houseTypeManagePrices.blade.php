@@ -1,11 +1,11 @@
 @can('manage_price_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.manage-prices.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.managePrice.title_singular') }}
-            </a>
-        </div>
+<div style="margin-bottom: 10px;" class="row">
+    <div class="col-lg-12">
+        <a class="btn btn-success" href="{{ route('admin.manage-prices.create', [currentArea()]) }}">
+            {{ trans('global.add') }} {{ trans('cruds.managePrice.title_singular') }}
+        </a>
     </div>
+</div>
 @endcan
 
 <div class="card">
@@ -40,46 +40,50 @@
                 </thead>
                 <tbody>
                     @foreach($managePrices as $key => $managePrice)
-                        <tr data-entry-id="{{ $managePrice->id }}">
-                            <td>
+                    <tr data-entry-id="{{ $managePrice->id }}">
+                        <td>
 
-                            </td>
-                            <td>
-                                {{ $managePrice->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $managePrice->house_type->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $managePrice->price_per_sq_ft ?? '' }}
-                            </td>
-                            <td>
-                                {{ $managePrice->from_area->name ?? '' }}
-                            </td>
-                            <td>
-                                @can('manage_price_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.manage-prices.show', $managePrice->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
+                        </td>
+                        <td>
+                            {{ $managePrice->id ?? '' }}
+                        </td>
+                        <td>
+                            {{ $managePrice->house_type->name ?? '' }}
+                        </td>
+                        <td>
+                            {{ $managePrice->price_per_sq_ft ?? '' }}
+                        </td>
+                        <td>
+                            {{ $managePrice->from_area->name ?? '' }}
+                        </td>
+                        <td>
+                            @can('manage_price_show')
+                            <a class="btn btn-xs btn-primary"
+                                href="{{ route('admin.manage-prices.show', [currentArea(), $managePrice->id]) }}">
+                                {{ trans('global.view') }}
+                            </a>
+                            @endcan
 
-                                @can('manage_price_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.manage-prices.edit', $managePrice->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                            @can('manage_price_edit')
+                            <a class="btn btn-xs btn-info"
+                                href="{{ route('admin.manage-prices.edit', [currentArea(), $managePrice->id]) }}">
+                                {{ trans('global.edit') }}
+                            </a>
+                            @endcan
 
-                                @can('manage_price_delete')
-                                    <form action="{{ route('admin.manage-prices.destroy', $managePrice->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                            @can('manage_price_delete')
+                            <form action="{{ route('admin.manage-prices.destroy', [currentArea(), $managePrice->id]) }}"
+                                method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
+                                style="display: inline-block;">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                            </form>
+                            @endcan
 
-                            </td>
+                        </td>
 
-                        </tr>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -96,7 +100,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.manage-prices.massDestroy') }}",
+    url: "{{ route('admin.manage-prices.massDestroy', [currentArea()]) }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

@@ -1,7 +1,7 @@
 @can('payment_plan_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.payment-plans.create') }}">
+            <a class="btn btn-success" href="{{ route('admin.payment-plans.create', [currentArea()]) }}">
                 {{ trans('global.add') }} {{ trans('cruds.paymentPlan.title_singular') }}
             </a>
         </div>
@@ -149,7 +149,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.payment-plans.massDestroy') }}",
+    url: "{{ route('admin.payment-plans.massDestroy', [currentArea()]) }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

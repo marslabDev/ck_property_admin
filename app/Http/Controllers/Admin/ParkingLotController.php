@@ -10,7 +10,7 @@ use App\Http\Requests\UpdateParkingLotRequest;
 use App\Models\Area;
 use App\Models\ParkingLot;
 use App\Models\User;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -19,12 +19,15 @@ class ParkingLotController extends Controller
 {
     use CsvImportTrait;
 
-    public function index(Request $request)
+    public function index(Request $request, Area $area)
     {
         abort_if(Gate::denies('parking_lot_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ParkingLot::with(['from_area', 'created_by'])->select(sprintf('%s.*', (new ParkingLot())->table));
+            $query = ParkingLot::with(['from_area', 'created_by'])
+                ->select(sprintf('%s.*', (new ParkingLot())->table))
+                ->where('from_area_id', $area->id);
+
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -36,13 +39,13 @@ class ParkingLotController extends Controller
                 $deleteGate = 'parking_lot_delete';
                 $crudRoutePart = 'parking-lots';
 
-                return view('partials.datatablesActions', compact(
-                'viewGate',
-                'editGate',
-                'deleteGate',
-                'crudRoutePart',
-                'row'
-            ));
+                return view('partials.admin.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
             });
 
             $table->editColumn('id', function ($row) {
@@ -73,14 +76,14 @@ class ParkingLotController extends Controller
         return view('admin.parkingLots.create');
     }
 
-    public function store(StoreParkingLotRequest $request)
+    public function store(StoreParkingLotRequest $request, Area $area)
     {
         $parkingLot = ParkingLot::create($request->all());
 
-        return redirect()->route('admin.parking-lots.index');
+        return redirect()->route('admin.parking-lots.index', compact('area'));
     }
 
-    public function edit(ParkingLot $parkingLot)
+    public function edit(Area $area, ParkingLot $parkingLot)
     {
         abort_if(Gate::denies('parking_lot_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -89,23 +92,23 @@ class ParkingLotController extends Controller
         return view('admin.parkingLots.edit', compact('parkingLot'));
     }
 
-    public function update(UpdateParkingLotRequest $request, ParkingLot $parkingLot)
+    public function update(UpdateParkingLotRequest $request, Area $area, ParkingLot $parkingLot)
     {
         $parkingLot->update($request->all());
 
-        return redirect()->route('admin.parking-lots.index');
+        return redirect()->route('admin.parking-lots.index', compact('area'));
     }
 
-    public function show(ParkingLot $parkingLot)
+    public function show(Area $area, ParkingLot $parkingLot)
     {
         abort_if(Gate::denies('parking_lot_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $parkingLot->load('from_area', 'created_by', 'parkingLotManageHouses');
 
-        return view('admin.parkingLots.show', compact('parkingLot'));
+        return view('admin.parkingLots.show', compact('area', 'parkingLot'));
     }
 
-    public function destroy(ParkingLot $parkingLot)
+    public function destroy(Area $area, ParkingLot $parkingLot)
     {
         abort_if(Gate::denies('parking_lot_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 

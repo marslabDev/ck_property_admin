@@ -17,7 +17,7 @@ class ManageHouseController extends Controller
     {
         try {
             if ($request->ajax()) {
-                return response()->json($area->areaStreets);
+                return response()->json($area->fromAreaStreets);
             }
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), Response::HTTP_BAD_REQUEST);
@@ -32,7 +32,7 @@ class ManageHouseController extends Controller
     {
         try {
             if ($request->ajax()) {
-                return response()->json($area->areaHouseTypes);
+                return response()->json($area->fromAreaHouseTypes);
             }
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), Response::HTTP_BAD_REQUEST);

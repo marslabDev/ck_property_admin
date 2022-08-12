@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 @section('content')
 @can('street_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.streets.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.street.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'Street', 'route' => 'admin.streets.parseCsvImport'])
-        </div>
+<div style="margin-bottom: 10px;" class="row">
+    <div class="col-lg-12">
+        <a class="btn btn-success" href="{{ route('admin.streets.create', [currentArea()]) }}">
+            {{ trans('global.add') }} {{ trans('cruds.street.title_singular') }}
+        </a>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+            {{ trans('global.app_csvImport') }}
+        </button>
+        @include('csvImport.modal', ['model' => 'Street', 'route' => 'admin.streets.parseCsvImport'])
     </div>
+</div>
 @endcan
 <div class="card">
     <div class="card-header">
@@ -19,6 +19,7 @@
     </div>
 
     <div class="card-body">
+
         <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Street">
             <thead>
                 <tr>
@@ -51,7 +52,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($areas as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -75,7 +76,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.streets.massDestroy') }}",
+    url: "{{ route('admin.streets.massDestroy', [currentArea()]) }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -107,7 +108,7 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.streets.index') }}",
+    ajax: "{{ route('admin.streets.index', [currentArea()]) }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },

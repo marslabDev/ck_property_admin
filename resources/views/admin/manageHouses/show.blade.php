@@ -9,7 +9,7 @@
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.manage-houses.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.manage-houses.index', [currentArea()]) }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -138,7 +138,7 @@
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.manage-houses.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.manage-houses.index', [currentArea()]) }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -150,9 +150,9 @@
     <div class="card-header">
         {{ trans('global.relatedData') }}
     </div>
-    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+    <ul class="nav nav-pills" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#house_payment_plans" role="tab" data-toggle="tab">
+            <a class="nav-link active" href="#house_payment_plans" role="tab" data-toggle="tab">
                 {{ trans('cruds.paymentPlan.title') }}
             </a>
         </li>
@@ -162,8 +162,8 @@
             </a>
         </li>
     </ul>
-    <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="house_payment_plans">
+    <div class="tab-content tw-px-5 tw-pt-5">
+        <div class="tab-pane active" role="tabpanel" id="house_payment_plans">
             @includeIf('admin.manageHouses.relationships.housePaymentPlans', ['paymentPlans' => $manageHouse->housePaymentPlans])
         </div>
         <div class="tab-pane" role="tabpanel" id="house_home_owner_transactions">

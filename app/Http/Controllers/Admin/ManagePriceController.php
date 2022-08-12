@@ -11,7 +11,7 @@ use App\Models\Area;
 use App\Models\HouseType;
 use App\Models\ManagePrice;
 use App\Models\User;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -20,12 +20,15 @@ class ManagePriceController extends Controller
 {
     use CsvImportTrait;
 
-    public function index(Request $request)
+    public function index(Request $request, Area $area)
     {
         abort_if(Gate::denies('manage_price_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ManagePrice::with(['house_type', 'from_area', 'created_by'])->select(sprintf('%s.*', (new ManagePrice())->table));
+            $query = ManagePrice::with(['house_type', 'from_area', 'created_by'])
+                ->select(sprintf('%s.*', (new ManagePrice())->table))
+                ->where('from_area_id', $area->id);
+
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -37,13 +40,13 @@ class ManagePriceController extends Controller
                 $deleteGate = 'manage_price_delete';
                 $crudRoutePart = 'manage-prices';
 
-                return view('partials.datatablesActions', compact(
-                'viewGate',
-                'editGate',
-                'deleteGate',
-                'crudRoutePart',
-                'row'
-            ));
+                return view('partials.admin.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
             });
 
             $table->editColumn('id', function ($row) {
@@ -72,23 +75,26 @@ class ManagePriceController extends Controller
         return view('admin.managePrices.index', compact('house_types', 'areas', 'users'));
     }
 
-    public function create()
+    public function create(Area $area)
     {
         abort_if(Gate::denies('manage_price_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $house_types = HouseType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $house_types = HouseType::with('from_area')
+            ->where('from_area_id', $area->id)
+            ->pluck('name', 'id')
+            ->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.managePrices.create', compact('house_types'));
     }
 
-    public function store(StoreManagePriceRequest $request)
+    public function store(StoreManagePriceRequest $request, Area $area)
     {
         $managePrice = ManagePrice::create($request->all());
 
-        return redirect()->route('admin.manage-prices.index');
+        return redirect()->route('admin.manage-prices.index', compact('area'));
     }
 
-    public function edit(ManagePrice $managePrice)
+    public function edit(Area $area, ManagePrice $managePrice)
     {
         abort_if(Gate::denies('manage_price_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -99,14 +105,14 @@ class ManagePriceController extends Controller
         return view('admin.managePrices.edit', compact('house_types', 'managePrice'));
     }
 
-    public function update(UpdateManagePriceRequest $request, ManagePrice $managePrice)
+    public function update(UpdateManagePriceRequest $request, Area $area, ManagePrice $managePrice)
     {
         $managePrice->update($request->all());
 
-        return redirect()->route('admin.manage-prices.index');
+        return redirect()->route('admin.manage-prices.index', compact('area'));
     }
 
-    public function show(ManagePrice $managePrice)
+    public function show(Area $area, ManagePrice $managePrice)
     {
         abort_if(Gate::denies('manage_price_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -115,7 +121,7 @@ class ManagePriceController extends Controller
         return view('admin.managePrices.show', compact('managePrice'));
     }
 
-    public function destroy(ManagePrice $managePrice)
+    public function destroy(Area $area, ManagePrice $managePrice)
     {
         abort_if(Gate::denies('manage_price_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
