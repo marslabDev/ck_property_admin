@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.notes.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.notes.store', [currentArea()]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="project_id">{{ trans('cruds.note.fields.project') }}</label>

@@ -82,7 +82,7 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.payment-histories.index') }}",
+    ajax: "{{ route('admin.payment-histories.index', [currentArea()]) }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },

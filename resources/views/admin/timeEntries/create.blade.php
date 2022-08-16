@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.time-entries.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.time-entries.store', [currentArea()]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="work_type_id">{{ trans('cruds.timeEntry.fields.work_type') }}</label>

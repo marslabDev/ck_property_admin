@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.complaints.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.complaints.store', [currentArea()]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="title">{{ trans('cruds.complaint.fields.title') }}</label>
@@ -79,7 +79,7 @@
               return new Promise(function(resolve, reject) {
                 // Init request
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', '{{ route('admin.complaints.storeCKEditorImages') }}', true);
+                xhr.open('POST', '{{ route('admin.complaints.storeCKEditorImages', [currentArea()]) }}', true);
                 xhr.setRequestHeader('x-csrf-token', window._token);
                 xhr.setRequestHeader('Accept', 'application/json');
                 xhr.responseType = 'json';
@@ -135,7 +135,7 @@
 <script>
     var uploadedImageMap = {}
 Dropzone.options.imageDropzone = {
-    url: '{{ route('admin.complaints.storeMedia') }}',
+    url: '{{ route('admin.complaints.storeMedia', [currentArea()]) }}',
     maxFilesize: 10, // MB
     acceptedFiles: '.jpeg,.jpg,.png,.gif',
     addRemoveLinks: true,

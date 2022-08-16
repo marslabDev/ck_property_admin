@@ -99,7 +99,7 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.assets-histories.index') }}",
+    ajax: "{{ route('admin.assets-histories.index', [currentArea()]) }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },

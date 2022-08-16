@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.asset-locations.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.asset-locations.store', [currentArea()]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="name">{{ trans('cruds.assetLocation.fields.name') }}</label>

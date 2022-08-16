@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.articles.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.articles.store', [currentArea()]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="title_name">{{ trans('cruds.article.fields.title_name') }}</label>
@@ -98,7 +98,7 @@
 @section('scripts')
 <script>
     Dropzone.options.imageDropzone = {
-    url: '{{ route('admin.articles.storeMedia') }}',
+    url: '{{ route('admin.articles.storeMedia', [currentArea()]) }}',
     maxFilesize: 2, // MB
     acceptedFiles: '.jpeg,.jpg,.png,.gif',
     maxFiles: 1,

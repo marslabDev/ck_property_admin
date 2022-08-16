@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.expenses.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.expenses.store', [currentArea()]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="expense_category_id">{{ trans('cruds.expense.fields.expense_category') }}</label>

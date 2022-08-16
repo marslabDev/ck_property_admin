@@ -3,7 +3,7 @@
 @can('transaction_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.transactions.create') }}">
+            <a class="btn btn-success" href="{{ route('admin.transactions.create', [currentArea()]) }}">
                 {{ trans('global.add') }} {{ trans('cruds.transaction.title_singular') }}
             </a>
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
@@ -121,7 +121,7 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.transactions.index') }}",
+    ajax: "{{ route('admin.transactions.index', [currentArea()]) }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },

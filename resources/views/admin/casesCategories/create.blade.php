@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.cases-categories.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.cases-categories.store', [currentArea()]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="title">{{ trans('cruds.casesCategory.fields.title') }}</label>

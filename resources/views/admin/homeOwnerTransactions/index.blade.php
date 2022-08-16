@@ -132,7 +132,7 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.home-owner-transactions.index') }}",
+    ajax: "{{ route('admin.home-owner-transactions.index', [currentArea()]) }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },

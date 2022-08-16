@@ -6,7 +6,7 @@
 @can('user_create')
 <div style="margin-bottom: 10px;" class="row">
     <div class="col-lg-12">
-        <a class="btn btn-success" href="{{ route('core.users.create') }}">
+        <a class="btn btn-success" href="{{ route('core.users.create', [currentArea()]) }}">
             {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
         </a>
         <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
@@ -125,7 +125,7 @@
     let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
     let deleteButton = {
         text: deleteButtonTrans,
-    url: "{{ route('core.users.massDestroy') }}",
+    url: "{{ route('core.users.massDestroy', [currentArea()]) }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({selected: true }).data(), function (entry) {
@@ -158,7 +158,7 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('core.users.index') }}",
+    ajax: "{{ route('core.users.index', [currentArea()]) }}",
     columns: [
     {data: 'placeholder', name: 'placeholder' },
     {data: 'id', name: 'id' },

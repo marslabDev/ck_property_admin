@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.incomes.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.incomes.store', [currentArea()]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="income_category_id">{{ trans('cruds.income.fields.income_category') }}</label>

@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.supplier-proposals.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.supplier-proposals.store', [currentArea()]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="representative_name">{{ trans('cruds.supplierProposal.fields.representative_name') }}</label>
@@ -71,7 +71,7 @@
 <script>
     var uploadedDocumentsMap = {}
 Dropzone.options.documentsDropzone = {
-    url: '{{ route('admin.supplier-proposals.storeMedia') }}',
+    url: '{{ route('admin.supplier-proposals.storeMedia', [currentArea()]) }}',
     maxFilesize: 10, // MB
     addRemoveLinks: true,
     headers: {

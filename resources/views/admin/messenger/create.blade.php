@@ -5,7 +5,7 @@
 @section('messenger-content')
 <div class="row">
     <div class="col-md-12">
-        <form action="{{ route("admin.messenger.storeTopic") }}" method="POST">
+        <form action="{{ route('admin.messenger.storeTopic', [currentArea()]) }}" method="POST">
             @csrf
             <div class="card card-default">
                 <div class="card-body">

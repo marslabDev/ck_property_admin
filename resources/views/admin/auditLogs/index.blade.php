@@ -76,7 +76,7 @@
                         <td>
                             @can('audit_log_show')
                             <a class="btn btn-xs btn-primary"
-                                href="{{ route('system.audit-logs.show',[$auditLog->id]) }}">
+                                href="{{ route('system.audit-logs.show', [$auditLog->id], [currentArea()]) }}">
                                 {{ trans('global.view') }}
                             </a>
                             @endcan

@@ -3,7 +3,7 @@
 @can('content_category_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.content-categories.create') }}">
+            <a class="btn btn-success" href="{{ route('admin.content-categories.create', [currentArea()]) }}">
                 {{ trans('global.add') }} {{ trans('cruds.contentCategory.title_singular') }}
             </a>
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
@@ -70,7 +70,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.content-categories.massDestroy') }}",
+    url: "{{ route('admin.content-categories.massDestroy', [currentArea()]) }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -102,7 +102,7 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.content-categories.index') }}",
+    ajax: "{{ route('admin.content-categories.index', [currentArea()]) }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },

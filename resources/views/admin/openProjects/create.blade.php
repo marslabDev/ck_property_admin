@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.open-projects.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.open-projects.store', [currentArea()]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="name">{{ trans('cruds.openProject.fields.name') }}</label>
@@ -118,7 +118,7 @@
               return new Promise(function(resolve, reject) {
                 // Init request
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', '{{ route('admin.open-projects.storeCKEditorImages') }}', true);
+                xhr.open('POST', '{{ route('admin.open-projects.storeCKEditorImages', [currentArea()]) }}', true);
                 xhr.setRequestHeader('x-csrf-token', window._token);
                 xhr.setRequestHeader('Accept', 'application/json');
                 xhr.responseType = 'json';
@@ -174,7 +174,7 @@
 <script>
     var uploadedDocumentsMap = {}
 Dropzone.options.documentsDropzone = {
-    url: '{{ route('admin.open-projects.storeMedia') }}',
+    url: '{{ route('admin.open-projects.storeMedia', [currentArea()]) }}',
     maxFilesize: 10, // MB
     addRemoveLinks: true,
     headers: {

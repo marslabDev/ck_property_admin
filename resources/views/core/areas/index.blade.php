@@ -3,10 +3,10 @@
 @can('area_create')
 <div style="margin-bottom: 10px;" class="row">
     <div class="col-lg-12">
-        <a class="btn btn-primary" href="{{ route('core.select-area') }}">
+        <a class="btn btn-primary" href="{{ route('core.select-area', [currentArea()]) }}">
             {{ trans('global.back_to') }} {{ trans('panel.select_area') }}
         </a>
-        <a class="btn btn-success" href="{{ route('core.areas.create') }}">
+        <a class="btn btn-success" href="{{ route('core.areas.create', [currentArea()]) }}">
             {{ trans('global.add') }} {{ trans('cruds.area.title_singular') }}
         </a>
         <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
@@ -97,7 +97,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('core.areas.massDestroy') }}",
+    url: "{{ route('core.areas.massDestroy', [currentArea()]) }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -129,7 +129,7 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('core.areas.index') }}",
+    ajax: "{{ route('core.areas.index', [currentArea()]) }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },

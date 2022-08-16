@@ -3,7 +3,7 @@
 @can('complaint_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.complaints.create') }}">
+            <a class="btn btn-success" href="{{ route('admin.complaints.create', [currentArea()]) }}">
                 {{ trans('global.add') }} {{ trans('cruds.complaint.title_singular') }}
             </a>
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
@@ -119,7 +119,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.complaints.massDestroy') }}",
+    url: "{{ route('admin.complaints.massDestroy', [currentArea()]) }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -151,7 +151,7 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.complaints.index') }}",
+    ajax: "{{ route('admin.complaints.index', [currentArea()]) }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
