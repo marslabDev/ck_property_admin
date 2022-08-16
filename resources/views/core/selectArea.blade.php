@@ -39,9 +39,8 @@
                 @foreach ($areas as $area)
                 <tr>
                     <td>
-                        <form id="area_{{ $area->id }}"
-                            action="{{ route('core.select-area.redirect', [$area]) }}" method="POST"
-                            style="display: none;">
+                        <form id="area_{{ $area->id }}" action="{{ route('core.select-area.redirect', [$area]) }}"
+                            method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
                         <button class="btn btn-link w-100 text-left" type="button"

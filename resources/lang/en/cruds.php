@@ -93,6 +93,8 @@ return [
         'fields'         => [
             'id'                  => 'ID',
             'id_helper'           => ' ',
+            'route_path'          => 'Route Path',
+            'route_path_helper'   => ' ',
             'description'         => 'Description',
             'description_helper'  => ' ',
             'subject_id'          => 'Subject ID',
@@ -133,6 +135,8 @@ return [
             'postcode_helper'   => ' ',
             'country'           => 'Country',
             'country_helper'    => ' ',
+            'user'              => 'User',
+            'user_helper'       => ' ',
             'created_by'        => 'Created By',
             'created_by_helper' => ' ',
         ],

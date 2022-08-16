@@ -18,7 +18,7 @@ class AreaController extends Controller
 {
     use CsvImportTrait;
 
-    public function index(Request $request, Area $area)
+    public function index(Request $request)
     {
         abort_if(Gate::denies('area_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -63,26 +63,38 @@ class AreaController extends Controller
                 return $row->country ? $row->country : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder']);
+            $table->editColumn('user', function ($row) {
+                $labels = [];
+                foreach ($row->areaUsers as $user) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $user->name);
+                }
+
+                return implode(' ', $labels);
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'user']);
 
             return $table->make(true);
         }
 
         $users = User::get();
 
-        return view('core.areas.index', compact('users', 'area'));
+        return view('core.areas.index', compact('users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('area_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('core.areas.create');
+        $users = User::pluck('name', 'id');
+
+        return view('core.areas.create', compact('users'));
     }
 
     public function store(StoreAreaRequest $request)
     {
         $area = Area::create($request->all());
+        $area->areaUsers()->sync($request->input('users', []));
 
         return redirect()->route('core.areas.index');
     }
@@ -91,14 +103,17 @@ class AreaController extends Controller
     {
         abort_if(Gate::denies('area_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $users = User::pluck('name', 'id');
+
         $area->load('created_by');
 
-        return view('core.areas.edit', compact('area'));
+        return view('core.areas.edit', compact('area', 'users'));
     }
 
     public function update(UpdateAreaRequest $request, Area $area)
     {
         $area->update($request->all());
+        $area->areaUsers()->sync($request->input('users', []));
 
         return redirect()->route('core.areas.index');
     }

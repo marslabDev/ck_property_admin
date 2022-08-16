@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\System;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\CsvImportTrait;
@@ -19,15 +19,13 @@ class HouseTypeController extends Controller
 {
     use CsvImportTrait;
 
-    public function index(Request $request, Area $area)
+    public function index(Request $request)
     {
         abort_if(Gate::denies('house_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
             $query = HouseType::with(['from_area', 'created_by'])
-                ->select(sprintf('%s.*', (new HouseType())->table))
-                ->where('from_area_id', $area->id)
-                ->orWhere('from_area_id', 1);
+                ->select(sprintf('%s.*', (new HouseType())->table));
 
             $table = Datatables::of($query);
 
@@ -40,7 +38,7 @@ class HouseTypeController extends Controller
                 $deleteGate = 'house_type_delete';
                 $crudRoutePart = 'house-types';
 
-                return view('partials.admin.datatablesActions', compact(
+                return view('partials.system.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -70,49 +68,49 @@ class HouseTypeController extends Controller
         $areas = Area::get();
         $users = User::get();
 
-        return view('admin.houseTypes.index', compact('areas', 'users'));
+        return view('system.houseTypes.index', compact('areas', 'users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('house_type_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.houseTypes.create');
+        return view('system.houseTypes.create');
     }
 
-    public function store(StoreHouseTypeRequest $request, Area $area)
+    public function store(StoreHouseTypeRequest $request)
     {
         $houseType = HouseType::create($request->all());
 
-        return redirect()->route('admin.house-types.index', compact('area'));
+        return redirect()->route('system.house-types.index');
     }
 
-    public function edit(Area $area, HouseType $houseType)
+    public function edit(HouseType $houseType)
     {
         abort_if(Gate::denies('house_type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $houseType->load('from_area', 'created_by');
 
-        return view('admin.houseTypes.edit', compact('area', 'houseType'));
+        return view('system.houseTypes.edit', compact('houseType'));
     }
 
-    public function update(UpdateHouseTypeRequest $request, Area $area, HouseType $houseType)
+    public function update(UpdateHouseTypeRequest $request, HouseType $houseType)
     {
         $houseType->update($request->all());
 
-        return redirect()->route('admin.house-types.index', compact('area'));
+        return redirect()->route('system.house-types.index');
     }
 
-    public function show(Area $area, HouseType $houseType)
+    public function show(HouseType $houseType)
     {
         abort_if(Gate::denies('house_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $houseType->load('from_area', 'created_by', 'houseTypeManageHouses', 'houseTypeManagePrices');
 
-        return view('admin.houseTypes.show', compact('area', 'houseType'));
+        return view('system.houseTypes.show', compact('houseType'));
     }
 
-    public function destroy(Area $area, HouseType $houseType)
+    public function destroy(HouseType $houseType)
     {
         abort_if(Gate::denies('house_type_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 

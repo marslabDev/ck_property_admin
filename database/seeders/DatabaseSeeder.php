@@ -19,12 +19,14 @@ class DatabaseSeeder extends Seeder
             Core\UsersTableSeeder::class,
             Core\RoleUserTableSeeder::class,
 
+            Core\AreaTableSeeder::class,
             Core\AssetStatusTableSeeder::class,
             Core\TaskStatusTableSeeder::class,
 
             SupplierManager\PermissionsSeeder::class,
         ]);
 
+        // DON'T delete this
         // $sql = file_get_contents(storage_path() . '/ck_admin.sql');
         // DB::unprepared($sql);
 

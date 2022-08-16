@@ -27,6 +27,7 @@ trait Auditable
     protected static function audit($description, $model)
     {
         AuditLog::create([
+            'route_path'   => request()->path() ?? null,
             'description'  => $description,
             'subject_id'   => $model->id ?? null,
             'subject_type' => sprintf('%s#%s', get_class($model), $model->id) ?? null,

@@ -7,6 +7,25 @@
     </div>
 
     <div class="card-body">
+
+        <div>
+            <div style="margin-bottom: 10px;" class="row">
+                <div class="col-lg-12">
+                    @can('user_management_access')
+                    <a class="btn btn-primary tw-mx-1" href="{{ route('core.users.index') }}">
+                        {{ trans('global.manage') }} {{ trans('cruds.user.title_singular') }}
+                    </a>
+                    @endcan
+
+                    @can('area_access')
+                    <a class="btn btn-primary tw-mx-1" href="{{ route('core.areas.index') }}">
+                        {{ trans('global.manage') }} {{ trans('cruds.area.title_singular') }}
+                    </a>
+                    @endcan
+                </div>
+            </div>
+        </div>
+
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>

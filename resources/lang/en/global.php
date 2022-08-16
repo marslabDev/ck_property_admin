@@ -2,6 +2,7 @@
 
 return [
     'actions'                        => 'Actions',
+    'back_to'                   => 'Back to',
     'manage'                         => 'Manage',
     'add'                            => 'Add',
     'allRightsReserved'              => 'All rights reserved.',

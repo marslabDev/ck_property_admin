@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\System;
 
 use App\Http\Controllers\Controller;
 use App\Models\AuditLog;
@@ -16,13 +16,13 @@ class AuditLogsController extends Controller
 
         $auditLogs = AuditLog::all();
 
-        return view('admin.auditLogs.index', compact('auditLogs'));
+        return view('system.auditLogs.index', compact('auditLogs'));
     }
 
     public function show(AuditLog $auditLog)
     {
         abort_if(Gate::denies('audit_log_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.auditLogs.show', compact('auditLog'));
+        return view('system.auditLogs.show', compact('auditLog'));
     }
 }

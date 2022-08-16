@@ -13,20 +13,25 @@ class RolesTableSeeder extends Seeder
 
         $roles = [
             [
-                'id'    => 1,
-                'title' => 'Admin',
-                'redirect_to' => '/admin/select-area',
+                'id' => 1,
+                'title' => 'Super Admin',
+                'redirect_to' => '/system',
             ],
             [
                 'id'    => 2,
+                'title' => 'Admin',
+                'redirect_to' => '/core/select-area',
+            ],
+            [
+                'id'    => 3,
                 'title' => 'User',
                 'redirect_to' => '/home',
 
             ],
             [
-                'id' => 3,
+                'id' => 4,
                 'title' => 'Supplier Manager',
-                'redirect_to' => '/admin/select-area',
+                'redirect_to' => '/core/select-area',
             ]
         ];
 

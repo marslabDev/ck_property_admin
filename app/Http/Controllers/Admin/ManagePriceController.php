@@ -27,7 +27,8 @@ class ManagePriceController extends Controller
         if ($request->ajax()) {
             $query = ManagePrice::with(['house_type', 'from_area', 'created_by'])
                 ->select(sprintf('%s.*', (new ManagePrice())->table))
-                ->where('from_area_id', $area->id);
+                ->where('from_area_id', $area->id)
+                ->orWhere('from_area_id', 1);
 
             $table = Datatables::of($query);
 
@@ -81,6 +82,7 @@ class ManagePriceController extends Controller
 
         $house_types = HouseType::with('from_area')
             ->where('from_area_id', $area->id)
+            ->orWhere('from_area_id', 1)
             ->pluck('name', 'id')
             ->prepend(trans('global.pleaseSelect'), '');
 

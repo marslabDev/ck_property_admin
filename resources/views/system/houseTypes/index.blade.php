@@ -1,53 +1,41 @@
-@extends('layouts.core')
+@extends('layouts.system')
 @section('content')
-@can('area_create')
+@can('house_type_create')
 <div style="margin-bottom: 10px;" class="row">
     <div class="col-lg-12">
-        <a class="btn btn-primary" href="{{ route('core.select-area') }}">
-            {{ trans('global.back_to') }} {{ trans('panel.select_area') }}
-        </a>
-        <a class="btn btn-success" href="{{ route('core.areas.create') }}">
-            {{ trans('global.add') }} {{ trans('cruds.area.title_singular') }}
+        <a class="btn btn-success" href="{{ route('system.house-types.create') }}">
+            {{ trans('global.add') }} {{ trans('cruds.houseType.title_singular') }}
         </a>
         <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
             {{ trans('global.app_csvImport') }}
         </button>
-        @include('csvImport.modal', ['model' => 'Area', 'route' => 'core.areas.parseCsvImport'])
+        @include('csvImport.modal', ['model' => 'HouseType', 'route' => 'system.house-types.parseCsvImport'])
     </div>
 </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.area.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.houseType.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Area">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-HouseType">
             <thead>
                 <tr>
                     <th width="10">
 
                     </th>
                     <th>
-                        {{ trans('cruds.area.fields.id') }}
+                        {{ trans('cruds.houseType.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.area.fields.name') }}
+                        {{ trans('cruds.houseType.fields.name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.area.fields.city') }}
+                        {{ trans('cruds.houseType.fields.type') }}
                     </th>
                     <th>
-                        {{ trans('cruds.area.fields.postcode') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.area.fields.state') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.area.fields.country') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.area.fields.user') }}
+                        {{ trans('cruds.houseType.fields.from_area') }}
                     </th>
                     <th>
                         &nbsp;
@@ -63,19 +51,20 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        <select class="search" strict="true">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach(App\Models\HouseType::TYPE_SELECT as $key => $item)
+                            <option value="{{ $key }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($areas as $key => $item)
+                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                     </td>
@@ -93,11 +82,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('area_delete')
+@can('house_type_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('core.areas.massDestroy') }}",
+    url: "{{ route('system.house-types.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -129,23 +118,20 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('core.areas.index') }}",
+    ajax: "{{ route('system.house-types.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
-{ data: 'city', name: 'city' },
-{ data: 'postcode', name: 'postcode' },
-{ data: 'state', name: 'state' },
-{ data: 'country', name: 'country' },
-{ data: 'user', name: 'users.name' },
+{ data: 'type', name: 'type' },
+{ data: 'from_area_name', name: 'from_area.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   };
-  let table = $('.datatable-Area').DataTable(dtOverrideGlobals);
+  let table = $('.datatable-HouseType').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

@@ -14,6 +14,20 @@ class UsersTableSeeder extends Seeder
         $users = [
             [
                 'id'                 => 1,
+                'name'               => 'Super Admin',
+                'email'              => 'super@admin.com',
+                'password'           => bcrypt('password'),
+                'remember_token'     => null,
+                'approved'           => 1,
+                'verified'           => 1,
+                'verified_at'        => '2022-08-03 04:17:45',
+                'username'           => '',
+                'phone_no'           => '',
+                'two_factor_code'    => '',
+                'verification_token' => '',
+            ],
+            [
+                'id'                 => 2,
                 'name'               => 'Admin',
                 'email'              => 'admin@admin.com',
                 'password'           => bcrypt('password'),
@@ -26,11 +40,10 @@ class UsersTableSeeder extends Seeder
                 'two_factor_code'    => '',
                 'verification_token' => '',
             ],
-
             [
-                'id'                 => 2,
-                'name'               => 'Manage Jason',
-                'email'              => 'supplier@demo.com',
+                'id'                 => 3,
+                'name'               => 'Supplier Lim',
+                'email'              => 'lim@supplier.demo.com',
                 'password'           => bcrypt('password'),
                 'remember_token'     => null,
                 'approved'           => 1,

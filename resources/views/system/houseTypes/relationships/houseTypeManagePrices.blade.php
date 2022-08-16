@@ -1,8 +1,8 @@
-@can('street_create')
+@can('manage_price_create')
 <div style="margin-bottom: 10px;" class="row">
     <div class="col-lg-12">
-        <a class="btn btn-success" href="{{ route('admin.streets.create', $area) }}">
-            {{ trans('global.add') }} {{ trans('cruds.street.title_singular') }}
+        <a class="btn btn-success" href="{{ route('admin.manage-prices.create', [currentArea()]) }}">
+            {{ trans('global.add') }} {{ trans('cruds.managePrice.title_singular') }}
         </a>
     </div>
 </div>
@@ -10,25 +10,28 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.street.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.managePrice.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-fromAreaStreets">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-houseTypeManagePrices">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.street.fields.id') }}
+                            {{ trans('cruds.managePrice.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.street.fields.street_name') }}
+                            {{ trans('cruds.managePrice.fields.house_type') }}
                         </th>
                         <th>
-                            {{ trans('cruds.street.fields.from_area') }}
+                            {{ trans('cruds.managePrice.fields.price_per_sq_ft') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.managePrice.fields.from_area') }}
                         </th>
                         <th>
                             &nbsp;
@@ -36,38 +39,41 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($streets as $key => $street)
-                    <tr data-entry-id="{{ $street->id }}">
+                    @foreach($managePrices as $key => $managePrice)
+                    <tr data-entry-id="{{ $managePrice->id }}">
                         <td>
 
                         </td>
                         <td>
-                            {{ $street->id ?? '' }}
+                            {{ $managePrice->id ?? '' }}
                         </td>
                         <td>
-                            {{ $street->street_name ?? '' }}
+                            {{ $managePrice->house_type->name ?? '' }}
                         </td>
                         <td>
-                            {{ $street->from_area->name ?? '' }}
+                            {{ $managePrice->price_per_sq_ft ?? '' }}
                         </td>
                         <td>
-                            @can('street_show')
+                            {{ $managePrice->from_area->name ?? '' }}
+                        </td>
+                        <td>
+                            @can('manage_price_show')
                             <a class="btn btn-xs btn-primary"
-                                href="{{ route('admin.streets.show', [$area, $street->id]) }}">
+                                href="{{ route('admin.manage-prices.show', [currentArea(), $managePrice->id]) }}">
                                 {{ trans('global.view') }}
                             </a>
                             @endcan
 
-                            @can('street_edit')
+                            @can('manage_price_edit')
                             <a class="btn btn-xs btn-info"
-                                href="{{ route('admin.streets.edit', [$area, $street->id]) }}">
+                                href="{{ route('admin.manage-prices.edit', [currentArea(), $managePrice->id]) }}">
                                 {{ trans('global.edit') }}
                             </a>
                             @endcan
 
-                            @can('street_delete')
-                            <form action="{{ route('admin.streets.destroy', [$area, $street->id]) }}" method="POST"
-                                onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
+                            @can('manage_price_delete')
+                            <form action="{{ route('admin.manage-prices.destroy', [currentArea(), $managePrice->id]) }}"
+                                method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
                                 style="display: inline-block;">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -90,11 +96,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('street_delete')
+@can('manage_price_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.streets.massDestroy', $area) }}",
+    url: "{{ route('admin.manage-prices.massDestroy', [currentArea()]) }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -125,7 +131,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-fromAreaStreets:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-houseTypeManagePrices:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

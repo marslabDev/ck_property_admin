@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Area;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
@@ -38,6 +38,13 @@ class StoreAreaRequest extends FormRequest
             'country' => [
                 'string',
                 'required',
+            ],
+            'users.*' => [
+                'integer',
+            ],
+            'users' => [
+                'required',
+                'array',
             ],
         ];
     }

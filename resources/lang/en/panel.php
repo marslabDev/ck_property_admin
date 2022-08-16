@@ -6,4 +6,5 @@ return [
     'welcome' => 'Welcome to Straqta Property Admin',
     'select_portal' => 'Select Portal',
     'select_area' => 'Select Area',
+    'system_settings' => 'System Settings',
 ];

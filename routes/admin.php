@@ -6,9 +6,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'admin/{area}', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth', '2fa']], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
-    // Audit Logs
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
-
+    
     // Manage House
     Route::delete('manage-houses/destroy', 'ManageHouseController@massDestroy')->name('manage-houses.massDestroy');
     Route::post('manage-houses/media', 'ManageHouseController@storeMedia')->name('manage-houses.storeMedia');
