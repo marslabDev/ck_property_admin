@@ -25,7 +25,7 @@
                             {{ trans('cruds.role.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.role.fields.title') }}
+                            {{ trans('cruds.role.fields.name') }}
                         </th>
                         <th>
                             {{ trans('cruds.role.fields.redirect_to') }}
@@ -48,7 +48,7 @@
                             {{ $role->id ?? '' }}
                         </td>
                         <td>
-                            {{ $role->title ?? '' }}
+                            {{ $role->name ?? '' }}
                         </td>
                         <td>
                             {{ $role->redirect_to ?? '' }}

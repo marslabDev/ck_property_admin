@@ -11,8 +11,8 @@ return [
         'fields'         => [
             'id'                => 'ID',
             'id_helper'         => ' ',
-            'title'             => 'Title',
-            'title_helper'      => ' ',
+            'name'             => 'Name',
+            'name_helper'      => ' ',
             'created_at'        => 'Created at',
             'created_at_helper' => ' ',
             'updated_at'        => 'Updated at',
@@ -27,8 +27,8 @@ return [
         'fields'         => [
             'id'                 => 'ID',
             'id_helper'          => ' ',
-            'title'              => 'Title',
-            'title_helper'       => ' ',
+            'name'              => 'Name',
+            'name_helper'       => ' ',
             'permissions'        => 'Permissions',
             'permissions_helper' => ' ',
             'created_at'         => 'Created at',

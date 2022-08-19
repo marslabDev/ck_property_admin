@@ -25,10 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.role.fields.title') }}
+                            {{ trans('cruds.role.fields.name') }}
                         </th>
                         <td>
-                            {{ $role->title }}
+                            {{ $role->name }}
                         </td>
                     </tr>
                     <tr>
@@ -45,7 +45,7 @@
                         </th>
                         <td>
                             @foreach($role->permissions as $key => $permissions)
-                                <span class="label label-info">{{ $permissions->title }}</span>
+                                <span class="label label-info">{{ $permissions->name }}</span>
                             @endforeach
                         </td>
                     </tr>
@@ -81,7 +81,7 @@
             {{-- @includeIf('core.roles.relationships.peopleInRoleNotices', ['notices' => $role->peopleInRoleNotices]) --}}
         </div>
         <div class="tab-pane active" role="tabpanel" id="roles_users">
-            @includeIf('core.roles.relationships.rolesUsers', ['users' => $role->rolesUsers])
+            @includeIf('core.roles.relationships.rolesUsers', ['users' => $role->users])
         </div>
     </div>
 </div>

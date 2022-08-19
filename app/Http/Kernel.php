@@ -29,6 +29,9 @@ class Kernel extends HttpKernel
         'admin'            => \App\Http\Middleware\IsAdmin::class,
         '2fa'              => \App\Http\Middleware\TwoFactorMiddleware::class,
         'validate.area'    => \App\Http\Middleware\ValidateArea::class,
+        'role'             => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission'       => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
     ];
 
     protected $middlewareGroups = [
@@ -40,7 +43,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\AuthGates::class,
+            // \App\Http\Middleware\AuthGates::class,
             \App\Http\Middleware\SetLocale::class,
             \App\Http\Middleware\ApprovalMiddleware::class,
             \App\Http\Middleware\VerificationMiddleware::class,
@@ -49,7 +52,7 @@ class Kernel extends HttpKernel
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\AuthGates::class,
+            // \App\Http\Middleware\AuthGates::class,
         ],
     ];
 }

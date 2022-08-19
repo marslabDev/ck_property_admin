@@ -12,15 +12,15 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label class="required" for="title">{{ trans('cruds.role.fields.title') }}</label>
-                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title"
-                    id="title" value="{{ old('title', $role->title) }}" required>
-                @if($errors->has('title'))
+                <label class="required" for="name">{{ trans('cruds.role.fields.name') }}</label>
+                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
+                    id="name" value="{{ old('name', $role->name) }}" required>
+                @if($errors->has('name'))
                 <div class="invalid-feedback">
-                    {{ $errors->first('title') }}
+                    {{ $errors->first('name') }}
                 </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.role.fields.title_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.role.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="redirect_to">{{ trans('cruds.role.fields.redirect_to') }}</label>

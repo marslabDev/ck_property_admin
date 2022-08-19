@@ -2,21 +2,22 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
 use App\Notifications\VerifyUserNotification;
 use App\Traits\Auditable;
 use Carbon\Carbon;
+use \DateTimeInterface;
 use Hash;
 use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+    use HasRoles;
     use SoftDeletes;
     use Notifiable;
     use Auditable;
@@ -169,10 +170,10 @@ class User extends Authenticatable
         return $this->belongsToMany(ManageHouse::class);
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
+    // public function roles()
+    // {
+    //     return $this->belongsToMany(Role::class);
+    // }
 
     public function areas()
     {

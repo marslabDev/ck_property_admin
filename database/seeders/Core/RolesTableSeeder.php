@@ -14,27 +14,28 @@ class RolesTableSeeder extends Seeder
         $roles = [
             [
                 'id' => 1,
-                'title' => 'Super Admin',
+                'name' => 'Super Admin',
                 'redirect_to' => '/system',
             ],
             [
                 'id'    => 2,
-                'title' => 'Admin',
+                'name' => 'Admin',
                 'redirect_to' => '/core/select-area',
             ],
             [
                 'id'    => 3,
-                'title' => 'User',
+                'name' => 'User',
                 'redirect_to' => '/home',
-
             ],
             [
                 'id' => 4,
-                'title' => 'Supplier Manager',
+                'name' => 'Supplier Manager',
                 'redirect_to' => '/core/select-area',
             ]
         ];
 
-        Role::insert($roles);
+        foreach ($roles as $role) {
+            Role::create($role);
+        }
     }
 }

@@ -16,6 +16,8 @@
                     @endif
 
                     You are logged in!
+
+                    @dump(currentRole())
                 </div>
             </div>
         </div>

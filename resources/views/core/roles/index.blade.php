@@ -32,7 +32,7 @@
                         {{ trans('cruds.role.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.role.fields.title') }}
+                        {{ trans('cruds.role.fields.name') }}
                     </th>
                     <th>
                         {{ trans('cruds.role.fields.redirect_to') }}
@@ -60,7 +60,7 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($permissions as $key => $item)
-                            <option value="{{ $item->title }}">{{ $item->title }}</option>
+                            <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -121,9 +121,9 @@
         columns: [
             { data: 'placeholder', name: 'placeholder' },
             { data: 'id', name: 'id' },
-            { data: 'title', name: 'title' },
+            { data: 'name', name: 'name' },
             { data: 'redirect_to', name: 'redirect_to' },
-            { data: 'permissions', name: 'permissions.title' },
+            { data: 'permissions', name: 'permissions.name' },
             { data: 'actions', name: '{{ trans('global.actions') }}' }
         ],
         orderCellsTop: true,

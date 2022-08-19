@@ -10,8 +10,8 @@ use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -24,7 +24,7 @@ class RolesController extends Controller
         abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Role::with(['permissions'])->select(sprintf('%s.*', (new Role())->table));
+            $query = Role::with(['permissions'])->select(sprintf('%s.*', (new Role())->getTable()));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -49,8 +49,8 @@ class RolesController extends Controller
                 return $row->id ? $row->id : '';
             });
 
-            $table->editColumn('title', function ($row) {
-                return $row->title ? $row->title : '';
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
             });
 
             $table->editColumn('redirect_to', function ($row) {
@@ -60,7 +60,7 @@ class RolesController extends Controller
             $table->editColumn('permissions', function ($row) {
                 $labels = [];
                 foreach ($row->permissions as $permission) {
-                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $permission->title);
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $permission->name);
                 }
 
                 return implode(' ', $labels);
@@ -80,7 +80,7 @@ class RolesController extends Controller
     {
         abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $permissions = Permission::pluck('title', 'id');
+        $permissions = Permission::pluck('name', 'id');
 
         return view('core.roles.create', compact('permissions'));
     }
@@ -88,7 +88,7 @@ class RolesController extends Controller
     public function store(StoreRoleRequest $request)
     {
         $role = Role::create($request->all());
-        $role->permissions()->sync($request->input('permissions', []));
+        $role->syncPermissions($request->input('permissions', []));
 
         return redirect()->route('core.roles.index');
     }
@@ -97,7 +97,7 @@ class RolesController extends Controller
     {
         abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $permissions = Permission::pluck('title', 'id');
+        $permissions = Permission::pluck('name', 'id');
 
         $role->load('permissions');
 
@@ -107,7 +107,7 @@ class RolesController extends Controller
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $role->update($request->all());
-        $role->permissions()->sync($request->input('permissions', []));
+        $role->syncPermissions($request->input('permissions', []));
 
         return redirect()->route('core.roles.index');
     }
@@ -116,7 +116,7 @@ class RolesController extends Controller
     {
         abort_if(Gate::denies('role_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $role->load('permissions', 'peopleInRoleNotices', 'rolesUsers');
+        $role->load('permissions', 'peopleInRoleNotices', 'users');
 
         return view('core.roles.show', compact('role'));
     }

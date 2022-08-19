@@ -166,7 +166,7 @@
     {data: 'username', name: 'username' },
     {data: 'phone_no', name: 'phone_no' },
     {data: 'email', name: 'email' },
-    {data: 'roles', name: 'roles.title' },
+    {data: 'roles', name: 'roles.name' },
     {data: 'area', name: 'areas.name' },
     {data: 'two_factor', name: 'two_factor' },
     {data: 'approved', name: 'approved' },

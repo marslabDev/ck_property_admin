@@ -32,7 +32,7 @@
             {{ trans('cruds.permission.fields.id') }}
           </th>
           <th>
-            {{ trans('cruds.permission.fields.title') }}
+            {{ trans('cruds.permission.fields.name') }}
           </th>
           <th>
             &nbsp;
@@ -104,7 +104,7 @@
         columns: [
             { data: 'placeholder', name: 'placeholder' },
             { data: 'id', name: 'id' },
-            { data: 'title', name: 'title' },
+            { data: 'name', name: 'name' },
             { data: 'actions', name: '{{ trans('global.actions') }}' }
         ],
         orderCellsTop: true,

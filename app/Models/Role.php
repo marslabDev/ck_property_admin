@@ -2,19 +2,17 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
 use App\Traits\Auditable;
+use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Role extends Model
+class Role extends \Spatie\Permission\Models\Role
 {
     use SoftDeletes;
     use Auditable;
     use HasFactory;
 
-    public $table = 'roles';
 
     protected $dates = [
         'created_at',
@@ -23,26 +21,19 @@ class Role extends Model
     ];
 
     protected $fillable = [
-        'title',
+        'name',
+        'guard_name',
         'redirect_to',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
+
+
     public function peopleInRoleNotices()
     {
         return $this->hasMany(Notice::class, 'people_in_role_id', 'id');
-    }
-
-    public function rolesUsers()
-    {
-        return $this->belongsToMany(User::class);
-    }
-
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class);
     }
 
     protected function serializeDate(DateTimeInterface $date)

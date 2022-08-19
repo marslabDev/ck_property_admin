@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Role;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Response;
 
 class UpdateRoleRequest extends FormRequest
 {
@@ -17,7 +15,7 @@ class UpdateRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => [
+            'name' => [
                 'string',
                 'required',
             ],

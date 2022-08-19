@@ -8,14 +8,14 @@
 
     <div class="card-body">
 
-        <div>
+        {{-- <div>
             <div style="margin-bottom: 10px;" class="row">
                 <div class="col-lg-12">
-                    @can('user_management_access')
+                    @permit('user_management_access')
                     <a class="btn btn-primary tw-mx-1" href="{{ route('core.users.index') }}">
                         {{ trans('global.manage') }} {{ trans('cruds.user.title_singular') }}
                     </a>
-                    @endcan
+                    @endpermit
 
                     @can('area_access')
                     <a class="btn btn-primary tw-mx-1" href="{{ route('core.areas.index') }}">
@@ -24,7 +24,7 @@
                     @endcan
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <table class="table table-bordered table-striped table-hover">
             <thead>
@@ -45,7 +45,7 @@
                         </form>
                         <button class="btn btn-link w-100 text-left" type="button"
                             onclick="event.preventDefault(); document.getElementById('portal_{{ $role->id }}').submit();">
-                            <i class="fas fa-door-open mr-2"></i>{{ $role->title }}
+                            <i class="fas fa-door-open mr-2"></i>{{ $role->name }}
                         </button>
                     </td>
                 </tr>

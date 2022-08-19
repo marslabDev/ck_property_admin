@@ -25,10 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.permission.fields.title') }}
+                            {{ trans('cruds.permission.fields.name') }}
                         </th>
                         <td>
-                            {{ $permission->title }}
+                            {{ $permission->name }}
                         </td>
                     </tr>
                 </tbody>
@@ -55,7 +55,7 @@
     </ul>
     <div class="tab-content tw-px-5 tw-pt-5">
         <div class="tab-pane active" role="tabpanel" id="permissions_roles">
-            @includeIf('core.permissions.relationships.permissionsRoles', ['roles' => $permission->permissionsRoles])
+            @includeIf('core.permissions.relationships.permissionsRoles', ['roles' => $permission->roles])
         </div>
     </div>
 </div>

@@ -9,8 +9,8 @@ use App\Http\Requests\MassDestroyPermissionRequest;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\Permission;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -23,7 +23,7 @@ class PermissionsController extends Controller
         abort_if(Gate::denies('permission_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Permission::query()->select(sprintf('%s.*', (new Permission())->table));
+            $query = Permission::query()->select(sprintf('%s.*', (new Permission())->getTable()));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -47,8 +47,8 @@ class PermissionsController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-            $table->editColumn('title', function ($row) {
-                return $row->title ? $row->title : '';
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
             });
 
             $table->rawColumns(['actions', 'placeholder']);
@@ -91,7 +91,7 @@ class PermissionsController extends Controller
     {
         abort_if(Gate::denies('permission_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $permission->load('permissionsRoles');
+        $permission->load('roles');
 
         return view('core.permissions.show', compact('permission'));
     }

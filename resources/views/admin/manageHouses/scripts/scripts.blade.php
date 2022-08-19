@@ -19,7 +19,7 @@
         const savedHouseTypeId = "{{ $manageHouse->house_type->id ?? '' }}";
 
         // Check if areaId has value
-        const areaId = "{{ $area->id ?? ''}}";
+        const areaId = "{{ $area->id ?? '' }}";
 
         // If areaId is not empty, then fetch data
         if(isNotEmptyString(areaId)) {
