@@ -215,6 +215,41 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="#from_area_bill_types" role="tab" data-toggle="tab">
+                {{ trans('cruds.billType.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#from_area_bill_charges" role="tab" data-toggle="tab">
+                {{ trans('cruds.billCharge.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#from_area_bills" role="tab" data-toggle="tab">
+                {{ trans('cruds.bill.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#from_area_bill_items" role="tab" data-toggle="tab">
+                {{ trans('cruds.billItem.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#from_area_bill_statuses" role="tab" data-toggle="tab">
+                {{ trans('cruds.billStatus.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#from_area_bill_particulars" role="tab" data-toggle="tab">
+                {{ trans('cruds.billParticular.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#from_area_bill_histories" role="tab" data-toggle="tab">
+                {{ trans('cruds.billHistory.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#area_projects" role="tab" data-toggle="tab">
                 {{ trans('cruds.project.title') }}
             </a>
@@ -311,6 +346,27 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="from_area_home_owner_transactions">
             @includeIf('admin.areas.relationships.fromAreaHomeOwnerTransactions', ['homeOwnerTransactions' => $area->fromAreaHomeOwnerTransactions])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="from_area_bill_types">
+            @includeIf('admin.areas.relationships.fromAreaBillTypes', ['billTypes' => $area->fromAreaBillTypes])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="from_area_bill_charges">
+            @includeIf('admin.areas.relationships.fromAreaBillCharges', ['billCharges' => $area->fromAreaBillCharges])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="from_area_bills">
+            @includeIf('admin.areas.relationships.fromAreaBills', ['bills' => $area->fromAreaBills])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="from_area_bill_items">
+            @includeIf('admin.areas.relationships.fromAreaBillItems', ['billItems' => $area->fromAreaBillItems])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="from_area_bill_statuses">
+            @includeIf('admin.areas.relationships.fromAreaBillStatuses', ['billStatuses' => $area->fromAreaBillStatuses])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="from_area_bill_particulars">
+            @includeIf('admin.areas.relationships.fromAreaBillParticulars', ['billParticulars' => $area->fromAreaBillParticulars])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="from_area_bill_histories">
+            @includeIf('admin.areas.relationships.fromAreaBillHistories', ['billHistories' => $area->fromAreaBillHistories])
         </div>
         <div class="tab-pane" role="tabpanel" id="area_projects">
             @includeIf('admin.areas.relationships.areaProjects', ['projects' => $area->areaProjects])
