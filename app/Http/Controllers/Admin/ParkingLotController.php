@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyParkingLotRequest;
 use App\Http\Requests\StoreParkingLotRequest;
 use App\Http\Requests\UpdateParkingLotRequest;
 use App\Models\Area;
+use App\Models\ManageHouse;
 use App\Models\ParkingLot;
 use App\Models\User;
 use Gate;
@@ -24,7 +25,7 @@ class ParkingLotController extends Controller
         abort_if(Gate::denies('parking_lot_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ParkingLot::with(['from_area', 'created_by'])->select(sprintf('%s.*', (new ParkingLot())->table));
+            $query = ParkingLot::with(['house', 'from_area', 'created_by'])->select(sprintf('%s.*', (new ParkingLot())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -54,23 +55,29 @@ class ParkingLotController extends Controller
             $table->editColumn('floor', function ($row) {
                 return $row->floor ? $row->floor : '';
             });
+            $table->addColumn('house_unit_no', function ($row) {
+                return $row->house ? $row->house->unit_no : '';
+            });
 
-            $table->rawColumns(['actions', 'placeholder']);
+            $table->rawColumns(['actions', 'placeholder', 'house']);
 
             return $table->make(true);
         }
 
-        $areas = Area::get();
-        $users = User::get();
+        $manage_houses = ManageHouse::get();
+        $areas         = Area::get();
+        $users         = User::get();
 
-        return view('admin.parkingLots.index', compact('areas', 'users'));
+        return view('admin.parkingLots.index', compact('manage_houses', 'areas', 'users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('parking_lot_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.parkingLots.create');
+        $houses = ManageHouse::pluck('unit_no', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.parkingLots.create', compact('houses'));
     }
 
     public function store(StoreParkingLotRequest $request)
@@ -84,9 +91,11 @@ class ParkingLotController extends Controller
     {
         abort_if(Gate::denies('parking_lot_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $parkingLot->load('from_area', 'created_by');
+        $houses = ManageHouse::pluck('unit_no', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.parkingLots.edit', compact('parkingLot'));
+        $parkingLot->load('house', 'from_area', 'created_by');
+
+        return view('admin.parkingLots.edit', compact('houses', 'parkingLot'));
     }
 
     public function update(UpdateParkingLotRequest $request, ParkingLot $parkingLot)
@@ -100,7 +109,7 @@ class ParkingLotController extends Controller
     {
         abort_if(Gate::denies('parking_lot_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $parkingLot->load('from_area', 'created_by', 'parkingLotManageHouses');
+        $parkingLot->load('house', 'from_area', 'created_by', 'parkingLotManageHouses');
 
         return view('admin.parkingLots.show', compact('parkingLot'));
     }

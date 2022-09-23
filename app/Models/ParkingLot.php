@@ -28,6 +28,7 @@ class ParkingLot extends Model
         'created_at',
         'lot_no',
         'floor',
+        'house_id',
         'from_area_id',
         'created_by_id',
         'updated_at',
@@ -37,6 +38,11 @@ class ParkingLot extends Model
     public function parkingLotManageHouses()
     {
         return $this->belongsToMany(ManageHouse::class);
+    }
+
+    public function house()
+    {
+        return $this->belongsTo(ManageHouse::class, 'house_id');
     }
 
     public function from_area()

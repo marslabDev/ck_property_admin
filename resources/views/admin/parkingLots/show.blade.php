@@ -39,6 +39,14 @@
                             {{ $parkingLot->floor }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.parkingLot.fields.house') }}
+                        </th>
+                        <td>
+                            {{ $parkingLot->house->unit_no ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

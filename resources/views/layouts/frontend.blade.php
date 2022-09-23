@@ -417,6 +417,46 @@
                                             {{ trans('cruds.currency.title') }}
                                         </a>
                                     @endcan
+                                    @can('bills_management_access')
+                                        <a class="dropdown-item disabled" href="#">
+                                            {{ trans('cruds.billsManagement.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('bill_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.bills.index') }}">
+                                            {{ trans('cruds.bill.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('bill_item_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.bill-items.index') }}">
+                                            {{ trans('cruds.billItem.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('bill_particular_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.bill-particulars.index') }}">
+                                            {{ trans('cruds.billParticular.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('bill_charge_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.bill-charges.index') }}">
+                                            {{ trans('cruds.billCharge.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('bill_type_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.bill-types.index') }}">
+                                            {{ trans('cruds.billType.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('bill_status_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.bill-statuses.index') }}">
+                                            {{ trans('cruds.billStatus.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('bill_history_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.bill-histories.index') }}">
+                                            {{ trans('cruds.billHistory.title') }}
+                                        </a>
+                                    @endcan
 
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
