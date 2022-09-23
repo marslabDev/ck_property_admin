@@ -174,6 +174,16 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="#homeowner_bills" role="tab" data-toggle="tab">
+                {{ trans('cruds.bill.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#paid_by_bill_histories" role="tab" data-toggle="tab">
+                {{ trans('cruds.billHistory.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#user_user_alerts" role="tab" data-toggle="tab">
                 {{ trans('cruds.userAlert.title') }}
             </a>
@@ -214,6 +224,12 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="report_to_my_cases">
             @includeIf('admin.users.relationships.reportToMyCases', ['myCases' => $user->reportToMyCases])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="homeowner_bills">
+            @includeIf('admin.users.relationships.homeownerBills', ['bills' => $user->homeownerBills])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="paid_by_bill_histories">
+            @includeIf('admin.users.relationships.paidByBillHistories', ['billHistories' => $user->paidByBillHistories])
         </div>
         <div class="tab-pane" role="tabpanel" id="user_user_alerts">
             @includeIf('admin.users.relationships.userUserAlerts', ['userAlerts' => $user->userUserAlerts])

@@ -371,6 +371,49 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('case-statuses/process-csv-import', 'CaseStatusController@processCsvImport')->name('case-statuses.processCsvImport');
     Route::resource('case-statuses', 'CaseStatusController');
 
+    // Bill Type
+    Route::delete('bill-types/destroy', 'BillTypeController@massDestroy')->name('bill-types.massDestroy');
+    Route::post('bill-types/parse-csv-import', 'BillTypeController@parseCsvImport')->name('bill-types.parseCsvImport');
+    Route::post('bill-types/process-csv-import', 'BillTypeController@processCsvImport')->name('bill-types.processCsvImport');
+    Route::resource('bill-types', 'BillTypeController');
+
+    // Bill Particular
+    Route::delete('bill-particulars/destroy', 'BillParticularController@massDestroy')->name('bill-particulars.massDestroy');
+    Route::post('bill-particulars/media', 'BillParticularController@storeMedia')->name('bill-particulars.storeMedia');
+    Route::post('bill-particulars/ckmedia', 'BillParticularController@storeCKEditorImages')->name('bill-particulars.storeCKEditorImages');
+    Route::post('bill-particulars/parse-csv-import', 'BillParticularController@parseCsvImport')->name('bill-particulars.parseCsvImport');
+    Route::post('bill-particulars/process-csv-import', 'BillParticularController@processCsvImport')->name('bill-particulars.processCsvImport');
+    Route::resource('bill-particulars', 'BillParticularController');
+
+    // Bill Item
+    Route::delete('bill-items/destroy', 'BillItemController@massDestroy')->name('bill-items.massDestroy');
+    Route::post('bill-items/parse-csv-import', 'BillItemController@parseCsvImport')->name('bill-items.parseCsvImport');
+    Route::post('bill-items/process-csv-import', 'BillItemController@processCsvImport')->name('bill-items.processCsvImport');
+    Route::resource('bill-items', 'BillItemController');
+
+    // Bill
+    Route::delete('bills/destroy', 'BillController@massDestroy')->name('bills.massDestroy');
+    Route::post('bills/parse-csv-import', 'BillController@parseCsvImport')->name('bills.parseCsvImport');
+    Route::post('bills/process-csv-import', 'BillController@processCsvImport')->name('bills.processCsvImport');
+    Route::resource('bills', 'BillController');
+
+    // Bill Charge
+    Route::delete('bill-charges/destroy', 'BillChargeController@massDestroy')->name('bill-charges.massDestroy');
+    Route::post('bill-charges/parse-csv-import', 'BillChargeController@parseCsvImport')->name('bill-charges.parseCsvImport');
+    Route::post('bill-charges/process-csv-import', 'BillChargeController@processCsvImport')->name('bill-charges.processCsvImport');
+    Route::resource('bill-charges', 'BillChargeController');
+
+    // Bill Status
+    Route::delete('bill-statuses/destroy', 'BillStatusController@massDestroy')->name('bill-statuses.massDestroy');
+    Route::post('bill-statuses/parse-csv-import', 'BillStatusController@parseCsvImport')->name('bill-statuses.parseCsvImport');
+    Route::post('bill-statuses/process-csv-import', 'BillStatusController@processCsvImport')->name('bill-statuses.processCsvImport');
+    Route::resource('bill-statuses', 'BillStatusController');
+
+    // Bill History
+    Route::post('bill-histories/parse-csv-import', 'BillHistoryController@parseCsvImport')->name('bill-histories.parseCsvImport');
+    Route::post('bill-histories/process-csv-import', 'BillHistoryController@processCsvImport')->name('bill-histories.processCsvImport');
+    Route::resource('bill-histories', 'BillHistoryController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -643,6 +686,35 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Case Status
     Route::delete('case-statuses/destroy', 'CaseStatusController@massDestroy')->name('case-statuses.massDestroy');
     Route::resource('case-statuses', 'CaseStatusController');
+
+    // Bill Type
+    Route::delete('bill-types/destroy', 'BillTypeController@massDestroy')->name('bill-types.massDestroy');
+    Route::resource('bill-types', 'BillTypeController');
+
+    // Bill Particular
+    Route::delete('bill-particulars/destroy', 'BillParticularController@massDestroy')->name('bill-particulars.massDestroy');
+    Route::post('bill-particulars/media', 'BillParticularController@storeMedia')->name('bill-particulars.storeMedia');
+    Route::post('bill-particulars/ckmedia', 'BillParticularController@storeCKEditorImages')->name('bill-particulars.storeCKEditorImages');
+    Route::resource('bill-particulars', 'BillParticularController');
+
+    // Bill Item
+    Route::delete('bill-items/destroy', 'BillItemController@massDestroy')->name('bill-items.massDestroy');
+    Route::resource('bill-items', 'BillItemController');
+
+    // Bill
+    Route::delete('bills/destroy', 'BillController@massDestroy')->name('bills.massDestroy');
+    Route::resource('bills', 'BillController');
+
+    // Bill Charge
+    Route::delete('bill-charges/destroy', 'BillChargeController@massDestroy')->name('bill-charges.massDestroy');
+    Route::resource('bill-charges', 'BillChargeController');
+
+    // Bill Status
+    Route::delete('bill-statuses/destroy', 'BillStatusController@massDestroy')->name('bill-statuses.massDestroy');
+    Route::resource('bill-statuses', 'BillStatusController');
+
+    // Bill History
+    Route::resource('bill-histories', 'BillHistoryController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');
