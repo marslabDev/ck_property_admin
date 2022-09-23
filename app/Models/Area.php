@@ -171,6 +171,41 @@ class Area extends Model
         return $this->hasMany(HomeOwnerTransaction::class, 'from_area_id', 'id');
     }
 
+    public function fromAreaBillTypes()
+    {
+        return $this->hasMany(BillType::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaBillCharges()
+    {
+        return $this->hasMany(BillCharge::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaBills()
+    {
+        return $this->hasMany(Bill::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaBillItems()
+    {
+        return $this->hasMany(BillItem::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaBillStatuses()
+    {
+        return $this->hasMany(BillStatus::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaBillParticulars()
+    {
+        return $this->hasMany(BillParticular::class, 'from_area_id', 'id');
+    }
+
+    public function fromAreaBillHistories()
+    {
+        return $this->hasMany(BillHistory::class, 'from_area_id', 'id');
+    }
+
     public function areaProjects()
     {
         return $this->belongsToMany(Project::class);

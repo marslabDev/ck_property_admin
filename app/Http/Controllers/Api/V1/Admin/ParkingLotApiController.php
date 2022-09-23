@@ -17,7 +17,7 @@ class ParkingLotApiController extends Controller
     {
         abort_if(Gate::denies('parking_lot_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ParkingLotResource(ParkingLot::with(['from_area', 'created_by'])->get());
+        return new ParkingLotResource(ParkingLot::with(['house', 'from_area', 'created_by'])->get());
     }
 
     public function store(StoreParkingLotRequest $request)
@@ -33,7 +33,7 @@ class ParkingLotApiController extends Controller
     {
         abort_if(Gate::denies('parking_lot_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ParkingLotResource($parkingLot->load(['from_area', 'created_by']));
+        return new ParkingLotResource($parkingLot->load(['house', 'from_area', 'created_by']));
     }
 
     public function update(UpdateParkingLotRequest $request, ParkingLot $parkingLot)

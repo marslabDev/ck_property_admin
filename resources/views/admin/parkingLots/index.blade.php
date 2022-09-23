@@ -35,6 +35,9 @@
                         {{ trans('cruds.parkingLot.fields.floor') }}
                     </th>
                     <th>
+                        {{ trans('cruds.parkingLot.fields.house') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -49,6 +52,14 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($manage_houses as $key => $item)
+                                <option value="{{ $item->unit_no }}">{{ $item->unit_no }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                     </td>
@@ -108,6 +119,7 @@
 { data: 'id', name: 'id' },
 { data: 'lot_no', name: 'lot_no' },
 { data: 'floor', name: 'floor' },
+{ data: 'house_unit_no', name: 'house.unit_no' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

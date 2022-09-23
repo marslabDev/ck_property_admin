@@ -9,6 +9,8 @@ class AddRelationshipFieldsToParkingLotsTable extends Migration
     public function up()
     {
         Schema::table('parking_lots', function (Blueprint $table) {
+            $table->unsignedBigInteger('house_id')->nullable();
+            $table->foreign('house_id', 'house_fk_7363423')->references('id')->on('manage_houses');
             $table->unsignedBigInteger('from_area_id')->nullable();
             $table->foreign('from_area_id', 'from_area_fk_7089323')->references('id')->on('areas');
             $table->unsignedBigInteger('created_by_id')->nullable();

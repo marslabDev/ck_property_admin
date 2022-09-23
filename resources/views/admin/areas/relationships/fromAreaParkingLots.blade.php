@@ -31,6 +31,9 @@
                             {{ trans('cruds.parkingLot.fields.floor') }}
                         </th>
                         <th>
+                            {{ trans('cruds.parkingLot.fields.house') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -49,6 +52,9 @@
                             </td>
                             <td>
                                 {{ $parkingLot->floor ?? '' }}
+                            </td>
+                            <td>
+                                {{ $parkingLot->house->unit_no ?? '' }}
                             </td>
                             <td>
                                 @can('parking_lot_show')

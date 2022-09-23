@@ -34,6 +34,20 @@
                             <span class="help-block">{{ trans('cruds.parkingLot.fields.floor_helper') }}</span>
                         </div>
                         <div class="form-group">
+                            <label for="house_id">{{ trans('cruds.parkingLot.fields.house') }}</label>
+                            <select class="form-control select2" name="house_id" id="house_id">
+                                @foreach($houses as $id => $entry)
+                                    <option value="{{ $id }}" {{ old('house_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('house'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('house') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.parkingLot.fields.house_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
                             </button>
