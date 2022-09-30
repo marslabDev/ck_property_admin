@@ -1176,6 +1176,134 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 292,
+                'title' => 'bills_management_access',
+            ],
+            [
+                'id'    => 293,
+                'title' => 'bill_type_create',
+            ],
+            [
+                'id'    => 294,
+                'title' => 'bill_type_edit',
+            ],
+            [
+                'id'    => 295,
+                'title' => 'bill_type_show',
+            ],
+            [
+                'id'    => 296,
+                'title' => 'bill_type_delete',
+            ],
+            [
+                'id'    => 297,
+                'title' => 'bill_type_access',
+            ],
+            [
+                'id'    => 298,
+                'title' => 'bill_particular_create',
+            ],
+            [
+                'id'    => 299,
+                'title' => 'bill_particular_edit',
+            ],
+            [
+                'id'    => 300,
+                'title' => 'bill_particular_show',
+            ],
+            [
+                'id'    => 301,
+                'title' => 'bill_particular_delete',
+            ],
+            [
+                'id'    => 302,
+                'title' => 'bill_particular_access',
+            ],
+            [
+                'id'    => 303,
+                'title' => 'bill_item_create',
+            ],
+            [
+                'id'    => 304,
+                'title' => 'bill_item_edit',
+            ],
+            [
+                'id'    => 305,
+                'title' => 'bill_item_show',
+            ],
+            [
+                'id'    => 306,
+                'title' => 'bill_item_delete',
+            ],
+            [
+                'id'    => 307,
+                'title' => 'bill_item_access',
+            ],
+            [
+                'id'    => 308,
+                'title' => 'bill_create',
+            ],
+            [
+                'id'    => 309,
+                'title' => 'bill_edit',
+            ],
+            [
+                'id'    => 310,
+                'title' => 'bill_show',
+            ],
+            [
+                'id'    => 311,
+                'title' => 'bill_delete',
+            ],
+            [
+                'id'    => 312,
+                'title' => 'bill_access',
+            ],
+            [
+                'id'    => 313,
+                'title' => 'bill_charge_create',
+            ],
+            [
+                'id'    => 314,
+                'title' => 'bill_charge_edit',
+            ],
+            [
+                'id'    => 315,
+                'title' => 'bill_charge_show',
+            ],
+            [
+                'id'    => 316,
+                'title' => 'bill_charge_delete',
+            ],
+            [
+                'id'    => 317,
+                'title' => 'bill_charge_access',
+            ],
+            [
+                'id'    => 318,
+                'title' => 'bill_status_create',
+            ],
+            [
+                'id'    => 319,
+                'title' => 'bill_status_edit',
+            ],
+            [
+                'id'    => 320,
+                'title' => 'bill_status_show',
+            ],
+            [
+                'id'    => 321,
+                'title' => 'bill_status_delete',
+            ],
+            [
+                'id'    => 322,
+                'title' => 'bill_status_access',
+            ],
+            [
+                'id'    => 323,
+                'title' => 'bill_history_access',
+            ],
+            [
+                'id'    => 324,
                 'title' => 'profile_password_edit',
             ],
         ];

@@ -776,6 +776,88 @@
                 </ul>
             </li>
         @endcan
+        @can('bills_management_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/bills*") ? "c-show" : "" }} {{ request()->is("admin/bill-items*") ? "c-show" : "" }} {{ request()->is("admin/bill-particulars*") ? "c-show" : "" }} {{ request()->is("admin/bill-charges*") ? "c-show" : "" }} {{ request()->is("admin/bill-types*") ? "c-show" : "" }} {{ request()->is("admin/bill-statuses*") ? "c-show" : "" }} {{ request()->is("admin/bill-histories*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.billsManagement.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('bill_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.bills.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/bills") || request()->is("admin/bills/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-receipt c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.bill.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('bill_item_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.bill-items.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/bill-items") || request()->is("admin/bill-items/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-th-list c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.billItem.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('bill_particular_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.bill-particulars.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/bill-particulars") || request()->is("admin/bill-particulars/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-list-ol c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.billParticular.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('bill_charge_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.bill-charges.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/bill-charges") || request()->is("admin/bill-charges/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-percent c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.billCharge.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('bill_type_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.bill-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/bill-types") || request()->is("admin/bill-types/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.billType.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('bill_status_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.bill-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/bill-statuses") || request()->is("admin/bill-statuses/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.billStatus.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('bill_history_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.bill-histories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/bill-histories") || request()->is("admin/bill-histories/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-clock c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.billHistory.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
         @php($unread = \App\Models\QaTopic::unreadCount())
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.messenger.index") }}" class="{{ request()->is("admin/messenger") || request()->is("admin/messenger/*") ? "c-active" : "" }} c-sidebar-nav-link">

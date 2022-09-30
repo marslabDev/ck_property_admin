@@ -173,4 +173,26 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Case Status
     Route::apiResource('case-statuses', 'CaseStatusApiController');
+
+    // Bill Type
+    Route::apiResource('bill-types', 'BillTypeApiController');
+
+    // Bill Particular
+    Route::post('bill-particulars/media', 'BillParticularApiController@storeMedia')->name('bill-particulars.storeMedia');
+    Route::apiResource('bill-particulars', 'BillParticularApiController');
+
+    // Bill Item
+    Route::apiResource('bill-items', 'BillItemApiController');
+
+    // Bill
+    Route::apiResource('bills', 'BillApiController');
+
+    // Bill Charge
+    Route::apiResource('bill-charges', 'BillChargeApiController');
+
+    // Bill Status
+    Route::apiResource('bill-statuses', 'BillStatusApiController');
+
+    // Bill History
+    Route::apiResource('bill-histories', 'BillHistoryApiController', ['except' => ['store', 'show', 'update', 'destroy']]);
 });

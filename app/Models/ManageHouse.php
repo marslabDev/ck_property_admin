@@ -65,6 +65,16 @@ class ManageHouse extends Model implements HasMedia
         return $this->hasMany(HomeOwnerTransaction::class, 'house_id', 'id');
     }
 
+    public function houseBills()
+    {
+        return $this->hasMany(Bill::class, 'house_id', 'id');
+    }
+
+    public function houseParkingLots()
+    {
+        return $this->hasMany(ParkingLot::class, 'house_id', 'id');
+    }
+
     public function house_type()
     {
         return $this->belongsTo(HouseType::class, 'house_type_id');
