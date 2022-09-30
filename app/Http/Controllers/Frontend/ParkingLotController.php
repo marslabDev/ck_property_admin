@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyParkingLotRequest;
 use App\Http\Requests\StoreParkingLotRequest;
 use App\Http\Requests\UpdateParkingLotRequest;
 use App\Models\Area;
+use App\Models\ManageHouse;
 use App\Models\ParkingLot;
 use App\Models\User;
 use Gate;
@@ -22,20 +23,24 @@ class ParkingLotController extends Controller
     {
         abort_if(Gate::denies('parking_lot_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $parkingLots = ParkingLot::with(['from_area', 'created_by'])->get();
+        $parkingLots = ParkingLot::with(['house', 'from_area', 'created_by'])->get();
+
+        $manage_houses = ManageHouse::get();
 
         $areas = Area::get();
 
         $users = User::get();
 
-        return view('frontend.parkingLots.index', compact('areas', 'parkingLots', 'users'));
+        return view('frontend.parkingLots.index', compact('areas', 'manage_houses', 'parkingLots', 'users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('parking_lot_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('frontend.parkingLots.create');
+        $houses = ManageHouse::pluck('unit_no', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('frontend.parkingLots.create', compact('houses'));
     }
 
     public function store(StoreParkingLotRequest $request)
@@ -49,9 +54,11 @@ class ParkingLotController extends Controller
     {
         abort_if(Gate::denies('parking_lot_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $parkingLot->load('from_area', 'created_by');
+        $houses = ManageHouse::pluck('unit_no', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.parkingLots.edit', compact('parkingLot'));
+        $parkingLot->load('house', 'from_area', 'created_by');
+
+        return view('frontend.parkingLots.edit', compact('houses', 'parkingLot'));
     }
 
     public function update(UpdateParkingLotRequest $request, ParkingLot $parkingLot)
@@ -65,7 +72,7 @@ class ParkingLotController extends Controller
     {
         abort_if(Gate::denies('parking_lot_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $parkingLot->load('from_area', 'created_by', 'parkingLotManageHouses');
+        $parkingLot->load('house', 'from_area', 'created_by', 'parkingLotManageHouses');
 
         return view('frontend.parkingLots.show', compact('parkingLot'));
     }

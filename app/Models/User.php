@@ -159,6 +159,16 @@ class User extends Authenticatable
         return $this->hasMany(MyCase::class, 'report_to_id', 'id');
     }
 
+    public function homeownerBills()
+    {
+        return $this->hasMany(Bill::class, 'homeowner_id', 'id');
+    }
+
+    public function paidByBillHistories()
+    {
+        return $this->hasMany(BillHistory::class, 'paid_by_id', 'id');
+    }
+
     public function userUserAlerts()
     {
         return $this->belongsToMany(UserAlert::class);
